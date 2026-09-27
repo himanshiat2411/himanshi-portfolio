@@ -232,7 +232,13 @@ const Masonry = ({
             onMouseEnter={e => handleMouseEnter(e, item)}
             onMouseLeave={e => handleMouseLeave(e, item)}
           >
-            <div className="item-img" style={{ backgroundImage: `url(${item.img})` }}>
+            <div
+              className="item-img"
+              style={{ backgroundImage: `url(${item.img})` }}
+              // Added: background images have no alt text, so describe the photo here.
+              role={item.alt ? 'img' : undefined}
+              aria-label={item.alt}
+            >
               {colorShiftOnHover && (
                 <div
                   className="color-overlay"

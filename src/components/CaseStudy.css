@@ -36,6 +36,16 @@
   height: auto;
 }
 
+.case-player-wrap {
+  position: relative;
+}
+
+.case-player {
+  position: absolute;
+  object-fit: contain;
+  background: #2265ff;
+}
+
 .case-video {
   object-fit: cover;
   background: #0a0a0a;

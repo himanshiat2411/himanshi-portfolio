@@ -8,6 +8,8 @@ import './CaseStudy.css';
 // Each section is { src, h, alt } for an image, or { video, h, alt, poster } for a looping
 // video. `h` is the section's height at the design `width`; a video with no `h` keeps its
 // own shape (`ratio`), otherwise it fills the section like Figma's video fill.
+// An image section can also carry `player`: a click-to-play video (with sound and controls)
+// laid over part of it. `player.box` is { x, y, w, h } in design pixels within the section.
 const CaseStudy = ({ title, width, sections, barColor, linkColor }) => {
   useEffect(() => {
     const previous = document.title;
@@ -37,6 +39,26 @@ const CaseStudy = ({ title, width, sections, barColor, linkColor }) => {
               poster={section.poster}
               label={section.alt}
             />
+          ) : section.player ? (
+            <div key={i} className="case-player-wrap">
+              <img className="case-media" src={section.src} width={width} height={section.h} alt="" loading="lazy" decoding="async" />
+              <video
+                className="case-player"
+                style={{
+                  left: `${(section.player.box.x / width) * 100}%`,
+                  top: `${(section.player.box.y / section.h) * 100}%`,
+                  width: `${(section.player.box.w / width) * 100}%`,
+                  height: `${(section.player.box.h / section.h) * 100}%`,
+                  borderRadius: `${(section.player.radius / section.player.box.w) * 100}% / ${(section.player.radius / section.player.box.h) * 100}%`
+                }}
+                src={section.player.video}
+                poster={section.player.poster}
+                controls
+                playsInline
+                preload="none"
+                aria-label={section.alt}
+              />
+            </div>
           ) : (
             <img
               key={i}

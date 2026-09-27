@@ -69,36 +69,115 @@
   aspect-ratio: 527 / 578;
 }
 
-.about-photo-back,
-.about-photo-card {
+/* Both prints are white frames with the photo inset (a deeper border on top). Their spot
+   comes from data-role, so swapping roles glides each print to the other's place. */
+.about-print {
+  --print-time: 700ms;
+
   position: absolute;
+  background: #ffffff;
   transform: rotate(-5deg);
+  transition:
+    left var(--print-time) cubic-bezier(0.65, 0, 0.35, 1),
+    top var(--print-time) cubic-bezier(0.65, 0, 0.35, 1),
+    width var(--print-time) cubic-bezier(0.65, 0, 0.35, 1),
+    height var(--print-time) cubic-bezier(0.65, 0, 0.35, 1),
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
 
-.about-photo-back {
+.about-print[data-role='back'] {
   left: 16.6%;
   top: 3%;
   width: 79.4%;
   height: 88.1%;
-  background: var(--dim);
+  z-index: 1;
+  cursor: pointer;
 }
 
-.about-photo-card {
+.about-print[data-role='front'] {
   left: 3.9%;
   top: 12.2%;
   width: 71.5%;
   height: 85.2%;
-  background: #ffffff;
+  z-index: 2;
 }
 
-.about-photo-card img {
+.about-print img {
   position: absolute;
   left: 5.8%;
   top: 15.6%;
   width: 88.4%;
   height: 80.6%;
   object-fit: cover;
-  object-position: center bottom;
+  pointer-events: none;
+}
+
+/* Hover hint: the print behind lifts a little. */
+.about-print[data-role='back']:not([data-motion]):hover,
+.about-print[data-role='back']:not([data-motion]):focus-visible {
+  transform: rotate(-4deg) translate(6px, -10px);
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.7);
+  outline: none;
+}
+
+/* The shuffle: the rising print swings out to the right, passes over the top at mid-way
+   and settles in front; the other one dips behind at the same moment. */
+.about-print[data-motion='rise'] {
+  animation: print-rise var(--print-time) cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.about-print[data-motion='sink'] {
+  animation: print-sink var(--print-time) cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes print-rise {
+  0% {
+    z-index: 1;
+    transform: rotate(-5deg);
+  }
+
+  45% {
+    z-index: 1;
+    transform: translateX(42%) rotate(4deg);
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  }
+
+  50% {
+    z-index: 3;
+  }
+
+  100% {
+    z-index: 3;
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes print-sink {
+  0% {
+    z-index: 2;
+    transform: rotate(-5deg);
+  }
+
+  45% {
+    z-index: 2;
+    transform: translateX(-4%) rotate(-7deg) scale(0.97);
+  }
+
+  50% {
+    z-index: 0;
+  }
+
+  100% {
+    z-index: 0;
+    transform: rotate(-5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-print {
+    transition: none;
+  }
 }
 
 /* Education and gallery */

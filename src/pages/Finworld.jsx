@@ -1,7 +1,9 @@
 import CaseStudy from '../components/CaseStudy';
+import walkthrough from '../assets/finworld/walkthrough.mp4';
+import walkthroughPoster from '../assets/finworld/walkthrough-poster.webp';
 
 // Sections of the Figma case study (1728px-wide render), top to bottom.
-// Section 04 is the walkthrough frame; its video will replace the still.
+// Section 04 is the walkthrough frame; the narrated video plays inside its blue box.
 const images = import.meta.glob('../assets/finworld/*.webp', { eager: true, import: 'default' });
 const img = n => images[`../assets/finworld/${n}.webp`];
 
@@ -9,7 +11,12 @@ const SECTIONS = [
   { src: img('01'), h: 1600, alt: 'Finworld, a financial modeling dashboard, on a laptop, and what the project is about' },
   { src: img('02'), h: 1619, alt: 'Project details (FinTech financial modeling platform, 2026) and timeline: a 55-hour design sprint through discovery, strategy and solutions' },
   { src: img('03'), h: 1161, alt: '3 core issues with current financial models: lack of clarity, poor collaboration and a steep learning curve' },
-  { src: img('04'), h: 1005, alt: 'A quick walkthrough of the project' },
+  {
+    src: img('04'),
+    h: 1005,
+    alt: 'Narrated walkthrough of the Finworld project',
+    player: { video: walkthrough, poster: walkthroughPoster, box: { x: 204, y: 16, w: 1356, h: 971 }, radius: 54 }
+  },
   { src: img('05'), h: 1018, alt: 'User persona, the Explorer: Riya Sharma, junior investment analyst' },
   { src: img('06'), h: 1364, alt: 'User persona, the Builder: Aryan Gupta, senior financial analyst' },
   { src: img('07'), h: 1637, alt: 'Stakeholder map, and the start of the information architecture' },

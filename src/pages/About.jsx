@@ -1,23 +1,92 @@
 import { useEffect, useRef, useState } from 'react';
 
+import photoDoorway from '../assets/about-photo-doorway.webp';
 import photo from '../assets/about-photo.webp';
 import Masonry from '../components/Masonry/Masonry';
 import './About.css';
 
-const EDUCATION = [
-  { degree: 'M.Des, Interaction Design', school: 'Delhi Technological University (DTU)', year: 'Graduating 2027' },
-  { degree: 'Chemical Engineering', school: 'National Institute of Technology (NIT) Agartala', year: '2025' }
+// The two prints beside the intro; the first starts in front. `focus` is the crop within the frame.
+const PRINTS = [
+  { src: photo, focus: 'center bottom' },
+  { src: photoDoorway, focus: 'center 70%' }
 ];
 
-// Placeholder tiles until the gallery photos arrive: swap `img` for real photos and
-// `height` for each photo's display height (the grid halves it).
-const tile = shade =>
-  `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><rect width="10" height="10" fill="${shade}"/></svg>`)}`;
-const GALLERY = [400, 250, 600, 350, 500, 300, 450, 550, 280, 380, 520, 320].map((height, i) => ({
-  id: String(i + 1),
-  img: tile(['#1c1c1c', '#232323', '#2a2a2a'][i % 3]),
-  height
-}));
+// Clicking (or pressing Enter/Space on) the print behind shuffles it to the front:
+// it slides out to the right, rises over the other one and settles in the front spot.
+const PhotoStack = () => {
+  const [front, setFront] = useState(0);
+  const [rising, setRising] = useState(null);
+
+  // Unlock even if animationend never fires (e.g. the tab was hidden mid-shuffle).
+  useEffect(() => {
+    if (rising === null) return undefined;
+    const id = setTimeout(() => setRising(null), 900);
+    return () => clearTimeout(id);
+  }, [rising]);
+
+  const bringForward = index => {
+    if (index === front || rising !== null) return;
+    setFront(index);
+    if (!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) setRising(index);
+  };
+
+  return (
+    <div className="about-photo">
+      {PRINTS.map((print, i) => {
+        const isBack = i !== front;
+        return (
+          <div
+            key={print.src}
+            className="about-print"
+            data-role={isBack ? 'back' : 'front'}
+            data-motion={rising === null ? undefined : i === rising ? 'rise' : 'sink'}
+            onAnimationEnd={() => setRising(null)}
+            onClick={isBack ? () => bringForward(i) : undefined}
+            onKeyDown={
+              isBack
+                ? e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      bringForward(i);
+                    }
+                  }
+                : undefined
+            }
+            role={isBack ? 'button' : undefined}
+            tabIndex={isBack ? 0 : undefined}
+            aria-label={isBack ? 'Bring the other photo to the front' : undefined}
+          >
+            <img src={print.src} alt="" style={{ objectPosition: print.focus }} />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const EDUCATION = [
+  { degree: 'M.Des, Interaction Design', school: 'Delhi Technological University (DTU)', year: 'Graduating 2027' },
+  { degree: 'B.Tech, Chemical Engineering', school: 'National Institute of Technology (NIT) Agartala', year: '2025' }
+];
+
+// Gallery photos (src/assets/gallery). `height` is the tile height the grid uses (it halves
+// it); varied heights give the masonry its rhythm, and tiles crop to fill. Clicking opens the photo.
+const photos = import.meta.glob('../assets/gallery/*.webp', { eager: true, import: 'default' });
+const galleryPhoto = n => photos[`../assets/gallery/${n}.webp`];
+const GALLERY = [
+  { n: '01', height: 860, alt: 'A hand holding a carved leather notebook on a market street' },
+  { n: '02', height: 640, alt: 'A café lit up at night under a deep blue sky' },
+  { n: '03', height: 820, alt: 'Looking up at ornate palace balconies against a blue sky' },
+  { n: '04', height: 700, alt: 'Snow-capped mountains above a green valley' },
+  { n: '05', height: 760, alt: 'A phone capturing the sunset over fort walls' },
+  { n: '06', height: 700, alt: 'A lit-up building on a busy street at night' },
+  { n: '07', height: 760, alt: 'A tower of string lights by the sea at dusk' },
+  { n: '08', height: 820, alt: 'Birds circling a golden fort in a blue sky' },
+  { n: '09', height: 620, alt: 'A golden fort town seen from above' },
+  { n: '10', height: 700, alt: 'Colourful textiles hung along a stone wall' },
+  { n: '11', height: 640, alt: 'A camel resting on desert sand' },
+  { n: '12', height: 760, alt: 'A colourful temple tower against the sky' }
+].map(({ n, height, alt }) => ({ id: n, img: galleryPhoto(n), url: galleryPhoto(n), height, alt }));
 
 // Mount the gallery only once it scrolls into view, so its entrance animation is seen.
 const useInView = () => {
@@ -79,12 +148,7 @@ const About = () => {
             </div>
           </div>
 
-          <div className="about-photo" aria-hidden="true">
-            <div className="about-photo-back" />
-            <div className="about-photo-card">
-              <img src={photo} alt="" />
-            </div>
-          </div>
+          <PhotoStack />
         </div>
       </section>
 
@@ -106,7 +170,7 @@ const About = () => {
 
       <section className="about-section about-gallery" id="gallery">
         <div className="container">
-          <h2 className="about-eyebrow">Gallery</h2>
+          <h2 className="about-eyebrow">Beside design, you will find me here</h2>
           <div ref={galleryRef} className="about-gallery-grid">
             {galleryInView && (
               <Masonry

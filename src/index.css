@@ -10,11 +10,11 @@
   --ghost: #161616;
   --accent: #c6ff3d;
 
-  /* Font roles. Case studies and /feedback keep these; Home and About switch them below. */
-  --font-sans: 'Space Grotesk', system-ui, sans-serif;
-  --font-serif: var(--font-sans);
-  --font-mono: var(--font-sans);
-  --font-num: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Font roles: Inter for text, Instrument Serif for the italic accents, IBM Plex Mono for labels. */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-num: var(--font-mono);
 
   font-family: var(--font-sans);
   color: var(--text);
@@ -22,15 +22,7 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* Home and About: Inter, Instrument Serif for the italic accents, IBM Plex Mono for labels. */
-:root[data-fonts='v2'] {
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-  --font-num: var(--font-mono);
-}
-
-:root[data-fonts='v2'] em {
+em {
   font-family: var(--font-serif);
   letter-spacing: 0;
 }
