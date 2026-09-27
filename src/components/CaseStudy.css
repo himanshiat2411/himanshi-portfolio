@@ -2,14 +2,13 @@
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-/* Clears the fixed nav; matches the dark green at the top of the case study. */
+/* Clears the fixed nav; each page passes the colour at the top of its design. */
 .case-bar {
   padding: 92px 0 20px;
-  background: #024a3f;
 }
 
 .case-bar-inner {
-  width: min(1420px, 100%);
+  width: min(var(--case-width), 100%);
   margin-inline: auto;
   padding-inline: clamp(16px, 8.5vw, 120px);
 }
@@ -17,7 +16,6 @@
 .case-back {
   font-size: 15px;
   font-weight: 500;
-  color: #c1f1a9;
   transition: opacity 150ms ease;
 }
 
@@ -28,12 +26,17 @@
 .case-body {
   display: flex;
   flex-direction: column;
-  width: min(1420px, 100%);
+  width: min(var(--case-width), 100%);
   margin-inline: auto;
 }
 
-.case-img {
+.case-media {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.case-video {
+  object-fit: cover;
+  background: #0a0a0a;
 }

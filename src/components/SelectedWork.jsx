@@ -4,8 +4,8 @@ import './SelectedWork.css';
 
 const PROJECTS = [
   { title: 'Takshila', summary: 'Social commerce · co-fabrication', year: '2026', href: '#' },
+  { title: 'Finworld', summary: 'Fintech dashboard', year: '2025', to: '/work/finworld' },
   { title: 'Grub’n Grab', summary: 'Campus marketplace · research', year: '2026', to: '/work/grub-n-grab' },
-  { title: 'Finworld', summary: 'Fintech dashboard', year: '2025', href: '#' },
   { title: 'Sylus AI', summary: 'SaaS Product · CRM Platform', year: '2026', href: '#' }
 ];
 
