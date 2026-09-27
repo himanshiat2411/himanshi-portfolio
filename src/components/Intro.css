@@ -166,6 +166,22 @@
   color: var(--dim);
 }
 
+.intro-more {
+  display: inline-block;
+  margin: -24px 0 32px;
+  padding: 10px 20px;
+  border: 1px solid var(--border-strong);
+  border-radius: 22px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: border-color 150ms ease;
+}
+
+.intro-more:hover {
+  border-color: var(--text);
+}
+
 @media (max-width: 900px) {
   .intro {
     padding: 460px 0 120px;

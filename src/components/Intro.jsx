@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import availableDot from '../assets/available-dot.svg';
 import portrait from '../assets/portrait.png';
 import { EMAIL_COMPOSE_URL } from '../links';
@@ -36,6 +38,9 @@ const Intro = () => (
           Product Designer and UX Researcher based in Delhi NCR, with an engineering background. I show the thinking,
           research and decisions behind every project — including the calls I made and why.
         </p>
+        <Link className="intro-more" to="/about">
+          More about me →
+        </Link>
         <div className="intro-ctas">
           <a className="intro-cta intro-cta--primary" href="#work">
             <span>See selected work</span> ↓

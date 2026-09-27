@@ -1,0 +1,223 @@
+/* Hero — from the Figma frame (1440 wide): text at x181, photo stage 527×578 at x793. */
+.about-hero {
+  padding: 212px 0 120px;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-hero-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+  width: 471px;
+  max-width: 100%;
+  margin: 44px 0 0 61px;
+}
+
+.about-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-title {
+  margin: 0;
+  font-size: clamp(44px, 5.15vw, 74px);
+  font-weight: 700;
+  line-height: 1.19;
+  letter-spacing: -0.034em;
+}
+
+.about-title em {
+  font-weight: 400;
+  color: var(--soft);
+}
+
+.about-script {
+  margin: 0;
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(24px, 2.1vw, 30px);
+  color: #819eca;
+}
+
+.about-bio p {
+  margin: 0;
+  font-size: 20px;
+  line-height: normal;
+}
+
+.about-bio p + p {
+  margin-top: 1.2em;
+}
+
+/* Two tilted cards; positions are percentages of the 527×578 stage in the design. */
+.about-photo {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(527px, 42vw);
+  aspect-ratio: 527 / 578;
+}
+
+.about-photo-back,
+.about-photo-card {
+  position: absolute;
+  transform: rotate(-5deg);
+}
+
+.about-photo-back {
+  left: 16.6%;
+  top: 3%;
+  width: 79.4%;
+  height: 88.1%;
+  background: var(--dim);
+}
+
+.about-photo-card {
+  left: 3.9%;
+  top: 12.2%;
+  width: 71.5%;
+  height: 85.2%;
+  background: #ffffff;
+}
+
+.about-photo-card img {
+  position: absolute;
+  left: 5.8%;
+  top: 15.6%;
+  width: 88.4%;
+  height: 80.6%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+/* Education and gallery */
+.about-section {
+  padding: 50px 0 120px;
+}
+
+.about-eyebrow {
+  margin: 0;
+  padding-bottom: 55px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.edu-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.edu-row {
+  display: grid;
+  grid-template-columns: 80px 520px 1fr 160px;
+  align-items: center;
+  min-height: 120px;
+  border-bottom: 1px solid var(--line);
+}
+
+.edu-index,
+.edu-year {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.edu-year {
+  text-align: right;
+}
+
+.edu-degree {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+
+.edu-school {
+  font-size: 15px;
+  color: var(--soft);
+}
+
+.about-gallery {
+  padding-top: 0;
+}
+
+.about-gallery-grid {
+  min-height: 300px;
+  margin-inline: -6px;
+}
+
+@media (max-width: 1100px) {
+  .edu-row {
+    grid-template-columns: 56px 1fr 1fr 130px;
+  }
+
+  .edu-degree {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 900px) {
+  .about-hero {
+    padding-top: 140px;
+  }
+
+  .about-hero-inner {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-text {
+    margin: 0;
+    width: 100%;
+  }
+
+  .about-photo {
+    width: min(420px, 90vw);
+  }
+}
+
+@media (max-width: 720px) {
+  .edu-row {
+    grid-template-columns: 40px 1fr;
+    grid-template-areas:
+      'index degree'
+      '. school'
+      '. year';
+    row-gap: 6px;
+    padding: 28px 0;
+  }
+
+  .edu-index {
+    grid-area: index;
+  }
+
+  .edu-degree {
+    grid-area: degree;
+    font-size: 22px;
+  }
+
+  .edu-school {
+    grid-area: school;
+  }
+
+  .edu-year {
+    grid-area: year;
+    text-align: left;
+  }
+
+  .about-bio p {
+    font-size: 17px;
+  }
+}
