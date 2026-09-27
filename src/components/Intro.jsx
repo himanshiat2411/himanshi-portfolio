@@ -42,9 +42,6 @@ const Intro = () => (
           More about me →
         </Link>
         <div className="intro-ctas">
-          <a className="intro-cta intro-cta--primary" href="#work">
-            <span>See selected work</span> ↓
-          </a>
           <a
             className="intro-cta intro-cta--secondary"
             href={EMAIL_COMPOSE_URL}
