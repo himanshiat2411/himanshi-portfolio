@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { RESUME_URL } from '../links';
 import './Navbar.css';
@@ -16,13 +17,13 @@ const Navbar = () => {
   return (
     <header className="nav" data-scrolled={scrolled ? '' : undefined}>
       <div className="nav-inner container">
-        <a className="nav-logo" href="#top">
+        <Link className="nav-logo" to="/">
           Himanshi
-        </a>
+        </Link>
         <nav className="nav-links" aria-label="Primary">
-          <a href="#work">Work</a>
-          <a href="#about">About me</a>
-          <a href="#contact">Contact</a>
+          <Link to="/#work">Work</Link>
+          <Link to="/#about">About me</Link>
+          <Link to={{ hash: '#contact' }}>Contact</Link>
         </nav>
         <a className="nav-resume" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
           Resume

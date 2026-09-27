@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import LatticeLoader from './LatticeLoader/LatticeLoader';
 import './Preloader.css';
 
-const DURATION = 2000;
+const DURATION = 1000;
 const FADE = 500;
 
 const Preloader = ({ onDone }) => {
@@ -11,16 +11,17 @@ const Preloader = ({ onDone }) => {
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
+    // A timer rather than requestAnimationFrame, so the count still finishes in background tabs.
     const start = performance.now();
-    let raf = 0;
-    const tick = now => {
-      const next = Math.min(100, Math.floor(((now - start) / DURATION) * 100));
+    const id = setInterval(() => {
+      const next = Math.min(100, Math.floor(((performance.now() - start) / DURATION) * 100));
       setPercent(next);
-      if (next < 100) raf = requestAnimationFrame(tick);
-      else setLeaving(true);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+      if (next >= 100) {
+        clearInterval(id);
+        setLeaving(true);
+      }
+    }, 16);
+    return () => clearInterval(id);
   }, []);
 
   useEffect(() => {

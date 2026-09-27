@@ -1,0 +1,39 @@
+.case {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Clears the fixed nav; matches the dark green at the top of the case study. */
+.case-bar {
+  padding: 92px 0 20px;
+  background: #024a3f;
+}
+
+.case-bar-inner {
+  width: min(1420px, 100%);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 8.5vw, 120px);
+}
+
+.case-back {
+  font-size: 15px;
+  font-weight: 500;
+  color: #c1f1a9;
+  transition: opacity 150ms ease;
+}
+
+.case-back:hover {
+  opacity: 0.7;
+}
+
+.case-body {
+  display: flex;
+  flex-direction: column;
+  width: min(1420px, 100%);
+  margin-inline: auto;
+}
+
+.case-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import Footer from './components/Footer';
-import Hero from './components/Hero';
-import Intro from './components/Intro';
 import Navbar from './components/Navbar';
 import Preloader from './components/Preloader';
-import SelectedWork from './components/SelectedWork';
+import ScrollManager from './components/ScrollManager';
+import GrubNGrab from './pages/GrubNGrab';
+import Home from './pages/Home';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -13,11 +14,14 @@ const App = () => {
 
   return (
     <>
+      <ScrollManager />
       <Navbar />
       <main id="top">
-        <Hero />
-        <Intro />
-        <SelectedWork />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/work/grub-n-grab" element={<GrubNGrab />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
       </main>
       <Footer />
       {loading && <Preloader onDone={finish} />}
