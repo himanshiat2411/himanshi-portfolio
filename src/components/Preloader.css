@@ -1,0 +1,31 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: var(--bg);
+  transition: opacity var(--fade) ease;
+}
+
+.preloader[data-leaving] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text);
+}
+
+.preloader-percent {
+  min-width: 4ch;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
