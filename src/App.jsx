@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useCallback, useLayoutEffect, useState } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import FeedbackWidget from './components/FeedbackWidget';
 import Footer from './components/Footer';
@@ -15,6 +15,13 @@ import Home from './pages/Home';
 const App = () => {
   const [loading, setLoading] = useState(true);
   const finish = useCallback(() => setLoading(false), []);
+  const { pathname } = useLocation();
+
+  // Home and About use the new font set (see index.css); case studies and /feedback keep the old one.
+  useLayoutEffect(() => {
+    const keepOld = pathname.startsWith('/work/') || pathname === '/feedback';
+    document.documentElement.dataset.fonts = keepOld ? '' : 'v2';
+  }, [pathname]);
 
   return (
     <>

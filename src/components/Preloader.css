@@ -24,7 +24,7 @@
 
 .preloader-percent {
   min-width: 4ch;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-num);
   font-size: 16px;
   font-variant-numeric: tabular-nums;
   color: var(--muted);

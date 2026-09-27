@@ -7,6 +7,7 @@
 }
 
 .work-heading {
+  font-family: var(--font-mono);
   margin: 0;
   padding: 50px 0 55px;
   font-size: 12px;
@@ -36,6 +37,7 @@
 
 .work-index,
 .work-year {
+  font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 2px;
   color: var(--dim);

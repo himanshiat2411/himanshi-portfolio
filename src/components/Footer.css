@@ -34,6 +34,7 @@
 }
 
 .footer-links {
+  font-family: var(--font-mono);
   display: flex;
   gap: 28px;
   font-size: 12px;
@@ -50,6 +51,7 @@
 }
 
 .footer-copy {
+  font-family: var(--font-mono);
   margin: 0;
   padding: 36px 0 48px;
   font-size: 11px;

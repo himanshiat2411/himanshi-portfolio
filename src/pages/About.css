@@ -1,23 +1,27 @@
-/* Hero — from the Figma frame (1440 wide): text at x181, photo stage 527×578 at x793. */
+/* Hero — from the Figma frame. It fills one screen: type and photo scale with the
+   viewport height as well as its width, and text and photo are centred on each other. */
 .about-hero {
-  padding: 212px 0 120px;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 104px 0 56px;
   border-bottom: 1px solid var(--line);
 }
 
 .about-hero-inner {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 48px;
 }
 
 .about-text {
   display: flex;
   flex-direction: column;
-  gap: 38px;
-  width: 471px;
-  max-width: 100%;
-  margin: 44px 0 0 61px;
+  gap: clamp(20px, 4svh, 38px);
+  width: min(520px, 48%);
+  margin-left: clamp(0px, 4vw, 61px);
 }
 
 .about-heading {
@@ -28,7 +32,7 @@
 
 .about-title {
   margin: 0;
-  font-size: clamp(44px, 5.15vw, 74px);
+  font-size: clamp(40px, min(5.15vw, 9.6svh), 74px);
   font-weight: 700;
   line-height: 1.19;
   letter-spacing: -0.034em;
@@ -41,15 +45,16 @@
 
 .about-script {
   margin: 0;
-  font-family: 'Parisienne', cursive;
-  font-size: clamp(24px, 2.1vw, 30px);
+  font-family: var(--font-serif);
+  font-size: clamp(22px, min(2.1vw, 4svh), 30px);
+  font-style: italic;
   color: #819eca;
 }
 
 .about-bio p {
   margin: 0;
-  font-size: 20px;
-  line-height: normal;
+  font-size: clamp(15px, min(1.39vw, 2.7svh), 20px);
+  line-height: 1.35;
 }
 
 .about-bio p + p {
@@ -60,7 +65,7 @@
 .about-photo {
   position: relative;
   flex: 0 0 auto;
-  width: min(527px, 42vw);
+  width: min(527px, 40vw, calc((100svh - 170px) * 0.912));
   aspect-ratio: 527 / 578;
 }
 
@@ -102,6 +107,7 @@
 }
 
 .about-eyebrow {
+  font-family: var(--font-mono);
   margin: 0;
   padding-bottom: 55px;
   font-size: 12px;
@@ -128,6 +134,7 @@
 
 .edu-index,
 .edu-year {
+  font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -169,8 +176,10 @@
 }
 
 @media (max-width: 900px) {
+  /* Stacked on tablets and phones: normal scrolling height, sizes by width only. */
   .about-hero {
-    padding-top: 140px;
+    min-height: 0;
+    padding: 120px 0 80px;
   }
 
   .about-hero-inner {
@@ -181,6 +190,14 @@
   .about-text {
     margin: 0;
     width: 100%;
+  }
+
+  .about-title {
+    font-size: clamp(40px, 9vw, 64px);
+  }
+
+  .about-bio p {
+    font-size: 17px;
   }
 
   .about-photo {

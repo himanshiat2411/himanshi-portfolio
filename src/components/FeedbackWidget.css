@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 12px;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: var(--font-sans);
 }
 
 .fb-toggle {
@@ -30,6 +30,10 @@
   transition:
     border-color 150ms ease,
     transform 150ms ease;
+}
+
+.fb-toggle span {
+  font-family: var(--font-mono);
 }
 
 .fb-toggle:hover {

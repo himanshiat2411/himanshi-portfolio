@@ -6,7 +6,7 @@ const Hero = () => (
     <div className="hero-wordmark">
       <TechText
         text="Himanshi"
-        fontFamily="'Space Grotesk', sans-serif"
+        fontFamily="'Inter', sans-serif"
         fontWeight={600}
         fontSize={150}
         color="#ffffff"
