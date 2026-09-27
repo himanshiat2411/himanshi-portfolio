@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import LatticeLoader from './LatticeLoader/LatticeLoader';
 import './Preloader.css';
 
-const DURATION = 3000;
+const DURATION = 2000;
 const FADE = 500;
 
 const Preloader = ({ onDone }) => {
