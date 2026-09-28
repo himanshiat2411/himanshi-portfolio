@@ -11,6 +11,7 @@ import Feedback from './pages/Feedback';
 import Finworld from './pages/Finworld';
 import GrubNGrab from './pages/GrubNGrab';
 import Home from './pages/Home';
+import Takshila from './pages/Takshila';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -24,6 +25,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/work/takshila" element={<Takshila />} />
           <Route path="/work/finworld" element={<Finworld />} />
           <Route path="/work/grub-n-grab" element={<GrubNGrab />} />
           <Route path="/feedback" element={<Feedback />} />

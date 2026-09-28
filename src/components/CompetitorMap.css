@@ -1,0 +1,213 @@
+/* Competitor analysis, drawn in code in the Takshila palette (colours come from .tk).
+   Hovering a competitor grows its circle, draws its connector and fades the others back. */
+.ca {
+  --ca-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ca-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--font-sans);
+}
+
+/* Three steps towards the centre (the biggest threat), in solid Takshila palette tints
+   shared with the stakeholder map: blue (outer) → gold → plum (centre). */
+.ca-layer {
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 3;
+}
+
+.ca-layer-1 {
+  fill: var(--tk-tint-blue);
+}
+
+.ca-layer-2 {
+  fill: var(--tk-tint-gold);
+}
+
+.ca-layer-3 {
+  fill: var(--tk-tint-plum);
+}
+
+.ca-item {
+  cursor: default;
+  outline: none;
+  transition: opacity 260ms ease;
+}
+
+.ca-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.ca[data-active] .ca-item:not([data-on]) {
+  opacity: 0.25;
+}
+
+.ca-line {
+  fill: none;
+  stroke: var(--tk-mauve);
+  stroke-width: 1.6;
+  transition:
+    stroke 260ms ease,
+    stroke-width 260ms ease;
+}
+
+.ca-item[data-on] .ca-line {
+  stroke: var(--tk-plum);
+  stroke-width: 2.6;
+  stroke-dasharray: 1;
+  animation: ca-draw 600ms var(--ca-ease) both;
+}
+
+@keyframes ca-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ca-note {
+  font-size: 24px;
+  fill: var(--tk-text);
+}
+
+.ca-threat {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  fill: var(--tk-plum);
+}
+
+.ca-node {
+  transition: transform 320ms var(--ca-ease);
+}
+
+.ca-node circle {
+  fill: #ffffff;
+  stroke: var(--tk-mauve);
+  stroke-width: 2;
+  filter: drop-shadow(0 6px 10px rgba(43, 16, 22, 0.18));
+  transition:
+    stroke 260ms ease,
+    stroke-width 260ms ease;
+}
+
+.ca-item[data-on] .ca-node {
+  transform: scale(1.14);
+}
+
+.ca-item[data-on] .ca-node circle {
+  stroke: var(--tk-gold);
+  stroke-width: 4;
+}
+
+.ca-name {
+  font-size: 22px;
+  font-weight: 700;
+  fill: var(--tk-text);
+}
+
+.ca-footnote {
+  margin: 12px 0 0 !important;
+  font-family: var(--font-mono);
+  font-size: 12px !important;
+  letter-spacing: 1px;
+  text-align: right;
+  color: var(--tk-muted);
+}
+
+/* List version: visually hidden on large screens (still read by screen readers). */
+.ca-list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.ca-meter {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.ca-meter i {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--tk-plum);
+  transform: rotate(45deg);
+}
+
+.ca-meter i[data-on] {
+  background: var(--tk-plum);
+}
+
+@media (max-width: 760px) {
+  .ca-svg {
+    display: none;
+  }
+
+  .ca-list {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ca-list li {
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: var(--tk-blush);
+  }
+
+  .ca-list-name {
+    margin: 0 !important;
+    font-family: var(--font-serif);
+    font-size: 22px !important;
+  }
+
+  .ca-list-threat {
+    margin: 4px 0 6px !important;
+    font-family: var(--font-mono);
+    font-size: 12px !important;
+    letter-spacing: 1px;
+    color: var(--tk-plum);
+  }
+
+  .ca-list-note {
+    font-size: 14px !important;
+  }
+
+  .ca-footnote {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-item[data-on] .ca-line {
+    animation: none;
+  }
+
+  .ca-node {
+    transition: none;
+  }
+}

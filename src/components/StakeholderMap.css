@@ -1,0 +1,359 @@
+/* Stakeholder map, drawn in code in the Takshila palette (colours come from .tk). */
+.sm {
+  /* Solid palette tints (see .tk), so nested rings don't blend into off-palette colours. */
+  --sm-core: var(--tk-tint-plum);
+  --sm-demand: var(--tk-tint-gold);
+  --sm-infra: var(--tk-bg);
+  --sm-company: var(--tk-tint-blue);
+  --sm-dot-core: var(--tk-plum);
+  --sm-dot-demand: var(--tk-gold);
+  --sm-dot-infra: rgba(43, 16, 22, 0.45);
+  --sm-dot-company: #5f8196;
+}
+
+.sm-lead {
+  margin: 0 0 40px !important;
+}
+
+/* The rings take the full width (as in the original map); legend and outcome sit below. */
+.sm-body {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 40px;
+}
+
+.sm-side {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.sm-note {
+  margin: 2px 0 0 !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  color: var(--tk-muted);
+}
+
+/* Legend */
+.sm-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sm-layer {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.sm-swatch {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border: 1px solid rgba(43, 16, 22, 0.15);
+  border-radius: 50%;
+}
+
+.sm-layer[data-layer='core'] .sm-swatch {
+  background: var(--sm-core);
+}
+
+.sm-layer[data-layer='demand'] .sm-swatch {
+  background: var(--sm-demand);
+}
+
+.sm-layer[data-layer='infra'] .sm-swatch {
+  background: #ffffff;
+}
+
+.sm-layer[data-layer='company'] .sm-swatch {
+  background: var(--sm-company);
+}
+
+.sm-layer-name,
+.sm-outcome-title {
+  margin: 0 !important;
+  font-size: 14px !important;
+  font-weight: 600;
+  line-height: 1.35 !important;
+}
+
+.sm-layer-people {
+  display: none;
+}
+
+.sm-outcome {
+  padding-left: 32px;
+  border-left: 1px solid var(--tk-line);
+}
+
+.sm-outcome h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--tk-plum);
+}
+
+.sm-outcome ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sm-outcome li {
+  padding-left: 12px;
+  border-left: 2px solid var(--tk-plum);
+}
+
+/* Diagram */
+.sm-diagram {
+  width: min(100%, 820px);
+  margin-inline: auto;
+  padding: 0 4%;
+}
+
+.sm-rings {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  container-type: inline-size;
+}
+
+.sm-ring,
+.sm-centre {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sm-ring {
+  border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+.sm-ring[data-layer='company'] {
+  width: 100%;
+  height: 100%;
+  background: var(--sm-company);
+}
+
+.sm-ring[data-layer='infra'] {
+  width: 82%;
+  height: 82%;
+  background: var(--tk-bg);
+}
+
+.sm-ring[data-layer='demand'] {
+  width: 63%;
+  height: 63%;
+  background: var(--sm-demand);
+}
+
+.sm-ring[data-layer='core'] {
+  width: 43%;
+  height: 43%;
+  background: var(--sm-core);
+}
+
+.sm-centre {
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 21%;
+  height: 21%;
+  background: var(--tk-text);
+  color: var(--tk-bg);
+  text-align: center;
+}
+
+.sm-centre strong {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 4.4cqw, 38px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.sm-centre small {
+  margin-top: 0.6cqw;
+  font-size: clamp(8px, 1.25cqw, 11px);
+  line-height: 1.3;
+  opacity: 0.85;
+}
+
+.sm-ring-label {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  font-family: var(--font-mono);
+  font-size: clamp(8px, 1.2cqw, 11px);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--tk-plum);
+  transform: translate(-50%, -50%);
+}
+
+.sm-chip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 12.5cqw;
+  padding: 0.75cqw 1.1cqw;
+  border-radius: 1.2cqw;
+  background: #ffffff;
+  box-shadow: 0 4px 14px -6px rgba(43, 16, 22, 0.35);
+  font-size: clamp(9px, 1.35cqw, 12px);
+  font-weight: 600;
+  line-height: 1.25;
+  transform: translate(-50%, -50%);
+}
+
+.sm-chip i {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.sm-chip[data-layer='core'] i {
+  background: var(--sm-dot-core);
+}
+
+.sm-chip[data-layer='demand'] i {
+  background: var(--sm-dot-demand);
+}
+
+.sm-chip[data-layer='infra'] i {
+  background: var(--sm-dot-infra);
+}
+
+.sm-chip[data-layer='company'] i {
+  background: var(--sm-dot-company);
+}
+
+/* Hover: the chosen layer lights up, the rest fade back. */
+.sm-chip,
+.sm-ring,
+.sm-ring-label,
+.sm-layer {
+  transition:
+    opacity 240ms ease,
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms ease,
+    border-color 240ms ease,
+    background-color 240ms ease;
+}
+
+.sm-chip {
+  cursor: default;
+}
+
+.sm-layer {
+  margin: -8px -10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: default;
+}
+
+.sm[data-active] .sm-chip {
+  opacity: 0.28;
+}
+
+.sm[data-active='core'] .sm-chip[data-layer='core'],
+.sm[data-active='demand'] .sm-chip[data-layer='demand'],
+.sm[data-active='infra'] .sm-chip[data-layer='infra'],
+.sm[data-active='company'] .sm-chip[data-layer='company'] {
+  opacity: 1;
+  box-shadow: 0 10px 22px -10px rgba(43, 16, 22, 0.5);
+  transform: translate(-50%, calc(-50% - 3px));
+}
+
+.sm-chip[data-on] {
+  z-index: 1;
+  box-shadow:
+    0 0 0 2px var(--tk-gold),
+    0 14px 26px -10px rgba(43, 16, 22, 0.55) !important;
+  transform: translate(-50%, calc(-50% - 4px)) scale(1.1) !important;
+}
+
+.sm[data-active='core'] .sm-ring[data-layer='core'],
+.sm[data-active='demand'] .sm-ring[data-layer='demand'],
+.sm[data-active='infra'] .sm-ring[data-layer='infra'],
+.sm[data-active='company'] .sm-ring[data-layer='company'] {
+  border-color: var(--tk-gold);
+}
+
+.sm[data-active] .sm-ring-label {
+  opacity: 0.35;
+}
+
+.sm[data-active] .sm-layer {
+  opacity: 0.45;
+}
+
+.sm[data-active='core'] .sm-layer[data-layer='core'],
+.sm[data-active='demand'] .sm-layer[data-layer='demand'],
+.sm[data-active='infra'] .sm-layer[data-layer='infra'],
+.sm[data-active='company'] .sm-layer[data-layer='company'] {
+  opacity: 1;
+  background: var(--tk-sand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sm-chip,
+  .sm-ring,
+  .sm-ring-label,
+  .sm-layer {
+    transition: none;
+  }
+}
+
+/* Small screens: the rings get too small to read, so show the layers as lists instead. */
+@media (max-width: 760px) {
+  .sm-side {
+    grid-template-columns: 1fr;
+  }
+
+  .sm-outcome {
+    padding: 24px 0 0;
+    border-left: none;
+    border-top: 1px solid var(--tk-line);
+  }
+
+  .sm-diagram {
+    display: none;
+  }
+
+  .sm-layer-people {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sm-layer-people li {
+    padding: 5px 9px;
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}

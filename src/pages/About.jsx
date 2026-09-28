@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import photoDoorway from '../assets/about-photo-doorway.webp';
 import photo from '../assets/about-photo.webp';
-import Masonry from '../components/Masonry/Masonry';
-import './About.css';
+import Masonry from '../components/Masonry/Masonry';import './About.css';
 
 // The two prints beside the intro; the first starts in front. `focus` is the crop within the frame.
 const PRINTS = [
@@ -63,6 +63,12 @@ const PhotoStack = () => {
     </div>
   );
 };
+
+// Newest first; `to` links the company to its case study.
+const EXPERIENCE = [
+  { role: 'Product Designer', company: 'Takshila', dates: 'May 2026 – Present', to: '/work/takshila' },
+  { role: 'UI/UX Designer', company: 'Sylus AI', dates: 'Jun 2026 – Jul 2026' }
+];
 
 const EDUCATION = [
   { degree: 'M.Des, Interaction Design', school: 'Delhi Technological University (DTU)', year: 'Graduating 2027' },
@@ -149,6 +155,30 @@ const About = () => {
           </div>
 
           <PhotoStack />
+        </div>
+      </section>
+
+      <section className="about-section" id="experience">
+        <div className="container">
+          <h2 className="about-eyebrow">Experience</h2>
+          <ol className="edu-list">
+            {EXPERIENCE.map((item, i) => (
+              <li key={item.company} className="edu-row">
+                <span className="edu-index">{String(i + 1).padStart(2, '0')}</span>
+                <span className="edu-degree">{item.role}</span>
+                <span className="edu-school">
+                  {item.to ? (
+                    <Link to={item.to} className="exp-link">
+                      {item.company} <span aria-hidden="true">→</span>
+                    </Link>
+                  ) : (
+                    item.company
+                  )}
+                </span>
+                <span className="edu-year">{item.dates}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

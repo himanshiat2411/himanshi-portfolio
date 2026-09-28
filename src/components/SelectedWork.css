@@ -17,92 +17,227 @@
   color: var(--dim);
 }
 
-.work-list {
+/* Bento grid: rows alternate a 5-column tile and a 7-column one. */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: clamp(260px, 30vw, 420px);
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--line);
 }
 
-.work-list li {
-  border-bottom: 1px solid var(--line);
+.work-tile {
+  grid-column: span 5;
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity 600ms ease-out,
+    transform 600ms ease-out;
 }
 
-.work-row {
+.work-tile--wide {
+  grid-column: span 7;
+}
+
+.work-tile[data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+.work-card {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #151515;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.work-card:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+}
+
+/* The thumbnail's layers share one stage that covers the tile like object-fit: cover. */
+.work-thumb {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+}
+
+.work-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100cqw, 100cqh * (var(--ratio)));
+  aspect-ratio: var(--ratio);
+  transform: translate(-50%, -50%) scale(var(--zoom, 1));
+}
+
+.work-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.work-layer--shadow {
+  filter: drop-shadow(0 18px 22px rgba(10, 50, 30, 0.35));
+}
+
+.work-thumb--empty {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(198, 255, 61, 0.12), transparent 55%),
+    linear-gradient(135deg, #1c1c1c, #0f0f0f);
+}
+
+/* At rest: a dark veil with the project name, the thumbnail faintly visible beneath. */
+.work-veil {
+  position: absolute;
+  inset: 0;
   display: grid;
-  grid-template-columns: 80px 520px 1fr 120px 20px;
-  align-items: center;
-  height: 120px;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.78);
+  transition: opacity 400ms ease;
 }
 
-.work-index,
-.work-year {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: var(--dim);
-}
-
-.work-title {
-  font-size: 32px;
+.work-veil-title {
+  font-size: clamp(28px, 3.4vw, 48px);
   font-weight: 600;
   letter-spacing: -1px;
-  transition: color 200ms ease;
 }
 
-.work-summary {
-  font-size: 15px;
-  color: var(--soft);
+/* On hover the veil lifts, the pieces rise into place and the name pill and arrow slide in. */
+@keyframes work-rise {
+  from {
+    translate: var(--from);
+  }
+}
+
+@media (hover: hover) {
+  .work-bar {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 300ms ease,
+      transform 300ms ease;
+  }
+
+  .work-card:hover .work-veil,
+  .work-card:focus-visible .work-veil {
+    opacity: 0;
+  }
+
+  .work-card:hover .work-bar,
+  .work-card:focus-visible .work-bar {
+    opacity: 1;
+    transform: none;
+    transition-delay: 350ms;
+  }
+
+  .work-card:hover .work-layer[data-moves],
+  .work-card:focus-visible .work-layer[data-moves] {
+    animation: work-rise 1000ms cubic-bezier(0.33, 1, 0.68, 1) var(--delay) both;
+  }
+}
+
+/* Touch screens can't hover, so show each tile as it looks after its hover. */
+@media (hover: none) {
+  .work-veil {
+    display: none;
+  }
+}
+
+/* Name pill and round arrow along the bottom of each tile. */
+.work-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+}
+
+.work-name {
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: #000000;
+  font-size: 20px;
 }
 
 .work-arrow {
-  font-size: 18px;
-  transition: transform 200ms ease;
+  display: grid;
+  place-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #000000;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
-.work-row:hover .work-title {
-  color: var(--soft);
+a.work-card:hover .work-arrow,
+a.work-card:focus-visible .work-arrow {
+  background: var(--accent);
+  color: #000000;
 }
 
-.work-row:hover .work-arrow {
-  transform: translateX(6px);
+.work-soon {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #000000;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dim);
 }
 
-@media (max-width: 1100px) {
-  .work-row {
-    grid-template-columns: 56px 1fr 1fr 64px 20px;
-  }
-}
-
-@media (max-width: 720px) {
-  .work-row {
-    grid-template-columns: 40px 1fr 20px;
-    grid-template-areas:
-      'index title arrow'
-      '. summary arrow';
-    row-gap: 6px;
-    height: auto;
-    padding: 28px 0;
+/* Phones: one tile per row. */
+@media (max-width: 640px) {
+  .work-grid {
+    grid-auto-rows: 240px;
+    gap: 8px;
   }
 
-  .work-index {
-    grid-area: index;
+  .work-tile,
+  .work-tile--wide {
+    grid-column: span 12;
   }
 
-  .work-title {
-    grid-area: title;
-    font-size: 24px;
+  .work-bar {
+    bottom: 0;
   }
 
-  .work-summary {
-    grid-area: summary;
-  }
-
-  .work-year {
-    display: none;
+  .work-name {
+    font-size: 14px;
   }
 
   .work-arrow {
-    grid-area: arrow;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-tile {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .work-card:is(:hover, :focus-visible) .work-layer[data-moves] {
+    animation: none;
   }
 }
