@@ -189,3 +189,11 @@
     max-width: 420px;
   }
 }
+
+/* Phones: the tall frame crops the square photo close to the face, so make it 1.5× shorter,
+   which zooms the photo out by the same amount. */
+@media (max-width: 720px) {
+  .intro-portrait {
+    height: 627px;
+  }
+}

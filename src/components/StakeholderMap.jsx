@@ -94,12 +94,6 @@ const StakeholderMap = () => {
               <div>
                 <p className="sm-layer-name">{layer.name}</p>
                 <p className="sm-note">{layer.note}</p>
-                {/* On small screens the rings are hidden, so each layer lists its stakeholders. */}
-                <ul className="sm-layer-people">
-                  {layer.people.map(p => (
-                    <li key={p.label}>{p.label}</li>
-                  ))}
-                </ul>
               </div>
             </li>
           ))}

@@ -85,10 +85,6 @@
   line-height: 1.35 !important;
 }
 
-.sm-layer-people {
-  display: none;
-}
-
 .sm-outcome {
   padding-left: 32px;
   border-left: 1px solid var(--tk-line);
@@ -324,7 +320,8 @@
   }
 }
 
-/* Small screens: the rings get too small to read, so show the layers as lists instead. */
+/* Small screens: the same rings, shrunk to fit like a picture (every size follows the width,
+   with no minimums), and nothing reacts to hover or tap. */
 @media (max-width: 760px) {
   .sm-side {
     grid-template-columns: 1fr;
@@ -337,23 +334,39 @@
   }
 
   .sm-diagram {
-    display: none;
-  }
-
-  .sm-layer-people {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: 10px 0 0;
     padding: 0;
-    list-style: none;
   }
 
-  .sm-layer-people li {
-    padding: 5px 9px;
-    border-radius: 8px;
-    background: #ffffff;
-    font-size: 12px;
-    font-weight: 500;
+  .sm-diagram,
+  .sm-layer {
+    pointer-events: none;
+  }
+
+  .sm-ring {
+    border-width: 1px;
+  }
+
+  .sm-centre strong {
+    font-size: 4.4cqw;
+  }
+
+  .sm-centre small {
+    font-size: 1.25cqw;
+  }
+
+  .sm-ring-label {
+    font-size: 1.2cqw;
+    letter-spacing: 0.2cqw;
+  }
+
+  .sm-chip {
+    gap: 0.7cqw;
+    font-size: 1.35cqw;
+    box-shadow: 0 0.5cqw 1.6cqw -0.7cqw rgba(43, 16, 22, 0.35);
+  }
+
+  .sm-chip i {
+    width: 0.9cqw;
+    height: 0.9cqw;
   }
 }

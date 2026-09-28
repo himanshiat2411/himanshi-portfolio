@@ -153,48 +153,10 @@
   background: var(--tk-plum);
 }
 
+/* Small screens: the same diagram, shrunk to fit like a picture, with no hover or tap. */
 @media (max-width: 760px) {
   .ca-svg {
-    display: none;
-  }
-
-  .ca-list {
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip: auto;
-    white-space: normal;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 8px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .ca-list li {
-    padding: 16px 18px;
-    border-radius: 14px;
-    background: var(--tk-blush);
-  }
-
-  .ca-list-name {
-    margin: 0 !important;
-    font-family: var(--font-serif);
-    font-size: 22px !important;
-  }
-
-  .ca-list-threat {
-    margin: 4px 0 6px !important;
-    font-family: var(--font-mono);
-    font-size: 12px !important;
-    letter-spacing: 1px;
-    color: var(--tk-plum);
-  }
-
-  .ca-list-note {
-    font-size: 14px !important;
+    pointer-events: none;
   }
 
   .ca-footnote {
