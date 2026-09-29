@@ -263,7 +263,7 @@ export const IMPACT = {
   numbers: [
     { value: 15, text: 'JTBD interviews, 5 led by me' },
     { value: 11, text: 'user flows audited before Q4' },
-    { value: 4, text: 'North Star PRDs: Design Studio, Community, Profile and Activity' }
+    { value: 2, text: 'North Star PRDs: Design Studio and Community' }
   ],
   pushedHeading: 'Changes I pushed for',
   pushed: ['Brought the Shop forward for Q4', 'Caught the font and colour mismatch on Orders', 'Started a weekly design–tech sync'],
@@ -274,13 +274,12 @@ export const REFLECTION = {
   label: 'Reflection',
   heading: 'What I take with me',
   well: [
-    'Drew the line in the right place — two accounts, not three.',
     'Found the user AI would fail, and designed the question flow that protects their idea.',
     'Made the business case for bringing the Shop forward.'
   ],
   differently: [
     'Test earlier. “Three options” and the spec questions could each have been tested in an afternoon.',
-    'My user groups (explorer, stuck, expert) came from reasoning, not interviews.',
+    'My three prompting groups (no idea, can’t prompt it, can prompt it) came from reasoning, not interviews.',
     'I argued the Shop leads people to co-create, but never designed the moment that invites them.',
     'I under-planned the video hero — load time, fallbacks, re-shoots.'
   ],
