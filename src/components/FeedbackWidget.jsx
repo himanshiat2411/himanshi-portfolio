@@ -62,8 +62,21 @@ const FeedbackWidget = () => {
   const panelId = useId();
 
   // Pop the bubble once per visit, when a case study is 60% scrolled, unless they already gave feedback.
+  // A page can mark where it should appear instead (e.g. Takshila's Reflection section), so it never
+  // covers the case study's main content.
   useEffect(() => {
     if (!pathname.startsWith('/work/') || hearted || status === 'sent' || nudgedThisVisit()) return undefined;
+    const marker = document.querySelector('[data-feedback-nudge]');
+    if (marker) {
+      const io = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        markNudged();
+        setNudge(true);
+        io.disconnect();
+      });
+      io.observe(marker);
+      return () => io.disconnect();
+    }
     const onScroll = () => {
       const { scrollHeight } = document.documentElement;
       if ((window.scrollY + window.innerHeight) / scrollHeight < NUDGE_AT) return;

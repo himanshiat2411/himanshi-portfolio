@@ -17,7 +17,7 @@
   --tk-tint-blue: #d1dadc;
   --tk-tint-gold: #e8d9bc;
   --tk-tint-plum: #c7b2b5;
-  --tk-muted: rgba(43, 16, 22, 0.66);
+  --tk-muted: rgba(43, 16, 22, 0.72);
   --tk-line: rgba(43, 16, 22, 0.12);
   --tk-accent: var(--tk-text);
 
@@ -218,23 +218,6 @@
   color: var(--tk-text);
 }
 
-.tk-phase {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Spaced gold capitals, like Takshila's "STEP 3 OF 3". */
-.tk-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--tk-gold-ink);
-}
-
 .tk-section p {
   max-width: 680px;
   margin: 0;
@@ -242,43 +225,324 @@
   line-height: 1.6;
 }
 
-/* Interview numbers, as sand cards with a gold underline. */
-.tk-stats {
-  display: flex;
-  gap: 16px;
-  margin: 40px 0 0;
+/* The problems we set out to solve: three cards joined by arrows, each a number, a title,
+   one line and a small piece of Takshila's UI. The last, current one is plum. */
+.tk-problems h2,
+.tk-problems-sub {
+  text-align: center;
+}
+
+.tk-problems-sub {
+  margin: 0 auto 48px !important;
+  color: var(--tk-muted);
+}
+
+.tk-problems-flow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.tk-stats li {
+.tk-problem {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  min-width: 140px;
-  padding: 20px 24px 18px;
-  border-bottom: 2px solid var(--tk-gold);
-  border-radius: 14px 14px 4px 4px;
-  background: var(--tk-sand);
+  gap: 10px;
+  padding: 26px 24px 24px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 18px 40px -30px rgba(43, 16, 22, 0.45);
 }
 
-.tk-stat-num {
+/* Arrow into the next card. */
+.tk-problem:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -36px;
+  width: 32px;
+  height: 10px;
+  background:
+    linear-gradient(var(--tk-plum), var(--tk-plum)) left center / 30px 1.5px no-repeat,
+    conic-gradient(from -135deg at 100% 50%, var(--tk-plum) 90deg, transparent 0) right center / 8px 10px no-repeat;
+}
+
+.tk-problem-step {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--tk-gold-ink);
+}
+
+.tk-problem-title {
+  margin: 0;
   font-family: var(--font-serif);
-  font-size: 56px;
-  line-height: 0.9;
-  color: var(--tk-plum);
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--tk-text);
 }
 
-.tk-stat-label {
+/* What the project is, then its problem in a quieter tone. */
+.tk-section .tk-problem-about {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--tk-text);
+}
+
+.tk-section .tk-problem-line {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--tk-muted);
+}
+
+.tk-section .tk-problem[data-current] .tk-problem-about {
+  color: var(--tk-bg);
+}
+
+.tk-problem[data-current] {
+  background: var(--tk-plum);
+}
+
+.tk-problem[data-current] .tk-problem-step {
+  color: var(--tk-tint-gold);
+}
+
+.tk-problem[data-current] .tk-problem-title {
+  color: var(--tk-bg);
+}
+
+.tk-section .tk-problem[data-current] .tk-problem-line {
+  color: rgba(245, 239, 231, 0.8);
+}
+
+/* A small piece of Takshila's UI at the foot of each card, on its own background. */
+.tk-problem-element {
+  display: grid;
+  place-items: center;
+  min-height: 76px;
+  margin-top: auto;
+  padding: 14px;
+  border: 1px solid var(--tk-line);
+  border-radius: 16px;
+}
+
+.tk-problem-element img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Interview calls: the Meet screenshots, framed like the redesigned screens below (thin line,
+   rounded corners) with a small label. Each opens in the screen pop-up. */
+.tk-calls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 680px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tk-calls a {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--tk-line);
+  border-radius: 14px;
+  background: #ffffff;
+  transition: border-color 150ms ease;
+}
+
+.tk-calls a:hover {
+  border-color: var(--tk-mauve);
+}
+
+.tk-calls a:focus-visible {
+  outline: 2px solid var(--tk-gold);
+  outline-offset: 3px;
+}
+
+.tk-calls img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.tk-call-label {
+  display: block;
+  margin-top: 10px;
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--tk-gold-ink);
 }
 
-/* Findings */
-.tk-findings {
+.tk-section .tk-calls-note {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--tk-muted);
+}
+
+/* Impact: big numbers, one line each. */
+.tk-impact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tk-impact li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px 22px;
+  border-bottom: 2px solid var(--tk-gold);
+  border-radius: 18px 18px 4px 4px;
+  background: var(--tk-sand);
+}
+
+.tk-impact-num {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  line-height: 1;
+  color: var(--tk-plum);
+}
+
+.tk-impact-text {
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* Closing: the team fun day. */
+.tk-funday {
+  text-align: center;
+}
+
+.tk-funday p {
+  margin: 0 auto 32px !important;
+}
+
+.tk-funday-photo {
+  margin: 0;
+  padding: 10px;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 24px 50px -32px rgba(43, 16, 22, 0.55);
+  transform: rotate(-1deg);
+}
+
+.tk-funday-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+/* Design principles: numbered rows on a tinted panel, then a one-line summary. */
+.tk-principles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0 0;
+  padding: 14px;
+  border-radius: 24px;
+  background: var(--tk-blush);
+  list-style: none;
+  counter-reset: principle;
+}
+
+.tk-principles li {
+  display: grid;
+  grid-template-columns: 34px 190px 1fr;
+  align-items: baseline;
+  gap: 12px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: #ffffff;
+  counter-increment: principle;
+}
+
+.tk-principles li::before {
+  content: counter(principle, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--tk-gold-ink);
+}
+
+.tk-principles strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tk-principles span {
+  font-size: 15px;
+  color: var(--tk-muted);
+}
+
+.tk-section .tk-principles-sum {
+  max-width: none;
+  margin-top: 16px;
+  padding: 28px 30px;
+  border-radius: 24px;
+  background: var(--tk-blush);
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+/* Users: three tinted cards, a name and one line each. */
+.tk-users {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Takshila's blue, with a blue underline, so the three groups stand out on cream. */
+.tk-users li {
+  padding: 24px 20px;
+  border-bottom: 2px solid var(--tk-blue);
+  border-radius: 20px 20px 6px 6px;
+  background: var(--tk-tint-blue);
+  text-align: center;
+}
+
+.tk-users h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--tk-plum);
+}
+
+.tk-users p {
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+}
+
+/* Who we interviewed, as one bold line. */
+.tk-section .tk-interviewed {
+  margin-top: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tk-plum);
+}
+
+/* Research insights */
+.tk-insights {
   display: flex;
   flex-direction: column;
   gap: 36px;
@@ -287,7 +551,7 @@
   list-style: none;
 }
 
-.tk-findings li {
+.tk-insights > li {
   display: grid;
   grid-template-columns: 52px 1fr;
 }
@@ -305,14 +569,14 @@
   color: var(--tk-plum);
 }
 
-.tk-findings h3,
+.tk-insights h4,
 .tk-decision h3 {
   margin: 6px 0 8px;
   font-size: 18px;
   font-weight: 600;
 }
 
-.tk-findings blockquote {
+.tk-insights blockquote {
   max-width: 640px;
   margin: 16px 0 0;
   padding: 12px 18px;
@@ -375,7 +639,7 @@
   list-style: none;
 }
 
-.tk-screens a {
+.tk-screen a {
   position: relative;
   display: block;
   overflow: hidden;
@@ -384,7 +648,7 @@
   background: #ffffff;
 }
 
-.tk-screens img {
+.tk-screen[data-crop] img {
   display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -417,12 +681,12 @@
   height: 12px;
 }
 
-.tk-screens a:hover .tk-screen-btn,
-.tk-screens a:focus-visible .tk-screen-btn {
+.tk-screen a:hover .tk-screen-btn,
+.tk-screen a:focus-visible .tk-screen-btn {
   background: var(--tk-plum);
 }
 
-.tk-screens a:focus-visible {
+.tk-screen a:focus-visible {
   outline: 2px solid var(--tk-gold);
   outline-offset: 3px;
 }
@@ -492,6 +756,42 @@
   }
 }
 
+/* Narrow screens: the columns stack, with the arrows pointing down. */
+@media (max-width: 760px) {
+  .tk-users {
+    grid-template-columns: 1fr;
+  }
+
+  .tk-problems-flow {
+    grid-template-columns: 1fr;
+    row-gap: 56px;
+  }
+
+  .tk-calls {
+    grid-template-columns: 1fr;
+  }
+
+  .tk-principles li {
+    grid-template-columns: 30px 1fr;
+  }
+
+  .tk-principles span {
+    grid-column: 2;
+  }
+
+  .tk-impact {
+    grid-template-columns: 1fr;
+  }
+
+  .tk-problem:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: -44px;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
+
 @media (max-width: 600px) {
   .tk-hero {
     padding-top: 100px;
@@ -505,21 +805,7 @@
     gap: 40px;
   }
 
-  .tk-stats {
-    flex-wrap: wrap;
-  }
-
-  .tk-stats li {
-    min-width: 0;
-    flex: 1;
-    padding: 16px;
-  }
-
-  .tk-stat-num {
-    font-size: 44px;
-  }
-
-  .tk-findings li {
+  .tk-insights > li {
     grid-template-columns: 46px 1fr;
   }
 
