@@ -144,6 +144,453 @@
   aspect-ratio: 4 / 3;
 }
 
+/* ---------- Before / after (old website vs redesign) ---------- */
+.tk-ba-frame,
+.tk-ba-stack figure {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1440 / 666;
+  border: 1px solid var(--tk-line);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 20px 44px -34px rgba(43, 16, 22, 0.55);
+}
+
+.tk-ba-frame {
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+
+.tk-ba-frame > img,
+.tk-ba-stack figure > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.tk-ba-before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.tk-ba-tag {
+  position: absolute;
+  z-index: 1;
+  bottom: 10px;
+  left: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--tk-text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--tk-bg);
+}
+
+.tk-ba-frame .tk-ba-tag[data-side='after'] {
+  right: 10px;
+  left: auto;
+  background: var(--tk-plum);
+}
+
+.tk-ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  background: var(--tk-gold);
+  transform: translateX(-1px);
+}
+
+.tk-ba-handle::after {
+  content: '⇆';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--tk-gold);
+  border-radius: 50%;
+  background: #ffffff;
+  font-size: 13px;
+  color: var(--tk-plum);
+  transform: translate(-50%, -50%);
+}
+
+.tk-ba-handle:focus-visible {
+  outline: 2px solid var(--tk-plum);
+  outline-offset: 2px;
+}
+
+/* Coded "after" side fills the frame like an image would. */
+div.tk-ba-after {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* All comparisons stacked, each with its name and a full-screen button. */
+.tk-compare-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin: 40px 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.tk-ct-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.tk-ct-name {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.tk-ct-full {
+  padding: 7px 14px;
+  border: 1px solid var(--tk-text);
+  border-radius: 999px;
+  background: var(--tk-text);
+  font: 500 13px var(--font-sans);
+  color: var(--tk-bg);
+  cursor: pointer;
+}
+
+.tk-ct-full:focus-visible {
+  outline: 2px solid var(--tk-gold);
+  outline-offset: 2px;
+}
+
+/* Full screen: the comparison fills the window, sized to fit its height. */
+.tk-compare-item[data-full] {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: flex;
+  flex-direction: column;
+  padding: 20px clamp(16px, 4vw, 48px);
+  overflow-y: auto;
+  background: var(--tk-bg);
+  animation: tk-viewer-fade 200ms ease both;
+}
+
+.tk-compare-item[data-full] .tk-ct-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+}
+
+.tk-compare-item[data-full] .tk-ba {
+  width: 100%;
+}
+
+.tk-compare-item[data-full] .tk-ba-frame {
+  width: auto;
+  max-width: 100%;
+  height: calc(100vh - 130px);
+  margin: 0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tk-compare-item[data-full] {
+    animation: none;
+  }
+}
+
+/* ---------- Redesigned order tracking, rebuilt from Figma ----------
+   Sized in container units (the design is 976px wide: 1px ≈ 0.1025cqw) so it scales cleanly inside
+   the before / after frame. Every stage row shares one grid, so pills and links line up. */
+.tk-journey {
+  container-type: inline-size;
+  height: 100%;
+  background: var(--tk-bg);
+  font-family: var(--font-sans);
+  color: var(--tk-text);
+}
+
+.tk-journey .tk-jr-head,
+.tk-journey .tk-jr-product,
+.tk-journey .tk-jr-stages {
+  font-size: 1.54cqw;
+}
+
+.tk-jr-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6cqw 2.3cqw;
+  border-bottom: 1px solid var(--tk-tint-blue);
+  background: #eceef0;
+}
+
+.tk-jr-id {
+  font-size: 1.75cqw;
+  font-weight: 600;
+}
+
+.tk-jr-status {
+  padding: 0.6cqw 1.3cqw;
+  border-radius: 0.4cqw;
+  background: var(--tk-tint-plum);
+  font-size: 1.15cqw;
+  color: var(--tk-text);
+}
+
+.tk-jr-product {
+  display: grid;
+  grid-template-columns: 9.2cqw 1fr auto;
+  gap: 3.2cqw;
+  align-items: center;
+  padding: 1.8cqw 2.3cqw;
+  border-bottom: 1px solid var(--tk-tint-blue);
+  background: #eceef0;
+}
+
+.tk-jr-product img {
+  width: 9.2cqw;
+  height: 9.2cqw;
+  object-fit: cover;
+}
+
+.tk-jr-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5cqw;
+}
+
+.tk-jr-title {
+  font-family: var(--font-serif);
+  font-size: 2cqw;
+}
+
+.tk-jr-by {
+  font-size: 1cqw;
+  color: var(--tk-plum);
+}
+
+.tk-jr-date {
+  font-size: 1.35cqw;
+  color: var(--tk-muted);
+}
+
+.tk-jr-actions {
+  display: flex;
+  gap: 2.5cqw;
+  margin-top: 1cqw;
+}
+
+.tk-jr-actions span {
+  display: grid;
+  place-items: center;
+  width: 15cqw;
+  height: 3.7cqw;
+  border: 1px solid var(--tk-text);
+  font-size: 1.55cqw;
+}
+
+.tk-jr-actions span[data-primary] {
+  background: var(--tk-text);
+  color: var(--tk-bg);
+}
+
+.tk-jr-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6cqw;
+  font-size: 2cqw;
+  font-weight: 600;
+  color: var(--tk-text);
+}
+
+.tk-jr-price .tk-jr-link {
+  font-size: 1.35cqw;
+  font-weight: 400;
+}
+
+.tk-jr-stages,
+.tk-jr-group > ol {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tk-jr-stages {
+  padding: 3.5cqw 4.4cqw;
+}
+
+/* The shared row grid: marker · name · date pill · link · check. */
+.tk-jr-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.9cqw 1fr 21cqw 11cqw 2.2cqw;
+  gap: 1.8cqw;
+  align-items: center;
+  height: 5.8cqw;
+}
+
+/* The connector between markers. */
+.tk-jr-row:not([data-sub])::before {
+  content: '';
+  position: absolute;
+  top: -2cqw;
+  left: 1.95cqw;
+  height: 2cqw;
+  border-left: 0.2cqw solid var(--tk-text);
+}
+
+.tk-jr-stages > .tk-jr-row:first-child::before,
+.tk-jr-group + .tk-jr-row::before {
+  display: none;
+}
+
+.tk-jr-marker {
+  display: grid;
+  place-items: center;
+  width: 3.9cqw;
+  height: 3.9cqw;
+  border-radius: 50%;
+  background: #ecd6dc;
+  color: var(--tk-text);
+}
+
+.tk-jr-row[data-sub] .tk-jr-marker {
+  background: none;
+}
+
+.tk-jr-marker svg {
+  width: 2.1cqw;
+  height: 2.1cqw;
+}
+
+.tk-jr-row[data-state='done'] .tk-jr-marker {
+  background: var(--tk-text);
+  color: #ffffff;
+}
+
+.tk-jr-row[data-state='current'] .tk-jr-marker {
+  background: var(--tk-gold);
+  color: var(--tk-text);
+}
+
+.tk-jr-name {
+  font-family: var(--font-serif);
+  font-size: 1.9cqw;
+}
+
+.tk-jr-pill {
+  display: flex;
+  gap: 0.8cqw;
+  align-items: center;
+  justify-content: center;
+  height: 3.2cqw;
+  border: 1px solid var(--tk-mauve);
+  border-radius: 999px;
+  font-size: 1.15cqw;
+  color: var(--tk-muted);
+}
+
+.tk-jr-pill i {
+  width: 0.7cqw;
+  height: 0.7cqw;
+  border-radius: 50%;
+  background: var(--tk-gold);
+}
+
+.tk-jr-pill b {
+  font-weight: 400;
+}
+
+.tk-jr-pill svg {
+  width: 1.4cqw;
+  height: 1.4cqw;
+  color: var(--tk-gold-ink);
+}
+
+.tk-jr-row[data-state='current'] .tk-jr-pill {
+  border-color: var(--tk-gold);
+  color: var(--tk-text);
+}
+
+.tk-jr-link {
+  font-size: 1.5cqw;
+  text-decoration: underline;
+  text-underline-offset: 0.3cqw;
+  text-align: right;
+}
+
+.tk-jr-check {
+  display: grid;
+  place-items: center;
+  width: 2.2cqw;
+  height: 2.2cqw;
+  border-radius: 50%;
+  background: #b9b3b4;
+  color: #ffffff;
+}
+
+.tk-jr-check svg {
+  width: 1.5cqw;
+  height: 1.5cqw;
+}
+
+.tk-jr-row[data-state='done'] .tk-jr-check {
+  background: var(--tk-text);
+}
+
+.tk-jr-row[data-state='current'] .tk-jr-check {
+  background: var(--tk-gold);
+}
+
+/* The current stage and its sub-steps sit in one gold-edged box. */
+.tk-jr-group {
+  margin: 0 -1.4cqw;
+  padding: 0 1.4cqw;
+  border: 1px solid var(--tk-gold);
+  border-radius: 0.8cqw;
+  background: rgba(192, 148, 53, 0.1);
+}
+
+.tk-jr-group .tk-jr-row:first-child::before {
+  top: -2cqw;
+}
+
+.tk-ba-stack {
+  display: none;
+}
+
+.tk-ba-stack figure {
+  margin: 0 0 10px;
+}
+
+@media (max-width: 760px) {
+  .tk-ba-frame {
+    display: none;
+  }
+
+  .tk-ba-stack {
+    display: block;
+  }
+}
+
 /* ---------- Strips ---------- */
 .tk-strip {
   position: relative;
@@ -383,7 +830,19 @@
   font-weight: 600;
 }
 
-/* Three kinds of people who prompt; the focus group is plum. */
+/* Line illustrations (users and prompting groups). */
+.tk-art {
+  display: block;
+  width: 64px;
+  height: 64px;
+}
+
+.tk-users .tk-art {
+  margin: 0 auto 12px;
+}
+
+/* Three kinds of people who prompt: icon, name, one line, and two yes / no marks.
+   The focus group is plum. */
 .tk-prompt-users {
   display: flex;
   flex-direction: column;
@@ -394,23 +853,66 @@
 }
 
 .tk-prompt-users li {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
   border: 1px solid var(--tk-line);
   border-radius: 14px;
   background: #ffffff;
 }
 
-.tk-prompt-users strong {
+.tk-prompt-art .tk-art {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: var(--tk-bg);
+}
+
+.tk-prompt-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tk-prompt-body strong {
   font-size: 15px;
   font-weight: 600;
 }
 
-.tk-prompt-users span:last-child {
+.tk-prompt-text {
   font-size: 13px;
   color: var(--tk-muted);
+}
+
+.tk-prompt-ticks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.tk-prompt-ticks > span {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.tk-tick {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--tk-tint-plum);
+  font-size: 11px;
+  color: var(--tk-text);
+}
+
+.tk-tick[data-on] {
+  background: var(--tk-gold);
 }
 
 .tk-prompt-users li[data-focus] {
@@ -419,8 +921,13 @@
   color: var(--tk-bg);
 }
 
-.tk-prompt-users li[data-focus] span:last-child {
+.tk-prompt-users li[data-focus] .tk-prompt-text {
   color: rgba(245, 239, 231, 0.8);
+}
+
+.tk-prompt-users li[data-focus] .tk-tick:not([data-on]) {
+  background: rgba(245, 239, 231, 0.3);
+  color: var(--tk-bg);
 }
 
 .tk-prompt-users .tk-vis-chosen {

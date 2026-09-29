@@ -156,9 +156,16 @@ export const PHASE_3 = {
   decisionsHeading: 'Key decisions',
   // Decision A: the three kinds of people who prompt the AI. The middle one is the focus group.
   promptUsers: [
-    { title: 'No idea yet', text: 'Doesn’t know what they want.' },
-    { title: 'Has an idea, can’t prompt it', text: 'Knows what they want, but can’t put it into words.', focus: true },
-    { title: 'Has an idea and can prompt it', text: 'Knows what they want and can describe it well.' }
+    { key: 'none', title: 'No idea yet', text: 'Doesn’t know what they want.', idea: false, prompt: false },
+    {
+      key: 'stuck',
+      title: 'Has an idea, can’t prompt it',
+      text: 'Knows what they want, but can’t put it into words.',
+      idea: true,
+      prompt: false,
+      focus: true
+    },
+    { key: 'expert', title: 'Has an idea and can prompt it', text: 'Knows what they want and can describe it well.', idea: true, prompt: true }
   ],
   focusLabel: 'Our focus group'
 };
@@ -290,4 +297,34 @@ export const FUN = {
   heading: 'My journey at Takshila',
   text: 'Every monthly session ended with a team fun day. Great people, great learning, and a lot of fun.',
   alt: 'The Takshila team on a video call for team fun day, with a “Hi Takshila” slide'
+};
+
+// Phase 1 before / after: the redesigned order-tracking card (rebuilt in code from the Figma design).
+// Sub-steps under "In Production" use stage names from the old site; edit them here.
+export const ORDER = {
+  id: '#TKS-2025-0041',
+  status: 'Crafting',
+  product: 'Royal Sage Ring',
+  maker: 'Arjun Mehta',
+  ordered: 'April 10th, 2023',
+  price: '$ 3,450',
+  stages: [
+    { name: 'Order Confirmed', state: 'done', date: 'May 07, 2026', time: '17:32:20' },
+    { name: 'Product Approved', state: 'done', date: 'May 11, 2026', time: '22:02:10' },
+    {
+      name: 'In Production',
+      state: 'current',
+      icon: 'gem',
+      date: 'May 21, 2026',
+      time: '12:45:45',
+      steps: [
+        { name: 'Diamond sourced', state: 'pending' },
+        { name: 'Ring in production', state: 'pending' }
+      ]
+    },
+    { name: 'Final Product', state: 'pending', icon: 'ring' },
+    { name: 'Product Verified', state: 'pending', icon: 'badge' },
+    { name: 'Shipping', state: 'pending', icon: 'truck' },
+    { name: 'Delivered', state: 'pending', icon: 'box' }
+  ]
 };

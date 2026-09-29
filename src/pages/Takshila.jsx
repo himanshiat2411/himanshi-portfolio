@@ -1,24 +1,29 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+import beforeCommunity from '../assets/takshila/before-community.webp';
+import beforeEdit from '../assets/takshila/before-edit.webp';
+import beforeOrders from '../assets/takshila/before-orders.webp';
+import beforeProfile from '../assets/takshila/before-profile.webp';
+import beforeTracking from '../assets/takshila/before-tracking.webp';
 import heroChain from '../assets/takshila/hero-chain.webp';
 import interviewAmanda from '../assets/takshila/interview-amanda.webp';
 import interviewGazi from '../assets/takshila/interview-gazi.webp';
 import interviewJessica from '../assets/takshila/interview-jessica.webp';
 import logoMask from '../assets/takshila/logo-mask.png';
+import orderThumb from '../assets/takshila/order-thumb.webp';
 import screenCommunity from '../assets/takshila/screen-community.webp';
 import screenEditProduct from '../assets/takshila/screen-edit-product.webp';
 import screenMaterial from '../assets/takshila/screen-material.webp';
 import screenMyActivity from '../assets/takshila/screen-my-activity.webp';
 import screenProfileFeed from '../assets/takshila/screen-profile-feed.webp';
-import screenPrompt from '../assets/takshila/screen-prompt.webp';
 import teamFunDay from '../assets/takshila/team-fun-day.webp';
 import CompetitorMap from '../components/CompetitorMap';
 import StakeholderMap from '../components/StakeholderMap';
-import { ScreenViewerProvider, Screen, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
-import { DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
-import { NodeStrip, RoundsStrip, VisualAskFirst, VisualCheckpoint, VisualThree } from '../components/takshila/visuals';
-import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
+import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
+import { CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
+import { NodeStrip, OrderJourney, USER_ART, RoundsStrip, VisualAskFirst, VisualCheckpoint, VisualThree } from '../components/takshila/visuals';
+import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, ORDER, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
 import '../components/takshila/takshila-parts.css';
 import './Takshila.css';
 
@@ -26,15 +31,24 @@ import './Takshila.css';
 const optional = import.meta.glob('../assets/takshila/three-directions.webp', { eager: true, import: 'default' });
 const threeDirections = optional['../assets/takshila/three-directions.webp'];
 
-// Phase 1: the redesigned screens.
-const REDESIGNED = [
-  { name: 'Profile', src: screenProfileFeed, w: 1427, h: 4096 },
-  { name: 'Community', src: screenCommunity, w: 1440, h: 3160 },
-  { name: 'My Orders', src: screenMyActivity, w: 1440, h: 1779 },
-  { name: 'Design prompt', src: screenPrompt, w: 1440, h: 930 },
-  { name: 'Choose materials', src: screenMaterial, w: 1440, h: 1927 },
-  { name: 'Edit product', src: screenEditProduct, w: 1440, h: 3969 }
-];
+// Phase 1: the redesigned screens next to their old versions (frames from recordings of the old
+// takshila.cloud site), stacked one after another.
+const COMPARED = [
+  { name: 'Profile', before: beforeProfile, after: screenProfileFeed },
+  { name: 'Community', before: beforeCommunity, after: screenCommunity },
+  { name: 'My Orders', before: beforeOrders, after: screenMyActivity },
+  { name: 'Order tracking', before: beforeTracking, after: 'journey', ratio: '976 / 844' },
+  { name: 'Edit product', before: beforeEdit, after: screenEditProduct }
+].map(c => ({
+  name: c.name,
+  ratio: c.ratio,
+  caption: `${c.name}: old website vs redesign · drag to compare`,
+  before: { src: c.before, alt: `The old ${c.name} screen on takshila.cloud` },
+  after:
+    c.after === 'journey'
+      ? { node: <OrderJourney order={ORDER} thumb={orderThumb} />, alt: 'The redesigned order-tracking journey' }
+      : { src: c.after, alt: `The redesigned ${c.name} screen` }
+}));
 
 const INTERVIEWS = [
   { src: interviewJessica, label: 'Interview · Jessica', alt: 'Google Meet interview with Jessica, led by Himanshi Meena' },
@@ -127,6 +141,7 @@ const Takshila = () => {
             <ul className="tk-users">
               {CONTEXT.users.map((u, i) => (
                 <li key={u.title} data-reveal style={{ '--i': i }}>
+                  {USER_ART[u.title]}
                   <h3>{u.title}</h3>
                   <p>{u.text}</p>
                 </li>
@@ -192,13 +207,7 @@ const Takshila = () => {
             <SectionLabel>{PHASE_1.label}</SectionLabel>
             <h2>{PHASE_1.heading}</h2>
             <p>{PHASE_1.intro}</p>
-            <ul className="tk-screens">
-              {REDESIGNED.map((s, i) => (
-                <li key={s.name} data-reveal style={{ '--i': i % 2 }}>
-                  <Screen src={s.src} alt={`The redesigned ${s.name} screen`} width={s.w} height={s.h} caption={`${s.name}, redesigned`} />
-                </li>
-              ))}
-            </ul>
+            <CompareStack items={COMPARED} />
             <RoundsStrip rounds={PHASE_1.rounds} caption={PHASE_1.roundsCaption} />
           </section>
 
