@@ -70,7 +70,21 @@
 /* Hero */
 /* Top padding clears the site's fixed nav. */
 .tk-hero {
-  padding: 150px 0 72px;
+  padding: 112px 0 72px;
+}
+
+/* Same place and style as the other case studies' back link. */
+.tk-back {
+  display: inline-block;
+  margin-bottom: 44px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--tk-plum);
+  transition: opacity 150ms ease;
+}
+
+.tk-back:hover {
+  opacity: 0.7;
 }
 
 .tk-logo {
@@ -480,7 +494,11 @@
 
 @media (max-width: 600px) {
   .tk-hero {
-    padding-top: 120px;
+    padding-top: 100px;
+  }
+
+  .tk-back {
+    margin-bottom: 32px;
   }
 
   .tk-meta {

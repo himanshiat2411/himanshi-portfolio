@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import heroChain from '../assets/takshila/hero-chain.webp';
 import logoMask from '../assets/takshila/logo-mask.png';
@@ -143,6 +144,9 @@ const Takshila = () => {
     <div className="tk">
       <article className="tk-page">
         <header className="tk-hero tk-band" data-band="blush">
+          <Link className="tk-back" to="/#work">
+            ← Back to work
+          </Link>
           <div className="tk-logo" role="img" aria-label="Takshila" style={{ '--tk-logo': `url(${logoMask})` }} />
           <h1 className="tk-title" id="tk-title">
             Takshila is a handcrafted jewelry marketplace with no playbook to follow,{' '}
