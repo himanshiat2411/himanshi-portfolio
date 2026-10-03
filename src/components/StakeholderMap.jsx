@@ -54,14 +54,6 @@ const LAYERS = [
   }
 ];
 
-const OUTCOMES = [
-  { title: 'Unique personalised products', note: 'Designed by people, made for people' },
-  { title: 'Direct collaboration', note: 'No traditional middlemen' },
-  { title: 'Transparent & ethical supply chains', note: 'Know who made it and where it came from' },
-  { title: 'Creator empowerment', note: 'Fair chances and global reach' },
-  { title: 'Community & cultural impact', note: 'Reviving craft and supporting artisans' }
-];
-
 // Ring label positions (bottom of each ring), innermost first.
 const RING_LABEL_Y = { core: 66, demand: 76.5, infra: 86.5, company: 96 };
 
@@ -98,19 +90,6 @@ const StakeholderMap = () => {
             </li>
           ))}
         </ol>
-
-        <div className="sm-outcome">
-          <h3>The Outcome</h3>
-          <p className="sm-note">A thriving ecosystem where imagination meets craft.</p>
-          <ul>
-            {OUTCOMES.map(o => (
-              <li key={o.title}>
-                <p className="sm-outcome-title">{o.title}</p>
-                <p className="sm-note">{o.note}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
 
       <div className="sm-diagram" aria-hidden="true">

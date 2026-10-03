@@ -1,4 +1,7 @@
-import { Screen, useInView } from './basics';
+import promptExpert from '../../assets/takshila/prompt-expert.webp';
+import promptNone from '../../assets/takshila/prompt-none.webp';
+import promptStuck from '../../assets/takshila/prompt-stuck.webp';
+import { Screen } from './basics';
 
 // ---------- Small strips ----------
 
@@ -14,9 +17,26 @@ export const NodeStrip = ({ items }) => (
   </ol>
 );
 
-// Design rounds as steps on a gold line.
+// Design rounds as a loop: three overlapping circles, like a Venn diagram, with a ring flowing
+// around them. The highlight moves round 1 → 2 → 3 and back, in step with the notes beside it.
 export const RoundsStrip = ({ rounds, caption }) => (
   <div className="tk-rounds" data-reveal>
+    <div className="tk-rounds-loop" aria-hidden="true">
+      <svg className="tk-rounds-ring" viewBox="0 0 300 300">
+        <defs>
+          <marker id="tk-rounds-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M1 1l8 4-8 4z" fill="var(--tk-gold)" />
+          </marker>
+        </defs>
+        <path d="M150 12a138 138 0 1 1-0.1 0" markerEnd="url(#tk-rounds-arrow)" />
+      </svg>
+      {rounds.map((r, i) => (
+        <span key={r.label} className="tk-rounds-circle" style={{ '--i': i }}>
+          {r.label}
+        </span>
+      ))}
+      <span className="tk-rounds-centre">{caption}</span>
+    </div>
     <ol>
       {rounds.map((r, i) => (
         <li key={r.label} style={{ '--i': i }}>
@@ -25,7 +45,6 @@ export const RoundsStrip = ({ rounds, caption }) => (
         </li>
       ))}
     </ol>
-    <p className="tk-caption">{caption}</p>
   </div>
 );
 
@@ -172,69 +191,36 @@ export const OrderJourney = ({ order, thumb }) => (
 
 // ---------- Decision visuals ----------
 
-// Ask before you generate: the three kinds of people who prompt, each with an icon and two
-// yes / no marks (has an idea, can prompt it) so they compare at a glance. The middle one is the
-// focus group. Below: asking for the missing specs before generating.
-const PROMPT_ART = {
-  none: (
-    <Art label="No idea yet">
-      <circle cx="40" cy="36" r="20" />
-      <path d="M33 30a7 7 0 1 1 10 6c-2 1-3 3-3 5" />
-      <circle cx="40" cy="48" r="1.5" fill="var(--tk-plum)" />
-    </Art>
-  ),
-  stuck: (
-    <Art label="Has an idea but can’t prompt it">
-      <path d="M40 14a16 16 0 0 0-9 29v7h18v-7a16 16 0 0 0-9-29z" fill="var(--tk-tint-gold)" />
-      <path d="M33 56h14M35 62h10" />
-      <path d="M58 30c4-4 8 4 12 0M58 38c4 4 8-4 12 0" stroke="var(--tk-gold)" />
-    </Art>
-  ),
-  expert: (
-    <Art label="Has an idea and can prompt it">
-      <path d="M40 14a16 16 0 0 0-9 29v7h18v-7a16 16 0 0 0-9-29z" fill="var(--tk-tint-gold)" />
-      <path d="M33 56h14M35 62h10" />
-      <path d="M58 28h14M58 35h14M58 42h9" stroke="var(--tk-gold)" />
-    </Art>
-  )
+// Ask before you generate: the three kinds of people who prompt, side by side. Each is an
+// illustration plus the same two answers as yes / no marks. The middle one is the focus group.
+const PROMPT_IMAGES = {
+  none: { src: promptNone, alt: 'Someone at a laptop surrounded by question marks, with no idea yet' },
+  stuck: { src: promptStuck, alt: 'Someone picturing a pendant but unable to put it into words' },
+  expert: { src: promptExpert, alt: 'Someone describing a pendant in detail and getting matching designs' }
 };
 
-export const VisualAskFirst = ({ users, focusLabel }) => {
-  const [ref, inView] = useInView();
-  return (
-    <div className="tk-vis" ref={ref} data-in={inView ? '' : undefined}>
-      <p className="tk-vis-title">Three kinds of people who prompt</p>
-      <ul className="tk-prompt-users">
-        {users.map(u => (
-          <li key={u.key} data-focus={u.focus ? '' : undefined}>
-            <span className="tk-prompt-art">{PROMPT_ART[u.key]}</span>
-            <span className="tk-prompt-body">
-              {u.focus && <span className="tk-vis-chosen">{focusLabel}</span>}
-              <strong>{u.title}</strong>
-              <span className="tk-prompt-text">{u.text}</span>
-              <span className="tk-prompt-ticks">
-                <span>
-                  <Tick on={u.idea} /> Has an idea
-                </span>
-                <span>
-                  <Tick on={u.prompt} /> Can prompt it
-                </span>
-              </span>
+export const VisualAskFirst = ({ users, focusLabel }) => (
+  <div className="tk-vis">
+    <p className="tk-vis-title">Three kinds of people who prompt</p>
+    <ul className="tk-prompt-users">
+      {users.map(u => (
+        <li key={u.key} data-focus={u.focus ? '' : undefined}>
+          <img className="tk-prompt-img" src={PROMPT_IMAGES[u.key].src} alt={PROMPT_IMAGES[u.key].alt} loading="lazy" />
+          <strong>{u.title}</strong>
+          <span className="tk-prompt-ticks">
+            <span>
+              <Tick on={u.idea} /> Idea
             </span>
-          </li>
-        ))}
-      </ul>
-      <div className="tk-vis-flows">
-        <p className="tk-vis-flow" aria-label="Before: prompt, then image">
-          <span>Prompt</span>→<span>Image</span>
-        </p>
-        <p className="tk-vis-flow" aria-label="After: prompt, then missing specs, then image">
-          <span>Prompt</span>→<span className="tk-vis-pulse">Missing specs</span>→<span>Image</span>
-        </p>
-      </div>
-    </div>
-  );
-};
+            <span>
+              <Tick on={u.prompt} /> Prompt
+            </span>
+          </span>
+          {u.focus && <span className="tk-vis-chosen">{focusLabel}</span>}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 // Why three options: one to four-plus, with three chosen (and the real screen, once added).
 export const VisualThree = ({ screen, caption }) => (

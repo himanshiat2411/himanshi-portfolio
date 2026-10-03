@@ -635,37 +635,111 @@ div.tk-ba-after {
 }
 
 .tk-rounds {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+  align-items: center;
   margin-top: 48px;
 }
 
-.tk-rounds ol {
+/* The loop: three overlapping circles inside a ring that flows around them. */
+.tk-rounds-loop {
   position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.tk-rounds-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: tk-rounds-spin 9s linear infinite;
+}
+
+.tk-rounds-ring path {
+  fill: none;
+  stroke: var(--tk-gold);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 6;
+}
+
+/* Round 1 at the top, 2 bottom right, 3 bottom left: the same order the ring turns. */
+.tk-rounds-circle {
+  --a: calc(var(--i) * 120deg - 90deg);
+  position: absolute;
+  top: calc(50% + sin(var(--a)) * 52px - 66px);
+  left: calc(50% + cos(var(--a)) * 52px - 66px);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  place-items: start center;
+  width: 132px;
+  height: 132px;
+  padding-top: 26px;
+  border: 1.5px solid var(--tk-plum);
+  border-radius: 50%;
+  background: rgba(109, 59, 84, 0.08);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--tk-plum);
+  mix-blend-mode: multiply;
+  animation: tk-rounds-active 9s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 3s);
+}
+
+/* Push each label out of the shared middle, towards its own side. */
+.tk-rounds-circle:nth-child(3),
+.tk-rounds-circle:nth-child(4) {
+  place-items: end center;
+  padding: 0 0 30px;
+}
+
+.tk-rounds-circle:nth-child(3) {
+  padding-left: 40px;
+}
+
+.tk-rounds-circle:nth-child(4) {
+  padding-right: 40px;
+}
+
+.tk-rounds-centre {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 78px;
+  padding: 6px 4px;
+  border-radius: 10px;
+  background: var(--tk-bg);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--tk-text);
+  transform: translate(-50%, -50%);
+}
+
+.tk-rounds ol {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   margin: 0;
-  padding: 18px 0 0;
-  border-top: 1px solid var(--tk-gold);
+  padding: 0;
   list-style: none;
 }
 
-.tk-rounds li::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--tk-gold);
-}
-
 .tk-rounds li {
-  position: relative;
+  padding: 12px 16px;
+  border-left: 2px solid var(--tk-line);
+  border-radius: 0 10px 10px 0;
+  animation: tk-rounds-note 9s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 3s);
 }
 
 .tk-rounds-label {
   display: block;
-  margin: 6px 0 8px;
+  margin: 0 0 6px;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 2px;
@@ -674,8 +748,46 @@ div.tk-ba-after {
 }
 
 .tk-rounds p {
+  margin: 0;
   font-size: 15px !important;
   line-height: 1.5 !important;
+}
+
+@keyframes tk-rounds-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Each round takes the lead for a third of the loop. */
+@keyframes tk-rounds-active {
+  0%,
+  30% {
+    border-color: var(--tk-gold);
+    background: rgba(192, 148, 53, 0.28);
+    color: var(--tk-text);
+  }
+
+  36%,
+  100% {
+    border-color: var(--tk-plum);
+    background: rgba(109, 59, 84, 0.08);
+    color: var(--tk-plum);
+  }
+}
+
+@keyframes tk-rounds-note {
+  0%,
+  30% {
+    border-left-color: var(--tk-gold);
+    background: rgba(192, 148, 53, 0.12);
+  }
+
+  36%,
+  100% {
+    border-left-color: var(--tk-line);
+    background: transparent;
+  }
 }
 
 /* ---------- Phase 2: problem + proposed ---------- */
@@ -747,6 +859,15 @@ div.tk-ba-after {
 
 .tk-decision-block[data-flip] .tk-decision-visual {
   order: -1;
+}
+
+/* The proof sits inside the text, so the block is one column. */
+.tk-decision-block[data-inline] {
+  grid-template-columns: 1fr;
+}
+
+.tk-decision-inline {
+  margin: 20px 0;
 }
 
 .tk-section .tk-tag {
@@ -841,56 +962,53 @@ div.tk-ba-after {
   margin: 0 auto 12px;
 }
 
-/* Three kinds of people who prompt: icon, name, one line, and two yes / no marks.
+/* Three kinds of people who prompt, side by side: illustration, name, two yes / no marks.
    The focus group is plum. */
 .tk-prompt-users {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .tk-prompt-users li {
-  display: grid;
-  grid-template-columns: 56px 1fr;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   align-items: center;
-  padding: 12px 14px;
+  padding: 10px 10px 14px;
   border: 1px solid var(--tk-line);
   border-radius: 14px;
   background: #ffffff;
+  text-align: center;
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    opacity 260ms ease;
 }
 
-.tk-prompt-art .tk-art {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  background: var(--tk-bg);
+.tk-prompt-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  border-radius: 10px;
+  object-fit: contain;
+  background: #f8f4ec;
 }
 
-.tk-prompt-body {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.tk-prompt-body strong {
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.tk-prompt-text {
+.tk-prompt-users strong {
   font-size: 13px;
-  color: var(--tk-muted);
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .tk-prompt-ticks {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 6px;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: auto;
   font-size: 13px;
 }
 
@@ -916,13 +1034,43 @@ div.tk-ba-after {
 }
 
 .tk-prompt-users li[data-focus] {
+  position: relative;
   border-color: var(--tk-plum);
   background: var(--tk-plum);
   color: var(--tk-bg);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px -16px rgba(109, 59, 84, 0.55);
+  animation: tk-focus-glow 2.6s ease-in-out infinite;
 }
 
-.tk-prompt-users li[data-focus] .tk-prompt-text {
-  color: rgba(245, 239, 231, 0.8);
+/* A soft gold ring that breathes around the focus group. */
+@keyframes tk-focus-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 18px 36px -16px rgba(109, 59, 84, 0.55),
+      0 0 0 0 rgba(192, 148, 53, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 22px 40px -16px rgba(109, 59, 84, 0.6),
+      0 0 0 5px rgba(192, 148, 53, 0.35);
+  }
+}
+
+/* Hovering a card lifts it; the others step back. Hovering the focus group lifts it further. */
+.tk-prompt-users li:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px -18px rgba(43, 16, 22, 0.45);
+}
+
+.tk-prompt-users li[data-focus]:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.tk-prompt-users:hover li:not(:hover) {
+  opacity: 0.7;
 }
 
 .tk-prompt-users li[data-focus] .tk-tick:not([data-on]) {
@@ -931,8 +1079,14 @@ div.tk-ba-after {
 }
 
 .tk-prompt-users .tk-vis-chosen {
-  align-self: flex-start;
-  margin: 0 0 4px;
+  margin: 0;
+  font-size: 11px;
+}
+
+@media (max-width: 420px) {
+  .tk-prompt-users {
+    grid-template-columns: 1fr;
+  }
 }
 
 .tk-vis-flows {
@@ -1197,16 +1351,10 @@ div.tk-ba-after {
     grid-template-columns: 1fr;
   }
 
-  .tk-rounds ol {
+  .tk-rounds {
     grid-template-columns: 1fr;
-    padding: 0 0 0 18px;
-    border-top: none;
-    border-left: 1px solid var(--tk-gold);
-  }
-
-  .tk-rounds li::before {
-    top: 8px;
-    left: -23px;
+    justify-items: center;
+    gap: 32px;
   }
 
   .tk-strip {
@@ -1275,7 +1423,11 @@ div.tk-ba-after {
   [data-reveal],
   .tk-decision-block,
   .tk-problem,
-  .tk-vis-pulse {
+  .tk-vis-pulse,
+  .tk-rounds-ring,
+  .tk-rounds-circle,
+  .tk-rounds li,
+  .tk-prompt-users li {
     transition: none !important;
     animation: none !important;
   }

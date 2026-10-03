@@ -521,6 +521,16 @@
   text-align: center;
 }
 
+.tk-users .tk-user-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  margin: 0 0 16px;
+  border-radius: 14px;
+  object-fit: contain;
+  background: #fcf6f1;
+}
+
 .tk-users h3 {
   margin: 0 0 8px;
   font-size: 19px;

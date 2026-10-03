@@ -17,34 +17,56 @@ export const InsightCard = ({ id, index, title, text, quote }) => (
   </li>
 );
 
-// A decision, argued in short labelled points, with its proof beside it.
-export const DecisionBlock = ({ id, tag, heading, points, principles = [], flip, visual }) => (
-  <article className="tk-decision-block" id={id} data-flip={flip ? '' : undefined} data-reveal>
-    <div className="tk-decision-text">
-      <p className="tk-tag">{tag}</p>
-      <h4>{heading}</h4>
-      <dl className="tk-points">
-        {points.map(p => (
-          <div key={p.label}>
-            <dt>{p.label}</dt>
-            <dd>{p.text}</dd>
-          </div>
-        ))}
-      </dl>
-      {principles.length > 0 && (
-        <p className="tk-chips">
-          <span>Principle used</span>
-          {principles.map(pid => (
-            <JumpLink key={pid} to={pid} className="tk-chip">
-              {principleName(pid)}
-            </JumpLink>
-          ))}
-        </p>
-      )}
-    </div>
-    <div className="tk-decision-visual">{visual}</div>
-  </article>
+// A decision, argued in short labelled points, with its proof beside it. With `visualAfter`
+// (a point's label), the proof sits in the text instead, right after that point.
+const Points = ({ points }) => (
+  <dl className="tk-points">
+    {points.map(p => (
+      <div key={p.label}>
+        <dt>{p.label}</dt>
+        <dd>{p.text}</dd>
+      </div>
+    ))}
+  </dl>
 );
+
+export const DecisionBlock = ({ id, tag, heading, points, principles = [], flip, visual, visualAfter }) => {
+  const split = visualAfter ? points.findIndex(p => p.label === visualAfter) + 1 : 0;
+  return (
+    <article
+      className="tk-decision-block"
+      id={id}
+      data-flip={flip ? '' : undefined}
+      data-inline={split ? '' : undefined}
+      data-reveal
+    >
+      <div className="tk-decision-text">
+        <p className="tk-tag">{tag}</p>
+        <h4>{heading}</h4>
+        {split ? (
+          <>
+            <Points points={points.slice(0, split)} />
+            <div className="tk-decision-inline">{visual}</div>
+            <Points points={points.slice(split)} />
+          </>
+        ) : (
+          <Points points={points} />
+        )}
+        {principles.length > 0 && (
+          <p className="tk-chips">
+            <span>Principle used</span>
+            {principles.map(pid => (
+              <JumpLink key={pid} to={pid} className="tk-chip">
+                {principleName(pid)}
+              </JumpLink>
+            ))}
+          </p>
+        )}
+      </div>
+      {!split && <div className="tk-decision-visual">{visual}</div>}
+    </article>
+  );
+};
 
 // Old and redesigned screen in one frame, split by a divider you drag (arrow keys move it too).
 // Both show the top of the page, in the frame's shape (`ratio`). The "after" side is an image, or

@@ -195,7 +195,9 @@ export const DECISIONS = [
       },
       { label: 'What I’d measure', text: 'How often someone buys the very first design they’re shown.' }
     ],
-    principles: ['principle-recognition', 'principle-ikea']
+    principles: ['principle-recognition', 'principle-ikea'],
+    // The three kinds of people who prompt sit right after the finding.
+    visualAfter: 'What I found'
   },
   {
     id: 'decision-b',

@@ -11,19 +11,22 @@ import interviewAmanda from '../assets/takshila/interview-amanda.webp';
 import interviewGazi from '../assets/takshila/interview-gazi.webp';
 import interviewJessica from '../assets/takshila/interview-jessica.webp';
 import logoMask from '../assets/takshila/logo-mask.png';
-import orderThumb from '../assets/takshila/order-thumb.webp';
 import screenCommunity from '../assets/takshila/screen-community.webp';
 import screenEditProduct from '../assets/takshila/screen-edit-product.webp';
 import screenMaterial from '../assets/takshila/screen-material.webp';
 import screenMyActivity from '../assets/takshila/screen-my-activity.webp';
+import screenOrderTracking from '../assets/takshila/screen-order-tracking.webp';
 import screenProfileFeed from '../assets/takshila/screen-profile-feed.webp';
 import teamFunDay from '../assets/takshila/team-fun-day.webp';
+import userArtisan from '../assets/takshila/user-artisan.webp';
+import userCustomer from '../assets/takshila/user-customer.webp';
+import userDesigner from '../assets/takshila/user-designer.webp';
 import CompetitorMap from '../components/CompetitorMap';
 import StakeholderMap from '../components/StakeholderMap';
 import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
 import { CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
-import { NodeStrip, OrderJourney, USER_ART, RoundsStrip, VisualAskFirst, VisualCheckpoint, VisualThree } from '../components/takshila/visuals';
-import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, ORDER, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
+import { NodeStrip, RoundsStrip, VisualAskFirst, VisualCheckpoint, VisualThree } from '../components/takshila/visuals';
+import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
 import '../components/takshila/takshila-parts.css';
 import './Takshila.css';
 
@@ -31,23 +34,27 @@ import './Takshila.css';
 const optional = import.meta.glob('../assets/takshila/three-directions.webp', { eager: true, import: 'default' });
 const threeDirections = optional['../assets/takshila/three-directions.webp'];
 
+// Context: an illustration for each of the three kinds of users.
+const USER_IMAGES = {
+  Customers: { src: userCustomer, alt: 'A customer prompting the AI for a gold leaf pendant' },
+  Designers: { src: userDesigner, alt: 'A designer sketching the leaf pendant' },
+  Artisans: { src: userArtisan, alt: 'An artisan making the pendant by hand at the bench' }
+};
+
 // Phase 1: the redesigned screens next to their old versions (frames from recordings of the old
 // takshila.cloud site), stacked one after another.
 const COMPARED = [
-  { name: 'Profile', before: beforeProfile, after: screenProfileFeed },
-  { name: 'Community', before: beforeCommunity, after: screenCommunity },
   { name: 'My Orders', before: beforeOrders, after: screenMyActivity },
-  { name: 'Order tracking', before: beforeTracking, after: 'journey', ratio: '976 / 844' },
-  { name: 'Edit product', before: beforeEdit, after: screenEditProduct }
+  { name: 'Order tracking', before: beforeTracking, after: screenOrderTracking, ratio: '2000 / 1730' },
+  { name: 'Edit product', before: beforeEdit, after: screenEditProduct },
+  { name: 'Community', before: beforeCommunity, after: screenCommunity },
+  { name: 'Profile', before: beforeProfile, after: screenProfileFeed }
 ].map(c => ({
   name: c.name,
   ratio: c.ratio,
   caption: `${c.name}: old website vs redesign · drag to compare`,
   before: { src: c.before, alt: `The old ${c.name} screen on takshila.cloud` },
-  after:
-    c.after === 'journey'
-      ? { node: <OrderJourney order={ORDER} thumb={orderThumb} />, alt: 'The redesigned order-tracking journey' }
-      : { src: c.after, alt: `The redesigned ${c.name} screen` }
+  after: { src: c.after, alt: `The redesigned ${c.name} screen` }
 }));
 
 const INTERVIEWS = [
@@ -141,7 +148,7 @@ const Takshila = () => {
             <ul className="tk-users">
               {CONTEXT.users.map((u, i) => (
                 <li key={u.title} data-reveal style={{ '--i': i }}>
-                  {USER_ART[u.title]}
+                  <img className="tk-user-img" src={USER_IMAGES[u.title].src} alt={USER_IMAGES[u.title].alt} loading="lazy" />
                   <h3>{u.title}</h3>
                   <p>{u.text}</p>
                 </li>
