@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import promptExpert from '../../assets/takshila/prompt-expert.webp';
 import promptNone from '../../assets/takshila/prompt-none.webp';
@@ -9,6 +9,7 @@ import optWhite from '../../assets/takshila/opt-white.webp';
 import optYellow1 from '../../assets/takshila/opt-yellow-1.webp';
 import optYellow2 from '../../assets/takshila/opt-yellow-2.webp';
 import optYellow3 from '../../assets/takshila/opt-yellow-3.webp';
+import screenCheckpoint from '../../assets/takshila/screen-checkpoint.webp';
 
 // ---------- Small strips ----------
 
@@ -90,35 +91,59 @@ export const RoundsStrip = ({ rounds, caption }) => {
   );
 };
 
-// The redesigned product page with a hover tour: hovering (or tapping, or focusing) a section
-// spotlights it, dims the rest of the page, and shows a short note on what changed.
-const PAGE = { w: 1440, h: 2852 };
+// A real screen with a click-through tour: each section has a numbered pin. Clicking (or tapping) a
+// section spotlights it, dims the rest of the screen, and shows a short note beside it. Clicking it
+// again, clicking anywhere outside it, or pressing Escape closes it. Zones are [x, y, w, h] in
+// the image's own pixels.
 const pct = (v, total) => `${(v / total) * 100}%`;
-const boxStyle = ([x, y, w, h]) => ({
-  left: pct(x - 10, PAGE.w),
-  top: pct(y - 10, PAGE.h),
-  width: pct(w + 20, PAGE.w),
-  height: pct(h + 20, PAGE.h)
-});
 
-export const ProductPageTour = ({ src, alt, zones }) => {
+export const ScreenTour = ({ src, alt, width: W, height: H, zones }) => {
   const [on, setOn] = useState(null);
   const zone = zones.find(z => z.id === on);
+
+  // While a section is open, a click anywhere outside it (on the screen or elsewhere on the page)
+  // closes it, as does Escape.
+  useEffect(() => {
+    if (!on) return undefined;
+    const close = e => {
+      if (!e.target.closest?.(`[data-zone="${on}"]`)) setOn(null);
+    };
+    const esc = e => e.key === 'Escape' && setOn(null);
+    document.addEventListener('pointerdown', close);
+    document.addEventListener('keydown', esc);
+    return () => {
+      document.removeEventListener('pointerdown', close);
+      document.removeEventListener('keydown', esc);
+    };
+  }, [on]);
+
+  const boxStyle = ([x, y, w, h]) => ({
+    left: pct(x - 10, W),
+    top: pct(y - 10, H),
+    width: pct(w + 20, W),
+    height: pct(h + 20, H)
+  });
+  // The note goes on whichever side of the section has more room.
+  const noteStyle = ([x, y, w, h]) => ({
+    top: pct(y - 10, H),
+    '--below': pct(y + h + 18, H),
+    '--side-left': pct(x + w + 10, W),
+    '--side-right': pct(W - x + 10, W)
+  });
   return (
-    <div className="tk-tour" data-active={zone ? '' : undefined} onMouseLeave={() => setOn(null)}>
-      <img src={src} alt={alt} width={PAGE.w} height={PAGE.h} loading="lazy" />
+    <div className="tk-tour" data-active={zone ? '' : undefined}>
+      <img src={src} alt={alt} width={W} height={H} loading="lazy" />
       {zone && <span className="tk-tour-spot" aria-hidden="true" style={boxStyle(zone.box)} />}
       {zones.map((z, i) => (
         <button
           key={z.id}
           type="button"
           className="tk-tour-zone"
+          data-zone={z.id}
           data-on={on === z.id ? '' : undefined}
           style={boxStyle(z.box)}
           aria-label={`${z.title}: ${z.text}`}
-          onMouseEnter={() => setOn(z.id)}
-          onFocus={() => setOn(z.id)}
-          onBlur={() => setOn(null)}
+          aria-pressed={on === z.id}
           onClick={() => setOn(o => (o === z.id ? null : z.id))}
         >
           <span className="tk-tour-pin">{i + 1}</span>
@@ -127,8 +152,8 @@ export const ProductPageTour = ({ src, alt, zones }) => {
       {zone && (
         <div
           className="tk-tour-note"
-          data-side={zone.box[0] > PAGE.w / 2 ? 'left' : 'right'}
-          style={{ top: pct(zone.box[1] - 10, PAGE.h), '--below': pct(zone.box[1] + zone.box[3] + 18, PAGE.h) }}
+          data-side={zone.box[0] + zone.box[2] / 2 > W / 2 ? 'left' : 'right'}
+          style={noteStyle(zone.box)}
           role="status"
         >
           <strong>{zone.title}</strong>
@@ -343,20 +368,20 @@ export const VisualOptions = () => (
   </ol>
 );
 
-// Infinite scroll with a checkpoint.
+// Infinite scroll with a checkpoint: the real feed, with the Load More button called out.
 export const VisualCheckpoint = () => (
-  <div className="tk-vis">
-    <div className="tk-vis-phone">
-      <span className="tk-vis-post" />
-      <span className="tk-vis-post" />
-      <span className="tk-vis-post" />
-      <span className="tk-vis-scroll">↓ scroll ↓</span>
-      <span className="tk-vis-checkpoint">Checkpoint — Load more</span>
-      <span className="tk-vis-fork">
-        <span>Keep scrolling</span>
-        <span>Go make something</span>
-      </span>
-    </div>
-    <p className="tk-caption">Not a wall — a fork.</p>
-  </div>
+  <figure className="tk-checkpoint">
+    <img
+      src={screenCheckpoint}
+      alt="The Takshila community feed ending in a Load More button, above the footer"
+      width="1075"
+      height="795"
+      loading="lazy"
+    />
+    <span className="tk-checkpoint-ring" aria-hidden="true" />
+    <figcaption className="tk-checkpoint-note">
+      <strong>The checkpoint</strong>
+      The feed pauses at “Load more”, giving people a break from scrolling.
+    </figcaption>
+  </figure>
 );

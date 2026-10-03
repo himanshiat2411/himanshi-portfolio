@@ -65,27 +65,29 @@ export const WORK = {
   label: 'The work',
   heading: 'What I worked on',
   sub: 'Three projects, one after another.',
+  // Shown in this order: Q4 Sales, Project North Star, Redesign. North Star is highlighted.
   phases: [
     {
       num: '01',
-      title: 'Redesign',
-      about: 'A refresh of Takshila’s existing website.',
-      problem: 'The old design didn’t match the pieces it sold.',
-      to: 'phase-1'
-    },
-    {
-      num: '02',
       title: 'Q4 Sales',
       about: 'Getting the site ready for the US festive season, October to December.',
       problem: 'Friction at checkout was losing sales.',
       to: 'phase-2'
     },
     {
-      num: '03',
+      num: '02',
       title: 'Project North Star',
       about: 'The next version of Takshila, rebuilt from scratch.',
       problem: 'In the Design Studio, users settled for the AI’s first design.',
-      to: 'phase-3'
+      to: 'phase-3',
+      current: true
+    },
+    {
+      num: '03',
+      title: 'Redesign',
+      about: 'A refresh of Takshila’s existing website.',
+      problem: 'The old design didn’t match the pieces it sold.',
+      to: 'phase-1'
     }
   ]
 };
@@ -117,7 +119,7 @@ export const APPROACH = {
 };
 
 export const PHASE_1 = {
-  label: 'Phase 1',
+  label: 'Phase 3',
   heading: 'Redesigning the old Takshila website',
   intro: 'We started by redesigning the existing screens to make them simpler and easier to use.',
   rounds: [
@@ -132,7 +134,7 @@ export const PHASE_1 = {
 };
 
 export const PHASE_2 = {
-  label: 'Phase 2',
+  label: 'Phase 1',
   heading: 'Getting Takshila ready for Q4 sales',
   intro:
     'Before the US festive season (Halloween, Thanksgiving, Christmas and New Year), I did a full sales audit of the website. I checked the homepage, discovery feed, product page, cart and checkout. The goal was to find what stopped people from buying, fix it, and make them want to come back.',
@@ -142,10 +144,10 @@ export const PHASE_2 = {
     title: 'Bringing the Shop forward',
     text: 'Takshila was positioned only as a community. People could browse and engage, but buying wasn’t the focus. Before the festive season, I pushed for the Shop to become a main feature, so the platform could drive sales and not just engagement.'
   },
-  // The redesigned product page, with hover notes. Zones are in the Figma frame's pixels (1440 × 2852).
+  // The redesigned product page, with notes that open on click. Zones are in the Figma frame's pixels (1440 × 2852).
   productPage: {
     title: 'A product page without the friction',
-    text: 'I removed the friction points and the extra, unnecessary details from the product page. Hover over a section to see what changed and why.',
+    text: 'I removed the friction points and the extra, unnecessary details from the product page. Click a numbered section to see what changed and why.',
     alt: 'The redesigned Takshila product page for a ring',
     zones: [
       {
@@ -205,7 +207,7 @@ export const PHASE_2 = {
 };
 
 export const PHASE_3 = {
-  label: 'Phase 3',
+  label: 'Phase 2',
   heading: 'Project North Star',
   intro: 'North Star is a complete rebuild of Takshila. For this, I wrote the PRD and defined the user flows and information architecture.',
   sub: 'I worked on 2 PRDs: the Design Studio (AI design fixation) and the Community page.',
@@ -253,7 +255,34 @@ export const DECISIONS = [
     ],
     principles: ['principle-recognition', 'principle-ikea'],
     // The three kinds of people who prompt sit right after the finding.
-    visualAfter: 'What I found'
+    visualAfter: 'What I found',
+    // The Design Studio screen closes the card. Zones are [x, y, w, h] in the screen's pixels (1423 × 800).
+    screen: {
+      alt: 'The Design Studio asking about the occasion, feeling and story before showing a bracelet design',
+      zones: [
+        {
+          id: 'prompt',
+          title: 'The rough prompt',
+          text: 'We read it first, instead of generating straight away.',
+          box: [481, 104, 385, 46]
+        },
+        {
+          id: 'occasion',
+          title: 'Ask what’s missing',
+          text: 'It’s missing the occasion, so we ask what the piece is marking.',
+          box: [247, 165, 600, 140]
+        },
+        { id: 'feeling', title: 'The feeling', text: 'Then the feeling it should carry.', box: [247, 333, 600, 160] },
+        { id: 'story', title: 'The story', text: 'And the story behind it, in their own words.', box: [247, 501, 610, 110] },
+        { id: 'design', title: 'Then generate', text: 'Only then do we generate, from their answers.', box: [961, 160, 378, 420] },
+        {
+          id: 'directions',
+          title: 'Three directions',
+          text: 'Three directions to explore, judged against their own idea.',
+          box: [924, 592, 437, 111]
+        }
+      ]
+    }
   },
   {
     id: 'decision-b',
@@ -310,7 +339,9 @@ export const DECISIONS = [
         text: 'How many people tap “Load more” versus stop at the checkpoint — and what they do right after.'
       }
     ],
-    principles: ['principle-peak-end']
+    principles: ['principle-peak-end'],
+    // The real feed, with its checkpoint called out, sits right after the choice.
+    visualAfter: 'What I chose'
   }
 ];
 
@@ -356,7 +387,7 @@ export const FUN = {
   alt: 'The Takshila team on a video call for team fun day, with a “Hi Takshila” slide'
 };
 
-// Phase 1 before / after: the redesigned order-tracking card (rebuilt in code from the Figma design).
+// Redesign before / after: the redesigned order-tracking card (rebuilt in code from the Figma design).
 // Sub-steps under "In Production" use stage names from the old site; edit them here.
 export const ORDER = {
   id: '#TKS-2025-0041',

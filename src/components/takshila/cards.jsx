@@ -18,7 +18,8 @@ export const InsightCard = ({ id, index, title, text, quote }) => (
 );
 
 // A decision, argued in short labelled points, with its proof beside it. With `visualAfter`
-// (a point's label), the proof sits in the text instead, right after that point.
+// (a point's label), the proof sits in the text instead, right after that point. `footer` closes the
+// card (e.g. the real screen).
 const Points = ({ points }) => (
   <dl className="tk-points">
     {points.map(p => (
@@ -30,7 +31,7 @@ const Points = ({ points }) => (
   </dl>
 );
 
-export const DecisionBlock = ({ id, tag, heading, points, principles = [], flip, visual, visualAfter }) => {
+export const DecisionBlock = ({ id, tag, heading, points, principles = [], flip, visual, visualAfter, footer }) => {
   const split = visualAfter ? points.findIndex(p => p.label === visualAfter) + 1 : 0;
   return (
     <article
@@ -62,6 +63,7 @@ export const DecisionBlock = ({ id, tag, heading, points, principles = [], flip,
             ))}
           </p>
         )}
+        {footer}
       </div>
       {!split && <div className="tk-decision-visual">{visual}</div>}
     </article>
@@ -201,7 +203,7 @@ export const PhaseCards = ({ phases }) => (
       <li
         key={p.to}
         className="tk-problem"
-        data-current={i === phases.length - 1 ? '' : undefined}
+        data-current={p.current ? '' : undefined}
         data-reveal
         style={{ '--i': i }}
       >

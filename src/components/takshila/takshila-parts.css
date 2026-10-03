@@ -759,7 +759,7 @@ div.tk-ba-after {
   line-height: 1.5 !important;
 }
 
-/* ---------- Phase 2: product page hover tour ---------- */
+/* ---------- Screen tours (product page, Design Studio): click a section to spotlight it ---------- */
 .tk-tour {
   position: relative;
   overflow: hidden;
@@ -849,11 +849,11 @@ div.tk-ba-after {
 }
 
 .tk-tour-note[data-side='left'] {
-  right: calc(100% * 645 / 1440 + 16px);
+  right: calc(var(--side-right) + 16px);
 }
 
 .tk-tour-note[data-side='right'] {
-  left: calc(100% * 784 / 1440 + 16px);
+  left: calc(var(--side-left) + 16px);
 }
 
 .tk-tour-note strong {
@@ -1328,54 +1328,86 @@ div.tk-ba-after {
   color: var(--tk-text);
 }
 
-.tk-vis-phone {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: min(240px, 100%);
-  margin: 0 auto;
-  padding: 14px;
+/* Infinite scroll with a checkpoint: the feed screenshot, a ring on the Load More button
+   (at 50%, 56% of the screen) and a note just below it. */
+.tk-checkpoint {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
   border: 1px solid var(--tk-line);
-  border-radius: 22px;
+  border-radius: 14px;
   background: #ffffff;
 }
 
-.tk-vis-post {
-  height: 34px;
-  border-radius: 8px;
-  background: var(--tk-tint-gold);
+.tk-checkpoint img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-.tk-vis-scroll {
+.tk-checkpoint-ring {
+  position: absolute;
+  top: 53%;
+  left: 45.5%;
+  width: 9%;
+  height: 6%;
+  border: 2px solid var(--tk-plum);
+  border-radius: 8px;
+  animation: tk-checkpoint-ring 2.4s ease-out infinite;
+}
+
+/* A line from the ring down to the note. */
+.tk-checkpoint-ring::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  height: 14px;
+  border-left: 2px solid var(--tk-plum);
+}
+
+.tk-checkpoint-note {
+  position: absolute;
+  top: calc(59% + 14px);
+  left: 50%;
+  width: min(300px, 76%);
+  padding: 10px 12px;
+  border-top: 3px solid var(--tk-plum);
+  border-radius: 0 0 10px 10px;
+  text-align: center;
+  transform: translateX(-50%);
+  background: #ffffff;
+  box-shadow: 0 14px 30px -18px rgba(43, 16, 22, 0.55);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tk-checkpoint-note strong {
+  display: block;
+  margin-bottom: 2px;
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 1px;
-  text-align: center;
-  color: var(--tk-gold-ink);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--tk-plum);
 }
 
-.tk-vis-checkpoint {
-  padding: 12px;
-  border-radius: 10px;
-  background: var(--tk-plum);
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  color: var(--tk-bg);
+@keyframes tk-checkpoint-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(109, 59, 84, 0.45);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(109, 59, 84, 0);
+  }
 }
 
-.tk-vis-fork {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.tk-vis-fork span {
-  padding: 10px 6px;
-  border: 1px solid var(--tk-line);
-  border-radius: 10px;
-  font-size: 13px;
-  text-align: center;
+@media (prefers-reduced-motion: reduce) {
+  .tk-checkpoint-ring {
+    animation: none;
+  }
 }
 
 /* ---------- Build ---------- */

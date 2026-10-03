@@ -11,6 +11,7 @@ import interviewAmanda from '../assets/takshila/interview-amanda.webp';
 import interviewGazi from '../assets/takshila/interview-gazi.webp';
 import interviewJessica from '../assets/takshila/interview-jessica.webp';
 import logoMask from '../assets/takshila/logo-mask.png';
+import screenAskFirst from '../assets/takshila/screen-ask-first.webp';
 import screenCommunity from '../assets/takshila/screen-community.webp';
 import screenEditProduct from '../assets/takshila/screen-edit-product.webp';
 import screenMaterial from '../assets/takshila/screen-material.webp';
@@ -26,7 +27,7 @@ import CompetitorMap from '../components/CompetitorMap';
 import StakeholderMap from '../components/StakeholderMap';
 import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
 import { CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
-import { NodeStrip, ProductPageTour, RoundsStrip, VisualAskFirst, VisualCheckpoint, VisualOptions } from '../components/takshila/visuals';
+import { NodeStrip, RoundsStrip, ScreenTour, VisualAskFirst, VisualCheckpoint, VisualOptions } from '../components/takshila/visuals';
 import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
 import '../components/takshila/takshila-parts.css';
 import './Takshila.css';
@@ -39,7 +40,7 @@ const USER_IMAGES = {
   Artisans: { src: userArtisan, alt: 'An artisan making the pendant by hand at the bench' }
 };
 
-// Phase 1: the redesigned screens next to their old versions (frames from recordings of the old
+// Redesign: the redesigned screens next to their old versions (frames from recordings of the old
 // takshila.cloud site), stacked one after another.
 const COMPARED = [
   { name: 'My Orders', before: beforeOrders, after: screenMyActivity },
@@ -160,30 +161,6 @@ const Takshila = () => {
             </div>
           </section>
 
-          {/* Research: JTBD and the interviews */}
-          <section className="tk-section">
-            <SectionLabel>{RESEARCH.label}</SectionLabel>
-            <h2>{RESEARCH.heading}</h2>
-            <p>{RESEARCH.text}</p>
-            <p className="tk-interviewed">{RESEARCH.interviewed}</p>
-            <Interviews />
-            <p className="tk-calls-note">{RESEARCH.callsNote}</p>
-          </section>
-
-          <section className="tk-section tk-band" data-band="blush">
-            <h2>{RESEARCH.learnedHeading}</h2>
-            <ol className="tk-insights">
-              {RESEARCH.insights.map((ins, i) => (
-                <InsightCard key={ins.id} index={i + 1} {...ins} />
-              ))}
-            </ol>
-          </section>
-
-          <section className="tk-section">
-            <h2>Competitor analysis</h2>
-            <CompetitorMap />
-          </section>
-
           {/* What I worked on */}
           <section className="tk-section tk-problems">
             <h2>{WORK.heading}</h2>
@@ -207,16 +184,7 @@ const Takshila = () => {
             </p>
           </section>
 
-          {/* Phase 1: Redesign */}
-          <section className="tk-section" id="phase-1">
-            <SectionLabel>{PHASE_1.label}</SectionLabel>
-            <h2>{PHASE_1.heading}</h2>
-            <p>{PHASE_1.intro}</p>
-            <CompareStack items={COMPARED} />
-            <RoundsStrip rounds={PHASE_1.rounds} caption={PHASE_1.roundsCaption} />
-          </section>
-
-          {/* Phase 2: Q4 sales */}
+          {/* Q4 sales (Phase 1) */}
           <section className="tk-section" id="phase-2">
             <SectionLabel>{PHASE_2.label}</SectionLabel>
             <h2>{PHASE_2.heading}</h2>
@@ -231,7 +199,7 @@ const Takshila = () => {
             <div className="tk-subsection">
               <h3 className="tk-subhead">{PHASE_2.productPage.title}</h3>
               <p>{PHASE_2.productPage.text}</p>
-              <ProductPageTour src={screenProductPage} alt={PHASE_2.productPage.alt} zones={PHASE_2.productPage.zones} />
+              <ScreenTour src={screenProductPage} alt={PHASE_2.productPage.alt} width={1440} height={2852} zones={PHASE_2.productPage.zones} />
             </div>
             <div className="tk-lite" data-reveal>
               <div>
@@ -245,7 +213,7 @@ const Takshila = () => {
             </div>
           </section>
 
-          {/* Phase 3: Project North Star */}
+          {/* Project North Star (Phase 2) */}
           <section className="tk-section" id="phase-3">
             <SectionLabel>{PHASE_3.label}</SectionLabel>
             <h2>{PHASE_3.heading}</h2>
@@ -254,9 +222,54 @@ const Takshila = () => {
             <div className="tk-subsection">
               <h3 className="tk-subhead">{PHASE_3.decisionsHeading}</h3>
               {DECISIONS.map((d, i) => (
-                <DecisionBlock key={d.id} {...d} flip={i % 2 === 1} visual={decisionVisual(d)} />
+                <DecisionBlock
+                  key={d.id}
+                  {...d}
+                  flip={i % 2 === 1}
+                  visual={decisionVisual(d)}
+                  footer={
+                    d.screen && (
+                      <div className="tk-decision-screen">
+                        <ScreenTour src={screenAskFirst} alt={d.screen.alt} width={1423} height={800} zones={d.screen.zones} />
+                      </div>
+                    )
+                  }
+                />
               ))}
             </div>
+          </section>
+
+          {/* Redesign (Phase 3) */}
+          <section className="tk-section" id="phase-1">
+            <SectionLabel>{PHASE_1.label}</SectionLabel>
+            <h2>{PHASE_1.heading}</h2>
+            <p>{PHASE_1.intro}</p>
+            <CompareStack items={COMPARED} />
+            <RoundsStrip rounds={PHASE_1.rounds} caption={PHASE_1.roundsCaption} />
+          </section>
+
+          {/* Research: JTBD and the interviews */}
+          <section className="tk-section">
+            <SectionLabel>{RESEARCH.label}</SectionLabel>
+            <h2>{RESEARCH.heading}</h2>
+            <p>{RESEARCH.text}</p>
+            <p className="tk-interviewed">{RESEARCH.interviewed}</p>
+            <Interviews />
+            <p className="tk-calls-note">{RESEARCH.callsNote}</p>
+          </section>
+
+          <section className="tk-section tk-band" data-band="blush">
+            <h2>{RESEARCH.learnedHeading}</h2>
+            <ol className="tk-insights">
+              {RESEARCH.insights.map((ins, i) => (
+                <InsightCard key={ins.id} index={i + 1} {...ins} />
+              ))}
+            </ol>
+          </section>
+
+          <section className="tk-section">
+            <h2>Competitor analysis</h2>
+            <CompetitorMap />
           </section>
 
           {/* Build */}
