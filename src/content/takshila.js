@@ -280,7 +280,8 @@ export const DECISIONS = [
       }
     ],
     principles: ['principle-hick'],
-    screenCaption: 'The actual screen — 3 directions to explore.'
+    // The one-to-four options comparison sits right after the finding.
+    visualAfter: 'What I found'
   },
   {
     id: 'decision-d',
@@ -344,9 +345,7 @@ export const REFLECTION = {
   ],
   differently: [
     'Test earlier. “Three options” and the spec questions could each have been tested in an afternoon.',
-    'My three prompting groups (no idea, can’t prompt it, can prompt it) came from reasoning, not interviews.',
-    'I argued the Shop leads people to co-create, but never designed the moment that invites them.',
-    'I under-planned the video hero — load time, fallbacks, re-shoots.'
+    'My three prompting groups (no idea, can’t prompt it, can prompt it) came from reasoning, not interviews.'
   ],
   closing: 'Most of this work was not drawing screens. It was deciding what the screens were for.'
 };

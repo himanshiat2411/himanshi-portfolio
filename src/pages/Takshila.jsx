@@ -26,14 +26,11 @@ import CompetitorMap from '../components/CompetitorMap';
 import StakeholderMap from '../components/StakeholderMap';
 import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
 import { CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
-import { NodeStrip, ProductPageTour, RoundsStrip, VisualAskFirst, VisualCheckpoint, VisualThree } from '../components/takshila/visuals';
+import { NodeStrip, ProductPageTour, RoundsStrip, VisualAskFirst, VisualCheckpoint, VisualOptions } from '../components/takshila/visuals';
 import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
 import '../components/takshila/takshila-parts.css';
 import './Takshila.css';
 
-// The real "3 directions" screen for the three-options decision, shown once it's added.
-const optional = import.meta.glob('../assets/takshila/three-directions.webp', { eager: true, import: 'default' });
-const threeDirections = optional['../assets/takshila/three-directions.webp'];
 
 // Context: an illustration for each of the three kinds of users.
 const USER_IMAGES = {
@@ -91,7 +88,7 @@ const Interviews = () => {
 
 const decisionVisual = d => {
   if (d.id === 'decision-a') return <VisualAskFirst users={PHASE_3.promptUsers} focusLabel={PHASE_3.focusLabel} />;
-  if (d.id === 'decision-b') return <VisualThree screen={threeDirections} caption={d.screenCaption} />;
+  if (d.id === 'decision-b') return <VisualOptions />;
   return <VisualCheckpoint />;
 };
 

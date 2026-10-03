@@ -3,7 +3,12 @@ import { useState } from 'react';
 import promptExpert from '../../assets/takshila/prompt-expert.webp';
 import promptNone from '../../assets/takshila/prompt-none.webp';
 import promptStuck from '../../assets/takshila/prompt-stuck.webp';
-import { Screen } from './basics';
+import optMain from '../../assets/takshila/opt-main.webp';
+import optRose from '../../assets/takshila/opt-rose.webp';
+import optWhite from '../../assets/takshila/opt-white.webp';
+import optYellow1 from '../../assets/takshila/opt-yellow-1.webp';
+import optYellow2 from '../../assets/takshila/opt-yellow-2.webp';
+import optYellow3 from '../../assets/takshila/opt-yellow-3.webp';
 
 // ---------- Small strips ----------
 
@@ -308,25 +313,34 @@ export const VisualAskFirst = ({ users, focusLabel }) => (
   </div>
 );
 
-// Why three options: one to four-plus, with three chosen (and the real screen, once added).
-export const VisualThree = ({ screen, caption }) => (
-  <div className="tk-vis">
-    <ol className="tk-vis-counts">
-      <li>
-        <strong>1</strong> Isn’t a choice
+// Why three options: the same ring with one, two, three and four thumbnails, side by side, each
+// with its line underneath. Three, the one we chose, is larger on a plum panel.
+const OPTION_COUNTS = [
+  { n: '1', text: 'Isn’t a choice', thumbs: [optYellow1] },
+  { n: '2', text: 'Feels like a test', thumbs: [optYellow2, optYellow3] },
+  { n: '3', text: 'A real range', thumbs: [optYellow2, optYellow3, optRose], chosen: true },
+  { n: '4+', text: 'Turns into browsing', thumbs: [optWhite, optYellow2, optYellow3, optRose] }
+];
+
+export const VisualOptions = () => (
+  <ol className="tk-options">
+    {OPTION_COUNTS.map(o => (
+      <li key={o.n} data-on={o.chosen ? '' : undefined}>
+        <div className="tk-options-shot">
+          <img className="tk-options-main" src={optMain} alt={`The ring with ${o.n} option${o.n === '1' ? '' : 's'} to pick from`} loading="lazy" />
+          <span className="tk-options-thumbs" data-count={o.thumbs.length}>
+            {o.thumbs.map((t, i) => (
+              <img key={i} src={t} alt="" loading="lazy" />
+            ))}
+          </span>
+        </div>
+        <p>
+          {o.n} · {o.text}
+          {o.chosen && ' (chosen)'}
+        </p>
       </li>
-      <li>
-        <strong>2</strong> Feels like a test
-      </li>
-      <li data-on="">
-        <strong>3</strong> A real range <span className="tk-vis-chosen">Chosen</span>
-      </li>
-      <li>
-        <strong>4+</strong> Turns into browsing
-      </li>
-    </ol>
-    {screen && <Screen src={screen} alt="Design Studio screen showing three design directions to explore" caption={caption} />}
-  </div>
+    ))}
+  </ol>
 );
 
 // Infinite scroll with a checkpoint.
