@@ -16,6 +16,7 @@ import screenEditProduct from '../assets/takshila/screen-edit-product.webp';
 import screenMaterial from '../assets/takshila/screen-material.webp';
 import screenMyActivity from '../assets/takshila/screen-my-activity.webp';
 import screenOrderTracking from '../assets/takshila/screen-order-tracking.webp';
+import screenProductPage from '../assets/takshila/screen-product-page.webp';
 import screenProfileFeed from '../assets/takshila/screen-profile-feed.webp';
 import teamFunDay from '../assets/takshila/team-fun-day.webp';
 import userArtisan from '../assets/takshila/user-artisan.webp';
@@ -25,7 +26,7 @@ import CompetitorMap from '../components/CompetitorMap';
 import StakeholderMap from '../components/StakeholderMap';
 import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
 import { CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
-import { NodeStrip, RoundsStrip, VisualAskFirst, VisualCheckpoint, VisualThree } from '../components/takshila/visuals';
+import { NodeStrip, ProductPageTour, RoundsStrip, VisualAskFirst, VisualCheckpoint, VisualThree } from '../components/takshila/visuals';
 import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
 import '../components/takshila/takshila-parts.css';
 import './Takshila.css';
@@ -229,6 +230,11 @@ const Takshila = () => {
               <p className="tk-decision-label">Key decision</p>
               <h3>{PHASE_2.keyDecision.title}</h3>
               <p>{PHASE_2.keyDecision.text}</p>
+            </div>
+            <div className="tk-subsection">
+              <h3 className="tk-subhead">{PHASE_2.productPage.title}</h3>
+              <p>{PHASE_2.productPage.text}</p>
+              <ProductPageTour src={screenProductPage} alt={PHASE_2.productPage.alt} zones={PHASE_2.productPage.zones} />
             </div>
             <div className="tk-lite" data-reveal>
               <div>

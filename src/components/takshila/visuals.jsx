@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import promptExpert from '../../assets/takshila/prompt-expert.webp';
 import promptNone from '../../assets/takshila/prompt-none.webp';
 import promptStuck from '../../assets/takshila/prompt-stuck.webp';
@@ -17,36 +19,120 @@ export const NodeStrip = ({ items }) => (
   </ol>
 );
 
-// Design rounds as a loop: three overlapping circles, like a Venn diagram, with a ring flowing
-// around them. The highlight moves round 1 → 2 → 3 and back, in step with the notes beside it.
-export const RoundsStrip = ({ rounds, caption }) => (
-  <div className="tk-rounds" data-reveal>
-    <div className="tk-rounds-loop" aria-hidden="true">
-      <svg className="tk-rounds-ring" viewBox="0 0 300 300">
-        <defs>
-          <marker id="tk-rounds-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-            <path d="M1 1l8 4-8 4z" fill="var(--tk-gold)" />
-          </marker>
-        </defs>
-        <path d="M150 12a138 138 0 1 1-0.1 0" markerEnd="url(#tk-rounds-arrow)" />
-      </svg>
-      {rounds.map((r, i) => (
-        <span key={r.label} className="tk-rounds-circle" style={{ '--i': i }}>
-          {r.label}
-        </span>
-      ))}
-      <span className="tk-rounds-centre">{caption}</span>
+// Design rounds as a loop: three rounds sit on a ring of arrows that turns clockwise, 1 → 2 → 3 →
+// back to 1. Hovering (or focusing) a round, or its note, highlights both.
+const RING = { c: 150, r: 112 };
+const point = deg => {
+  const a = (deg * Math.PI) / 180;
+  return [RING.c + RING.r * Math.cos(a), RING.c + RING.r * Math.sin(a)];
+};
+const arc = (from, to) => {
+  const [x1, y1] = point(from);
+  const [x2, y2] = point(to);
+  return `M${x1.toFixed(1)} ${y1.toFixed(1)}A${RING.r} ${RING.r} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+};
+const ROUND_ANGLES = [-90, 30, 150];
+
+export const RoundsStrip = ({ rounds, caption }) => {
+  const [on, setOn] = useState(null);
+  const hold = i => ({
+    onMouseEnter: () => setOn(i),
+    onMouseLeave: () => setOn(null),
+    onFocus: () => setOn(i),
+    onBlur: () => setOn(null)
+  });
+
+  return (
+    <div className="tk-rounds" data-reveal>
+      <div className="tk-rounds-loop">
+        <svg className="tk-rounds-ring" viewBox="0 0 300 300" aria-hidden="true" data-active={on === null ? undefined : ''}>
+          <defs>
+            <marker id="tk-rounds-arrow" viewBox="0 0 10 10" refX="3" refY="5" markerWidth="3" markerHeight="3" orient="auto">
+              <path d="M0 0l10 5-10 5z" fill="var(--tk-plum)" />
+            </marker>
+          </defs>
+          {ROUND_ANGLES.map((a, i) => (
+            <path key={a} className="tk-rounds-arc" d={arc(a + 27, a + 120 - 36)} data-on={on === i ? '' : undefined} markerEnd="url(#tk-rounds-arrow)" />
+          ))}
+        </svg>
+        {rounds.map((r, i) => {
+          const [x, y] = point(ROUND_ANGLES[i]);
+          return (
+            <button
+              key={r.label}
+              type="button"
+              className="tk-rounds-node"
+              style={{ left: `${(x / 300) * 100}%`, top: `${(y / 300) * 100}%` }}
+              data-on={on === i ? '' : undefined}
+              aria-describedby={`tk-round-${i}`}
+              {...hold(i)}
+            >
+              {r.label}
+            </button>
+          );
+        })}
+        <span className="tk-rounds-centre">{caption}</span>
+      </div>
+      <ol>
+        {rounds.map((r, i) => (
+          <li key={r.label} id={`tk-round-${i}`} data-on={on === i ? '' : undefined} {...hold(i)}>
+            <span className="tk-rounds-label">{r.label}</span>
+            <p>{r.text}</p>
+          </li>
+        ))}
+      </ol>
     </div>
-    <ol>
-      {rounds.map((r, i) => (
-        <li key={r.label} style={{ '--i': i }}>
-          <span className="tk-rounds-label">{r.label}</span>
-          <p>{r.text}</p>
-        </li>
+  );
+};
+
+// The redesigned product page with a hover tour: hovering (or tapping, or focusing) a section
+// spotlights it, dims the rest of the page, and shows a short note on what changed.
+const PAGE = { w: 1440, h: 2852 };
+const pct = (v, total) => `${(v / total) * 100}%`;
+const boxStyle = ([x, y, w, h]) => ({
+  left: pct(x - 10, PAGE.w),
+  top: pct(y - 10, PAGE.h),
+  width: pct(w + 20, PAGE.w),
+  height: pct(h + 20, PAGE.h)
+});
+
+export const ProductPageTour = ({ src, alt, zones }) => {
+  const [on, setOn] = useState(null);
+  const zone = zones.find(z => z.id === on);
+  return (
+    <div className="tk-tour" data-active={zone ? '' : undefined} onMouseLeave={() => setOn(null)}>
+      <img src={src} alt={alt} width={PAGE.w} height={PAGE.h} loading="lazy" />
+      {zone && <span className="tk-tour-spot" aria-hidden="true" style={boxStyle(zone.box)} />}
+      {zones.map((z, i) => (
+        <button
+          key={z.id}
+          type="button"
+          className="tk-tour-zone"
+          data-on={on === z.id ? '' : undefined}
+          style={boxStyle(z.box)}
+          aria-label={`${z.title}: ${z.text}`}
+          onMouseEnter={() => setOn(z.id)}
+          onFocus={() => setOn(z.id)}
+          onBlur={() => setOn(null)}
+          onClick={() => setOn(o => (o === z.id ? null : z.id))}
+        >
+          <span className="tk-tour-pin">{i + 1}</span>
+        </button>
       ))}
-    </ol>
-  </div>
-);
+      {zone && (
+        <div
+          className="tk-tour-note"
+          data-side={zone.box[0] > PAGE.w / 2 ? 'left' : 'right'}
+          style={{ top: pct(zone.box[1] - 10, PAGE.h), '--below': pct(zone.box[1] + zone.box[3] + 18, PAGE.h) }}
+          role="status"
+        >
+          <strong>{zone.title}</strong>
+          <p>{zone.text}</p>
+        </div>
+      )}
+    </div>
+  );
+};
 
 // ---------- Small line illustrations (plum lines, gold accents) ----------
 

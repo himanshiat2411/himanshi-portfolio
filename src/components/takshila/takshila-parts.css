@@ -642,7 +642,7 @@ div.tk-ba-after {
   margin-top: 48px;
 }
 
-/* The loop: three overlapping circles inside a ring that flows around them. */
+/* The loop: a ring of three arrows, with a round sitting in each gap. */
 .tk-rounds-loop {
   position: relative;
   width: 300px;
@@ -654,67 +654,66 @@ div.tk-ba-after {
   inset: 0;
   width: 100%;
   height: 100%;
-  animation: tk-rounds-spin 9s linear infinite;
 }
 
-.tk-rounds-ring path {
+.tk-rounds-arc {
   fill: none;
-  stroke: var(--tk-gold);
-  stroke-width: 1.5;
-  stroke-dasharray: 4 6;
+  stroke: var(--tk-plum);
+  stroke-width: 12;
+  transition: opacity 300ms ease;
 }
 
-/* Round 1 at the top, 2 bottom right, 3 bottom left: the same order the ring turns. */
-.tk-rounds-circle {
-  --a: calc(var(--i) * 120deg - 90deg);
+/* While a round is hovered, only the arrow leaving it stays solid: that's where the work goes next. */
+.tk-rounds-ring[data-active] .tk-rounds-arc:not([data-on]) {
+  opacity: 0.35;
+}
+
+.tk-rounds-node {
   position: absolute;
-  top: calc(50% + sin(var(--a)) * 52px - 66px);
-  left: calc(50% + cos(var(--a)) * 52px - 66px);
   display: grid;
-  place-items: start center;
-  width: 132px;
-  height: 132px;
-  padding-top: 26px;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  padding: 0;
   border: 1.5px solid var(--tk-plum);
   border-radius: 50%;
-  background: rgba(109, 59, 84, 0.08);
+  background: var(--tk-bg);
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--tk-plum);
-  mix-blend-mode: multiply;
-  animation: tk-rounds-active 9s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 3s);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 250ms ease,
+    background 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    color 250ms ease;
 }
 
-/* Push each label out of the shared middle, towards its own side. */
-.tk-rounds-circle:nth-child(3),
-.tk-rounds-circle:nth-child(4) {
-  place-items: end center;
-  padding: 0 0 30px;
+.tk-rounds-node[data-on] {
+  border-color: var(--tk-gold);
+  background: var(--tk-gold);
+  color: var(--tk-text);
+  box-shadow: 0 12px 26px -14px rgba(109, 59, 84, 0.6);
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
-.tk-rounds-circle:nth-child(3) {
-  padding-left: 40px;
-}
-
-.tk-rounds-circle:nth-child(4) {
-  padding-right: 40px;
+.tk-rounds-node:focus-visible {
+  outline: 2px solid var(--tk-plum);
+  outline-offset: 3px;
 }
 
 .tk-rounds-centre {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 1;
-  width: 78px;
-  padding: 6px 4px;
-  border-radius: 10px;
-  background: var(--tk-bg);
-  font-size: 11px;
+  width: 96px;
+  font-size: 12px;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.35;
   text-align: center;
   color: var(--tk-text);
   transform: translate(-50%, -50%);
@@ -733,8 +732,15 @@ div.tk-ba-after {
   padding: 12px 16px;
   border-left: 2px solid var(--tk-line);
   border-radius: 0 10px 10px 0;
-  animation: tk-rounds-note 9s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 3s);
+  cursor: default;
+  transition:
+    border-color 250ms ease,
+    background 250ms ease;
+}
+
+.tk-rounds li[data-on] {
+  border-left-color: var(--tk-gold);
+  background: rgba(192, 148, 53, 0.12);
 }
 
 .tk-rounds-label {
@@ -753,40 +759,145 @@ div.tk-ba-after {
   line-height: 1.5 !important;
 }
 
-@keyframes tk-rounds-spin {
-  to {
-    transform: rotate(360deg);
+/* ---------- Phase 2: product page hover tour ---------- */
+.tk-tour {
+  position: relative;
+  overflow: hidden;
+  margin-top: 24px;
+  border: 1px solid var(--tk-line);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 20px 44px -34px rgba(43, 16, 22, 0.55);
+}
+
+.tk-tour > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The spotlight: a clear window over the hovered section, with the rest of the page darkened. */
+.tk-tour-spot {
+  position: absolute;
+  z-index: 1;
+  border: 2px solid var(--tk-gold);
+  border-radius: 12px;
+  box-shadow: 0 0 0 4000px rgba(43, 16, 22, 0.55);
+  pointer-events: none;
+  animation: tk-tour-in 220ms ease-out;
+}
+
+.tk-tour-zone {
+  position: absolute;
+  z-index: 2;
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.tk-tour-zone:focus-visible {
+  outline: 2px solid var(--tk-plum);
+  outline-offset: 2px;
+}
+
+/* A numbered pin on each section, so people know there's something to hover. */
+/* Pins sit in the margin just left of each section, so they don't cover its heading. */
+.tk-tour-pin {
+  position: absolute;
+  top: 8px;
+  left: -26px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--tk-plum);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--tk-bg);
+  box-shadow: 0 0 0 3px rgba(245, 239, 231, 0.9);
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
+}
+
+.tk-tour-zone:hover .tk-tour-pin,
+.tk-tour-zone[data-on] .tk-tour-pin {
+  background: var(--tk-gold);
+  color: var(--tk-text);
+  transform: scale(1.15);
+}
+
+.tk-tour[data-active] .tk-tour-zone:not([data-on]) .tk-tour-pin {
+  opacity: 0.5;
+}
+
+/* The note sits beside the spotlight, over the darkened side of the page. */
+.tk-tour-note {
+  position: absolute;
+  z-index: 3;
+  width: min(300px, 40%);
+  padding: 14px 16px;
+  border-left: 3px solid var(--tk-gold);
+  border-radius: 0 12px 12px 0;
+  background: var(--tk-bg);
+  box-shadow: 0 18px 36px -18px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  animation: tk-tour-in 220ms ease-out;
+}
+
+.tk-tour-note[data-side='left'] {
+  right: calc(100% * 645 / 1440 + 16px);
+}
+
+.tk-tour-note[data-side='right'] {
+  left: calc(100% * 784 / 1440 + 16px);
+}
+
+.tk-tour-note strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tk-plum);
+}
+
+.tk-section .tk-tour-note p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@keyframes tk-tour-in {
+  from {
+    opacity: 0;
   }
 }
 
-/* Each round takes the lead for a third of the loop. */
-@keyframes tk-rounds-active {
-  0%,
-  30% {
-    border-color: var(--tk-gold);
-    background: rgba(192, 148, 53, 0.28);
-    color: var(--tk-text);
+/* On narrow screens the note spans the frame, just below the spotlight. */
+@media (max-width: 720px) {
+  .tk-tour-note[data-side] {
+    top: var(--below) !important;
+    right: 12px;
+    left: 12px;
+    width: auto;
   }
 
-  36%,
-  100% {
-    border-color: var(--tk-plum);
-    background: rgba(109, 59, 84, 0.08);
-    color: var(--tk-plum);
+  .tk-tour-pin {
+    top: 2px;
+    left: -14px;
+    width: 18px;
+    height: 18px;
+    font-size: 9px;
   }
 }
 
-@keyframes tk-rounds-note {
-  0%,
-  30% {
-    border-left-color: var(--tk-gold);
-    background: rgba(192, 148, 53, 0.12);
-  }
-
-  36%,
-  100% {
-    border-left-color: var(--tk-line);
-    background: transparent;
+@media (prefers-reduced-motion: reduce) {
+  .tk-tour-spot,
+  .tk-tour-note {
+    animation: none;
   }
 }
 
@@ -1424,8 +1535,7 @@ div.tk-ba-after {
   .tk-decision-block,
   .tk-problem,
   .tk-vis-pulse,
-  .tk-rounds-ring,
-  .tk-rounds-circle,
+  .tk-rounds-node,
   .tk-rounds li,
   .tk-prompt-users li {
     transition: none !important;

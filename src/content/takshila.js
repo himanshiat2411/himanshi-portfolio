@@ -142,6 +142,62 @@ export const PHASE_2 = {
     title: 'Bringing the Shop forward',
     text: 'Takshila was positioned only as a community. People could browse and engage, but buying wasn’t the focus. Before the festive season, I pushed for the Shop to become a main feature, so the platform could drive sales and not just engagement.'
   },
+  // The redesigned product page, with hover notes. Zones are in the Figma frame's pixels (1440 × 2852).
+  productPage: {
+    title: 'A product page without the friction',
+    text: 'I removed the friction points and the extra, unnecessary details from the product page. Hover over a section to see what changed and why.',
+    alt: 'The redesigned Takshila product page for a ring',
+    zones: [
+      {
+        id: 'gallery',
+        title: 'Every image, not just one',
+        text: 'A multi-image gallery, so people can see all the images of the piece before they buy.',
+        box: [70, 226, 694, 720]
+      },
+      {
+        id: 'metal',
+        title: 'Metal: three choices in one',
+        text: 'Karat, metal type and colour used to be three separate choices. Now they’re one row. Hovering a metal names it next to the heading, so people know exactly what they’re picking.',
+        box: [815, 504, 538, 88]
+      },
+      {
+        id: 'size',
+        title: 'Ring size you can see',
+        text: 'Most sites use a dropdown for ring size. A row of sizes is easier to use and interactive, so picking a size is quicker.',
+        box: [815, 624, 550, 102]
+      },
+      {
+        id: 'stone',
+        title: 'Stone and karat together',
+        text: 'Stones shown as pictures, with the stone karat right beside them.',
+        box: [815, 758, 538, 123]
+      },
+      {
+        id: 'shape',
+        title: 'Shapes as pictures',
+        text: 'Each shape is drawn, so people choose by how it looks, not by its name.',
+        box: [815, 913, 538, 227]
+      },
+      {
+        id: 'side-stones',
+        title: 'Side stones: Yes or No',
+        text: 'A simple Yes / No for side stones, with their carat right next to it.',
+        box: [815, 1172, 538, 90]
+      },
+      {
+        id: 'quality',
+        title: 'Quality on one slider',
+        text: 'Good, Premium and Excellent on a single slider.',
+        box: [815, 1294, 538, 140]
+      },
+      {
+        id: 'delivery',
+        title: 'Check delivery on the page',
+        text: 'People can check delivery right on the product page, with the trust points (certified stones, insured delivery, crafting time, free resize) beside it.',
+        box: [815, 1466, 538, 205]
+      }
+    ]
+  },
   checkout: {
     problem: 'No easy checkout. Customers had to sign up, and there was no familiar way to pay.',
     proposed: 'Guest checkout with OTP instead of passwords, plus Apple Pay.'
