@@ -5,10 +5,7 @@ import finworldBg from '../assets/work/finworld-bg.webp';
 import finworldLaptop from '../assets/work/finworld-laptop.webp';
 import grubNGrabBg from '../assets/work/grub-n-grab-bg.webp';
 import grubNGrabPhones from '../assets/work/grub-n-grab-phones.webp';
-import takshilaBg from '../assets/work/takshila-bg.webp';
-import takshilaScreenCentre from '../assets/work/takshila-screen-centre.webp';
-import takshilaScreenLeft from '../assets/work/takshila-screen-left.webp';
-import takshilaScreenRight from '../assets/work/takshila-screen-right.webp';
+import takshilaThumb from '../assets/work/takshila-thumb.webp';
 import './SelectedWork.css';
 
 // Each thumbnail is a stack of same-size layers over a background (`ratio` is their width / height).
@@ -19,13 +16,8 @@ const PROJECTS = [
   {
     title: 'Takshila',
     to: '/work/takshila',
-    ratio: '3 / 2',
-    layers: [
-      { src: takshilaBg },
-      { src: takshilaScreenLeft, from: '0 60%', delay: 120 },
-      { src: takshilaScreenRight, from: '0 60%', delay: 120 },
-      { src: takshilaScreenCentre, from: '0 60%' }
-    ]
+    ratio: '491 / 420',
+    layers: [{ src: takshilaThumb }]
   },
   {
     title: 'Finworld',
