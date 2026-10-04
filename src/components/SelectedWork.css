@@ -79,6 +79,11 @@
   transform: translate(-50%, -50%) scale(var(--zoom, 1));
 }
 
+/* A tile with its own phone thumbnail shows that one on phones and the desktop one elsewhere. */
+.work-stage--mobile {
+  display: none;
+}
+
 .work-layer {
   position: absolute;
   inset: 0;
@@ -206,6 +211,14 @@ a.work-card:focus-visible .work-arrow {
 
 /* Phones: one tile per row. */
 @media (max-width: 640px) {
+  .work-stage--desktop {
+    display: none;
+  }
+
+  .work-stage--mobile {
+    display: block;
+  }
+
   .work-grid {
     grid-auto-rows: 240px;
     gap: 8px;

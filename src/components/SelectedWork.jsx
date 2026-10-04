@@ -6,18 +6,21 @@ import finworldLaptop from '../assets/work/finworld-laptop.webp';
 import grubNGrabBg from '../assets/work/grub-n-grab-bg.webp';
 import grubNGrabPhones from '../assets/work/grub-n-grab-phones.webp';
 import takshilaThumb from '../assets/work/takshila-thumb.webp';
+import takshilaThumbMobile from '../assets/work/takshila-thumb-mobile.webp';
 import './SelectedWork.css';
 
 // Each thumbnail is a stack of same-size layers over a background (`ratio` is their width / height).
 // On hover, layers with a `from` offset (a percentage of the thumbnail) rise from there into place,
 // after an optional `delay`; `shadow` gives a cut-out layer a soft drop shadow. `zoom` scales the
-// thumbnail within its tile, with `backdrop` filling any edge it uncovers.
+// thumbnail within its tile, with `backdrop` filling any edge it uncovers. `mobile` swaps in a
+// single image made for the phone tile's shape.
 const PROJECTS = [
   {
     title: 'Takshila',
     to: '/work/takshila',
     ratio: '491 / 420',
-    layers: [{ src: takshilaThumb }]
+    layers: [{ src: takshilaThumb }],
+    mobile: { ratio: '358 / 240', src: takshilaThumbMobile }
   },
   {
     title: 'Finworld',
@@ -49,7 +52,10 @@ const Thumb = ({ project }) => {
   if (!project.layers) return <span className="work-thumb work-thumb--empty" aria-hidden="true" />;
   return (
     <span className="work-thumb" aria-hidden="true" style={{ background: project.backdrop }}>
-      <span className="work-stage" style={{ '--ratio': project.ratio, '--zoom': project.zoom }}>
+      <span
+        className={`work-stage${project.mobile ? ' work-stage--desktop' : ''}`}
+        style={{ '--ratio': project.ratio, '--zoom': project.zoom }}
+      >
         {project.layers.map(layer => (
           <img
             key={layer.src}
@@ -62,6 +68,11 @@ const Thumb = ({ project }) => {
           />
         ))}
       </span>
+      {project.mobile && (
+        <span className="work-stage work-stage--mobile" style={{ '--ratio': project.mobile.ratio }}>
+          <img className="work-layer" src={project.mobile.src} alt="" loading="lazy" />
+        </span>
+      )}
     </span>
   );
 };
