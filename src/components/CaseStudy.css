@@ -30,6 +30,47 @@
   margin-inline: auto;
 }
 
+/* Edge bands: the body spans the window, each section sits centred in a full-width band, and
+   the band's two halves show the section's image stretched so far sideways that only its
+   outermost column of pixels is visible, carrying the section's edge colours out to the sides. */
+.case-body--bands {
+  width: 100%;
+}
+
+.case-band {
+  position: relative;
+  background: #0a0a0a;
+}
+
+.case-band::before,
+.case-band::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background-image: var(--edge);
+  background-repeat: no-repeat;
+  background-size: 10000% 100%;
+}
+
+.case-band::before {
+  left: 0;
+  background-position: left center;
+}
+
+.case-band::after {
+  right: 0;
+  background-position: right center;
+}
+
+.case-band > * {
+  position: relative;
+  z-index: 1;
+  width: min(var(--case-width), 100%);
+  margin-inline: auto;
+}
+
 .case-media {
   display: block;
   width: 100%;

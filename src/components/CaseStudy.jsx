@@ -10,7 +10,9 @@ import './CaseStudy.css';
 // own shape (`ratio`), otherwise it fills the section like Figma's video fill.
 // An image section can also carry `player`: a click-to-play video (with sound and controls)
 // laid over part of it. `player.box` is { x, y, w, h } in design pixels within the section.
-const CaseStudy = ({ title, width, sections, barColor, linkColor }) => {
+// With `extendEdges`, on screens wider than the design each section's left and right edges are
+// stretched out to the sides of the window, so there's no dark frame around the design.
+const CaseStudy = ({ title, width, sections, barColor, linkColor, extendEdges }) => {
   useEffect(() => {
     const previous = document.title;
     document.title = `${title} — Himanshi`;
@@ -28,9 +30,9 @@ const CaseStudy = ({ title, width, sections, barColor, linkColor }) => {
           </Link>
         </div>
       </div>
-      <div className="case-body">
-        {sections.map((section, i) =>
-          section.video ? (
+      <div className={`case-body${extendEdges ? ' case-body--bands' : ''}`}>
+        {sections.map((section, i) => {
+          const media = section.video ? (
             <LoopVideo
               key={i}
               className="case-media case-video"
@@ -70,8 +72,15 @@ const CaseStudy = ({ title, width, sections, barColor, linkColor }) => {
               loading={i < 2 ? 'eager' : 'lazy'}
               decoding="async"
             />
-          )
-        )}
+          );
+          if (!extendEdges) return media;
+          const edge = section.src || section.poster;
+          return (
+            <div key={i} className="case-band" style={edge ? { '--edge': `url(${edge})` } : undefined}>
+              {media}
+            </div>
+          );
+        })}
       </div>
     </article>
   );

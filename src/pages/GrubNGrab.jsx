@@ -36,7 +36,7 @@ const SECTIONS = [
 ];
 
 const GrubNGrab = () => (
-  <CaseStudy title="Grub’n Grab" width={1420} sections={SECTIONS} barColor="#024a3f" linkColor="#c1f1a9" />
+  <CaseStudy title="Grub’n Grab" width={1420} sections={SECTIONS} barColor="#024a3f" linkColor="#c1f1a9" extendEdges />
 );
 
 export default GrubNGrab;
