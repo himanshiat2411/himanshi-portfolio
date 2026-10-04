@@ -543,6 +543,37 @@
   line-height: 1.5 !important;
 }
 
+/* What to know before the decisions: a screen of each part of Takshila, with one line. */
+.tk-know {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tk-know img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--tk-line);
+  border-radius: 12px;
+  box-shadow: 0 16px 34px -28px rgba(43, 16, 22, 0.55);
+}
+
+.tk-know h4 {
+  margin: 14px 0 4px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--tk-plum);
+}
+
+.tk-know p {
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+}
+
 /* Who we interviewed, as one bold line. */
 .tk-section .tk-interviewed {
   margin-top: 24px;
@@ -607,6 +638,11 @@
   border-bottom: 2px solid var(--tk-gold);
   border-radius: 16px 16px 4px 4px;
   background: var(--tk-sand);
+}
+
+/* Space between paragraphs inside a decision card. */
+.tk-decision > p + p {
+  margin-top: 12px;
 }
 
 /* Solid gold tag, like Takshila's "CUSTOMIZE" tag. */
@@ -768,7 +804,8 @@
 
 /* Narrow screens: the columns stack, with the arrows pointing down. */
 @media (max-width: 760px) {
-  .tk-users {
+  .tk-users,
+  .tk-know {
     grid-template-columns: 1fr;
   }
 

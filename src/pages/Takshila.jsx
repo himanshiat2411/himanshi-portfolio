@@ -8,6 +8,9 @@ import beforeProfile from '../assets/takshila/before-profile.webp';
 import beforeTracking from '../assets/takshila/before-tracking.webp';
 import heroChain from '../assets/takshila/hero-chain.webp';
 import interviewAmanda from '../assets/takshila/interview-amanda.webp';
+import knowCommunity from '../assets/takshila/know-community.webp';
+import knowProfile from '../assets/takshila/know-profile.webp';
+import knowStudio from '../assets/takshila/know-studio.webp';
 import interviewGazi from '../assets/takshila/interview-gazi.webp';
 import interviewJessica from '../assets/takshila/interview-jessica.webp';
 import logoMask from '../assets/takshila/logo-mask.png';
@@ -34,6 +37,9 @@ import './Takshila.css';
 
 
 // Context: an illustration for each of the three kinds of users.
+// Context: the screen for each part of Takshila introduced before the decisions.
+const KNOW_IMAGES = { Community: knowCommunity, 'Design Studio': knowStudio, Profile: knowProfile };
+
 const USER_IMAGES = {
   Customers: { src: userCustomer, alt: 'A customer prompting the AI for a gold leaf pendant' },
   Designers: { src: userDesigner, alt: 'A designer sketching the leaf pendant' },
@@ -153,6 +159,18 @@ const Takshila = () => {
                 </li>
               ))}
             </ul>
+            <div className="tk-subsection">
+              <h3 className="tk-subhead">{CONTEXT.know.heading}</h3>
+              <ul className="tk-know">
+                {CONTEXT.know.screens.map((k, i) => (
+                  <li key={k.name} data-reveal style={{ '--i': i }}>
+                    <img src={KNOW_IMAGES[k.name]} alt={k.alt} width="1440" height="830" loading="lazy" />
+                    <h4>{k.name}</h4>
+                    <p>{k.text}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <p className="tk-emphasis">{CONTEXT.coreProblem}</p>
             <div className="tk-subsection">
               <p className="tk-leadin">{CONTEXT.stakeholderLead}</p>
@@ -191,24 +209,39 @@ const Takshila = () => {
             <p>{PHASE_2.intro}</p>
             <NodeStrip items={PHASE_2.audit} />
             <p className="tk-caption tk-strip-note">{PHASE_2.auditNote}</p>
-            <div className="tk-decision" data-reveal>
-              <p className="tk-decision-label">Key decision</p>
-              <h3>{PHASE_2.keyDecision.title}</h3>
-              <p>{PHASE_2.keyDecision.text}</p>
-            </div>
             <div className="tk-subsection">
-              <h3 className="tk-subhead">{PHASE_2.productPage.title}</h3>
-              <p>{PHASE_2.productPage.text}</p>
-              <ScreenTour src={screenProductPage} alt={PHASE_2.productPage.alt} width={1440} height={2852} zones={PHASE_2.productPage.zones} />
-            </div>
-            <div className="tk-lite" data-reveal>
-              <div>
-                <p className="tk-points-label">Problem</p>
-                <p>{PHASE_2.checkout.problem}</p>
+              <h3 className="tk-subhead">{PHASE_2.decisionsHeading}</h3>
+
+              {/* Decision 1: the product page */}
+              <div className="tk-decision">
+                <p className="tk-decision-label">Decision 1 · {PHASE_2.productPage.tag}</p>
+                <h3>{PHASE_2.productPage.title}</h3>
+                <p>{PHASE_2.productPage.text}</p>
+                <ScreenTour src={screenProductPage} alt={PHASE_2.productPage.alt} width={1440} height={2852} zones={PHASE_2.productPage.zones} />
               </div>
-              <div>
-                <p className="tk-proposed-tag">What I proposed</p>
-                <p>{PHASE_2.checkout.proposed}</p>
+
+              {/* Decision 2: guest checkout with OTP */}
+              <div className="tk-decision" data-reveal>
+                <p className="tk-decision-label">Decision 2 · {PHASE_2.checkout.tag}</p>
+                <h3>{PHASE_2.checkout.title}</h3>
+                <div className="tk-lite">
+                  <div>
+                    <p className="tk-points-label">Problem</p>
+                    <p>{PHASE_2.checkout.problem}</p>
+                  </div>
+                  <div>
+                    <p className="tk-proposed-tag">What I proposed</p>
+                    <p>{PHASE_2.checkout.proposed}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Decision 3: a dedicated Shop, separate from the Community */}
+              <div className="tk-decision" data-reveal>
+                <p className="tk-decision-label">Decision 3 · {PHASE_2.keyDecision.tag}</p>
+                <h3>{PHASE_2.keyDecision.title}</h3>
+                <p>{PHASE_2.keyDecision.text}</p>
+                <p>{PHASE_2.keyDecision.separate}</p>
               </div>
             </div>
           </section>

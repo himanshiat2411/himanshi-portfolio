@@ -991,12 +991,25 @@ div.tk-ba-after {
   color: var(--tk-gold-ink);
 }
 
+/* Decision cards match the Q4 key decisions: a solid gold tag and a bold heading. */
+.tk-section .tk-decision-block .tk-tag {
+  display: inline-block;
+  align-self: flex-start;
+  margin: 0 0 14px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: var(--tk-gold);
+  line-height: 1.2;
+  color: var(--tk-text);
+}
+
 .tk-decision-block h4 {
   margin: 0 0 18px;
-  font-family: var(--font-serif);
-  font-size: 26px;
-  font-weight: 400;
-  line-height: 1.15;
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--tk-plum);
 }
 
 .tk-points {

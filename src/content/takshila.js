@@ -21,6 +21,15 @@ export const CONTEXT = {
     { title: 'Designers', text: 'Design pieces and earn on every sale' },
     { title: 'Artisans', text: 'Make each piece by hand' }
   ],
+  // Context for the decisions: the three main parts of Takshila, each with a short line.
+  know: {
+    heading: 'What you need to know before my decisions',
+    screens: [
+      { name: 'Community', text: 'Where people share moments, follow makers and join challenges.', alt: 'The Takshila Community page' },
+      { name: 'Design Studio', text: 'Describe a piece in words and AI designs it for you.', alt: 'The Takshila Design Studio prompt screen' },
+      { name: 'Profile', text: 'A designer’s page with their collections, followers and story.', alt: 'A Takshila designer profile' }
+    ]
+  },
   coreProblem:
     'A brand-new category, three very different users, and an AI that can quietly replace the customer’s own idea.',
   stakeholderLead: 'Who else Takshila depends on:'
@@ -140,12 +149,17 @@ export const PHASE_2 = {
     'Before the US festive season (Halloween, Thanksgiving, Christmas and New Year), I did a full sales audit of the website. I checked the homepage, discovery feed, product page, cart and checkout. The goal was to find what stopped people from buying, fix it, and make them want to come back.',
   audit: ['Homepage', 'Discovery feed', 'Product page', 'Cart', 'Checkout'],
   auditNote: '11 user flows audited before Q4.',
+  // Three key decisions, in this order: the product page, checkout with OTP, and the Shop.
+  decisionsHeading: 'Key decisions',
   keyDecision: {
+    tag: 'Shop',
     title: 'Bringing the Shop forward',
-    text: 'Takshila was positioned only as a community. People could browse and engage, but buying wasn’t the focus. Before the festive season, I pushed for the Shop to become a main feature, so the platform could drive sales and not just engagement.'
+    text: 'Takshila was positioned only as a community. People could browse and engage, but buying wasn’t the focus. Before the festive season, I pushed for the Shop to become a main feature, so the platform could drive sales and not just engagement.',
+    separate: 'The Shop is a dedicated space for buying, kept separate from the Community, so shopping gets its own focus.'
   },
   // The redesigned product page, with notes that open on click. Zones are in the Figma frame's pixels (1440 × 2852).
   productPage: {
+    tag: 'Product page',
     title: 'A product page without the friction',
     text: 'I removed the friction points and the extra, unnecessary details from the product page. Click a numbered section to see what changed and why.',
     alt: 'The redesigned Takshila product page for a ring',
@@ -201,6 +215,8 @@ export const PHASE_2 = {
     ]
   },
   checkout: {
+    tag: 'Checkout',
+    title: 'Guest checkout with OTP',
     problem: 'No easy checkout. Customers had to sign up, and there was no familiar way to pay.',
     proposed: 'Guest checkout with OTP instead of passwords, plus Apple Pay.'
   }
