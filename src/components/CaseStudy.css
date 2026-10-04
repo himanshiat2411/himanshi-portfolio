@@ -10,7 +10,7 @@
 .case-bar-inner {
   width: min(var(--case-width), 100%);
   margin-inline: auto;
-  padding-inline: clamp(16px, 8.5vw, 120px);
+  padding-inline: clamp(16px, 8.5vw, var(--case-pad, 120px));
 }
 
 .case-back {
@@ -31,8 +31,9 @@
 }
 
 /* Edge bands: the body spans the window, each section sits centred in a full-width band, and
-   the band's two halves show the section's image stretched so far sideways that only its
-   outermost column of pixels is visible, carrying the section's edge colours out to the sides. */
+   the band's two halves show the section's image stretched far sideways (100px per design pixel)
+   so only a column near its edge is visible, carrying the section's edge colours out to the sides.
+   Both sides skip the export's outermost 5 pixels, which can hold a thin border line. */
 .case-body--bands {
   width: 100%;
 }
@@ -51,24 +52,31 @@
   width: 50%;
   background-image: var(--edge);
   background-repeat: no-repeat;
-  background-size: 10000% 100%;
+  background-size: var(--edge-size) 100%;
 }
 
 .case-band::before {
   left: 0;
-  background-position: left center;
+  background-position: -500px center;
 }
 
 .case-band::after {
   right: 0;
-  background-position: right center;
+  background-position: right -500px center;
 }
 
-.case-band > * {
+.case-body--bands .case-band > * {
   position: relative;
   z-index: 1;
   width: min(var(--case-width), 100%);
   margin-inline: auto;
+}
+
+/* Where the sides show, hide any border line along each section's left and right edges. */
+@media (min-width: 1040px) {
+  .case-body--bands .case-band > * {
+    clip-path: inset(0 3px);
+  }
 }
 
 .case-media {

@@ -12,7 +12,10 @@ import './CaseStudy.css';
 // laid over part of it. `player.box` is { x, y, w, h } in design pixels within the section.
 // With `extendEdges`, on screens wider than the design each section's left and right edges are
 // stretched out to the sides of the window, so there's no dark frame around the design.
-const CaseStudy = ({ title, width, sections, barColor, linkColor, extendEdges }) => {
+// A section with no image to take its edges from (a video without a poster) can set `edgeColor`.
+// `displayWidth` shows the design narrower than its design `width` on large screens (phones are
+// unaffected, since the design already fills their width).
+const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, extendEdges }) => {
   useEffect(() => {
     const previous = document.title;
     document.title = `${title} — Himanshi`;
@@ -22,7 +25,15 @@ const CaseStudy = ({ title, width, sections, barColor, linkColor, extendEdges })
   }, [title]);
 
   return (
-    <article className="case" style={{ '--case-width': `${width}px` }}>
+    <article
+      className="case"
+      style={{
+        '--case-width': `${displayWidth || width}px`,
+        '--edge-size': `${width * 100}px`,
+        // Keep "Back to work" in line with the design's content when it's shown narrower.
+        '--case-pad': displayWidth ? `${Math.round((120 * displayWidth) / width)}px` : undefined
+      }}
+    >
       <div className="case-bar" style={{ background: barColor }}>
         <div className="case-bar-inner">
           <Link className="case-back" to="/#work" style={{ color: linkColor }}>
@@ -36,7 +47,10 @@ const CaseStudy = ({ title, width, sections, barColor, linkColor, extendEdges })
             <LoopVideo
               key={i}
               className="case-media case-video"
-              style={{ aspectRatio: section.h ? `${width} / ${section.h}` : section.ratio }}
+              style={{
+                aspectRatio: section.h ? `${width} / ${section.h}` : section.ratio,
+                background: section.edgeColor
+              }}
               src={section.video}
               poster={section.poster}
               label={section.alt}
@@ -76,7 +90,11 @@ const CaseStudy = ({ title, width, sections, barColor, linkColor, extendEdges })
           if (!extendEdges) return media;
           const edge = section.src || section.poster;
           return (
-            <div key={i} className="case-band" style={edge ? { '--edge': `url(${edge})` } : undefined}>
+            <div
+              key={i}
+              className="case-band"
+              style={edge ? { '--edge': `url(${edge})` } : { background: section.edgeColor }}
+            >
               {media}
             </div>
           );

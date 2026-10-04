@@ -20,7 +20,7 @@ const SECTIONS = [
   { src: img('08'), h: 1465, alt: 'User personas: Akash Sharma, a 4th-year seller, and Rashmi Krishnan, a 1st-year buyer' },
   { src: img('09'), h: 2121, alt: 'Low-fidelity wireframes' },
   { src: img('10'), h: 300, alt: 'Prototype' },
-  { video: video2, ratio: '1980 / 1080', alt: 'Grub’n Grab prototype walkthrough' },
+  { video: video2, ratio: '1980 / 1080', edgeColor: '#d0edc5', alt: 'Grub’n Grab prototype walkthrough' },
   { src: img('11'), h: 1200, alt: 'Design system: primary, secondary and semantic colour palette' },
   { src: img('12'), h: 1528, alt: 'Typography (Inter), components and iconography' },
   { video: video3, poster: img('13'), h: 829, alt: 'High-fidelity splash screen on a phone' },
@@ -35,8 +35,10 @@ const SECTIONS = [
   { src: img('22'), h: 818, alt: 'Thank you for scrolling' }
 ];
 
+// Shown at 1060px wide on large screens, so the design's content (inset ~120px at 1420) lines up
+// with the Takshila case study's 880px column.
 const GrubNGrab = () => (
-  <CaseStudy title="Grub’n Grab" width={1420} sections={SECTIONS} barColor="#024a3f" linkColor="#c1f1a9" extendEdges />
+  <CaseStudy title="Grub’n Grab" width={1420} displayWidth={1060} sections={SECTIONS} barColor="#024a3f" linkColor="#c1f1a9" extendEdges />
 );
 
 export default GrubNGrab;
