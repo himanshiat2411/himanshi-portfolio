@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import dashboard from '../../assets/finworld/intro/dashboard.webp';
 import mark from '../../assets/finworld/intro/mark.svg';
 import { ExpensesCard, NovaCard, RevenueCard } from './cards';
+import SkipIntro from '../SkipIntro';
 import './Intro.css';
 
 // Opening film for the Finworld case study: one continuous camera move through the real
@@ -168,7 +169,7 @@ const FinworldIntro = () => {
   const lift = span(t, TOTAL - 0.6, TOTAL, inOut) * 100;
 
   return createPortal(
-    <div className="fwf" aria-hidden="true" onClick={() => setDone(true)} style={{ transform: `translateY(${-lift}%)` }}>
+    <div className="fwf" onClick={() => setDone(true)} style={{ transform: `translateY(${-lift}%)` }}>
       <div className="fwf-light" style={{ opacity: 0.6 + room * 0.4 }} />
       <div
         className="fwf-world"
@@ -241,6 +242,7 @@ const FinworldIntro = () => {
         <span>FINWORLD</span>
         <em>Your finances, finally in one place.</em>
       </p>
+      <SkipIntro onSkip={() => setDone(true)} tone="light" />
     </div>,
     document.body
   );

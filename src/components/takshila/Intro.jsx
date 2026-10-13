@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import SkipIntro from '../SkipIntro';
 import './Intro.css';
 
 const TOTAL = 5150;
@@ -27,7 +28,7 @@ const TakshilaIntro = () => {
   if (done) return null;
 
   return createPortal(
-    <div className="tki" aria-hidden="true" onClick={() => setDone(true)}>
+    <div className="tki" onClick={() => setDone(true)}>
       <span className="tki-drop" />
       <div className="tki-orbit">
         {DOTS.map((label, i) => (
@@ -57,6 +58,7 @@ const TakshilaIntro = () => {
           </span>
         </div>
       </div>
+      <SkipIntro onSkip={() => setDone(true)} />
     </div>,
     document.body
   );

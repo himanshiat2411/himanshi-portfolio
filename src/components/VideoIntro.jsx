@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import SkipIntro from './SkipIntro';
 import './VideoIntro.css';
 
 // Full-screen intro that plays a video once before a case study, then slides up out of view.
@@ -41,9 +42,9 @@ const VideoIntro = ({ src, background, label }) => {
       className={`video-intro${state === 'leaving' ? ' is-leaving' : ''}`}
       style={{ background }}
       onClick={leave}
-      aria-hidden="true"
     >
       <video src={src} autoPlay muted playsInline onEnded={leave} onError={leave} aria-label={label} />
+      <SkipIntro onSkip={leave} />
     </div>,
     document.body
   );

@@ -13,7 +13,7 @@
   animation: tki-leave 0.6s cubic-bezier(0.76, 0, 0.24, 1) 4.5s forwards;
 }
 
-/* 1. A drop falls from above into the centre (0 – 0.6s). */
+/* 1. A gold circle falls from above into the centre (0 – 0.6s). */
 .tki-drop {
   position: absolute;
   left: 50%;
@@ -22,13 +22,13 @@
   height: var(--dot);
   margin: calc(var(--dot) / -2) 0 0 calc(var(--dot) / -2);
   background: var(--gold);
-  border-radius: 50% 0 50% 50%;
-  transform: translateY(-60vh) rotate(-45deg);
+  border-radius: 50%;
+  transform: translateY(-60vh);
   animation: tki-fall 0.6s cubic-bezier(0.55, 0, 0.9, 0.45) forwards, tki-hide 0.01s linear 0.62s forwards;
 }
 
 @keyframes tki-fall {
-  to { transform: translateY(0) rotate(-45deg) scale(1.15, 0.85); }
+  to { transform: translateY(0); }
 }
 
 /* 2. It splits into three dots that roam in a ring (0.6 – 2.2s), then merge back. */
