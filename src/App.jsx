@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import FeedbackWidget from './components/FeedbackWidget';
 import Footer from './components/Footer';
@@ -11,11 +11,22 @@ import Feedback from './pages/Feedback';
 import Finworld from './pages/Finworld';
 import GrubNGrab from './pages/GrubNGrab';
 import Home from './pages/Home';
+import IntroLoop from './pages/IntroLoop';
 import Takshila from './pages/Takshila';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
   const finish = useCallback(() => setLoading(false), []);
+  const { pathname } = useLocation();
+
+  // Looping case study intros for the Selected work tiles: just the animation, no site chrome.
+  if (pathname.startsWith('/loop/')) {
+    return (
+      <Routes>
+        <Route path="/loop/:slug" element={<IntroLoop />} />
+      </Routes>
+    );
+  }
 
   return (
     <>

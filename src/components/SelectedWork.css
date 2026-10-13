@@ -17,145 +17,132 @@
   color: var(--dim);
 }
 
-/* Stacking cards: each item sticks a little lower than the one before, so the edges peek out. */
-.stack {
+/* Ruled two-column grid: hairlines between and around the cells, like a contact sheet. */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   margin: 0;
   padding: 0;
   list-style: none;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
 }
 
-.stack-item {
-  --over: 0;
-  position: sticky;
-  top: calc(96px + var(--i) * 24px);
-  height: min(560px, 72vh);
-  margin-bottom: 18vh;
+.work-cell {
+  padding: 22px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
-.stack-item:last-child {
-  margin-bottom: 0;
-}
-
-.stack-card {
-  display: flex;
-  gap: clamp(24px, 4vw, 56px);
-  height: 100%;
-  padding: clamp(24px, 3.4vw, 48px);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  background: #111111;
-  color: var(--text);
-  text-decoration: none;
-  transform-origin: 50% 0;
-  transform: scale(calc(1 - var(--over) * 0.05));
-  filter: brightness(calc(1 - var(--over) * 0.35));
-  box-shadow: 0 -18px 40px rgba(0, 0, 0, 0.55);
-  transition: border-color 250ms ease;
-  will-change: transform;
-}
-
-a.stack-card:hover,
-a.stack-card:focus-visible {
-  border-color: var(--border-strong);
-  outline: none;
-}
-
-.stack-info {
-  flex: 1;
+.work-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-width: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.stack-num {
+.work-card--soon {
+  cursor: default;
+}
+
+.work-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+
+.work-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #151515;
+}
+
+/* The looping intro sits over the thumbnail and fades away on hover. */
+.work-loop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  transition: opacity 400ms ease;
+}
+
+.work-loop video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-loop iframe {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 0;
+  transform-origin: 50% 50%;
+  pointer-events: none;
+}
+
+.work-loop.is-holding,
+.work-card:hover .work-loop,
+.work-card:focus-visible .work-loop {
+  opacity: 0;
+}
+
+/* Caption bar under the image: project on the left, lime tag on the right. */
+.work-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 2px 0;
   font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 3px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.work-name {
+  color: var(--dim);
+  transition: color 200ms ease;
+}
+
+.work-tag {
+  flex-shrink: 0;
   color: var(--accent);
 }
 
-.stack-kind {
-  margin-top: 18px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--dim);
+.work-card:not(.work-card--soon):hover .work-name {
+  color: var(--text);
 }
 
-.stack-title {
-  margin: 10px 0 0;
-  font-size: clamp(34px, 4.6vw, 64px);
-  font-weight: 600;
-  letter-spacing: -1.5px;
-  line-height: 1.02;
-}
-
-.stack-text {
-  max-width: 420px;
-  margin: 16px 0 0;
-  font-size: 16px;
-  line-height: 1.55;
-  color: var(--soft);
-}
-
-.stack-stats {
-  display: flex;
-  gap: clamp(20px, 3vw, 40px);
-  margin: 28px 0 0;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
-}
-
-.stack-stats dt {
-  font-size: clamp(20px, 2vw, 26px);
-  font-weight: 600;
-}
-
-.stack-stats dd {
-  margin: 4px 0 0;
-  font-size: 12px;
-  color: var(--dim);
-}
-
-.stack-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  align-self: flex-start;
-  margin-top: 30px;
-  padding: 10px 18px;
-  border: 1px solid var(--border-strong);
-  border-radius: 999px;
-  font-size: 14px;
-  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
-}
-
-.stack-cta svg {
-  width: 16px;
-  height: 16px;
-}
-
-a.stack-card:hover .stack-cta,
-a.stack-card:focus-visible .stack-cta {
+.work-arrow {
+  position: absolute;
+  z-index: 2;
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  place-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
   background: var(--accent);
-  border-color: var(--accent);
   color: #000000;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 250ms ease, transform 250ms ease;
 }
 
-.stack-card--soon .work-soon {
-  align-self: flex-start;
-  margin-top: 30px;
-}
-
-/* The small image on the right. */
-.stack-media {
-  position: relative;
-  flex: 0 0 46%;
-  overflow: hidden;
-  border-radius: 14px;
-  background: #151515;
+.work-card:hover .work-arrow,
+.work-card:focus-visible .work-arrow {
+  opacity: 1;
+  transform: none;
 }
 
 /* The thumbnail's layers share one stage that covers the tile like object-fit: cover. */
@@ -204,54 +191,20 @@ a.stack-card:focus-visible .stack-cta {
     linear-gradient(135deg, #1c1c1c, #0f0f0f);
 }
 
-/* Hovering a card plays its thumbnail's build-in. */
-@keyframes work-rise {
-  from {
-    translate: var(--from);
-  }
-}
-
-@media (hover: hover) {
-  a.stack-card:hover .work-layer[data-moves],
-  a.stack-card:focus-visible .work-layer[data-moves] {
-    animation: work-rise 1000ms cubic-bezier(0.33, 1, 0.68, 1) var(--delay) both;
-  }
-}
-
-.work-soon {
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: #000000;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--dim);
-}
-
-/* Tablets and phones: image on top, text below. */
-@media (max-width: 860px) {
-  .stack-item {
-    top: calc(72px + var(--i) * 16px);
-    height: auto;
-    min-height: 0;
-    margin-bottom: 10vh;
+/* Phones: one column. */
+@media (max-width: 720px) {
+  .work-grid {
+    grid-template-columns: 1fr;
   }
 
-  .stack-card {
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-    height: auto;
-    gap: 20px;
+  .work-cell {
+    padding: 14px;
   }
 
-  .stack-media {
-    flex: none;
-    aspect-ratio: 16 / 10;
-  }
-
-  .stack-stats {
-    gap: 18px;
+  .work-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
   }
 }
 
@@ -263,19 +216,10 @@ a.stack-card:focus-visible .stack-cta {
   .work-stage--mobile {
     display: block;
   }
-
-  .stack-text {
-    font-size: 15px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stack-card {
-    transform: none;
-    filter: none;
-  }
-
-  a.stack-card:is(:hover, :focus-visible) .work-layer[data-moves] {
+  .work-card:is(:hover, :focus-visible) .work-layer[data-moves] {
     animation: none;
   }
 }

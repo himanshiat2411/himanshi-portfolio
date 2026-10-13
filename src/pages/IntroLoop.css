@@ -1,0 +1,9 @@
+.intro-loop {
+  position: fixed;
+  inset: 0;
+}
+
+/* The loop is only ever watched, never clicked. */
+body:has(.intro-loop) .skip-intro {
+  display: none;
+}
