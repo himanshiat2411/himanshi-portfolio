@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import TechText from './TechText/TechText';
+import IntroVideoModal from './IntroVideoModal';
 import './Hero.css';
 
-const Hero = () => (
+const Hero = () => {
+  const [videoOpen, setVideoOpen] = useState(false);
+
+  return (
   <section className="hero">
     <div className="hero-wordmark">
       <TechText
@@ -21,7 +26,13 @@ const Hero = () => (
       <span className="hero-dot" aria-hidden="true" />
       Product Designer and UX Researcher
     </p>
+    <button type="button" className="hero-intro-btn" onClick={() => setVideoOpen(true)}>
+      <span className="hero-intro-play" aria-hidden="true" />
+      Watch my intro
+    </button>
+    <IntroVideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
   </section>
-);
+  );
+};
 
 export default Hero;
