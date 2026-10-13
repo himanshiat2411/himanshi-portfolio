@@ -187,7 +187,8 @@ const About = () => {
         <div className="container">
           <h2 className="about-eyebrow">You are 90% of the books you read</h2>
           <p className="books-lede">
-            Here&rsquo;s my version. <em>Hover a spine to see what it taught me.</em>
+            Here&rsquo;s my version. <em className="books-hint-mouse">Hover a spine to see what it taught me.</em>
+            <em className="books-hint-touch">Tap a spine to see what it taught me.</em>
           </p>
           <ul className="books-shelf">
             {BOOKS.map((book, i) => (

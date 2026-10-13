@@ -379,6 +379,7 @@
 }
 
 .book:hover,
+.book:focus,
 .book:focus-visible {
   flex-basis: 300px;
   height: 100%;
@@ -428,11 +429,13 @@
 }
 
 .book:hover .book-spine,
+.book:focus .book-spine,
 .book:focus-visible .book-spine {
   opacity: 0;
 }
 
 .book:hover .book-open,
+.book:focus .book-open,
 .book:focus-visible .book-open {
   opacity: 1;
   transition-delay: 0.15s;
@@ -470,39 +473,46 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
+/* Phones and tablets: the same shelf, scrolled sideways; tap a spine to open it. */
 @media (max-width: 900px) {
   .books-shelf {
-    flex-direction: column;
-    align-items: stretch;
-    height: auto;
-    gap: 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 0;
+    height: 380px;
+    gap: 4px;
+    margin: 0 -16px;
+    padding: 0 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .book,
-  .book:hover,
-  .book:focus-visible {
-    flex: none;
-    height: auto;
-    color: var(--text);
-    background: none;
-    box-shadow: inset 4px 0 0 var(--book-bg);
-    padding-left: 20px;
-    border: 0;
-    border-bottom: 1px solid var(--line);
-    border-radius: 0;
-  }
-
-  .book-spine {
+  .books-shelf::-webkit-scrollbar {
     display: none;
   }
 
+  .book {
+    flex-basis: 42px;
+    scroll-snap-align: start;
+  }
+
+  .book:hover,
+  .book:focus,
+  .book:focus-visible {
+    flex-basis: 260px;
+  }
+
   .book-open {
-    position: static;
-    width: auto;
-    opacity: 1;
-    padding: 24px 0;
+    width: 260px;
+    padding: 20px;
+  }
+
+  .book-cover {
+    height: 140px;
+  }
+
+  .book-title {
+    font-size: 17px;
   }
 }
 
@@ -512,4 +522,13 @@
   .book-open {
     transition: none;
   }
+}
+
+.books-hint-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .books-hint-mouse { display: none; }
+  .books-hint-touch { display: inline; }
 }
