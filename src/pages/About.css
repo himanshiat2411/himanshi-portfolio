@@ -185,6 +185,14 @@
   padding: 50px 0 120px;
 }
 
+#experience {
+  padding-bottom: 40px;
+}
+
+#education {
+  padding-top: 40px;
+}
+
 .about-eyebrow {
   font-family: var(--font-mono);
   margin: 0;

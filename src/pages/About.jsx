@@ -183,6 +183,33 @@ const About = () => {
         </div>
       </section>
 
+      <section className="about-section" id="books">
+        <div className="container">
+          <h2 className="about-eyebrow">You are 90% of the books you read</h2>
+          <p className="books-lede">
+            Here&rsquo;s my version. <em>Hover a spine to see what it taught me.</em>
+          </p>
+          <ul className="books-shelf">
+            {BOOKS.map((book, i) => (
+              <li key={book.title} className="book" style={{ '--h': `${book.h}%`, '--book-bg': book.bg, '--book-fg': book.fg, '--book-accent': book.accent }} tabIndex={0}>
+                <span className="book-spine">
+                  <span className="book-index">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="book-title">{book.title}</span>
+                </span>
+                <span className="book-open">
+                  {bookCover(book.slug) && (
+                    <img className="book-cover" src={bookCover(book.slug)} alt={`${book.title} cover`} loading="lazy" />
+                  )}
+                  <span className="book-open-title">{book.title}</span>
+                  <span className="book-author">{book.author}</span>
+                  <span className="book-note">{book.note}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="about-section" id="experience">
         <div className="container">
           <h2 className="about-eyebrow">Experience</h2>
@@ -220,33 +247,6 @@ const About = () => {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="about-section" id="books">
-        <div className="container">
-          <h2 className="about-eyebrow">You are 90% of the books you read</h2>
-          <p className="books-lede">
-            Here&rsquo;s my version. <em>Hover a spine to see what it taught me.</em>
-          </p>
-          <ul className="books-shelf">
-            {BOOKS.map((book, i) => (
-              <li key={book.title} className="book" style={{ '--h': `${book.h}%`, '--book-bg': book.bg, '--book-fg': book.fg, '--book-accent': book.accent }} tabIndex={0}>
-                <span className="book-spine">
-                  <span className="book-index">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="book-title">{book.title}</span>
-                </span>
-                <span className="book-open">
-                  {bookCover(book.slug) && (
-                    <img className="book-cover" src={bookCover(book.slug)} alt={`${book.title} cover`} loading="lazy" />
-                  )}
-                  <span className="book-open-title">{book.title}</span>
-                  <span className="book-author">{book.author}</span>
-                  <span className="book-note">{book.note}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
