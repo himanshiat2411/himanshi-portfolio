@@ -22,7 +22,7 @@ const PROJECTS = [
     to: '/work/takshila',
     caption: 'Takshila — handcrafted jewelry marketplace',
     tag: 'Product design · 6 months',
-    text: 'A handcrafted jewelry marketplace with no playbook, so we built one around its users.',
+    text: 'Redesigned key screens like the product page for easier flows, led 5 JTBD interviews, audited 11 flows and wrote 2 PRDs.',
     loop: { page: '/loop/takshila?hold=3500' },
     ratio: '491 / 420',
     layers: [{ src: takshilaThumb }],
@@ -33,7 +33,7 @@ const PROJECTS = [
     to: '/work/finworld',
     caption: 'Finworld — financial modeling dashboard',
     tag: 'Design sprint · 2026',
-    text: 'A financial modeling platform made clear, collaborative and easy to learn.',
+    text: 'Designed a full financial modeling dashboard in a 55-hour sprint, built around 3 core problems and 2 personas.',
     loop: { page: '/loop/finworld' },
     wide: true,
     ratio: '1100 / 917',
@@ -46,13 +46,13 @@ const PROJECTS = [
     to: '/work/grub-n-grab',
     caption: 'Grub’n Grab — campus thrift app',
     tag: 'Mobile app · 16 weeks',
-    text: 'A campus thrift app for finding affordable, trustworthy second-hand items.',
+    text: 'Turned 10 user interviews and a 5-competitor analysis into a design system and complete error states.',
     loop: { videos: [grubNGrabIntro, grubNGrabPrototype], background: '#034a3e' },
     wide: true,
     ratio: '1100 / 666',
     layers: [{ src: grubNGrabBg }, { src: grubNGrabPhones, from: '0 85%', shadow: true }]
   },
-  { title: 'Sylus AI', caption: 'Sylus AI', tag: 'Coming soon', text: 'An AI product in progress. The case study is on its way.' }
+  { title: 'Sylus AI', caption: 'Sylus AI', tag: 'Coming soon', text: 'Case study in progress. Results coming soon.' }
 ];
 
 const ArrowUpRight = () => (
