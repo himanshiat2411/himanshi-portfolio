@@ -12,7 +12,8 @@ import './CaseStudy.css';
 // laid over part of it. `player.box` is { x, y, w, h } in design pixels within the section.
 // With `extendEdges`, on screens wider than the design each section's left and right edges are
 // stretched out to the sides of the window, so there's no dark frame around the design.
-// A section with no image to take its edges from (a video without a poster) can set `edgeColor`.
+// A section with no image to take its edges from (a video without a poster), or whose edges
+// carry artwork that would smear when stretched, can set `edgeColor` (any CSS background).
 // `displayWidth` shows the design narrower than its design `width` on large screens (phones are
 // unaffected, since the design already fills their width).
 const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, extendEdges }) => {
@@ -88,7 +89,7 @@ const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, 
             />
           );
           if (!extendEdges) return media;
-          const edge = section.src || section.poster;
+          const edge = section.edgeColor ? null : section.src || section.poster;
           return (
             <div
               key={i}

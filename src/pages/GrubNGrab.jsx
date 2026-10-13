@@ -1,4 +1,5 @@
 import CaseStudy from '../components/CaseStudy';
+import VideoIntro from '../components/VideoIntro';
 import video1 from '../assets/grub-n-grab/videos/1.mp4';
 import video2 from '../assets/grub-n-grab/videos/2.mp4';
 import video3 from '../assets/grub-n-grab/videos/3.mp4';
@@ -11,9 +12,8 @@ const img = n => images[`../assets/grub-n-grab/${n}.webp`];
 
 const SECTIONS = [
   { src: img('01'), h: 1700, alt: 'Grub’n Grab, a campus thrift app: app mockups and project overview — role, 16 weeks, tools, C2C marketplace, mobile app' },
-  { video: video1, poster: img('02'), h: 770, alt: 'Grub’n Grab intro animation' },
   { src: img('03'), h: 681, alt: 'The problem: students struggle to find affordable, trustworthy second-hand items on campus, and why it matters' },
-  { src: img('04'), h: 826, alt: 'Design process: Empathize, Define, Ideate, Prototype, Test' },
+  { src: img('04'), h: 826, edgeColor: 'linear-gradient(90deg, #024a3f 50%, #09483e 50%)', alt: 'Design process: Empathize, Define, Ideate, Prototype, Test' },
   { src: img('05'), h: 1276, alt: 'User research: interviews with 8 college students and 2 recent graduates, key insights and interview notes' },
   { src: img('06'), h: 1115, alt: 'Affinity diagram grouping interview quotes into themes' },
   { src: img('07'), h: 1636, alt: 'Competitor analysis comparing OLX, FreeUp, Depop, WhatsApp groups and Grub’n Grab' },
@@ -38,7 +38,10 @@ const SECTIONS = [
 // Shown at 1060px wide on large screens, so the design's content (inset ~120px at 1420) lines up
 // with the Takshila case study's 880px column.
 const GrubNGrab = () => (
-  <CaseStudy title="Grub’n Grab" width={1420} displayWidth={1060} sections={SECTIONS} barColor="#024a3f" linkColor="#c1f1a9" extendEdges />
+  <>
+    <VideoIntro src={video1} background="#034a3e" label="Grub’n Grab intro animation" />
+    <CaseStudy title="Grub’n Grab" width={1420} displayWidth={1060} sections={SECTIONS} barColor="#024a3f" linkColor="#c1f1a9" extendEdges />
+  </>
 );
 
 export default GrubNGrab;

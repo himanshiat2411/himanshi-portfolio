@@ -1,0 +1,21 @@
+.video-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* The whole screen slides up to reveal the case study. */
+.video-intro.is-leaving {
+  transform: translateY(-100%);
+}
+
+/* 90% of the screen; the backdrop matches the video's own background. */
+.video-intro video {
+  width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
