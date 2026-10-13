@@ -12,6 +12,28 @@ const CaseNav = ({ sections, theme }) => {
   // Images above the target can load mid-scroll and push it down, so a jump re-aims when the
   // scroll settles, a few times at most.
   const pending = useRef(null);
+  const navRef = useRef(null);
+
+  // Keep the menu above the footer: once the footer would reach it, push it up with the page.
+  useEffect(() => {
+    const nav = navRef.current;
+    const footer = document.querySelector('footer');
+    if (!nav || !footer) return undefined;
+    const place = () => {
+      const half = nav.offsetHeight / 2;
+      const bottom = window.innerHeight / 2 + half;
+      const limit = footer.getBoundingClientRect().top - 32;
+      const lift = Math.min(0, limit - bottom);
+      nav.style.transform = `translateY(calc(-50% + ${lift}px))`;
+    };
+    place();
+    window.addEventListener('scroll', place, { passive: true });
+    window.addEventListener('resize', place);
+    return () => {
+      window.removeEventListener('scroll', place);
+      window.removeEventListener('resize', place);
+    };
+  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -65,7 +87,7 @@ const CaseNav = ({ sections, theme }) => {
   };
 
   return (
-    <div className="case-nav" style={{ '--case-nav-panel': theme.panel || 'transparent' }} data-panel={theme.panel ? '' : undefined}>
+    <div ref={navRef} className="case-nav" style={{ '--case-nav-panel': theme.panel || 'transparent' }} data-panel={theme.panel ? '' : undefined}>
       <LineSidebar
         items={sections.map(s => s.label)}
         accentColor={theme.accent}
