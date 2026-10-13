@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import CaseNav from './LineSidebar/CaseNav';
 import LoopVideo from './LoopVideo';
 import './CaseStudy.css';
 
@@ -16,7 +17,9 @@ import './CaseStudy.css';
 // carry artwork that would smear when stretched, can set `edgeColor` (any CSS background).
 // `displayWidth` shows the design narrower than its design `width` on large screens (phones are
 // unaffected, since the design already fills their width).
-const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, extendEdges }) => {
+// `nav` adds the section sidebar: [{ label, at }] where `at` is the index of the section it
+// starts at, styled by `navTheme` ({ accent, text, marker, panel }).
+const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, extendEdges, nav, navTheme }) => {
   useEffect(() => {
     const previous = document.title;
     document.title = `${title} — Himanshi`;
@@ -47,6 +50,7 @@ const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, 
           const media = section.video ? (
             <LoopVideo
               key={i}
+              data-case-index={i}
               className="case-media case-video"
               style={{
                 aspectRatio: section.h ? `${width} / ${section.h}` : section.ratio,
@@ -57,7 +61,7 @@ const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, 
               label={section.alt}
             />
           ) : section.player ? (
-            <div key={i} className="case-player-wrap">
+            <div key={i} className="case-player-wrap" data-case-index={i}>
               <img className="case-media" src={section.src} width={width} height={section.h} alt="" loading="lazy" decoding="async" />
               <video
                 className="case-player"
@@ -79,6 +83,7 @@ const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, 
           ) : (
             <img
               key={i}
+              data-case-index={i}
               className="case-media"
               src={section.src}
               width={width}
@@ -101,6 +106,7 @@ const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, 
           );
         })}
       </div>
+      {nav && <CaseNav sections={nav.map(n => ({ label: n.label, selector: `[data-case-index="${n.at}"]` }))} theme={navTheme} />}
     </article>
   );
 };

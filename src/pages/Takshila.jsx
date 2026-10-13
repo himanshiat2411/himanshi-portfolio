@@ -27,6 +27,7 @@ import userArtisan from '../assets/takshila/user-artisan.webp';
 import userCustomer from '../assets/takshila/user-customer.webp';
 import userDesigner from '../assets/takshila/user-designer.webp';
 import CompetitorMap from '../components/CompetitorMap';
+import CaseNav from '../components/LineSidebar/CaseNav';
 import StakeholderMap from '../components/StakeholderMap';
 import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
 import TakshilaIntro from '../components/takshila/Intro';
@@ -100,6 +101,23 @@ const decisionVisual = d => {
   return <VisualCheckpoint />;
 };
 
+// Sidebar sections, in page order.
+const NAV = [
+  { label: 'Overview', selector: '#tk-overview' },
+  { label: 'Context', selector: '#tk-context' },
+  { label: 'What I worked on', selector: '#tk-work' },
+  { label: 'Q4 sales', selector: '#phase-2' },
+  { label: 'Project North Star', selector: '#phase-3' },
+  { label: 'Redesign', selector: '#phase-1' },
+  { label: 'Research', selector: '#tk-research' },
+  { label: 'Competitors', selector: '#tk-competitors' },
+  { label: 'Build', selector: '#tk-build' },
+  { label: 'Impact', selector: '#tk-impact' },
+  { label: 'Reflection', selector: '#tk-reflection' }
+];
+
+const NAV_THEME = { accent: '#6d3b54', text: 'rgba(43, 16, 22, 0.6)', marker: 'rgba(43, 16, 22, 0.22)' };
+
 // Takshila case study page (/work/takshila), with the site nav above and footer below.
 const Takshila = () => {
   const pageRef = useRef(null);
@@ -116,10 +134,11 @@ const Takshila = () => {
   return (
     <ScreenViewerProvider>
       <TakshilaIntro />
+      <CaseNav sections={NAV} theme={NAV_THEME} />
       <div className="tk">
         <article className="tk-page" ref={pageRef}>
           {/* Hero */}
-          <header className="tk-hero tk-band" data-band="blush">
+          <header id="tk-overview" className="tk-hero tk-band" data-band="blush">
             <Link className="tk-back" to="/#work">
               ← Back to work
             </Link>
@@ -177,7 +196,7 @@ const Takshila = () => {
           </section>
 
           {/* What I worked on */}
-          <section className="tk-section tk-problems">
+          <section className="tk-section tk-problems" id="tk-work">
             <h2>{WORK.heading}</h2>
             <p className="tk-problems-sub">{WORK.sub}</p>
             <PhaseCards phases={WORK.phases} />
@@ -263,7 +282,7 @@ const Takshila = () => {
           </section>
 
           {/* Research: JTBD and the interviews */}
-          <section className="tk-section">
+          <section className="tk-section" id="tk-research">
             <SectionLabel>{RESEARCH.label}</SectionLabel>
             <h2>{RESEARCH.heading}</h2>
             <p>{RESEARCH.text}</p>
@@ -304,13 +323,13 @@ const Takshila = () => {
             </p>
           </section>
 
-          <section className="tk-section">
+          <section className="tk-section" id="tk-competitors">
             <h2>Competitor analysis</h2>
             <CompetitorMap />
           </section>
 
           {/* Build */}
-          <section className="tk-section">
+          <section className="tk-section" id="tk-build">
             <SectionLabel>{BUILD.label}</SectionLabel>
             <h2>{BUILD.heading}</h2>
             <div className="tk-build" data-reveal>
@@ -329,7 +348,7 @@ const Takshila = () => {
           </section>
 
           {/* Impact */}
-          <section className="tk-section">
+          <section className="tk-section" id="tk-impact">
             <SectionLabel>{IMPACT.label}</SectionLabel>
             <h2>{IMPACT.heading}</h2>
             <ul className="tk-impact">

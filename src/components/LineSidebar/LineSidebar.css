@@ -1,0 +1,95 @@
+.line-sidebar ol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ls-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.line-sidebar li {
+  transform: translateX(var(--ls-shift, 0px));
+}
+
+.line-sidebar button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--ls-font);
+  line-height: 1.2;
+  color: var(--ls-text);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+.line-sidebar button:hover,
+.line-sidebar li[data-active] button {
+  color: var(--ls-accent);
+}
+
+.line-sidebar button:focus-visible {
+  outline: 2px solid var(--ls-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* The tick: short and grey, full length in the accent colour when active. */
+.line-sidebar-marker {
+  flex: none;
+  width: var(--ls-marker-length);
+  height: 1.5px;
+  margin-right: var(--ls-marker-gap);
+  background: var(--ls-marker);
+  transform: scaleX(var(--ls-tick-scale));
+  transform-origin: left center;
+  transition:
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 200ms ease;
+}
+
+.line-sidebar li[data-active] .line-sidebar-marker {
+  background: var(--ls-accent);
+  transform: scaleX(1);
+}
+
+.line-sidebar-index {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-sidebar li {
+    transform: none;
+  }
+}
+
+/* Case study placement: fixed on the left, only where the margin has room for it. */
+.case-nav {
+  position: fixed;
+  left: 24px;
+  top: 50%;
+  z-index: 40;
+  display: none;
+  transform: translateY(-50%);
+}
+
+.case-nav[data-panel] {
+  padding: 18px 22px 18px 16px;
+  border-radius: 16px;
+  background: var(--case-nav-panel);
+  backdrop-filter: blur(12px);
+}
+
+@media (min-width: 1400px) {
+  .case-nav {
+    display: block;
+  }
+}

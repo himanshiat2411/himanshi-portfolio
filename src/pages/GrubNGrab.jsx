@@ -35,12 +35,28 @@ const SECTIONS = [
   { src: img('22'), h: 818, alt: 'Thank you for scrolling' }
 ];
 
+// Sidebar sections: where each one starts in SECTIONS.
+const NAV = [
+  { label: 'Overview', at: 0 },
+  { label: 'Problem', at: 1 },
+  { label: 'Process', at: 2 },
+  { label: 'Research', at: 3 },
+  { label: 'Personas', at: 6 },
+  { label: 'Wireframes', at: 7 },
+  { label: 'Prototype', at: 8 },
+  { label: 'Design system', at: 10 },
+  { label: 'High fidelity', at: 12 },
+  { label: 'Error states', at: 18 }
+];
+
+const NAV_THEME = { accent: '#c1f1a9', text: 'rgba(255, 255, 255, 0.72)', marker: 'rgba(255, 255, 255, 0.3)', panel: 'rgba(2, 74, 63, 0.86)' };
+
 // Shown at 1060px wide on large screens, so the design's content (inset ~120px at 1420) lines up
 // with the Takshila case study's 880px column.
 const GrubNGrab = () => (
   <>
     <VideoIntro src={video1} background="#034a3e" label="Grub’n Grab intro animation" />
-    <CaseStudy title="Grub’n Grab" width={1420} displayWidth={1060} sections={SECTIONS} barColor="#024a3f" linkColor="#c1f1a9" extendEdges />
+    <CaseStudy title="Grub’n Grab" width={1420} displayWidth={1060} sections={SECTIONS} barColor="#024a3f" linkColor="#c1f1a9" extendEdges nav={NAV} navTheme={NAV_THEME} />
   </>
 );
 

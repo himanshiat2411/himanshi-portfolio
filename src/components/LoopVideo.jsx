@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 // A silent, looping video that behaves like a GIF: it only plays while on screen.
 // Visitors who prefer reduced motion get the poster and play controls instead.
-const LoopVideo = ({ src, poster, label, className, style }) => {
+const LoopVideo = ({ src, poster, label, className, style, ...rest }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const LoopVideo = ({ src, poster, label, className, style }) => {
 
   return (
     <video
+      {...rest}
       ref={ref}
       className={className}
       style={style}

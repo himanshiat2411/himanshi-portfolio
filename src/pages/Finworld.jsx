@@ -34,6 +34,24 @@ const SECTIONS = [
   { src: img('18'), h: 1520, alt: 'Colour palette, Inter typography, and thank you' }
 ];
 
+// Sidebar sections: where each one starts in SECTIONS.
+const NAV = [
+  { label: 'Overview', at: 0 },
+  { label: 'Problem', at: 2 },
+  { label: 'Walkthrough', at: 3 },
+  { label: 'Personas', at: 4 },
+  { label: 'Stakeholders & IA', at: 6 },
+  { label: 'Dashboard', at: 8 },
+  { label: 'Home', at: 9 },
+  { label: 'Model analysis', at: 11 },
+  { label: 'Data import', at: 12 },
+  { label: 'Nova AI', at: 14 },
+  { label: 'Wireframes', at: 15 },
+  { label: 'Visual design', at: 16 }
+];
+
+const NAV_THEME = { accent: '#2265ff', text: '#54555a', marker: '#c9ccd6', panel: 'rgba(255, 255, 255, 0.88)' };
+
 // Shown at 1020px wide on large screens, so the design's content (inset ~120px at 1728) lines up
 // with the Takshila case study's 880px column; the sides carry each section's own colours.
 const Finworld = () => (
@@ -47,6 +65,8 @@ const Finworld = () => (
       barColor="#d8d8d8"
       linkColor="#1a213d"
       extendEdges
+      nav={NAV}
+      navTheme={NAV_THEME}
     />
   </>
 );
