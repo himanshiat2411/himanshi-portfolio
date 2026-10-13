@@ -29,6 +29,7 @@ import userDesigner from '../assets/takshila/user-designer.webp';
 import CompetitorMap from '../components/CompetitorMap';
 import StakeholderMap from '../components/StakeholderMap';
 import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
+import TakshilaIntro from '../components/takshila/Intro';
 import { CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
 import { NodeStrip, RoundsStrip, ScreenTour, VisualAskFirst, VisualCheckpoint, VisualOptions } from '../components/takshila/visuals';
 import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
@@ -114,6 +115,7 @@ const Takshila = () => {
 
   return (
     <ScreenViewerProvider>
+      <TakshilaIntro />
       <div className="tk">
         <article className="tk-page" ref={pageRef}>
           {/* Hero */}

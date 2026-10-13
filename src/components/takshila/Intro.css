@@ -1,0 +1,193 @@
+.tki {
+  --plum: #2b1016;
+  --gold: #c09435;
+  --cream: #f5efe7;
+  --dot: 48px;
+  --radius: 100px;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow: hidden;
+  background: var(--plum);
+  cursor: pointer;
+  animation: tki-leave 0.6s cubic-bezier(0.76, 0, 0.24, 1) 4.5s forwards;
+}
+
+/* 1. A drop falls from above into the centre (0 – 0.6s). */
+.tki-drop {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--dot);
+  height: var(--dot);
+  margin: calc(var(--dot) / -2) 0 0 calc(var(--dot) / -2);
+  background: var(--gold);
+  border-radius: 50% 0 50% 50%;
+  transform: translateY(-60vh) rotate(-45deg);
+  animation: tki-fall 0.6s cubic-bezier(0.55, 0, 0.9, 0.45) forwards, tki-hide 0.01s linear 0.62s forwards;
+}
+
+@keyframes tki-fall {
+  to { transform: translateY(0) rotate(-45deg) scale(1.15, 0.85); }
+}
+
+/* 2. It splits into three dots that roam in a ring (0.6 – 2.2s), then merge back. */
+.tki-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  animation: tki-spin 1.7s cubic-bezier(0.35, 0, 0.45, 1) 0.6s both;
+}
+
+@keyframes tki-spin {
+  to { transform: rotate(420deg); }
+}
+
+.tki-arm {
+  position: absolute;
+  transform: rotate(calc(var(--i) * 120deg - 90deg));
+}
+
+.tki-dot {
+  position: absolute;
+  width: var(--dot);
+  height: var(--dot);
+  margin: calc(var(--dot) / -2) 0 0 calc(var(--dot) / -2);
+  border-radius: 50%;
+  background: var(--gold);
+  transform: translateX(0);
+  opacity: 0;
+  animation: tki-burst 0.5s cubic-bezier(0.2, 1.5, 0.4, 1) 0.6s forwards,
+    tki-merge 0.3s cubic-bezier(0.6, 0, 0.8, 0.4) 1.95s forwards;
+}
+
+@keyframes tki-burst {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 1; transform: translateX(var(--radius)); }
+}
+
+@keyframes tki-merge {
+  from { opacity: 1; transform: translateX(var(--radius)); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.tki-roles {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12vh;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.6vw, 22px);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.tki-roles span {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: tki-rise 0.35s ease forwards, tki-hide 0.2s ease 2s forwards;
+}
+
+.tki-roles span:nth-child(1) { animation-delay: 0.8s, 2s; }
+.tki-roles span:nth-child(2) { animation-delay: 0.95s, 2s; }
+.tki-roles span:nth-child(3) { animation-delay: 1.1s, 2s; }
+
+/* 3. The merged dot swells and floods the screen (2.25 – 2.9s). */
+.tki-screen {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--gold);
+  clip-path: circle(0 at 50% 50%);
+  animation: tki-pop 0.2s ease-out 2.25s forwards, tki-flood 0.55s cubic-bezier(0.7, 0, 0.3, 1) 2.45s forwards;
+}
+
+@keyframes tki-pop {
+  to { clip-path: circle(32px at 50% 50%); }
+}
+
+@keyframes tki-flood {
+  from { clip-path: circle(32px at 50% 50%); }
+  to { clip-path: circle(75% at 50% 50%); }
+}
+
+/* 4. The name sharpens in, brackets snap round it, a line slides in. */
+.tki-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+  font-family: var(--font-sans);
+  font-size: clamp(44px, 8vw, 120px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--plum);
+}
+
+.tki-name {
+  position: relative;
+  padding: 0.06em 0.18em;
+  filter: blur(16px);
+  opacity: 0;
+  animation: tki-sharpen 0.5s ease-out 3s forwards;
+}
+
+@keyframes tki-sharpen {
+  to { filter: blur(0); opacity: 1; }
+}
+
+.tki-frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.25);
+  animation: tki-snap 0.3s cubic-bezier(0.2, 1.4, 0.4, 1) 3.5s forwards;
+}
+
+@keyframes tki-snap {
+  to { opacity: 1; transform: scale(1); }
+}
+
+.tki-corner {
+  position: absolute;
+  width: 0.22em;
+  height: 0.22em;
+  border: 0 solid var(--plum);
+}
+
+.tki-tl { top: 0; left: 0; border-top-width: 3px; border-left-width: 3px; }
+.tki-tr { top: 0; right: 0; border-top-width: 3px; border-right-width: 3px; }
+.tki-bl { bottom: 0; left: 0; border-bottom-width: 3px; border-left-width: 3px; }
+.tki-br { bottom: 0; right: 0; border-bottom-width: 3px; border-right-width: 3px; }
+
+.tki-line {
+  overflow: hidden;
+  font-size: 0.42em;
+}
+
+.tki-line span {
+  display: block;
+  transform: translateX(-110%);
+  animation: tki-slide 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) 3.75s forwards;
+}
+
+@keyframes tki-slide {
+  to { transform: translateX(0); }
+}
+
+@keyframes tki-rise { to { opacity: 1; transform: translateY(0); } }
+@keyframes tki-hide { to { opacity: 0; } }
+
+/* The whole screen slides up to reveal the case study. */
+@keyframes tki-leave {
+  to { transform: translateY(-100%); }
+}

@@ -512,23 +512,18 @@
   list-style: none;
 }
 
-/* Takshila's blue, with a blue underline, so the three groups stand out on cream. */
+/* Plain illustrations sitting on the page, no cards. */
 .tk-users li {
-  padding: 24px 20px;
-  border-bottom: 2px solid var(--tk-blue);
-  border-radius: 20px 20px 6px 6px;
-  background: var(--tk-tint-blue);
   text-align: center;
 }
 
 .tk-users .tk-user-img {
   display: block;
   width: 100%;
-  aspect-ratio: 5 / 4;
-  margin: 0 0 16px;
-  border-radius: 14px;
+  max-width: 160px;
+  aspect-ratio: 440 / 410;
+  margin: 0 auto 10px;
   object-fit: contain;
-  background: #fcf6f1;
 }
 
 .tk-users h3 {
