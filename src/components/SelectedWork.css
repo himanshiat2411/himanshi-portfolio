@@ -17,49 +17,145 @@
   color: var(--dim);
 }
 
-/* Bento grid: rows alternate a 5-column tile and a 7-column one. */
-.work-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: clamp(260px, 30vw, 420px);
-  gap: 16px;
+/* Stacking cards: each item sticks a little lower than the one before, so the edges peek out. */
+.stack {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.work-tile {
-  grid-column: span 5;
-  opacity: 0;
-  transform: translateY(50px);
-  transition:
-    opacity 600ms ease-out,
-    transform 600ms ease-out;
+.stack-item {
+  --over: 0;
+  position: sticky;
+  top: calc(96px + var(--i) * 24px);
+  height: min(560px, 72vh);
+  margin-bottom: 18vh;
 }
 
-.work-tile--wide {
-  grid-column: span 7;
+.stack-item:last-child {
+  margin-bottom: 0;
 }
 
-.work-tile[data-shown] {
-  opacity: 1;
-  transform: none;
-}
-
-.work-card {
-  position: relative;
-  display: block;
+.stack-card {
+  display: flex;
+  gap: clamp(24px, 4vw, 56px);
   height: 100%;
-  overflow: hidden;
-  border-radius: 12px;
-  background: #151515;
+  padding: clamp(24px, 3.4vw, 48px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: #111111;
   color: var(--text);
   text-decoration: none;
+  transform-origin: 50% 0;
+  transform: scale(calc(1 - var(--over) * 0.05));
+  filter: brightness(calc(1 - var(--over) * 0.35));
+  box-shadow: 0 -18px 40px rgba(0, 0, 0, 0.55);
+  transition: border-color 250ms ease;
+  will-change: transform;
 }
 
-.work-card:focus-visible {
+a.stack-card:hover,
+a.stack-card:focus-visible {
+  border-color: var(--border-strong);
   outline: none;
-  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+}
+
+.stack-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.stack-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--accent);
+}
+
+.stack-kind {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.stack-title {
+  margin: 10px 0 0;
+  font-size: clamp(34px, 4.6vw, 64px);
+  font-weight: 600;
+  letter-spacing: -1.5px;
+  line-height: 1.02;
+}
+
+.stack-text {
+  max-width: 420px;
+  margin: 16px 0 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--soft);
+}
+
+.stack-stats {
+  display: flex;
+  gap: clamp(20px, 3vw, 40px);
+  margin: 28px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.stack-stats dt {
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 600;
+}
+
+.stack-stats dd {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--dim);
+}
+
+.stack-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 30px;
+  padding: 10px 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 14px;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.stack-cta svg {
+  width: 16px;
+  height: 16px;
+}
+
+a.stack-card:hover .stack-cta,
+a.stack-card:focus-visible .stack-cta {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000000;
+}
+
+.stack-card--soon .work-soon {
+  align-self: flex-start;
+  margin-top: 30px;
+}
+
+/* The small image on the right. */
+.stack-media {
+  position: relative;
+  flex: 0 0 46%;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #151515;
 }
 
 /* The thumbnail's layers share one stage that covers the tile like object-fit: cover. */
@@ -102,23 +198,13 @@
     linear-gradient(135deg, #1c1c1c, #0f0f0f);
 }
 
-/* At rest: a dark veil with the project name, the thumbnail faintly visible beneath. */
-.work-veil {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background: rgba(0, 0, 0, 0.78);
-  transition: opacity 400ms ease;
+.work-thumb--empty {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(198, 255, 61, 0.12), transparent 55%),
+    linear-gradient(135deg, #1c1c1c, #0f0f0f);
 }
 
-.work-veil-title {
-  font-size: clamp(28px, 3.4vw, 48px);
-  font-weight: 600;
-  letter-spacing: -1px;
-}
-
-/* On hover the veil lifts, the pieces rise into place and the name pill and arrow slide in. */
+/* Hovering a card plays its thumbnail's build-in. */
 @keyframes work-rise {
   from {
     translate: var(--from);
@@ -126,76 +212,10 @@
 }
 
 @media (hover: hover) {
-  .work-bar {
-    opacity: 0;
-    transform: translateY(12px);
-    transition:
-      opacity 300ms ease,
-      transform 300ms ease;
-  }
-
-  .work-card:hover .work-veil,
-  .work-card:focus-visible .work-veil {
-    opacity: 0;
-  }
-
-  .work-card:hover .work-bar,
-  .work-card:focus-visible .work-bar {
-    opacity: 1;
-    transform: none;
-    transition-delay: 350ms;
-  }
-
-  .work-card:hover .work-layer[data-moves],
-  .work-card:focus-visible .work-layer[data-moves] {
+  a.stack-card:hover .work-layer[data-moves],
+  a.stack-card:focus-visible .work-layer[data-moves] {
     animation: work-rise 1000ms cubic-bezier(0.33, 1, 0.68, 1) var(--delay) both;
   }
-}
-
-/* Touch screens can't hover, so show each tile as it looks after its hover. */
-@media (hover: none) {
-  .work-veil {
-    display: none;
-  }
-}
-
-/* Name pill and round arrow along the bottom of each tile. */
-.work-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px;
-}
-
-.work-name {
-  padding: 8px 16px;
-  border-radius: 12px;
-  background: #000000;
-  font-size: 20px;
-}
-
-.work-arrow {
-  display: grid;
-  place-content: center;
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #000000;
-  transition:
-    background-color 200ms ease,
-    color 200ms ease;
-}
-
-a.work-card:hover .work-arrow,
-a.work-card:focus-visible .work-arrow {
-  background: var(--accent);
-  color: #000000;
 }
 
 .work-soon {
@@ -209,7 +229,32 @@ a.work-card:focus-visible .work-arrow {
   color: var(--dim);
 }
 
-/* Phones: one tile per row. */
+/* Tablets and phones: image on top, text below. */
+@media (max-width: 860px) {
+  .stack-item {
+    top: calc(72px + var(--i) * 16px);
+    height: auto;
+    min-height: 0;
+    margin-bottom: 10vh;
+  }
+
+  .stack-card {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    height: auto;
+    gap: 20px;
+  }
+
+  .stack-media {
+    flex: none;
+    aspect-ratio: 16 / 10;
+  }
+
+  .stack-stats {
+    gap: 18px;
+  }
+}
+
 @media (max-width: 640px) {
   .work-stage--desktop {
     display: none;
@@ -219,38 +264,18 @@ a.work-card:focus-visible .work-arrow {
     display: block;
   }
 
-  .work-grid {
-    grid-auto-rows: 240px;
-    gap: 8px;
-  }
-
-  .work-tile,
-  .work-tile--wide {
-    grid-column: span 12;
-  }
-
-  .work-bar {
-    bottom: 0;
-  }
-
-  .work-name {
-    font-size: 14px;
-  }
-
-  .work-arrow {
-    width: 40px;
-    height: 40px;
+  .stack-text {
+    font-size: 15px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .work-tile {
-    opacity: 1;
+  .stack-card {
     transform: none;
-    transition: none;
+    filter: none;
   }
 
-  .work-card:is(:hover, :focus-visible) .work-layer[data-moves] {
+  a.stack-card:is(:hover, :focus-visible) .work-layer[data-moves] {
     animation: none;
   }
 }
