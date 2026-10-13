@@ -29,7 +29,7 @@
 }
 
 .work-cell {
-  padding: 22px;
+  padding: 32px 32px 38px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
@@ -101,7 +101,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 18px 2px 0;
+  padding: 24px 2px 0;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 1.5px;
@@ -222,4 +222,14 @@
   .work-card:is(:hover, :focus-visible) .work-layer[data-moves] {
     animation: none;
   }
+}
+
+.work-text {
+  display: block;
+  max-width: 46ch;
+  margin-top: 14px;
+  padding: 0 2px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--soft);
 }
