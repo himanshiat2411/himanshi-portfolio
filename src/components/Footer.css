@@ -19,8 +19,12 @@
   align-items: center;
   gap: 24px;
   margin-top: 64px;
-  padding-bottom: 76px;
-  border-bottom: 1px solid var(--line);
+  padding-bottom: 46px;
+}
+
+/* Takes the place of the old divider: 30px above the line, 30px below. */
+.footer-line {
+  color: var(--border-strong);
 }
 
 .footer-email {
@@ -121,7 +125,7 @@
 .footer-copy {
   font-family: var(--font-mono);
   margin: 0;
-  padding: 36px 0 48px;
+  padding: 6px 0 48px;
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;

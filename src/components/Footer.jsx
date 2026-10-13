@@ -1,5 +1,6 @@
 import { BEHANCE_URL, EMAIL, EMAIL_COMPOSE_URL, LINKEDIN_URL, RESUME_URL } from '../links';
 import openCompose from '../openCompose';
+import ElasticLine from './ElasticLine/ElasticLine';
 import './Footer.css';
 
 // Each link gets its own underline on hover: from the centre, or sweeping in from one side and
@@ -45,6 +46,8 @@ const Footer = () => (
           ))}
         </nav>
       </div>
+
+      <ElasticLine className="footer-line" releaseThreshold={50} strokeWidth={1} />
 
       <p className="footer-copy">© 2026 Himanshi</p>
     </div>
