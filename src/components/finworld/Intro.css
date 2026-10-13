@@ -1,0 +1,485 @@
+.fwf {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow: hidden;
+  background: #f4f6fb;
+  font-family: 'Inter', var(--font-sans);
+  color: #1a213d;
+  cursor: pointer;
+}
+
+/* Soft studio light: a cool wash from above, the edges falling off gently. */
+.fwf-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 55% at 55% 38%, rgba(34, 101, 255, 0.07), transparent 70%),
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(26, 33, 61, 0.08));
+}
+
+/* The dashboard world, 1440 × 1024, moved by the camera. */
+.fwf-world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1440px;
+  height: 1024px;
+  transform-origin: 0 0;
+}
+
+.fwf-tilt {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+}
+
+.fwf-board {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 1px rgba(26, 33, 61, 0.06),
+    0 60px 120px -50px rgba(26, 33, 61, 0.35);
+}
+
+.fwf-base {
+  display: block;
+}
+
+/* One soft highlight passing across the finished dashboard. */
+.fwf-sheen {
+  position: absolute;
+  inset: -10% auto -10% 0;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  pointer-events: none;
+}
+
+/* Logo in its real slot: the mark, then FINWORLD (Inter SemiBold 18, #1a213d). */
+.fwf-logo {
+  position: absolute;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.fwf-mark {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 14px;
+  height: 18px;
+}
+
+.fwf-mark img {
+  display: block;
+}
+
+.fwf-glint {
+  position: absolute;
+  inset: -20% auto -20% 0;
+  width: 60%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+}
+
+.fwf-word {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  white-space: nowrap;
+}
+
+.fwf-card {
+  position: absolute;
+}
+
+/* Copy: one line, beside the card on wide screens and under it on narrow ones. */
+.fwf-copy {
+  position: absolute;
+  left: 7vw;
+  top: 50%;
+  margin: -0.6em 0 0;
+  font-size: clamp(30px, 3.4vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.fwf-copy em,
+.fwf-payoff em {
+  font-family: inherit;
+  font-style: normal;
+  color: #2265ff;
+}
+
+/* Clears the busy dashboard behind the copy while the camera is close. */
+.fwf-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #f4f6fb 0%, rgba(244, 246, 251, 0.9) 22%, rgba(244, 246, 251, 0) 34%);
+}
+
+@media (max-width: 759px) {
+  .fwf-scrim {
+    background: linear-gradient(0deg, #f4f6fb 0%, rgba(244, 246, 251, 0.92) 22%, rgba(244, 246, 251, 0) 40%);
+  }
+}
+
+.fwf-payoff {
+  position: absolute;
+  left: 50%;
+  bottom: 4.5vh;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0;
+  font-size: clamp(15px, 1.4vw, 22px);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.fwf-payoff span {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.fwf-payoff em {
+  margin-left: 14px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(26, 33, 61, 0.15);
+  color: #54555a;
+}
+
+@media (max-width: 759px) {
+  .fwf-copy {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 16vh;
+    margin: 0;
+    text-align: center;
+  }
+
+  .fwf-payoff {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90vw;
+    white-space: normal;
+  }
+
+  .fwf-payoff em {
+    flex-basis: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-align: center;
+  }
+}
+
+/* ---------- Cards, rebuilt from the Figma file ---------- */
+.fwc {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.fwc img {
+  display: block;
+  max-width: none;
+}
+
+.fwc p {
+  margin: 0;
+}
+
+/* Total Revenue */
+.fwc-rev {
+  border-radius: 6.4px;
+  background: #ffffff;
+}
+
+.fwc-rev-head {
+  position: absolute;
+  left: 14.35px;
+  top: 12px;
+  display: flex;
+  gap: 5.6px;
+  align-items: flex-end;
+}
+
+.fwc-rev-label {
+  margin-bottom: 4.8px !important;
+  font-size: 11.77px;
+  font-weight: 500;
+}
+
+.fwc-rev-value {
+  font-size: 19.13px;
+  font-weight: 600;
+  letter-spacing: -0.574px;
+  line-height: 1.1;
+  color: #2265ff;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.fwc-badge {
+  display: inline-flex;
+  gap: 1.2px;
+  align-items: center;
+  padding: 1.96px 5.88px;
+  border-radius: 49px;
+  background: #eafbf3;
+  font-size: 7.84px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #04542a;
+  white-space: nowrap;
+}
+
+.fwc-rev-chart {
+  position: absolute;
+  left: 14.35px;
+  top: 47px;
+  width: 260px;
+  height: 196px;
+}
+
+.fwc-grid {
+  position: absolute;
+  left: 15%;
+  width: 75%;
+}
+
+.fwc-tick {
+  position: absolute;
+  top: 84%;
+}
+
+.fwc-axis {
+  position: absolute;
+  top: 84.33%;
+  font-size: 7.84px;
+  color: #54555a;
+  white-space: nowrap;
+}
+
+.fwc-axis-y {
+  right: 87.05%;
+  left: auto;
+  text-align: right;
+}
+
+.fwc-year {
+  top: 86%;
+  font-size: 7.97px;
+  font-weight: 700;
+}
+
+.fwc-rev-line {
+  position: absolute;
+  left: 15%;
+  top: 24.5%;
+  width: 75%;
+  height: 52.36%;
+}
+
+.fwc-foot {
+  position: absolute;
+  left: 14.35px;
+  right: 34px;
+  bottom: 14px;
+}
+
+.fwc-foot img {
+  width: 100%;
+  height: 1px;
+}
+
+.fwc-foot p {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 9.57px !important;
+  font-size: 7.97px;
+  font-weight: 500;
+}
+
+.fwc-foot strong {
+  font-size: 8.77px;
+  font-weight: 600;
+  letter-spacing: -0.263px;
+  color: #2265ff;
+}
+
+/* Expenses Breakdown */
+.fwc-exp {
+  border-radius: 7.5px;
+  background: #fdfdfd;
+}
+
+.fwc-pie {
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  width: 186px;
+  height: 186px;
+}
+
+.fwc-exp-title {
+  position: absolute;
+  left: 6.99%;
+  top: 0;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.fwc-seg {
+  position: absolute;
+  transform-origin: 50% 50%;
+}
+
+.fwc-legend {
+  position: absolute;
+  left: 197px;
+  top: 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 14.06px;
+  width: 200px;
+}
+
+.fwc-legend-row {
+  display: grid;
+  grid-template-columns: 59px 52px 21px;
+  column-gap: 33.75px;
+  font-size: 10px;
+  line-height: 12px;
+  color: #54555a;
+  white-space: nowrap;
+}
+
+.fwc-legend-name {
+  display: inline-flex;
+  gap: 1.9px;
+  align-items: center;
+}
+
+.fwc-legend-value {
+  font-weight: 500;
+}
+
+.fwc-legend-pct {
+  font-size: 9.4px;
+}
+
+.fwc-exp-foot {
+  left: 17px;
+  right: 22px;
+  bottom: 12px;
+}
+
+.fwc-exp-foot p {
+  font-size: 10px;
+  color: #1a213d;
+}
+
+.fwc-exp-foot strong {
+  font-size: 12px;
+  letter-spacing: -0.36px;
+  color: #1a213d;
+}
+
+/* Nova */
+.fwc-nova {
+  border: 1px solid #eeeeef;
+  border-radius: 8px;
+  background: #f6f8ff;
+  box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.fwc-nova-head {
+  position: absolute;
+  left: 23px;
+  top: 21px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.fwc-nova-head strong {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2265ff;
+}
+
+.fwc-nova-head span {
+  margin-left: -5px;
+  font-size: 12px;
+}
+
+.fwc-nova-list {
+  position: absolute;
+  left: 23px;
+  top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 255px;
+}
+
+.fwc-nova-item {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 7px 6px;
+  border: 1px solid rgba(84, 85, 90, 0.1);
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 12px;
+  color: #000000;
+  white-space: nowrap;
+  transition: none;
+}
+
+.fwc-nova-item img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* The suggestion the film points at gets Finworld's blue edge. */
+.fwc-nova-item[data-focus] {
+  border-color: #2265ff;
+  box-shadow: 0 0 0 3px rgba(34, 101, 255, 0.12);
+}
+
+.fwc-nova-ask {
+  position: absolute;
+  left: 23px;
+  top: 203px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 246px;
+  padding: 10.2px 23.75px 10.2px 13.57px;
+  box-sizing: border-box;
+  border: 0.85px solid #cad0e6;
+  border-radius: 26.3px;
+  background: #ffffff;
+  font-size: 10.18px;
+  font-weight: 500;
+  color: #7b7f8f;
+}
+
+.fwc-nova-ask img {
+  transform: rotate(45deg);
+}

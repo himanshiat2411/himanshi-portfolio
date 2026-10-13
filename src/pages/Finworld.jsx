@@ -1,4 +1,5 @@
 import CaseStudy from '../components/CaseStudy';
+import FinworldIntro from '../components/finworld/Intro';
 import walkthrough from '../assets/finworld/walkthrough.mp4';
 import walkthroughPoster from '../assets/finworld/walkthrough-poster.webp';
 
@@ -36,15 +37,18 @@ const SECTIONS = [
 // Shown at 1020px wide on large screens, so the design's content (inset ~120px at 1728) lines up
 // with the Takshila case study's 880px column; the sides carry each section's own colours.
 const Finworld = () => (
-  <CaseStudy
-    title="Finworld"
-    width={1728}
-    displayWidth={1020}
-    sections={SECTIONS}
-    barColor="#d8d8d8"
-    linkColor="#1a213d"
-    extendEdges
-  />
+  <>
+    <FinworldIntro />
+    <CaseStudy
+      title="Finworld"
+      width={1728}
+      displayWidth={1020}
+      sections={SECTIONS}
+      barColor="#d8d8d8"
+      linkColor="#1a213d"
+      extendEdges
+    />
+  </>
 );
 
 export default Finworld;
