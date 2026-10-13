@@ -147,7 +147,7 @@ const Takshila = () => {
             </div>
           </header>
 
-          {/* Context: what Takshila is, its users, and who else it depends on */}
+          {/* Context: what Takshila is and its users */}
           <section className="tk-section" id="tk-context">
             <SectionLabel>{CONTEXT.label}</SectionLabel>
             <h2>{CONTEXT.heading}</h2>
@@ -174,11 +174,6 @@ const Takshila = () => {
               </ul>
             </div>
             <p className="tk-emphasis">{CONTEXT.coreProblem}</p>
-            <div className="tk-subsection">
-              <p className="tk-leadin">{CONTEXT.stakeholderLead}</p>
-              <h3 className="tk-subhead">Stakeholder map</h3>
-              <StakeholderMap />
-            </div>
           </section>
 
           {/* What I worked on */}
@@ -186,22 +181,6 @@ const Takshila = () => {
             <h2>{WORK.heading}</h2>
             <p className="tk-problems-sub">{WORK.sub}</p>
             <PhaseCards phases={WORK.phases} />
-          </section>
-
-          {/* Design principles */}
-          <section className="tk-section">
-            <h2>{APPROACH.heading}</h2>
-            <ol className="tk-principles">
-              {APPROACH.principles.map(p => (
-                <li key={p.id} id={p.id}>
-                  <strong>{p.name}</strong>
-                  <span>{p.text}</span>
-                </li>
-              ))}
-            </ol>
-            <p className="tk-principles-sum">
-              {APPROACH.closing} <strong>{APPROACH.closingEmphasis}</strong>
-            </p>
           </section>
 
           {/* Q4 sales (Phase 1) */}
@@ -300,6 +279,29 @@ const Takshila = () => {
                 <InsightCard key={ins.id} index={i + 1} {...ins} />
               ))}
             </ol>
+          </section>
+
+          {/* Stakeholders: who else Takshila depends on */}
+          <section className="tk-section">
+            <p className="tk-leadin">{CONTEXT.stakeholderLead}</p>
+            <h2>Stakeholder map</h2>
+            <StakeholderMap />
+          </section>
+
+          {/* Design principles */}
+          <section className="tk-section">
+            <h2>{APPROACH.heading}</h2>
+            <ol className="tk-principles">
+              {APPROACH.principles.map(p => (
+                <li key={p.id} id={p.id}>
+                  <strong>{p.name}</strong>
+                  <span>{p.text}</span>
+                </li>
+              ))}
+            </ol>
+            <p className="tk-principles-sum">
+              {APPROACH.closing} <strong>{APPROACH.closingEmphasis}</strong>
+            </p>
           </section>
 
           <section className="tk-section">
