@@ -1,0 +1,60 @@
+.passage-stage {
+  position: relative;
+  width: 100%;
+  height: min(78vh, 640px);
+  margin-top: 24px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0b0b0b;
+  perspective: 600px;
+  perspective-origin: 50% 50%;
+}
+
+/* Darken toward the vanishing point */
+.passage-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, #0b0b0b 0, rgba(11, 11, 11, 0.6) 6%, transparent 22%);
+}
+
+.passage-world {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.passage-cell {
+  position: absolute;
+  left: -150px;
+  top: -150px;
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backface-visibility: hidden;
+}
+
+.passage-cell img {
+  position: absolute;
+  inset: 14px;
+  width: calc(100% - 28px);
+  height: calc(100% - 28px);
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  user-select: none;
+}
+
+@media (max-width: 700px) {
+  .passage-stage {
+    height: 70vh;
+    border-radius: 14px;
+    perspective: 420px;
+  }
+}

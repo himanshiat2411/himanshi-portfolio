@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 import photoDoorway from '../assets/about-photo-doorway.webp';
 import photo from '../assets/about-photo.webp';
-import Masonry from '../components/Masonry/Masonry';import './About.css';
+import PassageGallery from '../components/PassageGallery/PassageGallery';
+import './About.css';
 
 // The two prints beside the intro; the first starts in front. `focus` is the crop within the frame.
 const PRINTS = [
@@ -94,30 +95,7 @@ const GALLERY = [
   { n: '12', height: 760, alt: 'A colourful temple tower against the sky' }
 ].map(({ n, height, alt }) => ({ id: n, img: galleryPhoto(n), url: galleryPhoto(n), height, alt }));
 
-// Mount the gallery only once it scrolls into view, so its entrance animation is seen.
-const useInView = () => {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '0px 0px -15% 0px' }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  return [ref, inView];
-};
-
 const About = () => {
-  const [galleryRef, galleryInView] = useInView();
 
   useEffect(() => {
     const previous = document.title;
@@ -201,21 +179,9 @@ const About = () => {
       <section className="about-section about-gallery" id="gallery">
         <div className="container">
           <h2 className="about-eyebrow">Beside design, you will find me here</h2>
-          <div ref={galleryRef} className="about-gallery-grid">
-            {galleryInView && (
-              <Masonry
-                items={GALLERY}
-                ease="power3.out"
-                duration={0.6}
-                stagger={0.05}
-                animateFrom="bottom"
-                scaleOnHover
-                hoverScale={0.95}
-                blurToFocus
-                colorShiftOnHover={false}
-              />
-            )}
-          </div>
+        </div>
+        <div className="container">
+          <PassageGallery items={GALLERY} />
         </div>
       </section>
     </>
