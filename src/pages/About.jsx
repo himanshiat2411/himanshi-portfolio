@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import photoDoorway from '../assets/about-photo-doorway.webp';
 import photo from '../assets/about-photo.webp';
+import Masonry from '../components/Masonry/Masonry';
 import PassageGallery from '../components/PassageGallery/PassageGallery';
 import './About.css';
 
@@ -95,7 +96,44 @@ const GALLERY = [
   { n: '12', height: 760, alt: 'A colourful temple tower against the sky' }
 ].map(({ n, height, alt }) => ({ id: n, img: galleryPhoto(n), url: galleryPhoto(n), height, alt }));
 
+// Mount the gallery only once it scrolls into view, so its entrance animation is seen.
+const useInView = () => {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '0px 0px -15% 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return [ref, inView];
+};
+
+// Phones get the masonry grid; the photo tunnel is for larger screens.
+const useIsPhone = () => {
+  const query = '(max-width: 760px)';
+  const [phone, setPhone] = useState(() => window.matchMedia(query).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = () => setPhone(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return phone;
+};
+
 const About = () => {
+  const [galleryRef, galleryInView] = useInView();
+  const isPhone = useIsPhone();
 
   useEffect(() => {
     const previous = document.title;
@@ -179,10 +217,29 @@ const About = () => {
       <section className="about-section about-gallery" id="gallery">
         <div className="container">
           <h2 className="about-eyebrow">Beside design, you will find me here</h2>
+          {isPhone && (
+            <div ref={galleryRef} className="about-gallery-grid">
+              {galleryInView && (
+                <Masonry
+                  items={GALLERY}
+                  ease="power3.out"
+                  duration={0.6}
+                  stagger={0.05}
+                  animateFrom="bottom"
+                  scaleOnHover
+                  hoverScale={0.95}
+                  blurToFocus
+                  colorShiftOnHover={false}
+                />
+              )}
+            </div>
+          )}
         </div>
-        <div className="container">
-          <PassageGallery items={GALLERY} />
-        </div>
+        {!isPhone && (
+          <div className="container">
+            <PassageGallery items={GALLERY} />
+          </div>
+        )}
       </section>
     </>
   );

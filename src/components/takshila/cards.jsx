@@ -70,16 +70,47 @@ export const DecisionBlock = ({ id, tag, heading, points, principles = [], flip,
   );
 };
 
-// Old and redesigned screen in one frame, split by a divider you drag (arrow keys move it too).
-// Both show the top of the page, in the frame's shape (`ratio`). The "after" side is an image, or
-// coded markup (`after.node`). On phones the pair stacks.
+// Old and redesigned screen in one frame, split by a divider. Until someone touches it, the
+// divider sweeps slowly back and forth on its own (only while on screen); once they hover,
+// drag or use the arrow keys, it's theirs and stops moving by itself. Both sides show the top
+// of the page, in the frame's shape (`ratio`). The "after" side is an image, or coded markup
+// (`after.node`). On phones the pair stacks.
 export const BeforeAfter = ({ before, after, name, ratio = '1440 / 666' }) => {
   const [pos, setPos] = useState(50);
+  const [userControl, setUserControl] = useState(false);
   const frameRef = useRef(null);
   const dragging = useRef(false);
 
+  useEffect(() => {
+    if (userControl || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const frame = frameRef.current;
+    let visible = false;
+    let t = 0;
+    let last = performance.now();
+    let raf = 0;
+    const tick = now => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      if (visible) {
+        t += dt;
+        setPos(50 + 35 * Math.sin((t / 9) * Math.PI * 2)); // one full sweep every 9s
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    });
+    observer.observe(frame);
+    raf = requestAnimationFrame(tick);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [userControl]);
+
   const moveTo = clientX => {
     const r = frameRef.current.getBoundingClientRect();
+    setUserControl(true);
     setPos(Math.min(100, Math.max(0, ((clientX - r.left) / r.width) * 100)));
   };
 
@@ -94,7 +125,7 @@ export const BeforeAfter = ({ before, after, name, ratio = '1440 / 666' }) => {
           e.currentTarget.setPointerCapture(e.pointerId);
           moveTo(e.clientX);
         }}
-        onPointerMove={e => dragging.current && moveTo(e.clientX)}
+        onPointerMove={e => (dragging.current || e.pointerType === 'mouse') && moveTo(e.clientX)}
         onPointerUp={() => {
           dragging.current = false;
         }}
@@ -115,6 +146,7 @@ export const BeforeAfter = ({ before, after, name, ratio = '1440 / 666' }) => {
         </span>
         <span
           className="tk-ba-handle"
+          data-auto={userControl ? undefined : ''}
           role="slider"
           tabIndex={0}
           aria-label={`Compare the old and redesigned ${name} screen`}
@@ -122,6 +154,7 @@ export const BeforeAfter = ({ before, after, name, ratio = '1440 / 666' }) => {
           aria-valuemax={100}
           aria-valuenow={Math.round(pos)}
           onKeyDown={e => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') setUserControl(true);
             if (e.key === 'ArrowLeft') setPos(p => Math.max(0, p - 5));
             if (e.key === 'ArrowRight') setPos(p => Math.min(100, p + 5));
           }}
