@@ -5,6 +5,7 @@ import FeedbackWidget from './components/FeedbackWidget';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import Preloader from './components/Preloader';
+import ScrollFade from './components/ScrollFade';
 import ScrollManager from './components/ScrollManager';
 import About from './pages/About';
 import Feedback from './pages/Feedback';
@@ -31,6 +32,7 @@ const App = () => {
   return (
     <>
       <ScrollManager />
+      <ScrollFade />
       <Navbar />
       <main id="top">
         <Routes>

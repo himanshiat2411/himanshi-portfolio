@@ -58,3 +58,13 @@ a {
   width: min(1200px, 100% - 32px);
   margin-inline: auto;
 }
+
+/* Scroll fade-in (see ScrollFade.jsx) */
+.fade {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.fade.fade-in {
+  opacity: 1;
+}
