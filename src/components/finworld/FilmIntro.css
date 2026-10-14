@@ -1,0 +1,40 @@
+.fwfilm {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  cursor: pointer;
+  transition: transform 600ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.fwfilm.is-leaving {
+  transform: translateY(-100%);
+}
+
+.fwfilm video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.fwfilm-sound {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #2265ff;
+  color: #ffffff;
+  font: 600 13px/1 'Inter', var(--font-sans);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fwfilm {
+    transition: none;
+  }
+}

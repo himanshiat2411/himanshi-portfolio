@@ -1,5 +1,5 @@
 import CaseStudy from '../components/CaseStudy';
-import FinworldIntro from '../components/finworld/Intro';
+import FilmIntro from '../components/finworld/FilmIntro';
 import walkthrough from '../assets/finworld/walkthrough.mp4';
 import walkthroughPoster from '../assets/finworld/walkthrough-poster.webp';
 
@@ -56,7 +56,7 @@ const NAV_THEME = { accent: '#2265ff', text: '#54555a', marker: '#c9ccd6', panel
 // with the Takshila case study's 880px column; the sides carry each section's own colours.
 const Finworld = () => (
   <>
-    <FinworldIntro />
+    <FilmIntro />
     <CaseStudy
       title="Finworld"
       width={1728}

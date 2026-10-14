@@ -6,6 +6,7 @@ import finworldLaptop from '../assets/work/finworld-laptop.webp';
 import grubNGrabBg from '../assets/work/grub-n-grab-bg.webp';
 import grubNGrabPhones from '../assets/work/grub-n-grab-phones.webp';
 import takshilaThumb from '../assets/work/takshila-thumb.webp';
+import finworldFilm from '../assets/finworld/film/tile.mp4';
 import grubNGrabIntro from '../assets/grub-n-grab/videos/1.mp4';
 import grubNGrabPrototype from '../assets/grub-n-grab/videos/2.mp4';
 import takshilaThumbMobile from '../assets/work/takshila-thumb-mobile.webp';
@@ -34,7 +35,7 @@ const PROJECTS = [
     caption: 'Finworld — financial modeling dashboard',
     tag: 'Design sprint · 2026',
     text: 'Designed a full financial modeling dashboard in a 55-hour sprint, built around 3 core problems and 2 personas.',
-    loop: { page: '/loop/finworld' },
+    loop: { videos: [finworldFilm], background: '#ffffff' },
     wide: true,
     ratio: '1100 / 917',
     zoom: 0.995,
