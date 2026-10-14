@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import film from '../../assets/finworld/film/intro.mp4';
+import filmPortrait from '../../assets/finworld/film/intro-portrait.mp4';
 import SkipIntro from '../SkipIntro';
 import './FilmIntro.css';
 
-// Opening film for the Finworld case study: the motion film plays full screen, with its music,
-// then lifts away to reveal the page. Browsers only allow sound after a click, which arriving
+// Opening film for the Finworld case study: the motion film plays full screen, with its music
+// (the tall cut on portrait screens like phones), then lifts away to reveal the page. Browsers only allow sound after a click, which arriving
 // from the Selected work tile is; if sound is still blocked the film plays muted with a
 // "Sound on" button. Clicking anywhere (or Skip intro) ends it early.
 const FilmIntro = () => {
@@ -14,6 +15,7 @@ const FilmIntro = () => {
   const [done, setDone] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [src] = useState(() => (window.matchMedia('(orientation: portrait)').matches ? filmPortrait : film));
 
   // Lift away (no transition, so no transitionend, with reduced motion: just close).
   const finish = () =>
@@ -56,7 +58,7 @@ const FilmIntro = () => {
       className={`fwfilm${leaving ? ' is-leaving' : ''}`}
       onClick={finish}
     >
-      <video ref={videoRef} src={film} playsInline preload="auto" onEnded={finish} />
+      <video ref={videoRef} src={src} playsInline preload="auto" onEnded={finish} />
       {muted && (
         <button
           type="button"
