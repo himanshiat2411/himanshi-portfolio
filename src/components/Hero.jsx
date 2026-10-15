@@ -1,8 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import TechText from './TechText/TechText';
 import SculptureHero from './ui/liquid-sculpture-hero';
 import sculpture from '../assets/hero/sculpture-green.webp';
-import sculptureMobile from '../assets/hero/sculpture-green-mobile.webp';
 import IntroVideoModal from './IntroVideoModal';
 import './Hero.css';
 
@@ -12,9 +11,23 @@ import './Hero.css';
 const POINTER_EVENTS = ['pointermove', 'pointerdown', 'pointerup', 'pointercancel', 'pointerleave'];
 const NO_LINK = { label: '', href: '' };
 
+// Desktop only: phones get the plain hero (no sculpture, no WebGL).
+const DESKTOP = '(min-width: 641px)';
+const useDesktop = () => {
+  const [desktop, setDesktop] = useState(() => window.matchMedia(DESKTOP).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP);
+    const onChange = () => setDesktop(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return desktop;
+};
+
 const Hero = () => {
   const [videoOpen, setVideoOpen] = useState(false);
   const liquidRef = useRef(null);
+  const desktop = useDesktop();
 
   const forward = e => {
     const target = liquidRef.current?.querySelector('.sh-root');
@@ -31,32 +44,32 @@ const Hero = () => {
     onPointerCancel={forward}
     onPointerLeave={forward}
   >
-    <div ref={liquidRef} className="hero-liquid" aria-hidden="true">
-      <SculptureHero
-        src={sculpture}
-        darkSrc={sculpture}
-        mobileSrc={sculptureMobile}
-        mobileDarkSrc={sculptureMobile}
-        theme="dark"
-        darkBackground="#0a0a0a"
-        showNav={false}
-        themeToggle={false}
-        eyebrow=""
-        headline=""
-        headlineAccent=""
-        body=""
-        primaryCta={NO_LINK}
-        secondaryCta={NO_LINK}
-        hint=""
-        hintTouch=""
-        backdropText=""
-        showCredit={false}
-        loadFonts={false}
-        height="100%"
-        sculptureScale={0.82}
-        sculptureY={-4}
-      />
-    </div>
+    {desktop && (
+      <div ref={liquidRef} className="hero-liquid" aria-hidden="true">
+        <SculptureHero
+          src={sculpture}
+          darkSrc={sculpture}
+          theme="dark"
+          darkBackground="#0a0a0a"
+          showNav={false}
+          themeToggle={false}
+          eyebrow=""
+          headline=""
+          headlineAccent=""
+          body=""
+          primaryCta={NO_LINK}
+          secondaryCta={NO_LINK}
+          hint=""
+          hintTouch=""
+          backdropText=""
+          showCredit={false}
+          loadFonts={false}
+          height="100%"
+          sculptureScale={0.82}
+          sculptureY={-4}
+        />
+      </div>
+    )}
     <div className="hero-wordmark">
       <TechText
         text="Himanshi"
