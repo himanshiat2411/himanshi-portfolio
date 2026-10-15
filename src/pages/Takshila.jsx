@@ -135,7 +135,7 @@ const Takshila = () => {
 
   return (
     <ScreenViewerProvider>
-      <FilmIntro film={takshilaFilm} portrait={takshilaFilmPortrait} background="#1a0b0e" />
+      <FilmIntro film={takshilaFilm} portrait={takshilaFilmPortrait} background="#1a0b0e" coverUntil={6.3} />
       <CaseNav sections={NAV} theme={NAV_THEME} />
       <div className="tk">
         <article className="tk-page" ref={pageRef}>

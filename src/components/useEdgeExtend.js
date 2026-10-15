@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 // outward, every frame: the outermost rows and columns are stretched across the empty
 // bands, so the background a scene already has (a UI's cream, the crystals around the ring)
 // carries on to the edges of the screen and the whole screen reads as the film.
-const useEdgeExtend = (videoRef, canvasRef, active = true) => {
+// mode 'flat': each band continues the film's edge colour point by point (no stretched detail).
+const useEdgeExtend = (videoRef, canvasRef, active = true, mode = 'extend') => {
   useEffect(() => {
     if (!active) return undefined;
     const canvas = canvasRef.current;
@@ -13,6 +14,10 @@ const useEdgeExtend = (videoRef, canvasRef, active = true) => {
     // the edge colours rather than streaks
     const edge = document.createElement('canvas');
     const ectx = edge.getContext('2d');
+    const soft = document.createElement('canvas');
+    const sctx = soft.getContext('2d');
+    const mask = document.createElement('canvas');
+    const mctx = mask.getContext('2d');
     const EW = 56; // samples along each edge: lower = softer fields
     const DEPTH = 2; // rows/columns taken from each edge
     const avg = document.createElement('canvas');
@@ -61,6 +66,45 @@ const useEdgeExtend = (videoRef, canvasRef, active = true) => {
         ectx.drawImage(video, 0, 0, edge.width, edge.height);
         const ew = edge.width;
         const eh = edge.height;
+        if (mode === 'flat') {
+          // each band continues the colour of the film's edge right beside it; further out it
+          // eases into a softened version of that edge, so thin lines don't streak
+          soft.width = 8;
+          soft.height = Math.max(2, Math.round((8 * vh) / vw));
+          sctx.drawImage(edge, 0, 0, soft.width, soft.height);
+          const sw = soft.width;
+          const sh = soft.height;
+          const band = (src, sx, sy, sW, sH, dx, dy, dw, dh, gx0, gy0, gx1, gy1) => {
+            ctx.drawImage(edge, ...src, dx, dy, dw, dh);
+            // the soft edge, faded in from the film outward through a mask
+            mask.width = Math.max(1, Math.round(dw));
+            mask.height = Math.max(1, Math.round(dh));
+            mctx.globalCompositeOperation = 'source-over';
+            mctx.clearRect(0, 0, mask.width, mask.height);
+            mctx.drawImage(soft, sx, sy, sW, sH, 0, 0, mask.width, mask.height);
+            mctx.globalCompositeOperation = 'destination-in';
+            const mg = mctx.createLinearGradient(gx0 - dx, gy0 - dy, gx1 - dx, gy1 - dy);
+            mg.addColorStop(0, 'rgba(0,0,0,0)');
+            mg.addColorStop(0.5, 'rgba(0,0,0,1)');
+            mg.addColorStop(1, 'rgba(0,0,0,1)');
+            mctx.fillStyle = mg;
+            mctx.fillRect(0, 0, mask.width, mask.height);
+            ctx.drawImage(mask, dx, dy, dw, dh);
+          };
+          if (y > 0.5) {
+            const top = Math.ceil(y) + 1;
+            const bot = Math.floor(y + h) - 1;
+            band([0, 0, ew, 1], 0, 0, sw, 1, x, 0, w, top, 0, top, 0, 0);
+            band([0, eh - 1, ew, 1], 0, sh - 1, sw, 1, x, bot, w, H - bot, 0, bot, 0, H);
+          }
+          if (x > 0.5) {
+            const left = Math.ceil(x) + 1;
+            const right = Math.floor(x + w) - 1;
+            band([0, 0, 1, eh], 0, 0, 1, sh, 0, y, left, h, left, 0, 0, 0);
+            band([ew - 1, 0, 1, eh], sw - 1, 0, 1, sh, right, y, W - right, h, right, 0, W, 0);
+          }
+          return;
+        }
         if (y > 0.5) {
           const b = H - (y + h);
           ctx.drawImage(edge, 0, 0, ew, DEPTH, x, 0, w, y + 1); // top rows, upward
@@ -87,7 +131,7 @@ const useEdgeExtend = (videoRef, canvasRef, active = true) => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', fit);
     };
-  }, [videoRef, canvasRef, active]);
+  }, [videoRef, canvasRef, active, mode]);
 };
 
 export default useEdgeExtend;

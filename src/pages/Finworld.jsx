@@ -56,7 +56,7 @@ const NAV_THEME = { accent: '#2265ff', text: '#54555a', marker: '#c9ccd6', panel
 // with the Takshila case study's 880px column; the sides carry each section's own colours.
 const Finworld = () => (
   <>
-    <FilmIntro />
+    <FilmIntro background="#ffffff" flatBands />
     <CaseStudy
       title="Finworld"
       width={1728}

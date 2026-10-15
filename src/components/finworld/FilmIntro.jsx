@@ -12,7 +12,7 @@ import './FilmIntro.css';
 // (the tall cut on portrait screens like phones), then lifts away to reveal the page. Browsers only allow sound after a click, which arriving
 // from the Selected work tile is; if sound is still blocked the film plays muted with a
 // "Sound on" button. Clicking anywhere (or Skip intro) ends it early.
-const FilmIntro = ({ film = finworldFilm, portrait = finworldPortrait, background, coverUntil = 0 }) => {
+const FilmIntro = ({ film = finworldFilm, portrait = finworldPortrait, background, coverUntil = 0, flatBands = false }) => {
   const videoRef = useRef(null);
   const [done, setDone] = useState(false);
   const [leaving, setLeaving] = useState(false);
@@ -21,7 +21,9 @@ const FilmIntro = ({ film = finworldFilm, portrait = finworldPortrait, backgroun
   // full-bleed opener; after that the whole frame is shown.
   const [cover, setCover] = useState(coverUntil > 0);
   const bandsRef = useRef(null);
-  useEdgeExtend(videoRef, bandsRef, !done);
+  // flatBands: each band takes the colour of the film's edge beside it, point by point (for films
+  // on plain backgrounds), instead of extending the edges with a fade
+  useEdgeExtend(videoRef, bandsRef, !done, flatBands ? 'flat' : 'extend');
   const [src] = useState(() => (window.matchMedia('(orientation: portrait)').matches ? portrait : film));
 
   // Lift away (no transition, so no transitionend, with reduced motion: just close).
