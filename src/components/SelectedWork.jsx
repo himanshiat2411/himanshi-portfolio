@@ -7,6 +7,7 @@ import grubNGrabBg from '../assets/work/grub-n-grab-bg.webp';
 import grubNGrabPhones from '../assets/work/grub-n-grab-phones.webp';
 import takshilaThumb from '../assets/work/takshila-thumb.webp';
 import finworldFilm from '../assets/finworld/film/tile.mp4';
+import takshilaFilm from '../assets/takshila/film/tile.mp4';
 import grubNGrabIntro from '../assets/grub-n-grab/videos/1.mp4';
 import grubNGrabPrototype from '../assets/grub-n-grab/videos/2.mp4';
 import takshilaThumbMobile from '../assets/work/takshila-thumb-mobile.webp';
@@ -24,7 +25,7 @@ const PROJECTS = [
     caption: 'Takshila — handcrafted jewelry marketplace',
     tag: 'Product design · 6 months',
     text: 'Redesigned key screens like the product page for easier flows, led 5 JTBD interviews, audited 11 flows and wrote 2 PRDs.',
-    loop: { page: '/loop/takshila?hold=3500' },
+    loop: { videos: [takshilaFilm], background: '#1a0b0e' },
     ratio: '491 / 420',
     layers: [{ src: takshilaThumb }],
     mobile: { ratio: '358 / 240', src: takshilaThumbMobile }

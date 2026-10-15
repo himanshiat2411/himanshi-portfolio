@@ -30,7 +30,9 @@ import CompetitorMap from '../components/CompetitorMap';
 import CaseNav from '../components/LineSidebar/CaseNav';
 import StakeholderMap from '../components/StakeholderMap';
 import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
-import TakshilaIntro from '../components/takshila/Intro';
+import FilmIntro from '../components/finworld/FilmIntro';
+import takshilaFilm from '../assets/takshila/film/intro.mp4';
+import takshilaFilmPortrait from '../assets/takshila/film/intro-portrait.mp4';
 import { CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
 import { NodeStrip, RoundsStrip, ScreenTour, VisualAskFirst, VisualCheckpoint, VisualOptions } from '../components/takshila/visuals';
 import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
@@ -133,7 +135,7 @@ const Takshila = () => {
 
   return (
     <ScreenViewerProvider>
-      <TakshilaIntro />
+      <FilmIntro film={takshilaFilm} portrait={takshilaFilmPortrait} background="#1a0b0e" />
       <CaseNav sections={NAV} theme={NAV_THEME} />
       <div className="tk">
         <article className="tk-page" ref={pageRef}>
