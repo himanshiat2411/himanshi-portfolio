@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
 import FinworldIntro from '../components/finworld/Intro';
-import TakshilaIntro from '../components/takshila/Intro';
 import './IntroLoop.css';
 
 // A case study's intro animation replayed on repeat, with no site chrome. The Selected work
@@ -10,7 +9,6 @@ import './IntroLoop.css';
 // With `?hold=<ms>` the page pauses that long between runs and tells the tile (via postMessage)
 // so it can show the project thumbnail in the gap.
 const INTROS = {
-  takshila: { Intro: TakshilaIntro, ms: 5600, background: '#2b1016' },
   finworld: { Intro: FinworldIntro, ms: 8600, background: '#f4f6fb' }
 };
 

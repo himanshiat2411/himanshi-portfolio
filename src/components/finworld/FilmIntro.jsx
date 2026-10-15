@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import finworldFilm from '../../assets/finworld/film/intro.mp4';
 import finworldPortrait from '../../assets/finworld/film/intro-portrait.mp4';
 import SkipIntro from '../SkipIntro';
+import useEdgeColor from '../useEdgeColor';
 import './FilmIntro.css';
 
 // Opening film for a case study (Finworld by default; pass `film`, `portrait` and `background`
@@ -16,6 +17,7 @@ const FilmIntro = ({ film = finworldFilm, portrait = finworldPortrait, backgroun
   const [done, setDone] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const [muted, setMuted] = useState(false);
+  const backdrop = useEdgeColor(videoRef, background || '#ffffff', !done);
   const [src] = useState(() => (window.matchMedia('(orientation: portrait)').matches ? portrait : film));
 
   // Lift away (no transition, so no transitionend, with reduced motion: just close).
@@ -57,10 +59,10 @@ const FilmIntro = ({ film = finworldFilm, portrait = finworldPortrait, backgroun
   return createPortal(
     <div
       className={`fwfilm${leaving ? ' is-leaving' : ''}`}
-      style={background ? { background } : undefined}
+      style={{ background: backdrop }}
       onClick={finish}
     >
-      <video ref={videoRef} src={src} style={background ? { background } : undefined} playsInline preload="auto" onEnded={finish} />
+      <video ref={videoRef} src={src} playsInline preload="auto" onEnded={finish} />
       {muted && (
         <button
           type="button"

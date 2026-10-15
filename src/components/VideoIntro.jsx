@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import SkipIntro from './SkipIntro';
+import useEdgeColor from './useEdgeColor';
 import './VideoIntro.css';
 
 // Full-screen intro that plays a video once before a case study, then slides up out of view.
@@ -10,6 +11,9 @@ const VideoIntro = ({ src, background, label }) => {
   const [state, setState] = useState(() =>
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'done' : 'playing'
   );
+
+  const videoRef = useRef(null);
+  const backdrop = useEdgeColor(videoRef, background, state !== 'done');
 
   useEffect(() => {
     if (state === 'done') return undefined;
@@ -40,10 +44,10 @@ const VideoIntro = ({ src, background, label }) => {
   return createPortal(
     <div
       className={`video-intro${state === 'leaving' ? ' is-leaving' : ''}`}
-      style={{ background }}
+      style={{ background: backdrop }}
       onClick={leave}
     >
-      <video src={src} autoPlay muted playsInline onEnded={leave} onError={leave} aria-label={label} />
+      <video ref={videoRef} src={src} autoPlay muted playsInline onEnded={leave} onError={leave} aria-label={label} />
       <SkipIntro onSkip={leave} />
     </div>,
     document.body

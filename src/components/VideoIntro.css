@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1), background-color 400ms linear;
 }
 
 /* The whole screen slides up to reveal the case study. */
@@ -13,9 +13,14 @@
   transform: translateY(-100%);
 }
 
-/* 90% of the screen; the backdrop matches the video's own background. */
+/* Fit the whole video inside the window; the backdrop takes the video's edge colour. */
 .video-intro video {
-  width: 90vw;
-  max-height: 90vh;
+  position: absolute;
+  left: 3vw;
+  top: 3vh;
+  top: 3dvh;
+  width: 94vw;
+  height: 94vh;
+  height: 94dvh;
   object-fit: contain;
 }
