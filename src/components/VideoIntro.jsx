@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import SkipIntro from './SkipIntro';
-import useEdgeColor from './useEdgeColor';
+import useEdgeExtend from './useEdgeExtend';
 import './VideoIntro.css';
 
 // Full-screen intro that plays a video once before a case study, then slides up out of view.
@@ -13,7 +13,8 @@ const VideoIntro = ({ src, background, label }) => {
   );
 
   const videoRef = useRef(null);
-  const backdrop = useEdgeColor(videoRef, background, state !== 'done');
+  const bandsRef = useRef(null);
+  useEdgeExtend(videoRef, bandsRef, state !== 'done');
 
   useEffect(() => {
     if (state === 'done') return undefined;
@@ -44,9 +45,10 @@ const VideoIntro = ({ src, background, label }) => {
   return createPortal(
     <div
       className={`video-intro${state === 'leaving' ? ' is-leaving' : ''}`}
-      style={{ background: backdrop }}
+      style={{ background }}
       onClick={leave}
     >
+      <canvas ref={bandsRef} className="film-bands" aria-hidden="true" />
       <video ref={videoRef} src={src} autoPlay muted playsInline onEnded={leave} onError={leave} aria-label={label} />
       <SkipIntro onSkip={leave} />
     </div>,

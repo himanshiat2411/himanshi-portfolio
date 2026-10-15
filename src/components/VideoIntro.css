@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1), background-color 400ms linear;
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 /* The whole screen slides up to reveal the case study. */
@@ -13,14 +13,21 @@
   transform: translateY(-100%);
 }
 
-/* Fit the whole video inside the window; the backdrop takes the video's edge colour. */
+/* Fit the whole video inside the window; the empty bands show the video's edges extended. */
 .video-intro video {
   position: absolute;
-  left: 3vw;
-  top: 3vh;
-  top: 3dvh;
-  width: 94vw;
-  height: 94vh;
-  height: 94dvh;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   object-fit: contain;
+}
+
+.film-bands {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
