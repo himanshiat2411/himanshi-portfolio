@@ -1,5 +1,5 @@
 .work {
-  padding-bottom: 120px;
+  padding-bottom: 40px;
 }
 
 .work .container {
@@ -9,7 +9,7 @@
 .work-heading {
   font-family: var(--font-mono);
   margin: 0;
-  padding: 50px 0 55px;
+  padding: 50px 0 20px;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 3px;
@@ -17,219 +17,243 @@
   color: var(--dim);
 }
 
-/* Ruled two-column grid: hairlines between and around the cells, like a contact sheet. */
-.work-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+/* ---------- The pinned deck ---------- */
+.work-stack {
+  --p: 0;
+  position: relative;
+  height: calc(var(--count) * 80vh + 100vh);
+}
+
+.work-pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 72px 24px 24px; /* clear the fixed navbar */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.work-deck {
+  position: relative;
+  width: min(1180px, 100%);
+  height: min(76vh, 660px);
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
 }
 
-.work-cell {
-  padding: 32px 32px 38px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
+/* --d: how far this card is from the front (negative = already passed, positive = waiting
+   underneath). Passed cards slide up and away; waiting ones peek out below, a step smaller each. */
 .work-card {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--text);
-  font: inherit;
-  text-align: left;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.work-card--soon {
-  cursor: default;
-}
-
-.work-card:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 6px;
-}
-
-.work-media {
-  position: relative;
-  display: block;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: #151515;
-}
-
-/* The looping intro sits over the thumbnail and fades away on hover. */
-.work-loop {
+  --d: calc(var(--i) - var(--p));
+  --wait: clamp(0, var(--d), 3);
+  --gone: clamp(0, calc(-1 * var(--d)), 1);
   position: absolute;
   inset: 0;
-  z-index: 1;
-  overflow: hidden;
-  transition: opacity 400ms ease;
-}
-
-.work-loop video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.work-loop iframe {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  border: 0;
-  transform-origin: 50% 50%;
-  pointer-events: none;
-}
-
-.work-loop.is-holding,
-.work-card:hover .work-loop,
-.work-card:focus-visible .work-loop {
-  opacity: 0;
-}
-
-/* Caption bar under the image: project on the left, lime tag on the right. */
-.work-caption {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  padding: clamp(28px, 3.2vw, 48px);
+  border-radius: 24px;
+  background: var(--bg);
+  color: var(--fg);
+  box-sizing: border-box;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+  transform:
+    translateY(calc(var(--wait) * 22px - var(--gone) * 115vh))
+    scale(calc(1 - var(--wait) * 0.035));
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+.work-card-top {
+  display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  padding: 24px 2px 0;
+  gap: 24px;
+}
+
+.work-headline {
+  max-width: 16ch;
+  margin: 0;
+  font-size: clamp(32px, 4.2vw, 60px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.work-num {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.work-text {
+  max-width: 52ch;
+  margin: 18px 0 0;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.55;
+  opacity: 0.82;
+}
+
+.work-card-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-top: auto;
+}
+
+.work-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.work-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.work-tag {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  color: var(--acc);
 }
 
-.work-name {
-  color: var(--dim);
-  transition: color 200ms ease;
+.work-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 
-.work-tag {
-  flex-shrink: 0;
-  color: var(--accent);
+.work-cta:hover {
+  background: var(--acc);
+  color: #0a0a0a;
+  transform: translateY(-2px);
 }
 
-.work-card:not(.work-card--soon):hover .work-name {
-  color: var(--text);
+.work-cta svg {
+  transition: transform 0.25s ease;
 }
 
-.work-arrow {
-  position: absolute;
-  z-index: 2;
-  right: 14px;
-  bottom: 14px;
-  display: grid;
-  place-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #000000;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 250ms ease, transform 250ms ease;
+.work-cta:hover svg {
+  transform: translateX(3px);
 }
 
-.work-card:hover .work-arrow,
-.work-card:focus-visible .work-arrow {
-  opacity: 1;
-  transform: none;
+.work-cta--soon {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: var(--fg);
 }
 
-/* The thumbnail's layers share one stage that covers the tile like object-fit: cover. */
+.work-cta:focus-visible {
+  outline: 2px solid var(--acc);
+  outline-offset: 4px;
+}
+
+/* the media row: one big looping film and two stills */
+.work-media {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
 .work-thumb {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  container-type: size;
-}
-
-.work-stage {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: max(100cqw, 100cqh * (var(--ratio)));
-  aspect-ratio: var(--ratio);
-  transform: translate(-50%, -50%) scale(var(--zoom, 1));
-}
-
-/* A tile with its own phone thumbnail shows that one on phones and the desktop one elsewhere. */
-.work-stage--mobile {
-  display: none;
-}
-
-.work-layer {
-  position: absolute;
-  inset: 0;
+  position: relative;
   display: block;
+  width: clamp(110px, 12vw, 170px);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.work-thumb--lead {
+  width: clamp(220px, 26vw, 380px);
+  aspect-ratio: 16 / 10;
+}
+
+.work-thumb video,
+.work-thumb img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
-.work-layer--shadow {
-  filter: drop-shadow(0 18px 22px rgba(10, 50, 30, 0.35));
-}
-
-.work-thumb--empty {
-  background:
-    radial-gradient(circle at 70% 30%, rgba(198, 255, 61, 0.12), transparent 55%),
-    linear-gradient(135deg, #1c1c1c, #0f0f0f);
-}
-
-.work-thumb--empty {
-  background:
-    radial-gradient(circle at 70% 30%, rgba(198, 255, 61, 0.12), transparent 55%),
-    linear-gradient(135deg, #1c1c1c, #0f0f0f);
-}
-
-/* Phones: one column. */
+/* ---------- Phones: a plain list of the same cards ---------- */
 @media (max-width: 720px) {
-  .work-grid {
-    grid-template-columns: 1fr;
+  .work-stack {
+    height: auto;
   }
 
-  .work-cell {
-    padding: 14px;
-  }
-
-  .work-caption {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-}
-
-@media (max-width: 640px) {
-  .work-stage--desktop {
-    display: none;
-  }
-
-  .work-stage--mobile {
+  .work-pin {
+    position: static;
     display: block;
+    height: auto;
+    padding: 0 16px;
+    overflow: visible;
+  }
+
+  .work-deck {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+  }
+
+  .work-card {
+    position: static;
+    min-height: 0;
+    padding: 24px;
+    transform: none;
+  }
+
+  .work-headline {
+    font-size: 30px;
+  }
+
+  .work-card-bottom {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    margin-top: 24px;
+  }
+
+  .work-media {
+    flex-wrap: wrap;
+  }
+
+  .work-thumb {
+    width: calc(50% - 6px);
+  }
+
+  .work-thumb--lead {
+    width: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .work-card:is(:hover, :focus-visible) .work-layer[data-moves] {
-    animation: none;
+  .work-card,
+  .work-cta,
+  .work-cta svg {
+    transition: none;
   }
-}
-
-.work-text {
-  display: block;
-  max-width: 60ch;
-  margin-top: 14px;
-  padding: 0 2px;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--soft);
 }
