@@ -10,6 +10,7 @@ import grubNGrabPhones from '../assets/work/grub-n-grab-phones.webp';
 import takshilaFilm from '../assets/takshila/film/tile.mp4';
 import takshilaAsk from '../assets/takshila/screen-ask-first.webp';
 import takshilaThumb from '../assets/work/takshila-thumb.webp';
+import SelectedWorkGrid from './SelectedWorkGrid';
 import './SelectedWork.css';
 
 // One full card per case study, in the project's own colours. `media` is a big looping film or
@@ -66,9 +67,24 @@ const Media = ({ item }) =>
     <img src={item.img} alt="" loading="lazy" style={item.bg ? { background: item.bg } : undefined} />
   );
 
+// Phones keep the earlier grid; the deck below is for larger screens.
+const PHONE = '(max-width: 720px)';
+const usePhone = () => {
+  const [phone, setPhone] = useState(() => window.matchMedia(PHONE).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(PHONE);
+    const onChange = () => setPhone(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return phone;
+};
+
+const SelectedWork = () => (usePhone() ? <SelectedWorkGrid /> : <SelectedWorkDeck />);
+
 // A deck of cards that stays pinned while you scroll: the front card slides up and away, and the
-// next one, already peeking out underneath, comes forward. Phones get a plain list of the cards.
-const SelectedWork = () => {
+// next one, already peeking out underneath, comes forward.
+const SelectedWorkDeck = () => {
   const stackRef = useRef(null);
   const [active, setActive] = useState(0);
   const count = PROJECTS.length;

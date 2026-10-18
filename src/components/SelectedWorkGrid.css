@@ -1,0 +1,235 @@
+.wg {
+  padding-bottom: 120px;
+}
+
+.wg .container {
+  border-top: 1px solid var(--line);
+}
+
+.wg-heading {
+  font-family: var(--font-mono);
+  margin: 0;
+  padding: 50px 0 55px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* Ruled two-column grid: hairlines between and around the cells, like a contact sheet. */
+.wg-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.wg-cell {
+  padding: 32px 32px 38px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.wg-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.wg-card--soon {
+  cursor: default;
+}
+
+.wg-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+
+.wg-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #151515;
+}
+
+/* The looping intro sits over the thumbnail and fades away on hover. */
+.wg-loop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  transition: opacity 400ms ease;
+}
+
+.wg-loop video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wg-loop iframe {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 0;
+  transform-origin: 50% 50%;
+  pointer-events: none;
+}
+
+.wg-loop.is-holding,
+.wg-card:hover .wg-loop,
+.wg-card:focus-visible .wg-loop {
+  opacity: 0;
+}
+
+/* Caption bar under the image: project on the left, lime tag on the right. */
+.wg-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 2px 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.wg-name {
+  color: var(--dim);
+  transition: color 200ms ease;
+}
+
+.wg-tag {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.wg-card:not(.wg-card--soon):hover .wg-name {
+  color: var(--text);
+}
+
+.wg-arrow {
+  position: absolute;
+  z-index: 2;
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  place-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #000000;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.wg-card:hover .wg-arrow,
+.wg-card:focus-visible .wg-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+/* The thumbnail's layers share one stage that covers the tile like object-fit: cover. */
+.wg-thumb {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+}
+
+.wg-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100cqw, 100cqh * (var(--ratio)));
+  aspect-ratio: var(--ratio);
+  transform: translate(-50%, -50%) scale(var(--zoom, 1));
+}
+
+/* A tile with its own phone thumbnail shows that one on phones and the desktop one elsewhere. */
+.wg-stage--mobile {
+  display: none;
+}
+
+.wg-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.wg-layer--shadow {
+  filter: drop-shadow(0 18px 22px rgba(10, 50, 30, 0.35));
+}
+
+.wg-thumb--empty {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(198, 255, 61, 0.12), transparent 55%),
+    linear-gradient(135deg, #1c1c1c, #0f0f0f);
+}
+
+.wg-thumb--empty {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(198, 255, 61, 0.12), transparent 55%),
+    linear-gradient(135deg, #1c1c1c, #0f0f0f);
+}
+
+/* Phones: one column. */
+@media (max-width: 720px) {
+  .wg-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wg-cell {
+    padding: 14px;
+  }
+
+  .wg-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wg-stage--desktop {
+    display: none;
+  }
+
+  .wg-stage--mobile {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wg-card:is(:hover, :focus-visible) .wg-layer[data-moves] {
+    animation: none;
+  }
+}
+
+.wg-text {
+  display: block;
+  max-width: 60ch;
+  margin-top: 14px;
+  padding: 0 2px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--soft);
+}
