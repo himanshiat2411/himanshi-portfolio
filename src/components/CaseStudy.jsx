@@ -17,9 +17,11 @@ import './CaseStudy.css';
 // carry artwork that would smear when stretched, can set `edgeColor` (any CSS background).
 // `displayWidth` shows the design narrower than its design `width` on large screens (phones are
 // unaffected, since the design already fills their width).
+// A section can instead be `{ node, edgeColor }`: a block of page content (text) shown at the
+// design's width, with `edgeColor` behind it.
 // `nav` adds the section sidebar: [{ label, at }] where `at` is the index of the section it
 // starts at, styled by `navTheme` ({ accent, text, marker, panel }).
-const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, extendEdges, nav, navTheme }) => {
+const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, extendEdges, pageColor, nav, navTheme }) => {
   useEffect(() => {
     const previous = document.title;
     document.title = `${title} — Himanshi`;
@@ -32,6 +34,9 @@ const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, 
     <article
       className="case"
       style={{
+        background: pageColor,
+        // A plain page colour leaves the last section's edge bare, so give it room before the footer.
+        paddingBottom: pageColor ? 'clamp(40px, 6vw, 96px)' : undefined,
         '--case-width': `${displayWidth || width}px`,
         '--edge-size': `${width * 100}px`,
         // Keep "Back to work" in line with the design's content when it's shown narrower.
@@ -47,7 +52,11 @@ const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, 
       </div>
       <div className={`case-body${extendEdges ? ' case-body--bands' : ''}`}>
         {sections.map((section, i) => {
-          const media = section.video ? (
+          const media = section.node ? (
+            <div key={i} className="case-node" data-case-index={i}>
+              {section.node}
+            </div>
+          ) : section.video ? (
             <LoopVideo
               key={i}
               data-case-index={i}

@@ -99,3 +99,8 @@
   object-fit: cover;
   background: #0a0a0a;
 }
+
+/* Content blocks (text) between the design images */
+.case-node {
+  width: 100%;
+}
