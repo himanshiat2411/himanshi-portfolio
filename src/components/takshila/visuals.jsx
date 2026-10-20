@@ -320,9 +320,8 @@ export const VisualAskFirst = ({ users, focusLabel }) => (
     <p className="tk-vis-title">Three kinds of people who prompt</p>
     <ul className="tk-prompt-users">
       {users.map(u => (
-        <li key={u.key} data-focus={u.focus ? '' : undefined}>
+        <li key={u.key} data-focus={u.focus ? '' : undefined} aria-label={u.focus ? `${u.title} (${focusLabel})` : u.title}>
           <img className="tk-prompt-img" src={PROMPT_IMAGES[u.key].src} alt={PROMPT_IMAGES[u.key].alt} loading="lazy" />
-          <strong>{u.title}</strong>
           <span className="tk-prompt-ticks">
             <span>
               <Tick on={u.idea} /> Idea
@@ -331,7 +330,6 @@ export const VisualAskFirst = ({ users, focusLabel }) => (
               <Tick on={u.prompt} /> Prompt
             </span>
           </span>
-          {u.focus && <span className="tk-vis-chosen">{focusLabel}</span>}
         </li>
       ))}
     </ul>
@@ -348,40 +346,46 @@ const OPTION_COUNTS = [
 ];
 
 export const VisualOptions = () => (
-  <ol className="tk-options">
-    {OPTION_COUNTS.map(o => (
-      <li key={o.n} data-on={o.chosen ? '' : undefined}>
-        <div className="tk-options-shot">
-          <img className="tk-options-main" src={optMain} alt={`The ring with ${o.n} option${o.n === '1' ? '' : 's'} to pick from`} loading="lazy" />
-          <span className="tk-options-thumbs" data-count={o.thumbs.length}>
-            {o.thumbs.map((t, i) => (
-              <img key={i} src={t} alt="" loading="lazy" />
-            ))}
-          </span>
-        </div>
-        <p>
-          {o.n} · {o.text}
-          {o.chosen && ' (chosen)'}
-        </p>
-      </li>
-    ))}
-  </ol>
+  <div className="tk-vis">
+    <p className="tk-vis-title">How many options to show</p>
+    <ol className="tk-options">
+      {OPTION_COUNTS.map(o => (
+        <li key={o.n} data-on={o.chosen ? '' : undefined}>
+          <div className="tk-options-shot">
+            <img className="tk-options-main" src={optMain} alt={`The ring with ${o.n} option${o.n === '1' ? '' : 's'} to pick from`} loading="lazy" />
+            <span className="tk-options-thumbs" data-count={o.thumbs.length}>
+              {o.thumbs.map((t, i) => (
+                <img key={i} src={t} alt="" loading="lazy" />
+              ))}
+            </span>
+          </div>
+          <p>
+            {o.n} · {o.text}
+            {o.chosen && ' (chosen)'}
+          </p>
+        </li>
+      ))}
+    </ol>
+  </div>
 );
 
 // Infinite scroll with a checkpoint: the real feed, with the Load More button called out.
 export const VisualCheckpoint = () => (
-  <figure className="tk-checkpoint">
-    <img
-      src={screenCheckpoint}
-      alt="The Takshila community feed ending in a Load More button, above the footer"
-      width="1075"
-      height="795"
-      loading="lazy"
-    />
-    <span className="tk-checkpoint-ring" aria-hidden="true" />
-    <figcaption className="tk-checkpoint-note">
-      <strong>The checkpoint</strong>
-      The feed pauses at “Load more”, giving people a break from scrolling.
-    </figcaption>
-  </figure>
+  <div className="tk-vis">
+    <p className="tk-vis-title">Where the feed pauses</p>
+    <figure className="tk-checkpoint">
+      <img
+        src={screenCheckpoint}
+        alt="The Takshila community feed ending in a Load More button, above the footer"
+        width="1075"
+        height="795"
+        loading="lazy"
+      />
+      <span className="tk-checkpoint-ring" aria-hidden="true" />
+      <figcaption className="tk-checkpoint-note">
+        <strong>The checkpoint</strong>
+        The feed pauses at “Load more”, giving people a break from scrolling.
+      </figcaption>
+    </figure>
+  </div>
 );

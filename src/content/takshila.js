@@ -5,7 +5,7 @@ export const HERO = {
   headline: 'Takshila is a handcrafted jewelry marketplace with no playbook to follow,',
   headlineEmphasis: 'so we built one around its users.',
   intro:
-    'Takshila is a social-commerce marketplace for handcrafted jewelry. As a pioneer in this space, there was no set path to follow. I started with research, including JTBD interviews, to understand what users actually need. We then redesigned the existing screens, optimised the platform for Q4 festive sales, and began Project North Star, the next version of Takshila, for which I defined the PRD, user flows, and information architecture.',
+    'Takshila is an AI-powered jewelry marketplace: you design your own piece with AI, and a skilled artisan makes it by hand. I led JTBD research, redesigned the core screens for the US festive season, and defined the PRD, flows and IA for Project North Star, the next version of Takshila.',
   meta: [
     { label: 'My role', value: 'Product Design Intern' },
     { label: 'Timeline', value: '6 Months' }
@@ -15,7 +15,7 @@ export const HERO = {
 export const CONTEXT = {
   label: 'Context',
   heading: 'A new kind of marketplace, with three kinds of people',
-  what: 'Takshila is the world’s first peer-to-peer co-fabrication platform. It connects customers, designers, and artisans so they can create jewelry together — with no middlemen. Customers co-design with AI, and a named artisan makes it by hand.',
+  what: 'Takshila connects customers, designers and artisans. Customers co-create with AI, and an artisan makes the piece by hand.',
   users: [
     { title: 'Customers', text: 'Co-design a piece and own it' },
     { title: 'Designers', text: 'Design pieces and earn on every sale' },
@@ -30,8 +30,6 @@ export const CONTEXT = {
       { name: 'Profile', text: 'A designer’s page with their collections, followers and story.', alt: 'A Takshila designer profile' }
     ]
   },
-  coreProblem:
-    'A brand-new category, three very different users, and an AI that can quietly replace the customer’s own idea.',
   stakeholderLead: 'Who else Takshila depends on:'
 };
 
@@ -45,26 +43,26 @@ export const RESEARCH = {
   insights: [
     {
       id: 'insight-1',
-      title: 'People still don’t fully trust buying jewelry online.',
-      text: 'Jewelry is personal and costly. Without touching or seeing it in person, customers stay doubtful.',
+      title: 'Buying jewelry online feels risky',
+      text: 'It’s costly and personal, and they can’t touch it.',
       quote: 'When I buy jewelry online, I want to feel sure about what I’m getting, so I don’t regret spending my money.'
     },
     {
       id: 'insight-2',
-      title: 'Users don’t trust AI to design alone.',
-      text: 'Most people are not good at writing prompts. They want a companion or a professional to guide them while they design.',
+      title: 'AI alone isn’t enough',
+      text: 'Prompts are hard. People want a guide.',
       quote: 'When I design my own piece, I want someone to guide me, so I can get what I imagined without struggling with prompts.'
     },
     {
       id: 'insight-3',
-      title: 'Delivery causes anxiety.',
-      text: 'Custom pieces are usually made for special occasions. So customers need a clear timeline and exact updates on their order.',
+      title: 'Delivery causes anxiety',
+      text: 'Occasion pieces need clear timelines.',
       quote: 'When I order a piece for a special occasion, I want clear timelines and updates, so I know it will arrive on time.'
     },
     {
       id: 'insight-4',
-      title: 'Easy returns build trust.',
-      text: 'Customers wanted a simple return process. Knowing they can return a piece makes them trust the company more.',
+      title: 'Easy returns build trust',
+      text: 'A simple return makes ordering feel safe.',
       quote: 'When I buy custom jewelry, I want an easy way to return it, so I feel safe placing the order.'
     }
   ]
@@ -74,11 +72,11 @@ export const WORK = {
   label: 'The work',
   heading: 'What I worked on',
   sub: 'Three projects, one after another.',
-  // Shown in this order: Q4 Sales, Project North Star, Redesign. North Star is highlighted.
+  // Shown in this order: US festive season, Project North Star, Redesign. North Star is highlighted.
   phases: [
     {
       num: '01',
-      title: 'Q4 Sales',
+      title: 'US festive season',
       about: 'Getting the site ready for the US festive season, October to December.',
       problem: 'Friction at checkout was losing sales.',
       to: 'phase-2'
@@ -104,24 +102,24 @@ export const WORK = {
 export const APPROACH = {
   heading: 'Design principles',
   principles: [
-    { id: 'principle-jakob', name: 'Jakob’s Law', text: 'Use patterns people already know, even in a brand-new category.' },
-    { id: 'principle-hick', name: 'Hick’s Law', text: 'Show less at once, and reveal details only when they’re needed.' },
+    { id: 'principle-jakob', name: 'Jakob’s Law', text: 'Use patterns people already know.' },
+    { id: 'principle-hick', name: 'Hick’s Law', text: 'Show less; reveal more when needed.' },
     {
       id: 'principle-recognition',
       name: 'Recognition over recall',
-      text: 'Let people pick from options instead of writing prompts from scratch.'
+      text: 'Pick from options, not blank prompts.'
     },
     {
       id: 'principle-ikea',
       name: 'IKEA effect',
-      text: 'People value what they help make, so the user makes the final edit.'
+      text: 'People value what they help make.'
     },
     {
       id: 'principle-peak-end',
       name: 'Peak-end rule',
-      text: 'If a design isn’t working, nudge people to explore instead of leaving frustrated.'
+      text: 'Nudge people to explore, not leave.'
     },
-    { id: 'principle-proof', name: 'Proof over promise', text: 'Back every claim with something visible, like the named artisan.' }
+    { id: 'principle-proof', name: 'Proof over promise', text: 'Back every claim with something visible.' }
   ],
   closing: 'Designing a platform that feels familiar, lets people make something truly theirs, and',
   closingEmphasis: 'backs every claim with proof.'
@@ -144,81 +142,72 @@ export const PHASE_1 = {
 
 export const PHASE_2 = {
   label: 'Phase 1',
-  heading: 'Getting Takshila ready for Q4 sales',
-  intro:
-    'Before the US festive season (Halloween, Thanksgiving, Christmas and New Year), I did a full sales audit of the website. I checked the homepage, discovery feed, product page, cart and checkout. The goal was to find what stopped people from buying, fix it, and make them want to come back.',
+  heading: 'Getting Takshila ready for the US festive season',
+  intro: 'I audited 11 flows, from home to checkout.',
   audit: ['Homepage', 'Discovery feed', 'Product page', 'Cart', 'Checkout'],
-  auditNote: '11 user flows audited before Q4.',
   // Three key decisions, in this order: the product page, checkout with OTP, and the Shop.
   decisionsHeading: 'Key decisions',
   keyDecision: {
     tag: 'Shop',
     title: 'Bringing the Shop forward',
     text: 'Takshila was positioned only as a community. People could browse and engage, but buying wasn’t the focus. Before the festive season, I pushed for the Shop to become a main feature, so the platform could drive sales and not just engagement.',
-    separate: 'The Shop is a dedicated space for buying, kept separate from the Community, so shopping gets its own focus.'
+    separate: 'The Shop is a dedicated space for buying, kept separate from the Community, so shopping gets its own focus.',
+    alt: 'The new Takshila Shop page: a festive hero, shop by category, filters and a grid of pieces to customise'
   },
-  // The redesigned product page, with notes that open on click. Zones are in the Figma frame's pixels (1440 × 2852).
+  // The product page: previous vs new side by side, then the choices behind it.
   productPage: {
     tag: 'Product page',
     title: 'A product page without the friction',
-    text: 'I removed the friction points and the extra, unnecessary details from the product page. Click a numbered section to see what changed and why.',
-    alt: 'The redesigned Takshila product page for a ring',
-    zones: [
+    text: 'I removed the friction points and the extra, unnecessary details from the product page.',
+    beforeAlt: 'The previous Takshila product page for a ring',
+    alt: 'The new Takshila product page for a ring',
+    // box: where each choice sits on the new page, [x, y, w, h] in its pixels (1440 × 3375).
+    choices: [
       {
-        id: 'gallery',
-        title: 'Every image, not just one',
-        text: 'A multi-image gallery, so people can see all the images of the piece before they buy.',
-        box: [70, 226, 694, 720]
+        title: 'Metal in one row',
+        box: [828, 412, 538, 246],
+        chose: 'Karat, metal type and colour, which were three separate choices, now sit in one row.',
+        why: 'Three pickers for one decision slowed people down.',
+        tradeoff: 'Rare combinations aren’t shown up front.'
       },
       {
-        id: 'metal',
-        title: 'Metal: three choices in one',
-        text: 'Karat, metal type and colour used to be three separate choices. Now they’re one row. Hovering a metal names it next to the heading, so people know exactly what they’re picking.',
-        box: [815, 504, 538, 88]
+        title: 'No reviews, for now',
+        box: [828, 133, 538, 247],
+        chose: 'Removed the reviews section.',
+        why: 'We’re a new brand with no reviews yet, and an empty review block hurts trust more than none.',
+        tradeoff: 'No social proof yet; trust points like certified stones carry it instead.'
       },
       {
-        id: 'size',
-        title: 'Ring size you can see',
-        text: 'Most sites use a dropdown for ring size. A row of sizes is easier to use and interactive, so picking a size is quicker.',
-        box: [815, 624, 550, 102]
+        title: 'Delivery on the page',
+        box: [828, 1387, 538, 360],
+        chose: 'Check delivery right on the product page, with the trust points beside it.',
+        why: 'Custom pieces are for occasions, so people need to know it will arrive on time.',
+        tradeoff: 'A slightly longer page.'
       },
       {
-        id: 'stone',
-        title: 'Stone and karat together',
-        text: 'Stones shown as pictures, with the stone karat right beside them.',
-        box: [815, 758, 538, 123]
+        title: 'Every view of the piece',
+        box: [75, 133, 703, 1736],
+        chose: 'A gallery with every angle, and the piece being worn.',
+        why: 'The old page had one image, and people can’t touch jewelry online.',
+        tradeoff: 'More photos to shoot for every piece.'
       },
       {
-        id: 'shape',
-        title: 'Shapes as pictures',
-        text: 'Each shape is drawn, so people choose by how it looks, not by its name.',
-        box: [815, 913, 538, 227]
-      },
-      {
-        id: 'side-stones',
-        title: 'Side stones: Yes or No',
-        text: 'A simple Yes / No for side stones, with their carat right next to it.',
-        box: [815, 1172, 538, 90]
-      },
-      {
-        id: 'quality',
-        title: 'Quality on one slider',
-        text: 'Good, Premium and Excellent on a single slider.',
-        box: [815, 1294, 538, 140]
-      },
-      {
-        id: 'delivery',
-        title: 'Check delivery on the page',
-        text: 'People can check delivery right on the product page, with the trust points (certified stones, insured delivery, crafting time, free resize) beside it.',
-        box: [815, 1466, 538, 205]
+        title: 'Made for you',
+        box: [75, 2141, 1290, 555],
+        chose: 'Sets built around the piece, like The Proposal Set.',
+        why: 'Keeps people interested and grows the order.',
+        tradeoff: 'Pushes “You might also like” further down.'
       }
     ]
   },
   checkout: {
     tag: 'Checkout',
     title: 'Guest checkout with OTP',
-    problem: 'No easy checkout. Customers had to sign up, and there was no familiar way to pay.',
-    proposed: 'Guest checkout with OTP instead of passwords, plus Apple Pay.'
+    problem: 'Checkout took 10 to 12 clicks. Customers had to sign up, and there was no familiar way to pay.',
+    clicks: { before: '10–12', after: '5–6' },
+    chose: 'Guest checkout with a one-time code (OTP) and Apple Pay, cutting checkout to 5 to 6 clicks.',
+    why: 'Forcing a sign-up right at checkout loses buyers. OTP and Apple Pay are ways people already know.',
+    tradeoff: 'Fewer accounts up front, so it’s harder to bring guests back later.'
   }
 };
 
@@ -251,24 +240,13 @@ export const DECISIONS = [
     heading: 'Ask before you generate',
     points: [
       { label: 'The question', text: 'Should AI generate a design straight from a rough prompt?' },
-      {
-        label: 'What I found',
-        text: 'Seeing an AI image locks people’s thinking to it — they start liking what we made instead of what they came for. This mainly hurts one group: people who know exactly what they want but can’t put it into words.'
-      },
-      {
-        label: 'What I chose',
-        text: 'Don’t generate right away. Read the prompt first, check what’s missing — material, stone, size, budget — and ask only about that. Then generate.'
-      },
-      {
-        label: 'Why',
-        text: 'The questions do the job the user’s own words couldn’t. And by answering first, the user has already described their own idea — so they can judge our design against theirs, not just accept it.'
-      },
-      {
-        label: 'What I gave up',
-        text: 'An extra step before the exciting part. I only ask about what’s actually missing, so a complete prompt sails straight through.'
-      },
-      { label: 'What I’d measure', text: 'How often someone buys the very first design they’re shown.' }
+      { label: 'What I found', text: 'Seeing an AI image locks people’s thinking to it. It hurts most those who know what they want but can’t put it into words.' }
     ],
+    choice: {
+      chose: 'Read the prompt first, ask only about what’s missing, then generate.',
+      why: 'Their answers describe their own idea, so they judge our design against it.',
+      tradeoff: 'An extra step, which complete prompts skip.'
+    },
     principles: ['principle-recognition', 'principle-ikea'],
     // The three kinds of people who prompt sit right after the finding.
     visualAfter: 'What I found',
@@ -305,25 +283,14 @@ export const DECISIONS = [
     tag: 'Design Studio · Output count',
     heading: 'Why three options, not one or two',
     points: [
-      { label: 'The question', text: 'When AI generates designs from a prompt, how many options should we show?' },
-      {
-        label: 'What I found',
-        text: 'One isn’t a choice — if it’s wrong, the only move is to start over. Two reads as a test, so people pick the less-bad one instead of what they actually want. Three shows a real range without turning into work. More than three turns choosing into browsing, and every extra option costs more to generate.'
-      },
-      { label: 'What I chose', text: 'Three variations per prompt.' },
-      {
-        label: 'Why',
-        text: 'The right number depends on what happens next. We want someone to pick a direction and shape it — not pick a winner. Three is the smallest number that reads as a range, not an answer.'
-      },
-      {
-        label: 'What I gave up',
-        text: 'An honest gap: a vague prompt can still come back with three wrong options, and there’s no “none of these, try a different direction” path yet.'
-      },
-      {
-        label: 'What I’d measure',
-        text: 'How often people regenerate instead of refining — and whether the middle option gets picked far more than the other two.'
-      }
+      { label: 'The question', text: 'How many AI options should we show?' },
+      { label: 'What I found', text: 'One isn’t a choice, two feels like a test, and four or more turns into browsing.' }
     ],
+    choice: {
+      chose: 'Three variations per prompt.',
+      why: 'Three is the smallest number that reads as a range.',
+      tradeoff: 'A vague prompt can still return three wrong options.'
+    },
     principles: ['principle-hick'],
     // The one-to-four options comparison sits right after the finding.
     visualAfter: 'What I found'
@@ -333,31 +300,17 @@ export const DECISIONS = [
     tag: 'Community',
     heading: 'Infinite, with a checkpoint',
     points: [
-      { label: 'The question', text: 'Should the Community Feed scroll forever, or stop at some point?' },
-      {
-        label: 'What I found',
-        text: 'The Feed’s whole job is engagement — it’s the closest thing Takshila has to a social platform, and we want people spending real time there. But scrolling with no end has a cost: it’s easy to scroll on autopilot, and the Feed starts to feel like just another social app.'
-      },
-      {
-        label: 'What I chose',
-        text: 'Infinite scroll, with a “Load more” screen after a set number of posts — a natural pause, not a hard stop.'
-      },
-      {
-        label: 'Why',
-        text: 'The pause gives people a break from autopilot scrolling — less mental load. And it’s a natural exit: keep going, or act on what they saw — the Design Studio, an order, the Home page.'
-      },
-      {
-        label: 'What I gave up',
-        text: 'Some of the always-on feeling other social apps have. The Feed is supposed to bring people back to making something, not compete for attention.'
-      },
-      {
-        label: 'What I’d measure',
-        text: 'How many people tap “Load more” versus stop at the checkpoint — and what they do right after.'
-      }
+      { label: 'The question', text: 'Should the Community Feed scroll forever?' },
+      { label: 'What I found', text: 'The Feed drives engagement, but endless scrolling turns into autopilot.' }
     ],
+    choice: {
+      chose: 'Infinite scroll, with a “Load more” pause after a set number of posts.',
+      why: 'A natural break, and a moment to act on what they saw.',
+      tradeoff: 'Less of the always-on feel of social apps.'
+    },
     principles: ['principle-peak-end'],
-    // The real feed, with its checkpoint called out, sits right after the choice.
-    visualAfter: 'What I chose'
+    // The real feed, with its checkpoint called out, sits right after the finding.
+    visualAfter: 'What I found'
   }
 ];
 
@@ -375,11 +328,11 @@ export const IMPACT = {
   heading: 'What came out of it',
   numbers: [
     { value: 15, text: 'JTBD interviews, 5 led by me' },
-    { value: 11, text: 'user flows audited before Q4' },
+    { value: 11, text: 'user flows audited, home to checkout' },
     { value: 2, text: 'North Star PRDs: Design Studio and Community' }
   ],
   pushedHeading: 'Changes I pushed for',
-  pushed: ['Brought the Shop forward for Q4', 'Caught the font and colour mismatch on Orders', 'Started a weekly design–tech sync'],
+  pushed: ['Brought the Shop forward for the festive season', 'Caught the font and colour mismatch on Orders', 'Started a weekly design–tech sync'],
   honesty: 'The product wasn’t live with users during my time, so these are design decisions, not measured results.'
 };
 

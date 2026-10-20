@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import beforeCommunity from '../assets/takshila/before-community.webp';
@@ -20,7 +20,9 @@ import screenEditProduct from '../assets/takshila/screen-edit-product.webp';
 import screenMaterial from '../assets/takshila/screen-material.webp';
 import screenMyActivity from '../assets/takshila/screen-my-activity.webp';
 import screenOrderTracking from '../assets/takshila/screen-order-tracking.webp';
-import screenProductPage from '../assets/takshila/screen-product-page.webp';
+import productPageNew from '../assets/takshila/product-page-new.webp';
+import shopPage from '../assets/takshila/shop-page.webp';
+import productPageOld from '../assets/takshila/product-page-old.webp';
 import screenProfileFeed from '../assets/takshila/screen-profile-feed.webp';
 import teamFunDay from '../assets/takshila/team-fun-day.webp';
 import userArtisan from '../assets/takshila/user-artisan.webp';
@@ -33,7 +35,7 @@ import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '..
 import FilmIntro from '../components/finworld/FilmIntro';
 import takshilaFilm from '../assets/takshila/film/intro.mp4';
 import takshilaFilmPortrait from '../assets/takshila/film/intro-portrait.mp4';
-import { CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
+import { ChoiceRow, CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
 import { NodeStrip, RoundsStrip, ScreenTour, VisualAskFirst, VisualCheckpoint, VisualOptions } from '../components/takshila/visuals';
 import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
 import '../components/takshila/takshila-parts.css';
@@ -97,6 +99,119 @@ const Interviews = () => {
   );
 };
 
+// Product page: the previous and new versions side by side; each opens full size on click.
+// The highlight on the After screen: the choice's box, with breathing room around it (in screen pixels).
+const MARK_PAD = 28;
+const Mark = ({ box: [x, y, w, h], width, height }) => {
+  const left = Math.max(0, x - MARK_PAD);
+  const top = Math.max(0, y - MARK_PAD);
+  const right = Math.min(width, x + w + MARK_PAD);
+  const bottom = Math.min(height, y + h + MARK_PAD);
+  return (
+    <span
+      className="tk-pair-mark"
+      aria-hidden="true"
+      style={{
+        left: `${(left / width) * 100}%`,
+        top: `${(top / height) * 100}%`,
+        width: `${((right - left) / width) * 100}%`,
+        height: `${((bottom - top) / height) * 100}%`
+      }}
+    />
+  );
+};
+
+const BeforeAfter = ({ before, after, highlight }) => {
+  const open = useOpenScreen();
+  return (
+    <div className="tk-pair">
+      {[
+        ['Before', before],
+        ['After', after]
+      ].map(([label, shot]) => (
+        <figure key={label} data-side={label.toLowerCase()}>
+          <figcaption>{label}</figcaption>
+          <a
+            href={shot.src}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-haspopup="dialog"
+            onClick={e => {
+              e.preventDefault();
+              open({ ...shot, label: `Product page · ${label}` });
+            }}
+          >
+            <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" />
+            {label === 'After' && highlight && <Mark box={highlight} width={shot.width} height={shot.height} />}
+          </a>
+        </figure>
+      ))}
+    </div>
+  );
+};
+
+// A very tall screen in a window you scroll inside; click to open it full size.
+const ScrollShot = ({ src, alt, width, height, label }) => {
+  const open = useOpenScreen();
+  return (
+    <div className="tk-scrollshot" data-lenis-prevent="">
+      <a
+        href={src}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-haspopup="dialog"
+        onClick={e => {
+          e.preventDefault();
+          open({ src, alt, label });
+        }}
+      >
+        <img src={src} alt={alt} width={width} height={height} loading="lazy" />
+      </a>
+    </div>
+  );
+};
+
+// Product page choices: pick one in the row of tabs; its chose / why / trade-off sit side by side,
+// and the After screen highlights where it is.
+const Choices = ({ items, active, setActive }) => {
+  const c = items[active];
+  return (
+    <div className="tk-choices">
+      <div className="tk-choices-tabs" role="tablist" aria-label="Product page choices">
+        {items.map((item, i) => (
+          <button
+            key={item.title}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            className="tk-choices-tab"
+            onClick={() => setActive(i)}
+          >
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            {item.title}
+          </button>
+        ))}
+      </div>
+      <ChoiceRow choice={c} role="tabpanel" key={active} />
+    </div>
+  );
+};
+
+const ProductPageCompare = () => {
+  const [active, setActive] = useState(0);
+  const { choices } = PHASE_2.productPage;
+  return (
+    <>
+      <Choices items={choices} active={active} setActive={setActive} />
+      <BeforeAfter
+        before={{ src: productPageOld, alt: PHASE_2.productPage.beforeAlt, width: 1440, height: 3503 }}
+        after={{ src: productPageNew, alt: PHASE_2.productPage.alt, width: 1440, height: 3375 }}
+        highlight={choices[active].box}
+      />
+    </>
+  );
+};
+
 const decisionVisual = d => {
   if (d.id === 'decision-a') return <VisualAskFirst users={PHASE_3.promptUsers} focusLabel={PHASE_3.focusLabel} />;
   if (d.id === 'decision-b') return <VisualOptions />;
@@ -106,9 +221,8 @@ const decisionVisual = d => {
 // Sidebar sections, in page order.
 const NAV = [
   { label: 'Overview', selector: '#tk-overview' },
-  { label: 'Context', selector: '#tk-context' },
   { label: 'What I worked on', selector: '#tk-work' },
-  { label: 'Q4 sales', selector: '#phase-2' },
+  { label: 'US festive season', selector: '#phase-2' },
   { label: 'Project North Star', selector: '#phase-3' },
   { label: 'Redesign', selector: '#phase-1' },
   { label: 'Research', selector: '#tk-research' },
@@ -170,7 +284,6 @@ const Takshila = () => {
 
           {/* Context: what Takshila is and its users */}
           <section className="tk-section" id="tk-context">
-            <SectionLabel>{CONTEXT.label}</SectionLabel>
             <h2>{CONTEXT.heading}</h2>
             <p>{CONTEXT.what}</p>
             <ul className="tk-users">
@@ -194,7 +307,6 @@ const Takshila = () => {
                 ))}
               </ul>
             </div>
-            <p className="tk-emphasis">{CONTEXT.coreProblem}</p>
           </section>
 
           {/* What I worked on */}
@@ -204,46 +316,47 @@ const Takshila = () => {
             <PhaseCards phases={WORK.phases} />
           </section>
 
-          {/* Q4 sales (Phase 1) */}
+          {/* US festive season (Phase 1) */}
           <section className="tk-section" id="phase-2">
             <SectionLabel>{PHASE_2.label}</SectionLabel>
             <h2>{PHASE_2.heading}</h2>
             <p>{PHASE_2.intro}</p>
             <NodeStrip items={PHASE_2.audit} />
-            <p className="tk-caption tk-strip-note">{PHASE_2.auditNote}</p>
             <div className="tk-subsection">
               <h3 className="tk-subhead">{PHASE_2.decisionsHeading}</h3>
 
               {/* Decision 1: the product page */}
               <div className="tk-decision">
-                <p className="tk-decision-label">Decision 1 · {PHASE_2.productPage.tag}</p>
+                <p className="tk-decision-label">01</p>
                 <h3>{PHASE_2.productPage.title}</h3>
                 <p>{PHASE_2.productPage.text}</p>
-                <ScreenTour src={screenProductPage} alt={PHASE_2.productPage.alt} width={1440} height={2852} zones={PHASE_2.productPage.zones} />
+                <ProductPageCompare />
               </div>
 
               {/* Decision 2: guest checkout with OTP */}
               <div className="tk-decision" data-reveal>
-                <p className="tk-decision-label">Decision 2 · {PHASE_2.checkout.tag}</p>
+                <p className="tk-decision-label">02</p>
                 <h3>{PHASE_2.checkout.title}</h3>
-                <div className="tk-lite">
-                  <div>
-                    <p className="tk-points-label">Problem</p>
-                    <p>{PHASE_2.checkout.problem}</p>
-                  </div>
-                  <div>
-                    <p className="tk-proposed-tag">What I proposed</p>
-                    <p>{PHASE_2.checkout.proposed}</p>
-                  </div>
-                </div>
+                <p>{PHASE_2.checkout.problem}</p>
+                <p className="tk-clicks" aria-label={`Checkout clicks: ${PHASE_2.checkout.clicks.before} before, ${PHASE_2.checkout.clicks.after} after`}>
+                  <span>
+                    <strong>{PHASE_2.checkout.clicks.before}</strong> clicks before
+                  </span>
+                  <span aria-hidden="true">→</span>
+                  <span data-after="">
+                    <strong>{PHASE_2.checkout.clicks.after}</strong> clicks after
+                  </span>
+                </p>
+                <ChoiceRow choice={PHASE_2.checkout} />
               </div>
 
               {/* Decision 3: a dedicated Shop, separate from the Community */}
               <div className="tk-decision" data-reveal>
-                <p className="tk-decision-label">Decision 3 · {PHASE_2.keyDecision.tag}</p>
+                <p className="tk-decision-label">03</p>
                 <h3>{PHASE_2.keyDecision.title}</h3>
                 <p>{PHASE_2.keyDecision.text}</p>
                 <p>{PHASE_2.keyDecision.separate}</p>
+                <ScrollShot src={shopPage} alt={PHASE_2.keyDecision.alt} width={1440} height={7994} label="Shop page" />
               </div>
             </div>
           </section>
@@ -260,6 +373,7 @@ const Takshila = () => {
                 <DecisionBlock
                   key={d.id}
                   {...d}
+                  num={String(i + 1).padStart(2, '0')}
                   flip={i % 2 === 1}
                   visual={decisionVisual(d)}
                   footer={

@@ -6,13 +6,12 @@ import { JumpLink } from './basics';
 const principleName = id => APPROACH.principles.find(p => p.id === id)?.name;
 
 // A research insight: number, title, one line and the quote.
-export const InsightCard = ({ id, index, title, text, quote }) => (
+export const InsightCard = ({ id, index, title, text }) => (
   <li className="tk-insight" id={id} data-reveal>
     <span className="tk-index">{index}</span>
     <div>
       <h4>{title}</h4>
       <p>{text}</p>
-      <blockquote>“{quote}”</blockquote>
     </div>
   </li>
 );
@@ -31,7 +30,25 @@ const Points = ({ points }) => (
   </dl>
 );
 
-export const DecisionBlock = ({ id, tag, heading, points, principles = [], flip, visual, visualAfter, footer }) => {
+// What I chose, why, and the trade-off, side by side in one box.
+export const ChoiceRow = ({ choice, role }) => (
+  <dl className="tk-choices-row" role={role}>
+    <div>
+      <dt>What I chose</dt>
+      <dd>{choice.chose}</dd>
+    </div>
+    <div>
+      <dt>Why</dt>
+      <dd>{choice.why}</dd>
+    </div>
+    <div>
+      <dt>Trade-off</dt>
+      <dd>{choice.tradeoff}</dd>
+    </div>
+  </dl>
+);
+
+export const DecisionBlock = ({ id, num, tag, heading, points, choice, principles = [], flip, visual, visualAfter, footer }) => {
   const split = visualAfter ? points.findIndex(p => p.label === visualAfter) + 1 : 0;
   return (
     <article
@@ -42,7 +59,7 @@ export const DecisionBlock = ({ id, tag, heading, points, principles = [], flip,
       data-reveal
     >
       <div className="tk-decision-text">
-        <p className="tk-tag">{tag}</p>
+        {num ? <p className="tk-num">{num}</p> : <p className="tk-tag">{tag}</p>}
         <h4>{heading}</h4>
         {split ? (
           <>
@@ -53,6 +70,7 @@ export const DecisionBlock = ({ id, tag, heading, points, principles = [], flip,
         ) : (
           <Points points={points} />
         )}
+        {choice && <ChoiceRow choice={choice} />}
         {principles.length > 0 && (
           <p className="tk-chips">
             <span>Principle used</span>
@@ -182,7 +200,7 @@ export const BeforeAfter = ({ before, after, name, ratio = '1440 / 666' }) => {
 
 // All the before / after comparisons, stacked one after another at full width. Each has a
 // "Full screen" button that opens it large over the page; Esc or Close returns.
-const Comparison = ({ item }) => {
+const Comparison = ({ item, num }) => {
   const [full, setFull] = useState(false);
 
   useEffect(() => {
@@ -208,7 +226,10 @@ const Comparison = ({ item }) => {
       aria-label={full ? `${item.name}: before and after` : undefined}
     >
       <div className="tk-ct-bar">
-        <h4 className="tk-ct-name">{item.name}</h4>
+        <div>
+          <p className="tk-ct-num">{num}</p>
+          <h4 className="tk-ct-name">{item.name}</h4>
+        </div>
         <button type="button" className="tk-ct-full" onClick={() => setFull(f => !f)}>
           {full ? 'Close' : 'Full screen'}
         </button>
@@ -223,8 +244,8 @@ const Comparison = ({ item }) => {
 
 export const CompareStack = ({ items }) => (
   <ol className="tk-compare-stack">
-    {items.map(item => (
-      <Comparison key={item.name} item={item} />
+    {items.map((item, i) => (
+      <Comparison key={item.name} item={item} num={String(i + 1).padStart(2, '0')} />
     ))}
   </ol>
 );

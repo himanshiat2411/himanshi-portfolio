@@ -640,20 +640,14 @@
   margin-top: 12px;
 }
 
-/* Solid gold tag, like Takshila's "CUSTOMIZE" tag. */
+/* Big number above each key decision. */
 .tk-decision-label {
-  display: inline-block;
-  margin: 0 0 14px !important;
-  padding: 5px 10px;
-  border-radius: 4px;
-  background: var(--tk-gold);
-  font-family: var(--font-mono);
-  font-size: 11px !important;
-  font-weight: 500;
-  line-height: 1.2 !important;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--tk-text);
+  margin: 0 0 6px !important;
+  font-size: 44px !important;
+  font-weight: 600;
+  line-height: 1 !important;
+  letter-spacing: -0.02em;
+  color: var(--tk-plum);
 }
 
 .tk-bullets {
@@ -872,5 +866,277 @@
 
   .tk-screen-btn {
     transition: none;
+  }
+}
+
+/* Product page: before and after side by side (stacked on phones). */
+.tk-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 2.5vw, 28px);
+  align-items: start;
+  margin-top: 24px;
+}
+
+.tk-pair figure {
+  margin: 0;
+}
+
+.tk-pair figcaption {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tk-muted);
+  background: var(--tk-blush);
+}
+
+.tk-pair figure[data-side='after'] figcaption {
+  color: #fff;
+  background: var(--tk-plum);
+}
+
+.tk-pair a {
+  position: relative;
+  display: block;
+  border: 1px solid var(--tk-line);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 200ms ease;
+}
+
+.tk-pair a:hover {
+  transform: translateY(-2px);
+}
+
+.tk-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The picked choice on the After screen: a plum outline, with the rest of the page dimmed. */
+.tk-pair-mark {
+  position: absolute;
+  border: 2px solid var(--tk-plum);
+  border-radius: 8px;
+  box-shadow: 0 0 0 9999px rgba(43, 16, 22, 0.35);
+  transition: left 350ms ease, top 350ms ease, width 350ms ease, height 350ms ease;
+  pointer-events: none;
+}
+
+/* A tall screen shown in a window you scroll inside. */
+.tk-scrollshot {
+  max-height: min(640px, 75vh);
+  margin-top: 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--tk-line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.tk-scrollshot a {
+  display: block;
+}
+
+.tk-scrollshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Product page choices: a row of tabs, and the picked choice's three parts side by side. */
+.tk-choices {
+  margin-top: 32px;
+}
+
+.tk-choices-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tk-choices-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--tk-line);
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--tk-text);
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.tk-choices-tab span {
+  font-size: 12px;
+  color: var(--tk-muted);
+}
+
+.tk-choices-tab:hover {
+  border-color: var(--tk-plum);
+}
+
+.tk-choices-tab[aria-selected='true'] {
+  border-color: var(--tk-plum);
+  background: var(--tk-plum);
+  color: #fff;
+}
+
+.tk-choices-tab[aria-selected='true'] span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tk-choices-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 16px 0 0;
+  border: 1px solid var(--tk-line);
+  border-radius: 14px;
+  background: #fff;
+  animation: tk-choice-in 300ms ease;
+}
+
+.tk-choices-row > div {
+  padding: 20px 22px;
+}
+
+.tk-choices-row > div + div {
+  border-left: 1px solid var(--tk-line);
+}
+
+.tk-choices-row dt {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tk-plum);
+}
+
+.tk-choices-row dd {
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--tk-text);
+}
+
+@keyframes tk-choice-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (max-width: 640px) {
+  .tk-pair,
+  .tk-choices-row {
+    grid-template-columns: 1fr;
+  }
+
+  .tk-choices-row > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--tk-line);
+  }
+}
+
+/* What we learned: four short cards side by side. */
+.tk-insights {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.tk-insights > li {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 20px;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.tk-insights > li p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--tk-muted);
+}
+
+/* Design principles: short boxes, three to a row. */
+.tk-principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.tk-principles li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+/* Checkout: clicks before and after. */
+.tk-section .tk-clicks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin: 18px 0 4px;
+  font-size: 15px;
+  color: var(--tk-muted);
+}
+
+.tk-clicks > span[aria-hidden] {
+  font-size: 22px;
+  color: var(--tk-plum);
+}
+
+.tk-clicks > span:not([aria-hidden]) {
+  display: inline-flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.tk-clicks strong {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--tk-text);
+  text-decoration: line-through;
+  text-decoration-color: rgba(43, 16, 22, 0.35);
+}
+
+.tk-clicks > span[data-after] {
+  background: var(--tk-plum);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tk-clicks > span[data-after] strong {
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .tk-insights,
+  .tk-principles {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .tk-insights,
+  .tk-principles {
+    grid-template-columns: 1fr;
   }
 }
