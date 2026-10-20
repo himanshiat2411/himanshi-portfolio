@@ -7,6 +7,7 @@ import config from '../../assets/linkedin/config.webp';
 import presentYourWay from '../../assets/linkedin/present-your-way.webp';
 import railways from '../../assets/linkedin/railways-2050.webp';
 import scarcity from '../../assets/linkedin/scarcity.webp';
+import uxDay from '../../assets/linkedin/ux-day.webp';
 import system1 from '../../assets/linkedin/system-1.webp';
 import variableRewards from '../../assets/linkedin/variable-rewards.webp';
 import './LinkedInPosts.css';
@@ -43,6 +44,13 @@ const POSTS = [
     date: 'May 2026',
     img: variableRewards,
     href: POST('uiux-uxdesign-productdesign-ugcPost-7461288436457508865-pw8W')
+  },
+  {
+    title: 'UX Day 2026 at Microsoft',
+    line: 'Being you is the only differentiator.',
+    date: 'May 2026',
+    img: uxDay,
+    href: POST('uxday2026-microsoft-uxdesign-activity-7458486693005021184-kLvt')
   },
   {
     title: 'Research, presented my way',
