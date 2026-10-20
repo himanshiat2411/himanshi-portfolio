@@ -14,6 +14,43 @@ const PRINTS = [
   { src: photoDoorway, focus: 'center 70%' }
 ];
 
+// Each photo sits in a Figma-style selection: an outline with square corner handles. The front one
+// also gets the frame's name above its top-left corner, the Dev Mode icon top-right, and its size
+// below the bottom edge.
+const SelectionFrame = ({ front }) => {
+  const ref = useRef(null);
+  const [size, setSize] = useState(null);
+
+  useEffect(() => {
+    if (!front) return undefined;
+    const print = ref.current.parentElement;
+    const ro = new ResizeObserver(() => setSize([print.offsetWidth, print.offsetHeight]));
+    ro.observe(print);
+    return () => ro.disconnect();
+  }, [front]);
+
+  return (
+    <span ref={ref} className="sel" aria-hidden="true">
+      {['tl', 'tr', 'bl', 'br'].map(k => (
+        <span key={k} className="sel-dot" data-at={k} />
+      ))}
+      {front && (
+        <>
+          <span className="sel-name">Himanshi</span>
+          <svg className="sel-dev" viewBox="0 0 24 24">
+            <path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" />
+          </svg>
+          {size && (
+            <span className="sel-size">
+              {size[0]} × {size[1]} Hug
+            </span>
+          )}
+        </>
+      )}
+    </span>
+  );
+};
+
 // Clicking (or pressing Enter/Space on) the print behind shuffles it to the front:
 // it slides out to the right, rises over the other one and settles in the front spot.
 const PhotoStack = () => {
@@ -59,7 +96,14 @@ const PhotoStack = () => {
             tabIndex={isBack ? 0 : undefined}
             aria-label={isBack ? 'Bring the other photo to the front' : undefined}
           >
-            <img src={print.src} alt="" style={{ objectPosition: print.focus }} />
+            <span className="about-print-img">
+              <img
+                src={print.src}
+                alt=""
+                style={{ objectPosition: print.focus }}
+              />
+            </span>
+            <SelectionFrame front={!isBack} />
           </div>
         );
       })}

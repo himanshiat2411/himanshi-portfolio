@@ -337,3 +337,106 @@
     font-size: 17px;
   }
 }
+
+/* ---------- The two photos as selected frames on a design canvas ---------- */
+.about-photo::before {
+  content: '';
+  position: absolute;
+  inset: -6% -8%;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.2px, transparent 1.4px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 45%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, #000 45%, transparent 75%);
+  pointer-events: none;
+}
+
+.about-print {
+  --sel: #c6ff3d;
+
+  background: transparent;
+}
+
+.about-print img {
+  inset: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.about-print[data-role='back'] img {
+  filter: brightness(0.75);
+}
+
+.sel {
+  position: absolute;
+  inset: 0;
+  outline: 1.5px solid var(--sel);
+  pointer-events: none;
+}
+
+.about-print[data-role='back'] .sel {
+  outline-color: rgba(198, 255, 61, 0.45);
+}
+
+.sel-dot {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px;
+  border: 1.5px solid var(--sel);
+  border-radius: 1px;
+  background: #fff;
+}
+
+.sel-dot[data-at='tl'] { top: 0; left: 0; }
+.sel-dot[data-at='tr'] { top: 0; right: 0; }
+.sel-dot[data-at='bl'] { bottom: 0; left: 0; }
+.sel-dot[data-at='br'] { bottom: 0; right: 0; }
+
+/* Frame name, Dev Mode icon and size, as Figma shows them on a selected frame. */
+.sel-name {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--sel);
+  white-space: nowrap;
+}
+
+.sel-dev {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  margin-bottom: 7px;
+  fill: none;
+  stroke: var(--sel);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sel-size {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-top: 10px;
+  padding: 3px 7px;
+  border-radius: 3px;
+  background: var(--sel);
+  font-size: 12px;
+  font-weight: 600;
+  color: #0a0a0a;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+/* The photo sits in its own box inside the frame. */
+.about-print-img {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
