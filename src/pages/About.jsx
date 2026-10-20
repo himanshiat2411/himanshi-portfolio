@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import photoDoorway from '../assets/about-photo-doorway.webp';
 import photo from '../assets/about-photo.webp';
+import LinkedInPosts from '../components/LinkedInPosts/LinkedInPosts';
 import Masonry from '../components/Masonry/Masonry';
 import PassageGallery from '../components/PassageGallery/PassageGallery';
 import './About.css';
@@ -211,6 +212,13 @@ const About = () => {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      <section className="about-section" id="posts">
+        <div className="container">
+          <h2 className="about-eyebrow">From my LinkedIn</h2>
+          <LinkedInPosts />
         </div>
       </section>
 
