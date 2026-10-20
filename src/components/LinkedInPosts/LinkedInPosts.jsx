@@ -15,8 +15,36 @@ import './LinkedInPosts.css';
 const PROFILE = 'https://www.linkedin.com/in/himanshi-meena-714543231/';
 const POST = slug => `https://www.linkedin.com/posts/himanshi-meena-714543231_${slug}/`;
 
-// My LinkedIn posts, newest first. Images are the posts' own, saved locally.
+// My LinkedIn posts, in the order I want them shown. Images are the posts' own, saved locally.
 const POSTS = [
+  {
+    title: 'UX Day 2026 at Microsoft',
+    line: 'Being you is the only differentiator.',
+    date: 'May 2026',
+    img: uxDay,
+    href: POST('uxday2026-microsoft-uxdesign-activity-7458486693005021184-kLvt')
+  },
+  {
+    title: 'Config: Friends of Figma, Jaipur',
+    line: 'People don’t buy interfaces. Notes from the day.',
+    date: 'Jun 2026',
+    img: config,
+    href: POST('config-friendsoffigma-uxdesign-ugcPost-7477367308743663618-c54k')
+  },
+  {
+    title: 'Is AI replacing designers?',
+    line: 'AI can design a UI. It can’t understand a human.',
+    date: 'Nov 2025',
+    img: aiDesigners,
+    href: POST('uxdesign-aidesign-designthinking-ugcPost-7393633664292753408-kLwo')
+  },
+  {
+    title: 'Research, presented my way',
+    line: 'No slides, no fixed format, just the findings.',
+    date: 'May 2026',
+    img: presentYourWay,
+    href: POST('uxdesign-uiux-designthinking-ugcPost-7456169973665796096-wj-M')
+  },
   {
     title: 'Designing for System 1 thinking',
     line: 'What Thinking, Fast and Slow taught me about friction.',
@@ -25,11 +53,18 @@ const POSTS = [
     href: POST('uxdesign-productdesign-userexperience-share-7480350198897065984-OaBd')
   },
   {
-    title: 'Config: Friends of Figma, Jaipur',
-    line: 'People don’t buy interfaces. Notes from the day.',
-    date: 'Jun 2026',
-    img: config,
-    href: POST('config-friendsoffigma-uxdesign-ugcPost-7477367308743663618-c54k')
+    title: 'Indian Railways in 2050',
+    line: 'A 4.5-hour live design sprint.',
+    date: 'Feb 2026',
+    img: railways,
+    href: POST('interactiondesign-accessibility-designsprint-ugcPost-7429878941751943168-1JSL')
+  },
+  {
+    title: 'Invisible accessibility',
+    line: 'The Braille on a train seat number.',
+    date: 'Apr 2026',
+    img: braille,
+    href: POST('designthinking-accessibility-userexperience-share-7447261460847747073-BPBx')
   },
   {
     title: 'Anchoring bias in pricing',
@@ -46,46 +81,11 @@ const POSTS = [
     href: POST('uiux-uxdesign-productdesign-ugcPost-7461288436457508865-pw8W')
   },
   {
-    title: 'UX Day 2026 at Microsoft',
-    line: 'Being you is the only differentiator.',
-    date: 'May 2026',
-    img: uxDay,
-    href: POST('uxday2026-microsoft-uxdesign-activity-7458486693005021184-kLvt')
-  },
-  {
-    title: 'Research, presented my way',
-    line: 'No slides, no fixed format, just the findings.',
-    date: 'May 2026',
-    img: presentYourWay,
-    href: POST('uxdesign-uiux-designthinking-ugcPost-7456169973665796096-wj-M')
-  },
-  {
-    title: 'Invisible accessibility',
-    line: 'The Braille on a train seat number.',
-    date: 'Apr 2026',
-    img: braille,
-    href: POST('designthinking-accessibility-userexperience-share-7447261460847747073-BPBx')
-  },
-  {
-    title: 'Indian Railways in 2050',
-    line: 'A 4.5-hour live design sprint.',
-    date: 'Feb 2026',
-    img: railways,
-    href: POST('interactiondesign-accessibility-designsprint-ugcPost-7429878941751943168-1JSL')
-  },
-  {
     title: 'Induced scarcity',
     line: 'An art exhibition, through a UX psychology lens.',
     date: 'Jan 2026',
     img: scarcity,
     href: POST('uxdesign-uxpsychology-productdesign-ugcPost-7415361820825190400-0x-O')
-  },
-  {
-    title: 'Is AI replacing designers?',
-    line: 'AI can design a UI. It can’t understand a human.',
-    date: 'Nov 2025',
-    img: aiDesigners,
-    href: POST('uxdesign-aidesign-designthinking-ugcPost-7393633664292753408-kLwo')
   }
 ];
 
