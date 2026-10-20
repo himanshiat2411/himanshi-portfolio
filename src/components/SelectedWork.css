@@ -257,3 +257,48 @@
     transition: none;
   }
 }
+
+/* "View case study" pill that follows the pointer over a card with a case study. */
+.work-card[data-link] {
+  cursor: none;
+}
+
+.work-card[data-link] .work-cta {
+  cursor: none;
+}
+
+.work-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.work-cursor-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: var(--acc, #c6ff3d);
+  color: #0a0a0a;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.45);
+  transform: translate(-50%, -50%) scale(0.4);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.work-cursor[data-on] .work-cursor-pill {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .work-cursor {
+    display: none;
+  }
+}

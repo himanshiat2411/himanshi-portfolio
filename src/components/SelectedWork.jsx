@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import finworldDashboard from '../assets/finworld/intro/dashboard.webp';
 import finworldFilm from '../assets/finworld/film/tile.mp4';
@@ -86,8 +86,53 @@ const SelectedWork = () => (usePhone() ? <SelectedWorkGrid /> : <SelectedWorkDec
 // next one, already peeking out underneath, comes forward.
 const SelectedWorkDeck = () => {
   const stackRef = useRef(null);
+  const cursorRef = useRef(null);
+  const navigate = useNavigate();
   const [active, setActive] = useState(0);
+  const [hover, setHover] = useState(null);
   const count = PROJECTS.length;
+
+  // Over a card with a case study, a "View case study" pill follows the pointer in place of the
+  // cursor, and a click anywhere on the card opens it. What's under the pointer is checked on every
+  // move and scroll, so the pill goes away as soon as the pointer is off the cards.
+  useEffect(() => {
+    const stack = stackRef.current;
+    const pill = cursorRef.current;
+    let x = -1;
+    let y = -1;
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const el = x < 0 ? null : document.elementFromPoint(x, y);
+      const card = el && stack.contains(el) ? el.closest('.work-card[data-link]') : null;
+      setHover(card ? PROJECTS[Number(card.dataset.index)] : null);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+    const onMove = e => {
+      if (e.pointerType !== 'mouse') return;
+      x = e.clientX;
+      y = e.clientY;
+      pill.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      schedule();
+    };
+    const onOut = e => {
+      if (!e.relatedTarget) {
+        x = -1;
+        schedule();
+      }
+    };
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('scroll', schedule, { passive: true });
+    document.addEventListener('pointerout', onOut);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('scroll', schedule);
+      document.removeEventListener('pointerout', onOut);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useEffect(() => {
     const stack = stackRef.current;
@@ -126,7 +171,17 @@ const SelectedWorkDeck = () => {
               const n = String(i + 1).padStart(2, '0');
               const style = { '--i': i, '--bg': project.theme.bg, '--fg': project.theme.fg, '--acc': project.theme.accent, zIndex: count - i };
               return (
-                <li key={project.title} className="work-card" style={style} aria-current={i === active ? 'true' : undefined}>
+                <li
+                  key={project.title}
+                  className="work-card"
+                  style={style}
+                  aria-current={i === active ? 'true' : undefined}
+                  data-link={project.to ? '' : undefined}
+                  data-index={i}
+                  onClick={e => {
+                    if (project.to && !e.target.closest('a')) navigate(project.to);
+                  }}
+                >
                   <div className="work-card-top">
                     <h3 className="work-headline">{project.headline}</h3>
                     <span className="work-num">({n})</span>
@@ -160,6 +215,17 @@ const SelectedWorkDeck = () => {
           </ol>
         </div>
       </div>
+      <span
+        ref={cursorRef}
+        className="work-cursor"
+        data-on={hover ? '' : undefined}
+        style={hover ? { '--bg': hover.theme.bg, '--acc': hover.theme.accent } : undefined}
+        aria-hidden="true"
+      >
+        <span className="work-cursor-pill">
+          View case study <Arrow />
+        </span>
+      </span>
     </section>
   );
 };
