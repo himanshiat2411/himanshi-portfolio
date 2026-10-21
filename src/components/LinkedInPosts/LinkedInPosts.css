@@ -310,3 +310,59 @@
 #posts {
   overflow-x: clip;
 }
+
+/* ---------- Phones: one card at a time, swipe for the next ---------- */
+.li-track[data-phone] {
+  width: auto;
+  margin-left: 0;
+  cursor: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.li-track[data-phone] .li-row {
+  gap: 14px;
+  padding: 6px 0;
+}
+
+.li-track[data-phone] .li-card {
+  /* the track's width: the screen minus the page's 16px side gutters */
+  flex: 0 0 calc(100vw - 32px);
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.li-track[data-phone] .profile-card {
+  margin-inline: auto;
+  /* ProfileCard only allows vertical panning; let sideways swipes move the slider too */
+  touch-action: pan-x pan-y;
+}
+
+.li-track[data-phone] {
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+}
+
+.li-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.li-dots button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+.li-dots button[aria-current] {
+  width: 22px;
+  background: #c6ff3d;
+}

@@ -215,12 +215,42 @@ const PostModal = ({ post, onClose }) => {
 // It pauses while hovered or focused and picks up again from wherever it was left.
 const SPEED = 0.5; // px per frame
 
+// Phones get a plain one-card-at-a-time slider instead: swipe to bring the next card in, with dots
+// underneath. No auto drift and no looping copy.
+const PHONE = '(max-width: 720px)';
+const usePhone = () => {
+  const [phone, setPhone] = useState(() => window.matchMedia(PHONE).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(PHONE);
+    const onChange = () => setPhone(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return phone;
+};
+
 const LinkedInPosts = () => {
   const trackRef = useRef(null);
+  const phone = usePhone();
+  const [slide, setSlide] = useState(0);
   const [open, setOpen] = useState(null);
   const close = useCallback(() => setOpen(null), []);
 
+  // Phone slider: keep the dots in step with the card in view.
   useEffect(() => {
+    if (!phone) return undefined;
+    const track = trackRef.current;
+    track.scrollLeft = 0;
+    const onScroll = () => {
+      const card = track.querySelector('.li-card');
+      if (card) setSlide(Math.round(track.scrollLeft / (card.offsetWidth + 14)));
+    };
+    track.addEventListener('scroll', onScroll, { passive: true });
+    return () => track.removeEventListener('scroll', onScroll);
+  }, [phone]);
+
+  useEffect(() => {
+    if (phone) return undefined;
     const track = trackRef.current;
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let paused = false;
@@ -299,22 +329,37 @@ const LinkedInPosts = () => {
       track.removeEventListener('wheel', onWheel);
       track.removeEventListener('click', onClick, true);
     };
-  }, []);
+  }, [phone]);
+
+  const goTo = i => {
+    const track = trackRef.current;
+    const card = track.querySelector('.li-card');
+    track.scrollTo({ left: i * (card.offsetWidth + 14), behavior: 'smooth' });
+  };
 
   return (
     <div className="li-posts">
-      <div ref={trackRef} className="li-track">
+      <div ref={trackRef} className="li-track" data-phone={phone ? '' : undefined}>
         <ul className="li-row">
           {POSTS.map(p => (
             <Card key={p.href} post={p} onOpen={setOpen} />
           ))}
         </ul>
-        <ul className="li-row" aria-hidden="true">
-          {POSTS.map(p => (
-            <Card key={p.href} post={p} onOpen={setOpen} hidden />
-          ))}
-        </ul>
+        {!phone && (
+          <ul className="li-row" aria-hidden="true">
+            {POSTS.map(p => (
+              <Card key={p.href} post={p} onOpen={setOpen} hidden />
+            ))}
+          </ul>
+        )}
       </div>
+      {phone && (
+        <div className="li-dots">
+          {POSTS.map((p, i) => (
+            <button key={p.href} type="button" aria-label={`Post ${i + 1}`} aria-current={i === slide || undefined} onClick={() => goTo(i)} />
+          ))}
+        </div>
+      )}
       <a className="li-profile" href={PROFILE} target="_blank" rel="noopener noreferrer">
         See more on LinkedIn ↗
       </a>
