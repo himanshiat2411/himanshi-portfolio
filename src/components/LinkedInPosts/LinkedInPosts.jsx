@@ -92,11 +92,21 @@ const POSTS = [
 
 // Each post is a React Bits ProfileCard: the post's image tilts toward the cursor with a holographic
 // glare, its title and line sit over the image, and the footer has a Read button and the month. Clicking anywhere on the card (but not at the end of a drag) opens the popup.
-const Card = ({ post, onOpen }) => (
+const Card = ({ post, onOpen, hidden }) => (
   <li
     className="li-card"
+    role="button"
+    tabIndex={hidden ? -1 : 0}
+    aria-haspopup="dialog"
+    aria-label={`${post.title}, ${post.date}`}
     onClick={e => {
       if (!e.defaultPrevented) onOpen(post);
+    }}
+    onKeyDown={e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        onOpen(post);
+      }
     }}
   >
     <ProfileCard
@@ -299,9 +309,9 @@ const LinkedInPosts = () => {
             <Card key={p.href} post={p} onOpen={setOpen} />
           ))}
         </ul>
-        <ul className="li-row" aria-hidden="true" inert>
+        <ul className="li-row" aria-hidden="true">
           {POSTS.map(p => (
-            <Card key={p.href} post={p} onOpen={setOpen} />
+            <Card key={p.href} post={p} onOpen={setOpen} hidden />
           ))}
         </ul>
       </div>
