@@ -11,6 +11,8 @@ import takshilaFilm from '../assets/takshila/film/tile.mp4';
 import grubNGrabIntro from '../assets/grub-n-grab/videos/1.mp4';
 import grubNGrabPrototype from '../assets/grub-n-grab/videos/2.mp4';
 import takshilaThumbMobile from '../assets/work/takshila-thumb-mobile.webp';
+import sylusThumb from '../assets/work/sylus-thumb.webp';
+import sylusThumbMobile from '../assets/work/sylus-thumb-mobile.webp';
 import './SelectedWorkGrid.css';
 
 // Each thumbnail is a stack of same-size layers over a background (`ratio` is their width / height).
@@ -54,7 +56,16 @@ const PROJECTS = [
     ratio: '1100 / 666',
     layers: [{ src: grubNGrabBg }, { src: grubNGrabPhones, from: '0 85%', shadow: true }]
   },
-  { title: 'Sylus AI', caption: 'Sylus AI', tag: 'Coming soon', text: 'Case study in progress. Results coming soon.' }
+  {
+    title: 'Sylus AI',
+    to: '/work/sylus-ai',
+    caption: 'Sylus AI — AI marketing platform',
+    tag: 'Product design · AI platform',
+    text: 'Paste your website, get a month of on-brand posts: onboarding, AI creation and planning, and an agency workspace.',
+    ratio: '491 / 420',
+    layers: [{ src: sylusThumb }],
+    mobile: { ratio: '358 / 240', src: sylusThumbMobile }
+  }
 ];
 
 const ArrowUpRight = () => (

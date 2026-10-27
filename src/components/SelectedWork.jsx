@@ -10,6 +10,9 @@ import grubNGrabPhones from '../assets/work/grub-n-grab-phones.webp';
 import takshilaFilm from '../assets/takshila/film/tile.mp4';
 import takshilaAsk from '../assets/takshila/screen-ask-first.webp';
 import takshilaThumb from '../assets/work/takshila-thumb.webp';
+import sylusAgency from '../assets/sylus/agency-overview.webp';
+import sylusThumb from '../assets/work/sylus-thumb.webp';
+import sylusVibe from '../assets/sylus/brand-vibe.webp';
 import SelectedWorkGrid from './SelectedWorkGrid';
 import './SelectedWork.css';
 
@@ -45,11 +48,12 @@ const PROJECTS = [
   },
   {
     title: 'Sylus AI',
-    headline: 'Sylus AI. Case study in progress.',
-    tag: 'Coming soon',
-    text: 'Results coming soon.',
-    theme: { bg: '#161616', fg: '#f2f2f2', accent: '#c6ff3d' },
-    media: []
+    to: '/work/sylus-ai',
+    headline: 'Paste your website. Get a month of posts.',
+    tag: 'Product design · AI platform',
+    text: 'Designed an AI marketing platform end to end: onboarding that learns your brand, AI post creation and planning, and an agency workspace for many clients.',
+    theme: { bg: '#2a0b3a', fg: '#f7eef8', accent: '#e2685c' },
+    media: [{ img: sylusThumb }, { img: sylusVibe }, { img: sylusAgency }]
   }
 ];
 

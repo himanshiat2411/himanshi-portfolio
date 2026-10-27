@@ -13,6 +13,7 @@ import Finworld from './pages/Finworld';
 import GrubNGrab from './pages/GrubNGrab';
 import Home from './pages/Home';
 import IntroLoop from './pages/IntroLoop';
+import Sylus from './pages/Sylus';
 import Takshila from './pages/Takshila';
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/work/takshila" element={<Takshila />} />
           <Route path="/work/finworld" element={<Finworld />} />
           <Route path="/work/grub-n-grab" element={<GrubNGrab />} />
+          <Route path="/work/sylus-ai" element={<Sylus />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="*" element={<Home />} />
         </Routes>
