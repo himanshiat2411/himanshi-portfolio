@@ -6,7 +6,7 @@ import FilmIntro from '../components/finworld/FilmIntro';
 import sylusFilm from '../assets/sylus/film/intro.mp4';
 import sylusFilmPortrait from '../assets/sylus/film/intro-portrait.mp4';
 import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
-import { FEATURES, INTRO, NEXT } from '../content/sylus';
+import { DECISIONS, FEATURES, INTRO, NEXT } from '../content/sylus';
 import './Takshila.css';
 import './Sylus.css';
 
@@ -123,6 +123,29 @@ const Switcher = ({ screens }) => {
 // every device, so on phones it sits at the column width like the screens around it.
 const VIDEOS = import.meta.glob('../assets/sylus/video/*.mp4', { eager: true, import: 'default' });
 
+// One decision told as a story: the hook, what was there before, what I chose, and what it changed.
+const Decision = ({ d }) =>
+  d ? (
+    <div className="sy-decision">
+      <p className="sy-decision-label">Decision</p>
+      <p className="sy-decision-hook">{d.hook}</p>
+      <dl>
+        <div>
+          <dt>Before</dt>
+          <dd>{d.before}</dd>
+        </div>
+        <div>
+          <dt>Decision</dt>
+          <dd>{d.decision}</dd>
+        </div>
+        <div>
+          <dt>Result</dt>
+          <dd>{d.result}</dd>
+        </div>
+      </dl>
+    </div>
+  ) : null;
+
 const Walkthrough = ({ name, label }) => {
   const src = VIDEOS[`../assets/sylus/video/${name}.mp4`];
   if (!src) return null;
@@ -159,12 +182,48 @@ const Sylus = () => {
                 <span key={t}>{t}</span>
               ))}
             </p>
+            <p className="sy-hook">{INTRO.hook}</p>
+            <dl className="sy-stats">
+              {INTRO.stats.map(st => (
+                <div key={st.label}>
+                  <dt>{st.value}</dt>
+                  <dd>{st.label}</dd>
+                </div>
+              ))}
+            </dl>
             <figure className="sy-cover">
               <Screen img={INTRO.cover.img} alt={INTRO.cover.alt} />
             </figure>
+            <div className="sy-overview">
+              {INTRO.overview.map(o => (
+                <div key={o.label}>
+                  <h3>{o.label}</h3>
+                  <p>{o.text}</p>
+                </div>
+              ))}
+            </div>
             {INTRO.paragraphs.map(p => (
               <p key={p}>{p}</p>
             ))}
+            <section className="sy-glance" aria-label="Key decisions">
+              <h3>Key decisions</h3>
+              <div>
+                <p className="sy-glance-kind">Strategic</p>
+                <ul>
+                  {DECISIONS.strategic.map(d => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="sy-glance-kind">Micro</p>
+                <ul>
+                  {DECISIONS.micro.map(d => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
             <dl className="sy-facts">
               {INTRO.facts.map(f => (
                 <div key={f.label}>
@@ -180,11 +239,17 @@ const Sylus = () => {
               <h2>{f.title}</h2>
               <p>{f.what}</p>
               {f.video && <Walkthrough name={f.video} label={f.videoLabel} />}
-              <h3>Why</h3>
-              <p>{f.why}</p>
-              {f.notes?.map(n => (
-                <p key={n}>{n}</p>
-              ))}
+              <Decision d={f.decision} />
+              {f.micro?.length > 0 && (
+                <>
+                  <h3>Smaller decisions</h3>
+                  <ul className="sy-micro">
+                    {f.micro.map(m => (
+                      <li key={m}>{m}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
               <Switcher screens={f.screens} />
             </section>
           ))}

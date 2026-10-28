@@ -10,7 +10,7 @@ import grubNGrabPhones from '../assets/work/grub-n-grab-phones.webp';
 import takshilaFilm from '../assets/takshila/film/tile.mp4';
 import takshilaAsk from '../assets/takshila/screen-ask-first.webp';
 import takshilaThumb from '../assets/work/takshila-thumb.webp';
-import sylusAgency from '../assets/sylus/agency-overview.webp';
+import sylusFilm from '../assets/sylus/film/tile.mp4';
 import sylusCover from '../assets/work/sylus-cover.webp';
 import sylusCoverHover from '../assets/work/sylus-cover-hover.webp';
 import sylusVibe from '../assets/sylus/brand-vibe.webp';
@@ -55,7 +55,7 @@ const PROJECTS = [
     tag: 'Product design · AI-powered CRM',
     text: 'Designed an AI-powered marketing CRM end to end: onboarding that learns your brand, AI post creation and planning, and a CRM for agencies running many clients.',
     theme: { bg: '#7c3f7b', fg: '#ffffff', accent: '#ffd6c9', surface: 'linear-gradient(135deg, #7c3f7b 0%, #e0508f 55%, #ee8063 100%)' },
-    media: [{ img: sylusCover, hover: sylusCoverHover }, { img: sylusVibe }, { img: sylusAgency }]
+    media: [{ video: sylusFilm }, { img: sylusCover, hover: sylusCoverHover }, { img: sylusVibe }]
   }
 ];
 
