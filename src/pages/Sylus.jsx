@@ -6,7 +6,7 @@ import FilmIntro from '../components/finworld/FilmIntro';
 import sylusFilm from '../assets/sylus/film/intro.mp4';
 import sylusFilmPortrait from '../assets/sylus/film/intro-portrait.mp4';
 import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
-import { DECISIONS, FEATURES, INTRO, NEXT } from '../content/sylus';
+import { DECISIONS, FEATURES, INTRO, METHOD, NEXT, REFLECTION } from '../content/sylus';
 import './Takshila.css';
 import './Sylus.css';
 
@@ -16,7 +16,7 @@ import './Sylus.css';
 const SHOTS = import.meta.glob('../assets/sylus/*.webp', { eager: true, import: 'default' });
 const shot = key => SHOTS[`../assets/sylus/${key}.webp`];
 
-const NAV = [{ label: 'Overview', selector: '#sy-overview' }, ...FEATURES.map(f => ({ label: f.title, selector: `#${f.id}` })), { label: 'Next', selector: '#sy-next' }];
+const NAV = [{ label: 'Overview', selector: '#sy-overview' }, { label: 'How I decided', selector: '#sy-method' }, ...FEATURES.map(f => ({ label: f.title, selector: `#${f.id}` })), { label: 'Reflection', selector: '#sy-reflect' }];
 
 const NAV_THEME = { accent: '#ffffff', text: '#8f8a9e', marker: '#3a3446', panel: '#000000' };
 
@@ -143,6 +143,12 @@ const Decision = ({ d }) =>
           <dd>{d.result}</dd>
         </div>
       </dl>
+      {d.principle && (
+        <p className="sy-principle">
+          <span>Principle used · {d.principle.name}</span>
+          {d.principle.why}
+        </p>
+      )}
     </div>
   ) : null;
 
@@ -202,6 +208,19 @@ const Sylus = () => {
                 </div>
               ))}
             </div>
+            <section className="sy-context" aria-label="Context">
+              <dl>
+                {INTRO.context.facts.map(f => (
+                  <div key={f.label}>
+                    <dt>{f.label}</dt>
+                    <dd>{f.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p>
+                <strong>Constraint:</strong> {INTRO.context.constraint}
+              </p>
+            </section>
             {INTRO.paragraphs.map(p => (
               <p key={p}>{p}</p>
             ))}
@@ -224,15 +243,19 @@ const Sylus = () => {
                 </ul>
               </div>
             </section>
-            <dl className="sy-facts">
-              {INTRO.facts.map(f => (
-                <div key={f.label}>
-                  <dt>{f.label}</dt>
-                  <dd>{f.value}</dd>
-                </div>
-              ))}
-            </dl>
           </header>
+
+          <section id="sy-method" className="sy-feature">
+            <h2>{METHOD.title}</h2>
+            <p>{METHOD.text}</p>
+            <ul className="sy-method">
+              {METHOD.items.map(m => (
+                <li key={m.label}>
+                  <strong>{m.label}</strong> {m.text}
+                </li>
+              ))}
+            </ul>
+          </section>
 
           {FEATURES.map(f => (
             <section key={f.id} id={f.id} className="sy-feature">
@@ -244,9 +267,15 @@ const Sylus = () => {
                 <>
                   <h3>Smaller decisions</h3>
                   <ul className="sy-micro">
-                    {f.micro.map(m => (
-                      <li key={m}>{m}</li>
-                    ))}
+                    {f.micro.map(m =>
+                      typeof m === 'string' ? (
+                        <li key={m}>{m}</li>
+                      ) : (
+                        <li key={m.text}>
+                          {m.text} <span className="sy-tag">{m.principle}</span>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </>
               )}
@@ -254,8 +283,27 @@ const Sylus = () => {
             </section>
           ))}
 
-          <section id="sy-next" className="sy-feature">
-            <h2>{NEXT.title}</h2>
+          <section id="sy-reflect" className="sy-feature">
+            <h2>{REFLECTION.title}</h2>
+            <div className="sy-glance sy-reflect">
+              <div>
+                <p className="sy-glance-kind">What went well</p>
+                <ul>
+                  {REFLECTION.well.map(t => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="sy-glance-kind">What I’d do differently</p>
+                <ul>
+                  {REFLECTION.differently.map(t => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <h3>{NEXT.title}</h3>
             {NEXT.paragraphs.map(p => (
               <p key={p}>{p}</p>
             ))}

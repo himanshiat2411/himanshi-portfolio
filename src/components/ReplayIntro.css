@@ -1,0 +1,40 @@
+.replay-intro {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 900;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 14px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-right: 0;
+  border-radius: 10px 0 0 10px;
+  background: rgba(20, 20, 24, 0.86);
+  backdrop-filter: blur(8px);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  writing-mode: vertical-rl;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: padding 0.2s ease, background 0.2s ease;
+}
+
+.replay-intro span {
+  font-size: 10px;
+  writing-mode: horizontal-tb;
+}
+
+.replay-intro:hover {
+  padding-right: 14px;
+  background: rgba(40, 40, 46, 0.95);
+}
+
+.replay-intro:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}

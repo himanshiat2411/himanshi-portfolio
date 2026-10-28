@@ -421,3 +421,89 @@
     gap: 2px;
   }
 }
+
+/* Context under the overview strip: role, timeline, team, then the constraint in a sentence. */
+.sy-context {
+  margin: 0 0 32px;
+  padding: 20px;
+  border: 1px solid var(--sy-line);
+  border-radius: 6px;
+}
+
+.sy-context dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 40px;
+  margin: 0 0 14px;
+}
+
+.sy-context dt {
+  font-size: 13px;
+  color: var(--sy-faint);
+}
+
+.sy-context dd {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: var(--sy-ink);
+}
+
+.sy .sy-context p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.sy-context strong,
+.sy-method strong {
+  font-weight: 600;
+  color: var(--sy-ink);
+}
+
+.sy-method {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sy-method li {
+  padding: 14px 16px;
+  border-left: 2px solid var(--sy-accent);
+  background: var(--sy-panel);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+/* The principle behind a decision, under its Before / Decision / Result. */
+.sy .sy-principle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: baseline;
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--sy-line);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.sy-principle span,
+.sy-tag {
+  padding: 2px 9px;
+  border: 1px solid var(--sy-accent);
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--sy-accent);
+}
+
+.sy-reflect {
+  margin: 0 0 24px;
+}
+
+.sy-reflect h3 {
+  display: none;
+}

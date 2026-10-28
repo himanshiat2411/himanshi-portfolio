@@ -23,8 +23,18 @@ export const INTRO = {
     'Sylus AI is a marketing CRM for brands and agencies. It uses AI to write and plan social posts in each brand’s voice.',
     'I designed it end to end: onboarding, the Individual workspace and the Agency workspace.'
   ],
+  // Shown right under the Problem / Solution / Result strip.
+  context: {
+    facts: [
+      { label: 'Role', value: 'Sole product designer' },
+      { label: 'Timeline', value: '1.5 months' },
+      { label: 'Team', value: 'Founder + developers' }
+    ],
+    constraint:
+      'The founder needed the product ready fast, so there was no time for user research. I designed 30+ screens end to end and made decisions using proven UX principles, competitor patterns and regular founder reviews.'
+  },
   facts: [
-    { label: 'Role', value: 'Product Designer' },
+    { label: 'Role', value: 'Sole product designer' },
     { label: 'Scope', value: 'Onboarding, Individual, Agency' },
     { label: 'Output', value: 'Clickable prototype' }
   ]
@@ -36,6 +46,18 @@ export const DECISIONS = {
   micro: ['Four-step post flow', 'Three-question planner', 'Post button on every trend', 'Roles set per brand']
 };
 
+// What stood in for user research. Shown before the first feature.
+export const METHOD = {
+  title: 'How I decided without research',
+  text: 'No research time, so I used three things instead:',
+  items: [
+    { label: 'UX principles', text: 'to make choices I could defend.' },
+    { label: 'Competitor tools', text: 'what marketers already know from similar apps.' },
+    { label: 'Founder reviews', text: 'to check every flow before moving on.' }
+  ]
+};
+
+// Each decision and some smaller ones carry the principle behind them: { name, why }.
 export const FEATURES = [
   {
     id: 'sy-onboarding',
@@ -48,12 +70,13 @@ export const FEATURES = [
       hook: 'Read a link, don’t ask for a form',
       before: 'Brand setup was a long form: voice, audience, colours, products.',
       decision: 'Paste a website link or drop brand files. AI drafts the brand; people edit it.',
-      result: 'Setup becomes reviewing a draft, not writing from blank. A manual form stays as a fallback.'
+      result: 'Setup becomes reviewing a draft, not writing from blank. A manual form stays as a fallback.',
+      principle: { name: 'Recognition over recall', why: 'People review a draft instead of writing from blank.' }
     },
     micro: [
-      'Individual or Agency is asked first, since it changes the whole workspace.',
+      { text: 'Individual or Agency is asked first, since it changes the whole workspace.', principle: 'Progressive disclosure' },
       'The login explains the product beside the form, for people arriving from an ad.',
-      'Every AI field stays editable.'
+      { text: 'Every AI field stays editable, because people trust AI more when they can change it.', principle: 'User control and freedom' }
     ],
     screens: [
       { label: 'Login', img: 'login-final', alt: 'Login with a panel describing what Sylus does beside the form' },
@@ -74,11 +97,13 @@ export const FEATURES = [
       hook: 'Four steps, not one long page',
       before: 'Topic, platforms, caption, hashtags, image and schedule all sat on one page.',
       decision: 'Split it into Brief, Caption, Media and Preview, each with one job.',
-      result: 'Each screen stays focused, and the preview shows the real post before it goes out.'
+      result: 'Each screen stays focused, and the preview shows the real post before it goes out.',
+      principle: { name: 'Goal-gradient effect', why: 'People push harder when they can see the finish line.' }
     },
     micro: [
       'A step counter shows how close you are to done.',
-      'Captions and hashtags are written per platform.'
+      'Captions and hashtags are written per platform.',
+      { text: 'The last step previews the post as it will appear, to catch mistakes before they go public.', principle: 'Error prevention' }
     ],
     screens: [
       { label: 'Brief', img: 'post-brief', alt: 'Create Post: describe what the post is about' },
@@ -98,10 +123,11 @@ export const FEATURES = [
       hook: 'Ask three things, fill the rest',
       before: 'A blank calendar made people decide every slot themselves.',
       decision: 'Ask only cadence, content mix and a short brief. AI builds the plan.',
-      result: 'A month of posts from three answers, reviewed before anything is scheduled.'
+      result: 'A month of posts from three answers, reviewed before anything is scheduled.',
+      principle: { name: 'Hick’s Law', why: 'Fewer choices means a faster decision; AI fills the rest.' }
     },
     micro: [
-      'Plus and minus steppers for format counts, since tapping beats typing.'
+      { text: 'Plus and minus steppers for format counts, since big tap targets are faster than typing.', principle: 'Fitts’s Law' }
     ],
     screens: [
       { label: 'Cadence', img: 'planner', alt: 'Planner: choose a week, 15 days, a month or a custom range' },
@@ -140,7 +166,8 @@ export const FEATURES = [
       hook: 'Built around clients, not content',
       before: 'Agencies were treated as one big user.',
       decision: 'Home shows every client: today’s posts and pending approvals. Roles are set per brand.',
-      result: 'Approvals don’t get lost, and a designer on one brand can’t see another client’s drafts.'
+      result: 'Approvals don’t get lost, and a designer on one brand can’t see another client’s drafts.',
+      principle: { name: 'Least privilege', why: 'People only see the clients they work on.' }
     },
     micro: [
       'Tasks show as a board or a calendar: same data, different ways to plan.',
@@ -158,6 +185,15 @@ export const FEATURES = [
     ],
   }
 ];
+
+export const REFLECTION = {
+  title: 'Looking back',
+  well: ['30+ screens across two workspaces in 1.5 months, with a clear reason behind every decision.'],
+  differently: [
+    'Speed meant no user research. Next time I’d do even 3 quick calls with marketers or agency owners in week 1.',
+    'Now that the flows exist, I’d test onboarding first, because it’s the step most likely to lose people.'
+  ]
+};
 
 export const NEXT = {
   title: 'What I would do next',

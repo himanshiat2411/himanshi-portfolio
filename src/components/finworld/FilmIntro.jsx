@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 
 import finworldFilm from '../../assets/finworld/film/intro.mp4';
 import finworldPortrait from '../../assets/finworld/film/intro-portrait.mp4';
+import ReplayIntro from '../ReplayIntro';
 import SkipIntro from '../SkipIntro';
 import useEdgeExtend from '../useEdgeExtend';
 import './FilmIntro.css';
@@ -60,7 +61,17 @@ const FilmIntro = ({ film = finworldFilm, portrait = finworldPortrait, backgroun
     };
   }, [leaving]);
 
-  if (done) return null;
+  // Closed: offer to play it again from the start.
+  if (done)
+    return (
+      <ReplayIntro
+        onPlay={() => {
+          setLeaving(false);
+          setCover(coverUntil > 0);
+          setDone(false);
+        }}
+      />
+    );
 
   return createPortal(
     <div

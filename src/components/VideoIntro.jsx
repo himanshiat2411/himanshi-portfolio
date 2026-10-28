@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import ReplayIntro from './ReplayIntro';
 import SkipIntro from './SkipIntro';
 import useEdgeExtend from './useEdgeExtend';
 import './VideoIntro.css';
@@ -38,7 +39,8 @@ const VideoIntro = ({ src, background, label }) => {
     return () => clearTimeout(id);
   }, [state]);
 
-  if (state === 'done') return null;
+  // Closed: offer to play it again from the start.
+  if (state === 'done') return <ReplayIntro onPlay={() => setState('playing')} />;
 
   const leave = () => setState(s => (s === 'playing' ? 'leaving' : s));
 
