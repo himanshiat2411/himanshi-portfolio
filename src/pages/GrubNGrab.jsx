@@ -1,63 +1,292 @@
-import CaseStudy from '../components/CaseStudy';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import CaseNav from '../components/LineSidebar/CaseNav';
 import VideoIntro from '../components/VideoIntro';
-import video1 from '../assets/grub-n-grab/videos/1.mp4';
-import video2 from '../assets/grub-n-grab/videos/2.mp4';
-import video3 from '../assets/grub-n-grab/videos/3.mp4';
-import video4 from '../assets/grub-n-grab/videos/4.mp4';
+import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
+import { COMPETITORS, DECISIONS, FEATURES, INTRO, NEXT, RESEARCH, TEST } from '../content/grubngrab';
+import introFilm from '../assets/grub-n-grab/videos/1.mp4';
+import prototypeVideo from '../assets/grub-n-grab/videos/2.mp4';
+import './Takshila.css';
+import './Sylus.css';
+import './GrubNGrab.css';
 
-// Sections of the Figma case study (1420px-wide render), top to bottom.
-// The journey maps and the User Flow & IA section were removed from the render.
-const images = import.meta.glob('../assets/grub-n-grab/*.webp', { eager: true, import: 'default' });
-const img = n => images[`../assets/grub-n-grab/${n}.webp`];
+// Grub'n Grab case study page (/work/grub-n-grab). Built like the Sylus page: black, one narrow
+// column of real text, and each part of the app told as a decision. Its screens are phones, so they
+// show as a row of phones that steps on its own, rather than one wide screen.
+const SHOTS = import.meta.glob('../assets/grub-n-grab/screens/*.webp', { eager: true, import: 'default' });
+const shot = key => SHOTS[`../assets/grub-n-grab/screens/${key}.webp`];
 
-const SECTIONS = [
-  { src: img('01'), h: 1700, alt: 'Grub’n Grab, a campus thrift app: app mockups and project overview — role, 16 weeks, tools, C2C marketplace, mobile app' },
-  { src: img('03'), h: 681, alt: 'The problem: students struggle to find affordable, trustworthy second-hand items on campus, and why it matters' },
-  { src: img('04'), h: 826, edgeColor: 'linear-gradient(90deg, #024a3f 50%, #09483e 50%)', alt: 'Design process: Empathize, Define, Ideate, Prototype, Test' },
-  { src: img('05'), h: 1276, alt: 'User research: interviews with 8 college students and 2 recent graduates, key insights and interview notes' },
-  { src: img('06'), h: 1115, alt: 'Affinity diagram grouping interview quotes into themes' },
-  { src: img('07'), h: 1636, alt: 'Competitor analysis comparing OLX, FreeUp, Depop, WhatsApp groups and Grub’n Grab' },
-  { src: img('08'), h: 1465, alt: 'User personas: Akash Sharma, a 4th-year seller, and Rashmi Krishnan, a 1st-year buyer' },
-  { src: img('09'), h: 2121, alt: 'Low-fidelity wireframes' },
-  { src: img('10'), h: 300, alt: 'Prototype' },
-  { video: video2, ratio: '1980 / 1080', edgeColor: '#d0edc5', alt: 'Grub’n Grab prototype walkthrough' },
-  { src: img('11'), h: 1200, alt: 'Design system: primary, secondary and semantic colour palette' },
-  { src: img('12'), h: 1528, alt: 'Typography (Inter), components and iconography' },
-  { video: video3, poster: img('13'), h: 829, alt: 'High-fidelity splash screen on a phone' },
-  { src: img('14'), h: 2061, alt: 'High-fidelity screens: splash, welcome, login, sign up, verification and document upload' },
-  { src: img('15'), h: 1682, alt: 'Verification loading and submitted screens, and the annotated home screen' },
-  { src: img('16'), h: 1718, alt: 'Home screen annotations and the annotated product page' },
-  { video: video4, poster: img('17'), h: 900, alt: 'Grub’n Grab app demo' },
-  { src: img('18'), h: 2343, alt: 'Other screens: swap listing and list-an-item, plus overlays' },
-  { src: img('19'), h: 802, alt: 'Error states overview' },
-  { src: img('20'), h: 1137, alt: 'Error states: invalid roll number and missing college selection' },
-  { src: img('21'), h: 950, alt: 'Error states: file too large, verification failed and documents rejected' },
-  { src: img('22'), h: 818, alt: 'Thank you for scrolling' }
-];
-
-// Sidebar sections: where each one starts in SECTIONS.
 const NAV = [
-  { label: 'Overview', at: 0 },
-  { label: 'Problem', at: 1 },
-  { label: 'Process', at: 2 },
-  { label: 'Research', at: 3 },
-  { label: 'Personas', at: 6 },
-  { label: 'Wireframes', at: 7 },
-  { label: 'Prototype', at: 8 },
-  { label: 'Design system', at: 10 },
-  { label: 'High fidelity', at: 12 },
-  { label: 'Error states', at: 18 }
+  { label: 'Overview', selector: '#gg-overview' },
+  { label: 'Research', selector: '#gg-research' },
+  ...FEATURES.map(f => ({ label: f.title, selector: `#${f.id}` })),
+  { label: 'Testing', selector: '#gg-test' },
+  { label: 'Learnings', selector: '#gg-next' }
 ];
 
-const NAV_THEME = { accent: '#c1f1a9', text: 'rgba(255, 255, 255, 0.72)', marker: 'rgba(255, 255, 255, 0.3)', panel: 'rgba(2, 74, 63, 0.86)' };
+const NAV_THEME = { accent: '#ffffff', text: '#8c958f', marker: '#2b3a33', panel: '#000000' };
 
-// Shown at 1060px wide on large screens, so the design's content (inset ~120px at 1420) lines up
-// with the Takshila case study's 880px column.
-const GrubNGrab = () => (
-  <>
-    <VideoIntro src={video1} background="#034a3e" label="Grub’n Grab intro animation" />
-    <CaseStudy title="Grub’n Grab" width={1420} displayWidth={1060} sections={SECTIONS} barColor="#024a3f" linkColor="#c1f1a9" extendEdges nav={NAV} navTheme={NAV_THEME} />
-  </>
+const Phone = ({ img, alt, active }) => {
+  const open = useOpenScreen();
+  const src = shot(img);
+  return (
+    <a
+      className="gg-phone"
+      data-active={active ? '' : undefined}
+      href={src}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-haspopup="dialog"
+      onClick={e => {
+        e.preventDefault();
+        open({ src, alt, label: alt });
+      }}
+    >
+      <img src={src} alt={alt} loading="lazy" />
+    </a>
+  );
+};
+
+// A feature's phones side by side. While in view, the highlight moves along them on its own; the
+// tabs let people pick one. The caption follows the highlighted phone.
+const SLIDE_MS = 3200;
+
+const Phones = ({ screens }) => {
+  const [i, setI] = useState(0);
+  const [inView, setInView] = useState(false);
+  const [held, setHeld] = useState(false);
+  const ref = useRef(null);
+  const n = screens.length;
+
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.4 });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (n < 2 || !inView || held || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = setInterval(() => setI(k => (k + 1) % n), SLIDE_MS);
+    return () => clearInterval(id);
+  }, [n, inView, held]);
+
+  return (
+    <figure
+      ref={ref}
+      className="gg-phones"
+      data-count={n}
+      onMouseEnter={() => setHeld(true)}
+      onMouseLeave={() => setHeld(false)}
+    >
+      <div className="gg-phones-row">
+        {screens.map((s, k) => (
+          <Phone key={s.img} img={s.img} alt={s.alt} active={n > 1 && k === i} />
+        ))}
+      </div>
+      {n > 1 && (
+        <div className="sy-tabs" role="tablist" aria-label="Screens">
+          {screens.map((s, k) => (
+            <button key={s.img} type="button" role="tab" aria-selected={k === i} onClick={() => setI(k)}>
+              {s.label}
+            </button>
+          ))}
+        </div>
+      )}
+      <figcaption>{screens[i].alt}</figcaption>
+    </figure>
+  );
+};
+
+const Decision = ({ d, solves }) => (
+  <div className="sy-decision">
+    {solves && (
+      <p className="gg-solves">
+        <span>Solves · {solves.theme}</span>
+        {solves.problem}
+      </p>
+    )}
+    <p className="sy-decision-label">Decision</p>
+    <p className="sy-decision-hook">{d.hook}</p>
+    <dl>
+      <div>
+        <dt>Before</dt>
+        <dd>{d.before}</dd>
+      </div>
+      <div>
+        <dt>Decision</dt>
+        <dd>{d.decision}</dd>
+      </div>
+      <div>
+        <dt>Result</dt>
+        <dd>{d.result}</dd>
+      </div>
+    </dl>
+  </div>
 );
+
+const GrubNGrab = () => {
+  useEffect(() => {
+    const previous = document.title;
+    document.title = 'Grub’n Grab — Himanshi';
+    return () => {
+      document.title = previous;
+    };
+  }, []);
+
+  return (
+    <ScreenViewerProvider>
+      <VideoIntro src={introFilm} background="#000000" label="Grub’n Grab intro animation" />
+      <CaseNav sections={NAV} theme={NAV_THEME} />
+      <div className="sy gg">
+        <article className="sy-page">
+          <header id="gg-overview">
+            <p className="sy-crumb">
+              <Link to="/#work">Work</Link> / Grub’n Grab
+            </p>
+            <h1>{INTRO.title}</h1>
+            <p className="sy-tags">
+              {INTRO.tags.map(t => (
+                <span key={t}>{t}</span>
+              ))}
+            </p>
+            <p className="sy-hook">{INTRO.hook}</p>
+            <dl className="sy-stats">
+              {INTRO.stats.map(st => (
+                <div key={st.label}>
+                  <dt>{st.value}</dt>
+                  <dd>{st.label}</dd>
+                </div>
+              ))}
+            </dl>
+            <figure className="sy-video">
+              <video src={prototypeVideo} autoPlay muted loop playsInline preload="metadata" aria-label="Grub’n Grab prototype walkthrough" />
+            </figure>
+            <div className="sy-overview">
+              {INTRO.overview.map(o => (
+                <div key={o.label}>
+                  <h3>{o.label}</h3>
+                  <p>{o.text}</p>
+                </div>
+              ))}
+            </div>
+            {INTRO.paragraphs.map(p => (
+              <p key={p}>{p}</p>
+            ))}
+            <section className="sy-glance" aria-label="Key decisions">
+              <h3>Key decisions</h3>
+              <div>
+                <p className="sy-glance-kind">Strategic</p>
+                <ul>
+                  {DECISIONS.strategic.map(d => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="sy-glance-kind">Micro</p>
+                <ul>
+                  {DECISIONS.micro.map(d => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+            <dl className="sy-facts">
+              {INTRO.facts.map(f => (
+                <div key={f.label}>
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </header>
+
+          <section id="gg-research" className="sy-feature">
+            <h2>{RESEARCH.title}</h2>
+            <p>{RESEARCH.text}</p>
+            <ul className="gg-insights">
+              {RESEARCH.insights.map(r => (
+                <li key={r.quote}>
+                  <p className="gg-theme">{r.theme}</p>
+                  <p className="gg-quote">“{r.quote}”</p>
+                  <p>{r.then}</p>
+                </li>
+              ))}
+            </ul>
+
+            <h3>{COMPETITORS.title}</h3>
+            <p>{COMPETITORS.text}</p>
+            <div className="gg-table-wrap">
+              <table className="gg-table">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <span className="gg-sr">Feature</span>
+                    </th>
+                    {COMPETITORS.cols.map(c => (
+                      <th key={c} scope="col">
+                        {c}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {COMPETITORS.rows.map(([label, ...cells]) => (
+                    <tr key={label}>
+                      <th scope="row">{label}</th>
+                      {cells.map((v, k) => (
+                        <td key={COMPETITORS.cols[k]} data-yes={v ? '' : undefined}>
+                          {v ? '✓' : '–'}
+                          <span className="gg-sr">{v ? 'Yes' : 'No'}</span>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {FEATURES.map(f => (
+            <section key={f.id} id={f.id} className="sy-feature">
+              <h2>{f.title}</h2>
+              <p>{f.what}</p>
+              <Phones screens={f.screens} />
+              <Decision d={f.decision} solves={f.solves} />
+              {f.micro?.length > 0 && (
+                <>
+                  <h3>Smaller decisions</h3>
+                  <ul className="sy-micro">
+                    {f.micro.map(m => (
+                      <li key={m}>{m}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </section>
+          ))}
+
+          <section id="gg-test" className="sy-feature">
+            <h2>{TEST.title}</h2>
+            <p>{TEST.text}</p>
+            <ul className="sy-micro">
+              {TEST.tasks.map(t => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section id="gg-next" className="sy-feature">
+            <h2>{NEXT.title}</h2>
+            {NEXT.paragraphs.map(p => (
+              <p key={p}>{p}</p>
+            ))}
+          </section>
+        </article>
+      </div>
+    </ScreenViewerProvider>
+  );
+};
 
 export default GrubNGrab;

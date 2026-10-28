@@ -1,0 +1,203 @@
+/* Grub'n Grab: the Sylus page layout (Sylus.css) in Grub'n Grab's own greens. */
+.gg {
+  --sy-accent: #c1f1a9;
+  --sy-accent-2: #8fdc6e;
+  --sy-panel: #0f1a15;
+  --sy-line: #22312a;
+  --sy-faint: #8c958f;
+  --sy-text: #b6beb9;
+}
+
+/* Phones side by side; the highlighted one is lifted and the rest dim a little. */
+.gg-phones {
+  margin: 28px 0 8px;
+}
+
+.gg-phones-row {
+  display: flex;
+  gap: clamp(8px, 1.6vw, 16px);
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(14px, 3vw, 28px);
+  border-radius: 6px;
+  background: var(--sy-panel);
+}
+
+.gg-phone {
+  flex: 1 1 0;
+  max-width: 220px;
+  cursor: zoom-in;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.gg-phones[data-count='1'] .gg-phone {
+  max-width: 320px;
+}
+
+.gg-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.gg-phones-row:has([data-active]) .gg-phone:not([data-active]) {
+  opacity: 0.55;
+}
+
+.gg-phone[data-active] {
+  transform: translateY(-6px);
+}
+
+.gg-phones .sy-tabs {
+  margin-top: 10px;
+}
+
+.gg-phones figcaption {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--sy-faint);
+}
+
+/* Research: each quote and what it led to. */
+.gg-insights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.gg-insights li {
+  padding: 16px 18px;
+  border: 1px solid var(--sy-line);
+  border-radius: 6px;
+  background: var(--sy-panel);
+}
+
+.gg-insights p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.gg .gg-quote {
+  margin-bottom: 8px;
+  color: var(--sy-ink);
+}
+
+/* Competitor table */
+.gg-table-wrap {
+  overflow-x: auto;
+  margin: 16px 0 0;
+}
+
+.gg-table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.gg-table th,
+.gg-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--sy-line);
+  text-align: center;
+}
+
+.gg-table thead th {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--sy-faint);
+}
+
+.gg-table thead th:last-child,
+.gg-table td:last-child {
+  background: var(--sy-panel);
+  color: var(--sy-accent);
+}
+
+.gg-table tbody th {
+  font-weight: 400;
+  text-align: left;
+  color: var(--sy-text);
+}
+
+.gg-table td {
+  color: #4b5650;
+}
+
+.gg-table td[data-yes] {
+  color: var(--sy-ink);
+}
+
+.gg-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@media (max-width: 720px) {
+  .gg-insights {
+    grid-template-columns: 1fr;
+  }
+
+  /* Many phones don't fit a phone screen: scroll them sideways. */
+  .gg-phones-row {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .gg-phone {
+    flex: 0 0 42%;
+    scroll-snap-align: center;
+  }
+
+  .gg-phones[data-count='1'] .gg-phone {
+    flex-basis: 80%;
+    margin-inline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-phone {
+    transition: none;
+  }
+}
+
+/* The theme of each interview finding, as the first thing the eye lands on. */
+.gg .gg-theme {
+  margin-bottom: 6px;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--sy-accent);
+}
+
+/* What problem a decision solves, tied back to the interview themes. */
+.gg .gg-solves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: baseline;
+  margin: 0 0 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--sy-line);
+  font-size: 14.5px;
+  color: var(--sy-ink);
+}
+
+.gg-solves span {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--sy-accent);
+  font-size: 12px;
+  font-weight: 600;
+  color: #0b2a1f;
+}

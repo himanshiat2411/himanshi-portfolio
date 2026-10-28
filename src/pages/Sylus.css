@@ -6,6 +6,9 @@
   --sy-text: #b9b4c7;
   --sy-faint: #8f8a9e;
   --sy-line: #2a2533;
+  --sy-accent: #e0508f;
+  --sy-accent-2: #ee8063;
+  --sy-panel: #16131d;
 
   background: #000000;
   color: var(--sy-text);
@@ -107,7 +110,7 @@
   display: block;
   padding: clamp(10px, 2vw, 20px);
   border-radius: 6px;
-  background: #16131d;
+  background: var(--sy-panel);
   cursor: zoom-in;
 }
 
@@ -158,7 +161,7 @@
 
 .sy-tabs button[aria-selected='true'] {
   border-color: var(--sy-line);
-  background: #16131d;
+  background: var(--sy-panel);
   color: var(--sy-ink);
 }
 
@@ -215,7 +218,7 @@
 }
 
 .sy-arrows button:hover {
-  background: #16131d;
+  background: var(--sy-panel);
 }
 
 .sy-screen img {
@@ -237,7 +240,7 @@
   display: block;
   width: 100%;
   border-radius: 6px;
-  background: #16131d;
+  background: var(--sy-panel);
 }
 
 .sy-video figcaption {
@@ -261,7 +264,7 @@
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: -0.015em;
-  background: linear-gradient(90deg, #e0508f, #ee8063);
+  background: linear-gradient(90deg, var(--sy-accent), var(--sy-accent-2));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -299,7 +302,7 @@
   padding: 18px;
   border: 1px solid var(--sy-line);
   border-radius: 6px;
-  background: #16131d;
+  background: var(--sy-panel);
 }
 
 .sy-overview h3 {
@@ -307,7 +310,7 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ee8063;
+  color: var(--sy-accent-2);
 }
 
 .sy-overview p {
@@ -349,7 +352,7 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ee8063;
+  color: var(--sy-accent-2);
 }
 
 .sy-glance ul,
@@ -364,9 +367,9 @@
 .sy-decision {
   margin: 28px 0 0;
   padding: 20px;
-  border-left: 2px solid #e0508f;
+  border-left: 2px solid var(--sy-accent);
   border-radius: 0 6px 6px 0;
-  background: #16131d;
+  background: var(--sy-panel);
 }
 
 .sy .sy-decision-label {
@@ -374,7 +377,7 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ee8063;
+  color: var(--sy-accent-2);
 }
 
 .sy .sy-decision-hook {
