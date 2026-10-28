@@ -18,7 +18,7 @@ const shot = key => SHOTS[`../assets/sylus/${key}.webp`];
 
 const NAV = [{ label: 'Overview', selector: '#sy-overview' }, ...FEATURES.map(f => ({ label: f.title, selector: `#${f.id}` })), { label: 'Next', selector: '#sy-next' }];
 
-const NAV_THEME = { accent: '#141b34', text: '#8b90a3', marker: '#d0ccdb', panel: '#ffffff' };
+const NAV_THEME = { accent: '#ffffff', text: '#8f8a9e', marker: '#3a3446', panel: '#000000' };
 
 // A screen that opens full size on click.
 const Screen = ({ img, alt }) => {
@@ -119,26 +119,16 @@ const Switcher = ({ screens }) => {
   );
 };
 
-// A short zoom walkthrough of the feature, looping silently. Phones get the portrait cut.
+// A short zoom walkthrough of the feature, looping silently. It keeps the screen's own shape on
+// every device, so on phones it sits at the column width like the screens around it.
 const VIDEOS = import.meta.glob('../assets/sylus/video/*.mp4', { eager: true, import: 'default' });
-const usePhone = () => {
-  const [phone, setPhone] = useState(() => window.matchMedia('(max-width: 720px)').matches);
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 720px)');
-    const on = () => setPhone(mq.matches);
-    mq.addEventListener('change', on);
-    return () => mq.removeEventListener('change', on);
-  }, []);
-  return phone;
-};
 
 const Walkthrough = ({ name, label }) => {
-  const phone = usePhone();
-  const src = VIDEOS[`../assets/sylus/video/${name}${phone ? '-portrait' : ''}.mp4`];
+  const src = VIDEOS[`../assets/sylus/video/${name}.mp4`];
   if (!src) return null;
   return (
-    <figure className="sy-video" data-portrait={phone ? '' : undefined}>
-      <video key={src} src={src} autoPlay muted loop playsInline preload="metadata" aria-label={label} />
+    <figure className="sy-video">
+      <video src={src} autoPlay muted loop playsInline preload="metadata" aria-label={label} />
       <figcaption>{label}</figcaption>
     </figure>
   );
@@ -155,7 +145,7 @@ const Sylus = () => {
 
   return (
     <ScreenViewerProvider>
-      <FilmIntro film={sylusFilm} portrait={sylusFilmPortrait} background="#f7f4fc" />
+      <FilmIntro film={sylusFilm} portrait={sylusFilmPortrait} background="#000000" />
       <CaseNav sections={NAV} theme={NAV_THEME} />
       <div className="sy">
         <article className="sy-page">

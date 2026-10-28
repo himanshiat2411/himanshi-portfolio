@@ -2,12 +2,12 @@
    muted body text, large screens with quiet captions. Colour comes from the screens themselves;
    the only accent is Sylus's navy (from its Figma variables). */
 .sy {
-  --sy-ink: #141b34;
-  --sy-text: #555b70;
-  --sy-faint: #8b90a3;
-  --sy-line: #e7e5ec;
+  --sy-ink: #ffffff;
+  --sy-text: #b9b4c7;
+  --sy-faint: #8f8a9e;
+  --sy-line: #2a2533;
 
-  background: #ffffff;
+  background: #000000;
   color: var(--sy-text);
   font-family: 'Inter', system-ui, sans-serif;
 }
@@ -107,7 +107,7 @@
   display: block;
   padding: clamp(10px, 2vw, 20px);
   border-radius: 6px;
-  background: #f4f1fb;
+  background: #16131d;
   cursor: zoom-in;
 }
 
@@ -116,7 +116,7 @@
   width: 100%;
   height: auto;
   border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(20, 27, 52, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 /* The switcher: tabs under the screen, the caption under the tabs. */
@@ -158,7 +158,7 @@
 
 .sy-tabs button[aria-selected='true'] {
   border-color: var(--sy-line);
-  background: #f4f1fb;
+  background: #16131d;
   color: var(--sy-ink);
 }
 
@@ -208,14 +208,14 @@
   height: 30px;
   border: 1px solid var(--sy-line);
   border-radius: 6px;
-  background: #ffffff;
+  background: #000000;
   font: inherit;
   color: var(--sy-ink);
   cursor: pointer;
 }
 
 .sy-arrows button:hover {
-  background: #f4f1fb;
+  background: #16131d;
 }
 
 .sy-screen img {
@@ -237,14 +237,7 @@
   display: block;
   width: 100%;
   border-radius: 6px;
-  background: #f4f1fb;
-}
-
-.sy-video[data-portrait] video {
-  max-height: 80vh;
-  margin-inline: auto;
-  width: auto;
-  max-width: 100%;
+  background: #16131d;
 }
 
 .sy-video figcaption {
