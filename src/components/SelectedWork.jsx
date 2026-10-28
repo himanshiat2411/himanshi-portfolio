@@ -11,12 +11,14 @@ import takshilaFilm from '../assets/takshila/film/tile.mp4';
 import takshilaAsk from '../assets/takshila/screen-ask-first.webp';
 import takshilaThumb from '../assets/work/takshila-thumb.webp';
 import sylusAgency from '../assets/sylus/agency-overview.webp';
-import sylusThumb from '../assets/work/sylus-thumb.webp';
+import sylusCover from '../assets/work/sylus-cover.webp';
+import sylusCoverHover from '../assets/work/sylus-cover-hover.webp';
 import sylusVibe from '../assets/sylus/brand-vibe.webp';
 import SelectedWorkGrid from './SelectedWorkGrid';
 import './SelectedWork.css';
 
-// One full card per case study, in the project's own colours. `media` is a big looping film or
+// One full card per case study, in the project's own colours (`surface` can swap the card's solid
+// background for a gradient). `media` is a big looping film or
 // video followed by two stills.
 const PROJECTS = [
   {
@@ -50,10 +52,10 @@ const PROJECTS = [
     title: 'Sylus AI',
     to: '/work/sylus-ai',
     headline: 'Paste your website. Get a month of posts.',
-    tag: 'Product design · AI platform',
-    text: 'Designed an AI marketing platform end to end: onboarding that learns your brand, AI post creation and planning, and an agency workspace for many clients.',
-    theme: { bg: '#2a0b3a', fg: '#f7eef8', accent: '#e2685c' },
-    media: [{ img: sylusThumb }, { img: sylusVibe }, { img: sylusAgency }]
+    tag: 'Product design · AI-powered CRM',
+    text: 'Designed an AI-powered marketing CRM end to end: onboarding that learns your brand, AI post creation and planning, and a CRM for agencies running many clients.',
+    theme: { bg: '#7c3f7b', fg: '#ffffff', accent: '#ffd6c9', surface: 'linear-gradient(135deg, #7c3f7b 0%, #e0508f 55%, #ee8063 100%)' },
+    media: [{ img: sylusCover, hover: sylusCoverHover }, { img: sylusVibe }, { img: sylusAgency }]
   }
 ];
 
@@ -64,8 +66,14 @@ const Arrow = () => (
   </svg>
 );
 
+// `hover` swaps in a second image while the card is hovered.
 const Media = ({ item }) =>
-  item.video ? (
+  item.hover ? (
+    <span className="work-swap">
+      <img src={item.img} alt="" loading="lazy" />
+      <img src={item.hover} alt="" loading="lazy" data-hover="" />
+    </span>
+  ) : item.video ? (
     <video src={item.video} autoPlay muted loop playsInline preload="metadata" />
   ) : (
     <img src={item.img} alt="" loading="lazy" style={item.bg ? { background: item.bg } : undefined} />
@@ -173,7 +181,7 @@ const SelectedWorkDeck = () => {
           <ol className="work-deck">
             {PROJECTS.map((project, i) => {
               const n = String(i + 1).padStart(2, '0');
-              const style = { '--i': i, '--bg': project.theme.bg, '--fg': project.theme.fg, '--acc': project.theme.accent, zIndex: count - i };
+              const style = { '--i': i, '--bg': project.theme.bg, '--fg': project.theme.fg, '--acc': project.theme.accent, '--surface': project.theme.surface, zIndex: count - i };
               return (
                 <li
                   key={project.title}

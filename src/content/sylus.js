@@ -7,9 +7,10 @@ export const HERO = {
   headline: 'Paste your website link.',
   headlineEmphasis: 'Get a month of on‑brand posts.',
   intro:
-    'Sylus AI is an AI marketing platform: it learns a brand, then plans, writes, schedules and reports on its social media. I designed it end to end, from the first login to the workspace an agency uses to run a dozen brands.',
+    'Sylus AI is an AI-powered marketing CRM. It keeps every brand, client, teammate and post in one place, and its AI learns each brand to plan, write, schedule and report on its social media. I designed it end to end, from the first login to the CRM an agency uses to run a dozen clients.',
   meta: [
     { label: 'My role', value: 'Product Designer' },
+    { label: 'Product', value: 'AI-powered marketing CRM' },
     { label: 'Scope', value: 'Onboarding · Individual · Agency' },
     { label: 'Output', value: 'Clickable prototype' }
   ]
@@ -18,19 +19,19 @@ export const HERO = {
 // What Sylus does, in three moves, each with its screen.
 export const PRODUCT = {
   label: 'The product',
-  heading: 'Three things Sylus does for you',
+  heading: 'A CRM that also does the marketing',
   items: [
     { title: 'Learns your brand', text: 'From a link or a file, it drafts your voice, audience and look.', img: 'brand-vibe' },
     { title: 'Creates and plans', text: 'Writes posts, finds trends and plans a month of content.', img: 'post-preview' },
-    { title: 'Runs it for a team', text: 'Agencies manage many brands, approvals and reports in one place.', img: 'agency-overview' }
+    { title: 'Manages clients like a CRM', text: 'Every client, brand, teammate, approval and report, in one place.', img: 'agency-overview' }
   ]
 };
 
 export const PROBLEM = {
   label: 'The problem',
   heading: 'AI tools give you a blank box and wish you luck',
-  text: 'Most AI writers start with an empty prompt. You still have to explain your brand every time, decide what to post, and keep up a schedule. For an agency, multiply that by every client.',
-  goal: 'Goal: Sylus should know the brand once, then do the heavy lifting every day.'
+  text: 'Marketing teams juggle two kinds of tools: a CRM to track clients, and AI writers that start with an empty prompt every time. Nothing connects the client to the content. For an agency, multiply that by every client.',
+  goal: 'Goal: one CRM where each client’s brand is known once, and the AI does the heavy lifting every day.'
 };
 
 export const FLOW = {
@@ -54,7 +55,7 @@ export const DECISIONS = {
     { text: 'AI drafts the brand from a link or a file', kind: 'strategic', star: true },
     { text: 'Create Post split into four small steps', kind: 'strategic', star: true },
     { text: 'Plan a month by answering three questions', kind: 'strategic', star: true },
-    { text: 'One agency home for every client brand', kind: 'strategic', star: true },
+    { text: 'A CRM home for every client brand', kind: 'strategic', star: true },
     { text: 'Ask Individual or Agency before anything else', kind: 'strategic' },
     { text: 'Every AI output stays editable', kind: 'strategic' },
     { text: 'Roles and permissions set per brand', kind: 'strategic' },
@@ -125,14 +126,14 @@ export const STORIES = [
   {
     id: 'story-agency',
     kind: 'Strategic',
-    title: 'One home for twelve brands',
-    hook: 'An agency is not one big user. It is twelve clients, each with their own posts, people and approvals.',
+    title: 'A CRM for twelve clients',
+    hook: 'An agency is not one big user. It is twelve clients, each with their own brand, posts, people and approvals. That is a CRM problem, not a content problem.',
     before: {
       text: 'The Individual dashboard, built for one brand: one queue, one set of accounts, no idea of clients or roles.',
       img: 'dashboard',
       alt: 'Individual dashboard for one brand: posts published, engagement, platform health and queue'
     },
-    decision: 'An Agency Overview that shows every client brand at once, with what is scheduled today and what is waiting for approval. Roles and permissions are set per brand.',
+    decision: 'A CRM-style Agency Overview: every client brand at once, what is scheduled today and what is waiting for approval. Behind it sit client records, roles and permissions per brand, a shared library and reports.',
     after: { img: 'agency-overview', alt: 'Agency Overview: 12 brands, 34 posts this week, pending approvals and client brand cards' },
     result: 'An account manager sees what needs them the moment they log in, across every client.',
     micro: [
@@ -159,8 +160,8 @@ export const GALLERIES = [
   },
   {
     id: 'sy-agency',
-    label: 'Agency workspace',
-    heading: 'Built for a team running many clients',
+    label: 'Agency CRM',
+    heading: 'The CRM side: clients, team and reports',
     items: [
       { img: 'agency-onboarding', caption: 'Agency onboarding' },
       { img: 'add-client', caption: 'Add clients' },

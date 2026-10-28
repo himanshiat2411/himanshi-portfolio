@@ -57,7 +57,7 @@
   flex-direction: column;
   padding: clamp(28px, 3.2vw, 48px);
   border-radius: 24px;
-  background: var(--bg);
+  background: var(--surface, var(--bg));
   color: var(--fg);
   box-sizing: border-box;
   box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
@@ -301,4 +301,27 @@
   .work-cursor {
     display: none;
   }
+}
+
+/* A thumbnail with a hover version: the second image fades in while the card is hovered. */
+.work-swap {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.work-swap img {
+  position: absolute;
+  inset: 0;
+  object-position: center;
+}
+
+.work-swap img[data-hover] {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.work-card:hover .work-swap img[data-hover] {
+  opacity: 1;
 }

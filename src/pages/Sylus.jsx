@@ -25,7 +25,7 @@ const NAV = [
   { label: 'Reflection', selector: '#sy-reflection' }
 ];
 
-const NAV_THEME = { accent: '#8a2c7a', text: 'rgba(36, 12, 46, 0.6)', marker: 'rgba(36, 12, 46, 0.22)', panel: '#f8f5fa' };
+const NAV_THEME = { accent: '#a8336a', text: '#555b70', marker: '#e9cbd6', panel: '#fdf8fa' };
 
 // A screen that opens full size on click.
 const Shot = ({ img, alt, caption }) => {
@@ -66,13 +66,14 @@ const Story = ({ story, n }) => (
       <div>
         <p className="sy-step">Before</p>
         <p>{story.before.text}</p>
-        {story.before.img && <Shot img={story.before.img} alt={story.before.alt} />}
       </div>
       <div>
         <p className="sy-step">Decision</p>
         <p>{story.decision}</p>
-        <Shot img={story.after.img} alt={story.after.alt} />
       </div>
+    </div>
+    <div className="sy-after">
+      <Shot img={story.after.img} alt={story.after.alt} />
     </div>
     {story.micro && (
       <ul className="sy-micro" aria-label="Micro decisions inside it">

@@ -1,21 +1,23 @@
-/* Sylus AI case study: the Takshila layout on a white page, with Sylus's own accents — deep plum
-   ink, a magenta accent and the plum-to-coral gradient from its login screen. */
+/* Sylus AI case study: the Takshila layout on a white page, in Sylus's own palette — navy ink and
+   the logo's plum-pink-coral gradient. */
 .tk.sy {
+  /* Sylus AI's own palette: navy text from its Figma variables, and the logo's gradient — deep
+     plum, pink and coral — for accents. No indigo. */
   --tk-bg: #ffffff;
-  --tk-text: #240c2e;
-  --tk-plum: #8a2c7a;
-  --tk-gold: #e2685c;
-  --tk-gold-ink: #a3334e;
-  --tk-blue: #c9b4d6;
-  --tk-blush: #f6f4f8;
-  --tk-sand: #f6f4f8;
-  --tk-mauve: #cdb6d3;
-  --tk-tint-blue: #e4d9ea;
-  --tk-tint-gold: #f6d8d4;
-  --tk-tint-plum: #dcc4dd;
-  --tk-muted: rgba(36, 12, 46, 0.72);
-  --tk-line: rgba(36, 12, 46, 0.12);
-  --sy-gradient: linear-gradient(135deg, #4a1468 0%, #8a2c7a 45%, #e2685c 100%);
+  --tk-text: #141b34;
+  --tk-plum: #7c3f7b;
+  --tk-gold: #e0508f;
+  --tk-gold-ink: #a8336a;
+  --tk-blue: #f6d9e3;
+  --tk-blush: #ffffff;
+  --tk-sand: #ffffff;
+  --tk-mauve: #e9cbd6;
+  --tk-tint-blue: #ffffff;
+  --tk-tint-gold: #fbe0e6;
+  --tk-tint-plum: #f1dbe7;
+  --tk-muted: #555b70;
+  --tk-line: #ece6ea;
+  --sy-gradient: linear-gradient(135deg, #7c3f7b 0%, #e0508f 55%, #ee8063 100%);
 }
 
 .sy-wordmark {
@@ -351,4 +353,60 @@
 /* White page: no full-width colour bands (their bleed showed as a grey box at the edge). */
 .tk.sy .tk-band {
   --band: transparent;
+}
+
+/* Type: Sylus AI's own font, Inter, everywhere — no serif headings or mono labels from the
+   Takshila layout or the site. */
+.tk.sy {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Inter', system-ui, sans-serif;
+
+  font-family: var(--font-sans);
+}
+
+.tk.sy h1,
+.tk.sy h2,
+.tk.sy h3,
+.tk.sy h4 {
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em;
+}
+
+.tk.sy .tk-section h2 {
+  font-weight: 600;
+}
+
+.tk.sy .tk-title {
+  font-weight: 500;
+}
+
+.tk.sy .tk-title strong {
+  font-weight: 700;
+}
+
+/* Small labels: Inter caps with gentle tracking instead of wide mono spacing. */
+.tk.sy .tk-label,
+.tk.sy .tk-meta dt,
+.tk.sy .tk-back {
+  letter-spacing: 0.08em;
+}
+
+/* Every surface is #FFFFFF; boxes that used a tint get a thin border instead. */
+.tk.sy .tk-principles,
+.tk.sy .tk-principles li,
+.tk-section .sy-goal,
+.tk-section .sy-result,
+.sy-sort-col[data-kind='micro'] li,
+.sy-kind:not([data-kind='strategic']) {
+  border: 1px solid var(--tk-line);
+}
+
+.tk-section .sy-goal {
+  border-left: 3px solid var(--tk-plum);
+}
+
+/* Before and Decision side by side as text, then the decision's screen at full width below. */
+.sy-after {
+  margin-top: 22px;
 }
