@@ -25,6 +25,7 @@ import shopPage from '../assets/takshila/shop-page.webp';
 import productPageOld from '../assets/takshila/product-page-old.webp';
 import screenProfileFeed from '../assets/takshila/screen-profile-feed.webp';
 import teamFunDay from '../assets/takshila/team-fun-day.webp';
+import teamCall from '../assets/takshila/goodbye-call.webp';
 import userArtisan from '../assets/takshila/user-artisan.webp';
 import userCustomer from '../assets/takshila/user-customer.webp';
 import userDesigner from '../assets/takshila/user-designer.webp';
@@ -515,8 +516,10 @@ const Takshila = () => {
           <section className="tk-section tk-funday">
             <h2>{FUN.heading}</h2>
             <p>{FUN.text}</p>
-            <figure className="tk-funday-photo">
+            {/* The two photos cross-fade on a loop, with no controls. */}
+            <figure className="tk-funday-photo tk-funday-loop">
               <img src={teamFunDay} alt={FUN.alt} width="1913" height="734" loading="lazy" />
+              <img src={teamCall} alt="A video call with Sisanda Bulose from the Takshila team, both of us smiling" width="1838" height="835" loading="lazy" />
             </figure>
           </section>
         </article>

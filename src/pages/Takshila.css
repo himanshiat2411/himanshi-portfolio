@@ -444,6 +444,34 @@
   transform: rotate(-1deg);
 }
 
+/* Two photos stacked in one frame; the top one fades in and out so they alternate. */
+.tk-funday-loop {
+  display: grid;
+}
+
+.tk-funday-loop img {
+  grid-area: 1 / 1;
+  aspect-ratio: 1838 / 835;
+  object-fit: cover;
+}
+
+.tk-funday-loop img + img {
+  animation: tk-funday-swap 10s ease-in-out infinite;
+}
+
+@keyframes tk-funday-swap {
+  0%, 42% { opacity: 0; }
+  50%, 92% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tk-funday-loop img + img {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 .tk-funday-photo img {
   display: block;
   width: 100%;
