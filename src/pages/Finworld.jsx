@@ -1,92 +1,296 @@
-import CaseStudy from '../components/CaseStudy';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import CaseNav from '../components/LineSidebar/CaseNav';
 import FilmIntro from '../components/finworld/FilmIntro';
+import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
+import { DECISIONS, FEATURES, INTRO, ISSUES, REFLECTION, TASK, TEST, USERS } from '../content/finworld';
 import walkthrough from '../assets/finworld/walkthrough.mp4';
+import coreIssues from '../assets/finworld/core-issues.webp';
 import walkthroughPoster from '../assets/finworld/walkthrough-poster.webp';
+import './Takshila.css';
+import './Sylus.css';
+import './GrubNGrab.css';
+import './Finworld.css';
 
-// Sections of the Figma case study (1728px-wide render), top to bottom.
-// Section 04 is the walkthrough frame; the narrated video plays inside its blue box.
-const images = import.meta.glob('../assets/finworld/*.webp', { eager: true, import: 'default' });
-const img = n => images[`../assets/finworld/${n}.webp`];
+// Finworld case study page (/work/finworld). Same layout as Sylus and Grub'n Grab: black, one narrow
+// column of real text, the screens as a slideshow, and each tool told as a decision tied to one of
+// the three problems. (GrubNGrab.css brings the shared "Solves" line and theme cards.)
+const SHOTS = import.meta.glob('../assets/finworld/screens/*.webp', { eager: true, import: 'default' });
+const shot = key => SHOTS[`../assets/finworld/screens/${key}.webp`];
 
-// Note sections designed in Figma (frames "Note · …" beside the case study).
-const notes = import.meta.glob('../assets/finworld/notes/*.png', { eager: true, import: 'default' });
-const note = (n, h, alt) => ({ src: notes[`../assets/finworld/notes/${n}.png`], h, alt });
-
-// Slices 01, 15 and 18 are split (01a/01b, …) so the notes sit in the gaps between cards.
-const SECTIONS = [
-  { src: img('01a'), h: 1218, alt: 'Finworld, a financial modeling dashboard, on a laptop' },
-  note('glance', 673, 'Finworld at a glance: problem, role, what I made, key idea, and the constraints'),
-  { src: img('01b'), h: 382, alt: 'Problem statement' },
-  { src: img('02'), h: 1619, alt: 'Problem statement: financial modeling today is either too complex or too limited. Project details and a 55-hour timeline' },
-  { src: img('03'), h: 1161, alt: '3 core issues with current financial models: lack of clarity, poor collaboration and a steep learning curve' },
-  {
-    src: img('04'),
-    h: 1005,
-    alt: 'Narrated walkthrough of the Finworld project',
-    player: { video: walkthrough, poster: walkthroughPoster, box: { x: 204, y: 16, w: 1356, h: 971 }, radius: 54 }
-  },
-  { src: img('05'), h: 1018, alt: 'User persona, the Explorer: Riya Sharma, junior investment analyst' },
-  { src: img('06'), h: 1364, alt: 'User persona, the Builder: Aryan Gupta, senior financial analyst' },
-  { src: img('07'), h: 1637, alt: 'Stakeholder map, and the start of the information architecture' },
-  { src: img('08'), h: 1811, alt: 'Information architecture, and the dashboard screen' },
-  { src: img('09'), h: 1585, alt: 'Dashboard screen and its components' },
-  note('d1', 577, 'Key decision 01: one dashboard for beginners and experts'),
-  note('d2', 577, 'Key decision 02: revenue, net profit and cash forecast first'),
-  { src: img('10'), h: 1600, alt: 'Home screen' },
-  { src: img('11'), h: 1432, alt: 'Home screen components, and the model analysis tool introduction' },
-  { src: img('12'), h: 1777, alt: 'Model analysis tool and its components' },
-  { src: img('13'), h: 1591, alt: 'Data import flow: the upload step' },
-  { src: img('14'), h: 1601, alt: 'Data import flow: the preview and map columns steps' },
-  { src: img('15a'), h: 1364, alt: 'AI integration with the Nova assistant' },
-  note('d3', 577, 'Key decision 03: a Map columns step in the import flow'),
-  note('d4', 577, 'Key decision 04: Nova as a side panel'),
-  { src: img('15b'), h: 76, alt: '' },
-  { src: img('16'), h: 1728, alt: 'Finworld dashboard on a laptop, and wireframes' },
-  { src: img('17'), h: 1631, alt: 'Wireframes, and how the fonts and colours were chosen' },
-  { src: img('18a'), h: 543, alt: 'Inter typography' },
-  note('test', 577, 'How I would test it: what, who, and what success looks like'),
-  note('reflect', 577, 'Reflection: what went well and what I would do differently'),
-  { src: img('18b'), h: 977, alt: 'Thank you' }
-];
-const at = n => SECTIONS.findIndex(s => s.src === img(n) || s.src === notes[`../assets/finworld/notes/${n}.png`]);
-
-// Sidebar sections: where each one starts in SECTIONS.
 const NAV = [
-  { label: 'Overview', at: at('01a') },
-  { label: 'Problem', at: at('01b') },
-  { label: 'Walkthrough', at: at('04') },
-  { label: 'Personas', at: at('05') },
-  { label: 'Stakeholders & IA', at: at('07') },
-  { label: 'Dashboard', at: at('09') },
-  { label: 'Home', at: at('10') },
-  { label: 'Model analysis', at: at('12') },
-  { label: 'Data import', at: at('13') },
-  { label: 'Nova AI', at: at('15a') },
-  { label: 'Wireframes', at: at('16') },
-  { label: 'Visual design', at: at('17') },
-  { label: 'Test plan', at: at('test') },
-  { label: 'Reflection', at: at('reflect') }
+  { label: 'Overview', selector: '#fw-overview' },
+  { label: 'Problem', selector: '#fw-problem' },
+  { label: 'One task', selector: '#fw-task' },
+  ...FEATURES.map(f => ({ label: f.title, selector: `#${f.id}` })),
+  { label: 'Testing', selector: '#fw-test' },
+  { label: 'Reflection', selector: '#fw-reflect' }
 ];
 
-const NAV_THEME = { accent: '#2265ff', text: '#54555a', marker: '#c9ccd6', panel: 'rgba(255, 255, 255, 0.88)' };
+const NAV_THEME = { accent: '#ffffff', text: '#8b90a3', marker: '#26304d', panel: '#000000' };
 
-// Shown at 1020px wide on large screens, so the design's content (inset ~120px at 1728) lines up
-// with the Takshila case study's 880px column; the sides carry each section's own colours.
-const Finworld = () => (
-  <>
-    <FilmIntro background="#ffffff" flatBands />
-    <CaseStudy
-      title="Finworld"
-      width={1728}
-      displayWidth={1020}
-      pageColor="#ffffff"
-      sections={SECTIONS}
-      barColor="#d8d8d8"
-      linkColor="#1a213d"
-      nav={NAV}
-      navTheme={NAV_THEME}
-    />
-  </>
+const Screen = ({ img, alt }) => {
+  const open = useOpenScreen();
+  const src = shot(img);
+  return (
+    <a
+      className="sy-screen"
+      href={src}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-haspopup="dialog"
+      onClick={e => {
+        e.preventDefault();
+        open({ src, alt, label: alt });
+      }}
+    >
+      <img src={src} alt={alt} loading="lazy" />
+    </a>
+  );
+};
+
+// A feature's screens, stepping on their own while in view; tabs let people pick one.
+const SLIDE_MS = 3600;
+
+const Switcher = ({ screens }) => {
+  const [i, setI] = useState(0);
+  const [inView, setInView] = useState(false);
+  const [held, setHeld] = useState(false);
+  const ref = useRef(null);
+  const n = screens.length;
+
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.4 });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (n < 2 || !inView || held || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = setInterval(() => setI(k => (k + 1) % n), SLIDE_MS);
+    return () => clearInterval(id);
+  }, [n, inView, held]);
+
+  const s = screens[i];
+  return (
+    <figure ref={ref} className="sy-switch" onMouseEnter={() => setHeld(true)} onMouseLeave={() => setHeld(false)}>
+      <Screen img={s.img} alt={s.alt} key={s.img} />
+      {n > 1 && (
+        <div className="sy-tabs" role="tablist" aria-label="Screens" style={{ marginTop: 10 }}>
+          {screens.map((t, k) => (
+            <button key={t.img} type="button" role="tab" aria-selected={k === i} onClick={() => setI(k)}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+      )}
+      <figcaption>{s.alt}</figcaption>
+    </figure>
+  );
+};
+
+const Decision = ({ d, solves }) => (
+  <div className="sy-decision">
+    <p className="gg-solves">
+      <span>Solves · {solves.theme}</span>
+      {solves.problem}
+    </p>
+    <p className="sy-decision-label">Decision</p>
+    <p className="sy-decision-hook">{d.hook}</p>
+    <dl>
+      <div>
+        <dt>Before</dt>
+        <dd>{d.before}</dd>
+      </div>
+      <div>
+        <dt>Decision</dt>
+        <dd>{d.decision}</dd>
+      </div>
+      <div>
+        <dt>Result</dt>
+        <dd>{d.result}</dd>
+      </div>
+    </dl>
+  </div>
 );
+
+const Finworld = () => {
+  useEffect(() => {
+    const previous = document.title;
+    document.title = 'Finworld — Himanshi';
+    return () => {
+      document.title = previous;
+    };
+  }, []);
+
+  return (
+    <ScreenViewerProvider>
+      <FilmIntro background="#ffffff" flatBands />
+      <CaseNav sections={NAV} theme={NAV_THEME} />
+      <div className="sy gg fw">
+        <article className="sy-page">
+          <header id="fw-overview">
+            <p className="sy-crumb">
+              <Link to="/#work">Work</Link> / Finworld
+            </p>
+            <h1>{INTRO.title}</h1>
+            <p className="sy-tags">
+              {INTRO.tags.map(t => (
+                <span key={t}>{t}</span>
+              ))}
+            </p>
+            <p className="sy-hook">{INTRO.hook}</p>
+            <dl className="sy-stats">
+              {INTRO.stats.map(st => (
+                <div key={st.label}>
+                  <dt>{st.value}</dt>
+                  <dd>{st.label}</dd>
+                </div>
+              ))}
+            </dl>
+            <figure className="sy-cover">
+              <Screen img="dashboard" alt="The Finworld dashboard: revenue, net profit and cash forecast, with Nova beside it" />
+            </figure>
+            <div className="sy-overview">
+              {INTRO.overview.map(o => (
+                <div key={o.label}>
+                  <h3>{o.label}</h3>
+                  <p>{o.text}</p>
+                </div>
+              ))}
+            </div>
+            {INTRO.paragraphs.map(p => (
+              <p key={p}>{p}</p>
+            ))}
+            <section className="sy-glance" aria-label="Key decisions">
+              <h3>Key decisions</h3>
+              <div>
+                <p className="sy-glance-kind">Strategic</p>
+                <ul>
+                  {DECISIONS.strategic.map(d => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="sy-glance-kind">Micro</p>
+                <ul>
+                  {DECISIONS.micro.map(d => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+            <dl className="sy-facts">
+              {INTRO.facts.map(f => (
+                <div key={f.label}>
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </header>
+
+          <section id="fw-problem" className="sy-feature">
+            <h2>{ISSUES.title}</h2>
+            <figure className="fw-issues-img">
+              <img src={coreIssues} alt="3 core issues with current financial models: lack of clarity, poor collaboration and a steep learning curve" loading="lazy" />
+            </figure>
+            <ul className="gg-insights fw-issues">
+              {ISSUES.items.map(it => (
+                <li key={it.theme}>
+                  <p className="gg-theme">{it.theme}</p>
+                  <p>{it.text}</p>
+                </li>
+              ))}
+            </ul>
+
+            <h3>{USERS.title}</h3>
+            <ul className="gg-insights">
+              {USERS.items.map(u => (
+                <li key={u.name}>
+                  <p className="gg-quote">{u.name}</p>
+                  <p className="fw-role">{u.role}</p>
+                  <p>{u.thinks}</p>
+                  <p>Needs: {u.needs}</p>
+                </li>
+              ))}
+            </ul>
+
+            <figure className="sy-video">
+              <video src={walkthrough} poster={walkthroughPoster} controls playsInline preload="metadata" aria-label="Narrated walkthrough of Finworld" />
+              <figcaption>A narrated walkthrough of the project.</figcaption>
+            </figure>
+          </section>
+
+          <section id="fw-task" className="sy-feature">
+            <h2>{TASK.title}</h2>
+            <p className="fw-question">{TASK.question}</p>
+            <ol className="fw-steps">
+              {TASK.steps.map(s => (
+                <li key={s.label}>
+                  <span>{s.label}</span>
+                  {s.text}
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {FEATURES.map(f => (
+            <section key={f.id} id={f.id} className="sy-feature">
+              <h2>{f.title}</h2>
+              <p>{f.what}</p>
+              <Switcher screens={f.screens} />
+              <Decision d={f.decision} solves={f.solves} />
+              {f.micro?.length > 0 && (
+                <>
+                  <h3>Smaller decisions</h3>
+                  <ul className="sy-micro">
+                    {f.micro.map(m => (
+                      <li key={m}>{m}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </section>
+          ))}
+
+          <section id="fw-test" className="sy-feature">
+            <h2>{TEST.title}</h2>
+            <p>{TEST.text}</p>
+            <ul className="sy-micro">
+              {TEST.tasks.map(t => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section id="fw-reflect" className="sy-feature">
+            <h2>{REFLECTION.title}</h2>
+            <div className="sy-glance fw-reflect">
+              <div>
+                <p className="sy-glance-kind">What went well</p>
+                <ul>
+                  {REFLECTION.well.map(t => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="sy-glance-kind">What I’d do differently</p>
+                <ul>
+                  {REFLECTION.differently.map(t => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+        </article>
+      </div>
+    </ScreenViewerProvider>
+  );
+};
 
 export default Finworld;

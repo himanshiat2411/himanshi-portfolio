@@ -1,0 +1,92 @@
+/* Finworld: the shared case study layout in Finworld's blue. */
+.fw {
+  --sy-accent: #6f9bff;
+  --sy-accent-2: #2265ff;
+  --sy-panel: #0e1322;
+  --sy-line: #1f2740;
+  --sy-faint: #8b90a3;
+  --sy-text: #b9bccb;
+}
+
+.fw .gg-solves span {
+  color: #0a1433;
+}
+
+.fw-issues {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.fw .fw-role {
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--sy-faint);
+}
+
+.fw .fw-question {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--sy-ink);
+}
+
+/* The task as four numbered steps. */
+.fw-steps {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.fw-steps li {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--sy-line);
+  border-radius: 6px;
+  background: var(--sy-panel);
+  font-size: 14.5px;
+  line-height: 1.55;
+  counter-increment: step;
+}
+
+.fw-steps span {
+  font-weight: 600;
+  color: var(--sy-accent);
+}
+
+.fw-steps span::before {
+  content: counter(step) '. ';
+}
+
+.fw-reflect {
+  margin-top: 0;
+}
+
+.fw-reflect h3 {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .fw-issues {
+    grid-template-columns: 1fr;
+  }
+
+  .fw-steps li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+/* The original "3 Core issues" artwork from the earlier case study, clipped to its card's corners. */
+.fw-issues-img {
+  margin: 20px 0 8px;
+}
+
+.fw-issues-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
