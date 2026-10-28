@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import CaseNav from '../components/LineSidebar/CaseNav';
+import FilmIntro from '../components/finworld/FilmIntro';
+import sylusFilm from '../assets/sylus/film/intro.mp4';
+import sylusFilmPortrait from '../assets/sylus/film/intro-portrait.mp4';
 import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
 import { FEATURES, INTRO, NEXT } from '../content/sylus';
 import './Takshila.css';
@@ -152,6 +155,7 @@ const Sylus = () => {
 
   return (
     <ScreenViewerProvider>
+      <FilmIntro film={sylusFilm} portrait={sylusFilmPortrait} background="#f7f4fc" />
       <CaseNav sections={NAV} theme={NAV_THEME} />
       <div className="sy">
         <article className="sy-page">

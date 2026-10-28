@@ -107,7 +107,7 @@
   display: block;
   padding: clamp(10px, 2vw, 20px);
   border-radius: 6px;
-  background: #f3f3f5;
+  background: #f4f1fb;
   cursor: zoom-in;
 }
 
@@ -158,7 +158,7 @@
 
 .sy-tabs button[aria-selected='true'] {
   border-color: var(--sy-line);
-  background: #f3f3f5;
+  background: #f4f1fb;
   color: var(--sy-ink);
 }
 
@@ -215,7 +215,7 @@
 }
 
 .sy-arrows button:hover {
-  background: #f3f3f5;
+  background: #f4f1fb;
 }
 
 .sy-screen img {
@@ -237,7 +237,7 @@
   display: block;
   width: 100%;
   border-radius: 6px;
-  background: #f3f3f5;
+  background: #f4f1fb;
 }
 
 .sy-video[data-portrait] video {
