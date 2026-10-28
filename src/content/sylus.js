@@ -1,197 +1,109 @@
-// All copy for the Sylus AI case study (/work/sylus-ai). Edit text here; layout lives in
-// src/pages/Sylus.jsx. Structured as decision stories: list every decision, classify it, then tell
-// the few that matter as Title · Hook · Before · Decision · After · Result. Each hook names the
-// product moment and why it matters, so a recruiter gets both what Sylus does and what I solved.
+// All copy for the Sylus AI case study (/work/sylus-ai). Written plainly, feature by feature: what
+// each part does, then why I designed it that way. Screens are keys into src/assets/sylus; each
+// feature's `screens` become a slideshow with tabs, and `video` is its zoom walkthrough
+// (src/assets/sylus/video, with a -portrait cut for phones).
 
-export const HERO = {
-  headline: 'Paste your website link.',
-  headlineEmphasis: 'Get a month of on‑brand posts.',
-  intro:
-    'Sylus AI is an AI-powered marketing CRM. It keeps every brand, client, teammate and post in one place, and its AI learns each brand to plan, write, schedule and report on its social media. I designed it end to end, from the first login to the CRM an agency uses to run a dozen clients.',
-  meta: [
-    { label: 'My role', value: 'Product Designer' },
-    { label: 'Product', value: 'AI-powered marketing CRM' },
-    { label: 'Scope', value: 'Onboarding · Individual · Agency' },
+export const INTRO = {
+  title: 'Designing Sylus AI, a marketing CRM that learns your brand',
+  tags: ['Sylus AI', 'B2B SaaS', 'AI CRM'],
+  cover: { img: 'dashboard', alt: 'The Sylus AI dashboard for one brand: posts published, engagement, platform health and the content queue' },
+  paragraphs: [
+    'Sylus AI is a marketing CRM for brands and agencies. It keeps clients, teammates, posts and reports in one place, and uses AI to plan, write and schedule social media in each brand’s own voice.',
+    'Most AI writing tools start from an empty prompt, so people explain their brand again every time. For agencies it is worse: one tool for clients, another for content, and nothing connecting them. Sylus is built to learn a brand once and keep using it.',
+    'I designed the product end to end: onboarding, the Individual workspace for creating and planning content, and the Agency workspace for running many clients.'
+  ],
+  facts: [
+    { label: 'Role', value: 'Product Designer' },
+    { label: 'Scope', value: 'Onboarding, Individual, Agency' },
     { label: 'Output', value: 'Clickable prototype' }
   ]
 };
 
-// What Sylus does, in three moves, each with its screen.
-export const PRODUCT = {
-  label: 'The product',
-  heading: 'A CRM that also does the marketing',
-  items: [
-    { title: 'Learns your brand', text: 'From a link or a file, it drafts your voice, audience and look.', img: 'brand-vibe' },
-    { title: 'Creates and plans', text: 'Writes posts, finds trends and plans a month of content.', img: 'post-preview' },
-    { title: 'Manages clients like a CRM', text: 'Every client, brand, teammate, approval and report, in one place.', img: 'agency-overview' }
-  ]
-};
-
-export const PROBLEM = {
-  label: 'The problem',
-  heading: 'AI tools give you a blank box and wish you luck',
-  text: 'Marketing teams juggle two kinds of tools: a CRM to track clients, and AI writers that start with an empty prompt every time. Nothing connects the client to the content. For an agency, multiply that by every client.',
-  goal: 'Goal: one CRM where each client’s brand is known once, and the AI does the heavy lifting every day.'
-};
-
-export const FLOW = {
-  label: 'Onboarding',
-  heading: 'Seven steps, one at a time',
-  steps: ['Sign up', 'Workspace', 'Quick survey', 'Brand setup', 'AI processing', 'Brand Vibe', 'Connect socials'],
-  note: 'Progressive disclosure: each step shows only what that step needs.',
-  shots: [
-    { img: 'login-final', caption: 'Login that explains the product', alt: 'Sylus AI login: a gradient panel listing four features beside the form' },
-    { img: 'workspace', caption: 'Individual or Agency, asked first', alt: 'Workspace choice: Individual and Agency cards with what each includes' },
-    { img: 'connect-accounts', caption: 'Connect socials, or skip for now', alt: 'Connect accounts step with Facebook, Instagram, LinkedIn and more' }
-  ]
-};
-
-// Every decision, sorted into strategic (shapes the product) and micro (shapes a screen).
-export const DECISIONS = {
-  label: 'Every decision',
-  heading: '16 decisions, sorted',
-  sub: 'I listed every decision, then split them. The starred ones are told below.',
-  items: [
-    { text: 'AI drafts the brand from a link or a file', kind: 'strategic', star: true },
-    { text: 'Create Post split into four small steps', kind: 'strategic', star: true },
-    { text: 'Plan a month by answering three questions', kind: 'strategic', star: true },
-    { text: 'A CRM home for every client brand', kind: 'strategic', star: true },
-    { text: 'Ask Individual or Agency before anything else', kind: 'strategic' },
-    { text: 'Every AI output stays editable', kind: 'strategic' },
-    { text: 'Roles and permissions set per brand', kind: 'strategic' },
-    { text: 'Explain the product beside the login form', kind: 'micro' },
-    { text: 'Tasks as a board or a calendar, same data', kind: 'micro' },
-    { text: 'Turn a trending story into a post in one click', kind: 'micro' },
-    { text: 'Preview the post exactly as it will appear', kind: 'micro' },
-    { text: 'Approvals waiting, right on the agency home', kind: 'micro' },
-    { text: 'Files grouped by brand in one library', kind: 'micro' },
-    { text: 'Progress bar and step count on every setup screen', kind: 'micro' },
-    { text: 'Social connections can be skipped', kind: 'micro' },
-    { text: 'A prompt bar to refine the brand in plain words', kind: 'micro' }
-  ]
-};
-
-// The decision stories. Image keys point into src/assets/sylus.
-export const STORIES = [
+export const FEATURES = [
   {
-    id: 'story-brand',
-    kind: 'Strategic',
-    title: 'Your website is the brief',
-    hook: 'Most AI tools start with an empty box. Sylus starts by reading your website, so the very first post already sounds like you.',
-    before: {
-      text: 'A long form: brand name, description, audience, voice, products. All typed by hand before the product does anything useful.',
-      img: 'brand-setup',
-      alt: 'Manual brand setup form with brand name, description, category and services'
-    },
-    decision: 'Paste a link or drop brand files, and Sylus drafts the whole brand: voice, audience, colours, fonts and a tagline. Every field stays editable, and a prompt bar refines it in plain words, like “make the tone more premium”.',
-    after: { img: 'brand-vibe', alt: 'Brand Vibe: logo, colours, typography, tagline and mockups generated from the website' },
-    result: 'Setup turns from writing into reviewing. Brands with no website still get a manual path.',
-    micro: [
-      'Why a prompt bar? Fixing a draft in plain words is faster than retyping a field.',
-      'Why “Manual setup” as a small link? Most people have a website, so AI stays the default.'
+    id: 'sy-onboarding',
+    video: 'onboarding',
+    videoLabel: 'Walkthrough: login, workspace choice, brand setup, Brand Vibe and connecting accounts',
+    title: 'Onboarding that reads your brand',
+    what: 'A new account goes through seven short steps: sign up, choose Individual or Agency, two quick survey questions, brand setup, a processing screen, the generated Brand Vibe, and connecting social accounts. Each step asks one thing.',
+    why: 'The slowest part of setting up any marketing tool is describing the brand: voice, audience, colours, products. So instead of a long form, brand setup asks for a website link or brand files and drafts all of it. People then edit a draft instead of writing from nothing. A manual form is still there for brands without a website, and every AI field stays editable.',
+    screens: [
+      { label: 'Login', img: 'login-final', alt: 'Login with a panel describing what Sylus does beside the form' },
+      { label: 'Workspace', img: 'workspace', alt: 'Choosing between an Individual and an Agency workspace' },
+      { label: 'Brand setup', img: 'brand-upload', alt: 'Brand setup: drop brand files or paste a website link' },
+      { label: 'Brand Vibe', img: 'brand-vibe', alt: 'Brand Vibe generated from the website: logo, colours, type and mockups' },
+      { label: 'Connect', img: 'connect-accounts', alt: 'Connecting social accounts, with an option to skip' }
+    ],
+    notes: [
+      'The login explains the product beside the form, so someone arriving from an ad knows what they are signing up for.',
+      'Individual or Agency is asked first because it changes the whole workspace that follows.'
     ]
   },
   {
-    id: 'story-create',
-    kind: 'Strategic',
-    title: 'One post, four small steps',
-    hook: 'A good post needs a brief, a caption, an image and a final check. Cram that into one screen and people get a wall of fields.',
-    before: {
-      text: 'The obvious version is one long page: topic, platforms, caption, hashtags, image prompt and schedule, all competing for attention.',
-    },
-    decision: 'A four-step flow, Brief → Caption → Media → Preview, with a step count at the bottom. The AI writes each part from the brief, and you can tweak it before moving on.',
-    after: { img: 'post-preview', alt: 'Create Post preview: the LinkedIn post exactly as it will appear, with publish, schedule or save as draft' },
-    result: 'Each screen asks one thing. The last one shows the post exactly as followers will see it, before it goes out.',
-    micro: [
-      'Why a step count at the bottom? Four steps feel short when you can see the end.',
-      'Why Publish, Schedule and Save as draft side by side? Not every post is ready to go now.'
+    id: 'sy-create',
+    video: 'create',
+    videoLabel: 'Walkthrough: brief, caption, media and the final preview',
+    title: 'Creating a post',
+    what: 'Create Post is a four-step flow: Brief, Caption, Media, Preview. You describe the post once, and the AI writes the caption and hashtags and generates an image from that brief.',
+    why: 'Putting the topic, platforms, caption, hashtags, image and schedule on one page made every field compete for attention. Splitting it into steps keeps each screen to one job, and the step count at the bottom shows how close you are to done. The last step shows the post exactly as it will appear on the platform, because that is when people catch mistakes.',
+    screens: [
+      { label: 'Brief', img: 'post-brief', alt: 'Create Post: describe what the post is about' },
+      { label: 'Caption', img: 'post-caption', alt: 'Create Post: AI caption and hashtags per platform' },
+      { label: 'Media', img: 'post-media', alt: 'Create Post: generate or upload an image' },
+      { label: 'Preview', img: 'post-preview', alt: 'Create Post: preview with publish, schedule or save as draft' }
     ]
   },
   {
-    id: 'story-planner',
-    kind: 'Strategic',
-    title: 'Plan a month in three answers',
-    hook: 'Writing one post is easy. Posting every week for a month is where most brands give up.',
-    before: {
-      text: 'Without help, it is a blank calendar: you decide every day what to post, on which platform, in which format.',
-    },
-    decision: 'The AI Content Planner asks three things: how often (a week, 15 days, a month), the mix of formats, and the brief. Then it fills the calendar for you to approve.',
-    after: { img: 'planner', alt: 'AI Content Planner: choose a cadence of a week, 15 days, a month or custom' },
-    result: 'A month of posts starts from a few taps, and every post is still reviewed before it publishes.',
-    micro: [
-      'Why “A month” marked Most popular? It nudges the plan that keeps a brand posting.',
-      'Why steppers for the format mix? Small numbers are quicker to tap than to type.'
+    id: 'sy-planner',
+    video: 'planner',
+    videoLabel: 'Walkthrough: choosing a cadence, then the content mix',
+    title: 'Planning a month of content',
+    what: 'The AI Content Planner builds a calendar from three answers: how often to post, the mix of formats and platforms, and a short brief. You review the plan before anything is scheduled.',
+    why: 'Writing one post is rarely the problem. Keeping it up every week is. A blank calendar asks people to decide every slot themselves, so the planner asks for the few things only they know and fills in the rest. Format counts use small plus and minus steppers because tapping is quicker than typing a number.',
+    screens: [
+      { label: 'Cadence', img: 'planner', alt: 'Planner: choose a week, 15 days, a month or a custom range' },
+      { label: 'Content mix', img: 'planner-mix', alt: 'Planner: set how many image posts, carousels, videos and reels, and the platforms' }
     ]
   },
   {
-    id: 'story-agency',
-    kind: 'Strategic',
-    title: 'A CRM for twelve clients',
-    hook: 'An agency is not one big user. It is twelve clients, each with their own brand, posts, people and approvals. That is a CRM problem, not a content problem.',
-    before: {
-      text: 'The Individual dashboard, built for one brand: one queue, one set of accounts, no idea of clients or roles.',
-      img: 'dashboard',
-      alt: 'Individual dashboard for one brand: posts published, engagement, platform health and queue'
-    },
-    decision: 'A CRM-style Agency Overview: every client brand at once, what is scheduled today and what is waiting for approval. Behind it sit client records, roles and permissions per brand, a shared library and reports.',
-    after: { img: 'agency-overview', alt: 'Agency Overview: 12 brands, 34 posts this week, pending approvals and client brand cards' },
-    result: 'An account manager sees what needs them the moment they log in, across every client.',
-    micro: [
-      'Why approvals on the home screen? A post waiting on a client is the most urgent thing.',
-      'Why tasks as a board or a calendar? Same data, two ways to think about the week.'
-    ]
-  }
-];
-
-// The rest of the product, by workspace.
-export const GALLERIES = [
-  {
-    id: 'sy-individual',
-    label: 'Individual workspace',
-    heading: 'Everything one brand needs',
-    items: [
-      { img: 'dashboard', caption: 'Dashboard' },
-      { img: 'trends', caption: 'Trending content research' },
-      { img: 'competitors', caption: 'Competitor intelligence' },
-      { img: 'planner-mix', caption: 'Planner: set your content mix' },
-      { img: 'post-caption', caption: 'Create Post: caption' },
-      { img: 'post-media', caption: 'Create Post: media' }
+    id: 'sy-research',
+    video: 'research',
+    videoLabel: 'Walkthrough: trending stories, then competitor tracking',
+    title: 'Research that turns into posts',
+    what: 'Trending Content Research shows news and topics relevant to the brand, and Competitor Intelligence tracks other brands’ followers, posting frequency and engagement.',
+    why: 'Research tools usually end at a list of links. Here every trending story has a Post button that starts Create Post with the story as the brief, so finding an idea and acting on it happen in the same place.',
+    screens: [
+      { label: 'Trends', img: 'trends', alt: 'Trending Content Research with news cards and Post buttons' },
+      { label: 'Competitors', img: 'competitors', alt: 'Competitor Intelligence table with followers, posts per week and engagement' }
     ]
   },
   {
     id: 'sy-agency',
-    label: 'Agency CRM',
-    heading: 'The CRM side: clients, team and reports',
-    items: [
-      { img: 'agency-onboarding', caption: 'Agency onboarding' },
-      { img: 'add-client', caption: 'Add clients' },
-      { img: 'agency-tasks', caption: 'Tasks board' },
-      { img: 'brands', caption: 'Brands' },
-      { img: 'team-roles', caption: 'Team & roles' },
-      { img: 'team-chat', caption: 'Team chat' },
-      { img: 'library', caption: 'Central library' },
-      { img: 'reports', caption: 'Reports' }
+    video: 'agency',
+    videoLabel: 'Walkthrough: agency overview, tasks, calendar, team roles and the library',
+    title: 'The agency CRM',
+    what: 'Agencies get their own workspace: an overview of every client brand, a tasks board that also works as a calendar, client and brand records, team roles, team chat, a shared file library and reports.',
+    why: 'An agency is not one large user. It is many clients, each with their own posts, people and approvals. So the home screen is about clients rather than content: what is scheduled today and what is waiting for a client to approve, across every brand. Roles and permissions are set per brand, because a designer on one account should not see another client’s drafts.',
+    screens: [
+      { label: 'Overview', img: 'agency-overview', alt: 'Agency Overview: brands, posts this week, pending approvals and client cards' },
+      { label: 'Tasks', img: 'agency-tasks', alt: 'Agency Tasks as a board' },
+      { label: 'Calendar', img: 'calendar', alt: 'Agency Tasks as a calendar' },
+      { label: 'Brands', img: 'brands', alt: 'Brands managed by the agency' },
+      { label: 'Team & roles', img: 'team-roles', alt: 'Team members and their roles per brand' },
+      { label: 'Chat', img: 'team-chat', alt: 'Team chat with channels per brand' },
+      { label: 'Library', img: 'library', alt: 'Central library of files grouped by brand' },
+      { label: 'Reports', img: 'reports', alt: 'Reports per brand with export' }
+    ],
+    notes: [
+      'Tasks can be viewed as a board or a calendar. It is the same data, but some people plan by status and others by date.',
+      'Agency onboarding adds clients and teammates during setup, so the workspace is useful on the first day.'
     ]
   }
 ];
 
-export const PRINCIPLES = {
-  heading: 'Principles I kept to',
-  items: [
-    { name: 'Progressive disclosure', text: 'One step, one question.' },
-    { name: 'AI first, never AI only', text: 'Every AI output is editable.' },
-    { name: 'Show it before it ships', text: 'Preview and approve before publishing.' },
-    { name: 'Same data, many views', text: 'Board or calendar, brand or agency.' }
+export const NEXT = {
+  title: 'What I would do next',
+  paragraphs: [
+    'The flows were designed and prototyped but had not gone live with users during my time, so there are no usage numbers yet. The first things I would measure are where people drop off in onboarding, how often they keep the AI-drafted brand without editing it, and how long a client approval takes in the agency workspace.'
   ]
-};
-
-export const REFLECTION = {
-  label: 'Reflection',
-  heading: 'What I’d do next',
-  items: [
-    'Measure completion at each onboarding step to find where people still drop off.',
-    'Test the AI-drafted brand against what users would write themselves.',
-    'Watch how agencies use approvals, and cut any step that slows a client sign-off.'
-  ],
-  honesty: 'The flows were designed and prototyped. They were not live with users in my time, so there are no usage numbers yet.'
 };

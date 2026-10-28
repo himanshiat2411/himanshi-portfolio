@@ -1,412 +1,262 @@
-/* Sylus AI case study: the Takshila layout on a white page, in Sylus's own palette — navy ink and
-   the logo's plum-pink-coral gradient. */
-.tk.sy {
-  /* Sylus AI's own palette: navy text from its Figma variables, and the logo's gradient — deep
-     plum, pink and coral — for accents. No indigo. */
-  --tk-bg: #ffffff;
-  --tk-text: #141b34;
-  --tk-plum: #7c3f7b;
-  --tk-gold: #e0508f;
-  --tk-gold-ink: #a8336a;
-  --tk-blue: #f6d9e3;
-  --tk-blush: #ffffff;
-  --tk-sand: #ffffff;
-  --tk-mauve: #e9cbd6;
-  --tk-tint-blue: #ffffff;
-  --tk-tint-gold: #fbe0e6;
-  --tk-tint-plum: #f1dbe7;
-  --tk-muted: #555b70;
-  --tk-line: #ece6ea;
-  --sy-gradient: linear-gradient(135deg, #7c3f7b 0%, #e0508f 55%, #ee8063 100%);
+/* Sylus AI case study: a plain editorial page on white. One narrow column, Inter throughout,
+   muted body text, large screens with quiet captions. Colour comes from the screens themselves;
+   the only accent is Sylus's navy (from its Figma variables). */
+.sy {
+  --sy-ink: #141b34;
+  --sy-text: #555b70;
+  --sy-faint: #8b90a3;
+  --sy-line: #e7e5ec;
+
+  background: #ffffff;
+  color: var(--sy-text);
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-.sy-wordmark {
-  margin: 0 0 18px;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  background: var(--sy-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.sy-page {
+  width: min(720px, 100% - 32px);
+  margin-inline: auto;
+  padding: 120px 0 140px;
 }
 
-/* Screens open full size on click. */
-.sy-shot {
-  margin: 0;
+.sy p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 1.65;
 }
 
-.sy-shot a {
+.sy-crumb {
+  font-size: 14px !important;
+  color: var(--sy-faint);
+}
+
+.sy-crumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sy-crumb a:hover {
+  color: var(--sy-ink);
+}
+
+.sy h1 {
+  max-width: 560px;
+  margin: 12px 0 14px;
+  font-size: clamp(26px, 3.2vw, 34px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--sy-ink);
+}
+
+.sy-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sy-faint);
+}
+
+.sy-cover {
+  margin: 28px 0 32px;
+}
+
+.sy-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 28px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--sy-line);
+}
+
+.sy-facts dt {
+  font-size: 13px;
+  color: var(--sy-faint);
+}
+
+.sy-facts dd {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: var(--sy-ink);
+}
+
+/* Features */
+.sy-feature {
+  margin-top: 88px;
+}
+
+.sy h2 {
+  margin: 0 0 14px;
+  font-size: clamp(22px, 2.4vw, 26px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--sy-ink);
+}
+
+.sy h3 {
+  margin: 28px 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--sy-ink);
+}
+
+/* Screens: a soft grey frame; opens full size on click. */
+.sy-screen {
   display: block;
-  overflow: hidden;
-  border: 1px solid var(--tk-line);
-  border-radius: 14px;
-  background: #fff;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: clamp(10px, 2vw, 20px);
+  border-radius: 6px;
+  background: #f3f3f5;
+  cursor: zoom-in;
 }
 
-.sy-shot a:hover,
-.sy-shot a:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 36px -20px rgba(36, 12, 46, 0.45);
-}
-
-.sy-shot img {
+.sy-screen img {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(20, 27, 52, 0.08);
 }
 
-.sy-shot figcaption {
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: 600;
+/* The switcher: tabs under the screen, the caption under the tabs. */
+.sy-switch {
+  margin: 28px 0 8px;
 }
 
-.sy-hero-shot {
-  margin-top: 48px;
-  padding: clamp(14px, 3vw, 28px);
-  border-radius: 24px;
-  background: var(--sy-gradient);
-}
-
-.sy-hero-shot .sy-shot a {
-  border: 0;
-  box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.55);
-}
-
-.tk-section .sy-goal {
-  padding: 18px 22px;
-  border-left: 3px solid var(--tk-plum);
-  border-radius: 0 14px 14px 0;
-  background: var(--tk-blush);
-  font-weight: 600;
-}
-
-/* Every decision, sorted into two columns. */
-.sy-sort {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 24px;
-}
-
-.sy-sort-col {
-  padding: 22px;
-  border-radius: 18px;
-  background: #fff;
-  border: 1px solid var(--tk-line);
-}
-
-.sy-sort-col[data-kind='strategic'] {
-  border: 0;
-  background: var(--sy-gradient);
-  color: #fff;
-}
-
-.tk-section .sy-sort-col h3 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.tk-section .sy-sort-sub {
-  margin: 2px 0 14px;
-  font-size: 13px;
-  opacity: 0.75;
-}
-
-.sy-sort-col ul {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.sy-sort-col li {
-  position: relative;
-  padding: 10px 12px 10px 34px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.14);
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.sy-sort-col[data-kind='micro'] li {
-  background: var(--tk-blush);
-}
-
-.sy-sort-col li::before {
-  content: '•';
-  position: absolute;
-  left: 14px;
-  opacity: 0.6;
-}
-
-.sy-sort-col li[data-star]::before {
-  content: '★';
-  opacity: 1;
-  color: #ffd27a;
-}
-
-.sy-sort-col[data-kind='micro'] li[data-star]::before {
-  color: var(--tk-gold);
-}
-
-/* Decision stories: Title · Hook · Before · Decision · After · Result */
-.sy-stories {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  margin-top: 24px;
-}
-
-.sy-story {
-  padding: clamp(20px, 4vw, 36px);
-  border-radius: 24px;
-  background: #fff;
-  border: 1px solid var(--tk-line);
-}
-
-.sy-story-head {
+.sy-controls {
   display: flex;
   gap: 12px;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
-.sy-story-num {
-  font-size: 44px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--tk-plum);
-}
-
-.sy-kind {
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--tk-blush);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--tk-plum);
-}
-
-.sy-kind[data-kind='strategic'] {
-  background: var(--sy-gradient);
-  color: #fff;
-}
-
-.tk-section .sy-story-title {
-  margin: 14px 0 6px;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.tk-section .sy-hook {
-  margin: 0 0 22px;
-  font-size: 17px;
-  color: var(--tk-muted);
-}
-
-.sy-ba {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  align-items: start;
-}
-
-.sy-ba > div {
+.sy-tabs {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.tk-section .sy-ba p {
-  margin: 0;
-  font-size: 15px;
-}
-
-.tk-section .sy-step {
-  margin: 0;
-  font-size: 11px !important;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--tk-plum);
-}
-
-.tk-section .sy-result {
-  display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 4px;
-  margin: 22px 0 0;
-  padding: 16px 20px;
-  border-radius: 14px;
-  background: var(--tk-blush);
-  font-size: 15px;
 }
 
-/* Final screens */
-.sy-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: 24px;
+.sy-tabs button {
+  position: relative;
+  overflow: hidden;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  color: var(--sy-faint);
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
-.tk.sy .tk-principles {
-  grid-template-columns: repeat(2, 1fr);
+.sy-tabs button:hover {
+  color: var(--sy-ink);
 }
 
-@media (max-width: 760px) {
-  .sy-sort,
-  .sy-ba {
-    grid-template-columns: 1fr;
+.sy-tabs button[aria-selected='true'] {
+  border-color: var(--sy-line);
+  background: #f3f3f5;
+  color: var(--sy-ink);
+}
+
+.sy-tabs button:focus-visible {
+  outline: 2px solid var(--sy-ink);
+  outline-offset: 2px;
+}
+
+.sy-switch figcaption {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--sy-faint);
+}
+
+/* While a slide plays, a thin bar fills under its tab to show when the next one comes. */
+.sy-tabs button[data-playing]::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--sy-ink);
+  transform-origin: left;
+  animation: sy-slide var(--slide) linear forwards;
+}
+
+@keyframes sy-slide {
+  from {
+    transform: scaleX(0);
   }
 
-  .sy-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .tk.sy .tk-principles {
-    grid-template-columns: 1fr;
+  to {
+    transform: scaleX(1);
   }
 }
 
-/* What Sylus does: three numbered cards with their screen. */
-.sy-product {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin: 24px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.sy-product li {
+.sy-arrows {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 22px;
-  border: 1px solid var(--tk-line);
-  border-radius: 20px;
-  background: #fff;
+  flex: none;
+  gap: 4px;
 }
 
-.sy-product-num {
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 1;
-  background: var(--sy-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.sy-arrows button {
+  width: 32px;
+  height: 30px;
+  border: 1px solid var(--sy-line);
+  border-radius: 6px;
+  background: #ffffff;
+  font: inherit;
+  color: var(--sy-ink);
+  cursor: pointer;
 }
 
-.tk-section .sy-product h3 {
-  margin: 6px 0 0;
-  font-size: 18px;
+.sy-arrows button:hover {
+  background: #f3f3f5;
 }
 
-.tk-section .sy-product p {
-  margin: 0 0 8px;
-  font-size: 14px;
-  color: var(--tk-muted);
+.sy-screen img {
+  animation: sy-fade 0.35s ease;
 }
 
-.sy-product .sy-shot {
-  margin-top: auto;
-}
-
-@media (max-width: 760px) {
-  .sy-product {
-    grid-template-columns: 1fr;
+@keyframes sy-fade {
+  from {
+    opacity: 0.4;
   }
 }
 
-/* The micro decisions inside a strategic one. */
-.sy-micro {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 18px 0 0;
-  padding: 0;
-  list-style: none;
+/* Zoom walkthroughs */
+.sy-video {
+  margin: 28px 0 8px;
 }
 
-.sy-micro li {
-  padding: 12px 14px;
-  border: 1px dashed var(--tk-mauve);
-  border-radius: 12px;
-  font-size: 14px;
-  line-height: 1.45;
-  color: var(--tk-muted);
+.sy-video video {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  background: #f3f3f5;
 }
 
-@media (max-width: 760px) {
-  .sy-micro {
-    grid-template-columns: 1fr;
+.sy-video[data-portrait] video {
+  max-height: 80vh;
+  margin-inline: auto;
+  width: auto;
+  max-width: 100%;
+}
+
+.sy-video figcaption {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--sy-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sy-tabs button[data-playing]::after,
+  .sy-screen img {
+    animation: none;
   }
-}
-
-/* White page: no full-width colour bands (their bleed showed as a grey box at the edge). */
-.tk.sy .tk-band {
-  --band: transparent;
-}
-
-/* Type: Sylus AI's own font, Inter, everywhere — no serif headings or mono labels from the
-   Takshila layout or the site. */
-.tk.sy {
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-serif: 'Inter', system-ui, sans-serif;
-  --font-mono: 'Inter', system-ui, sans-serif;
-
-  font-family: var(--font-sans);
-}
-
-.tk.sy h1,
-.tk.sy h2,
-.tk.sy h3,
-.tk.sy h4 {
-  font-family: var(--font-sans);
-  letter-spacing: -0.02em;
-}
-
-.tk.sy .tk-section h2 {
-  font-weight: 600;
-}
-
-.tk.sy .tk-title {
-  font-weight: 500;
-}
-
-.tk.sy .tk-title strong {
-  font-weight: 700;
-}
-
-/* Small labels: Inter caps with gentle tracking instead of wide mono spacing. */
-.tk.sy .tk-label,
-.tk.sy .tk-meta dt,
-.tk.sy .tk-back {
-  letter-spacing: 0.08em;
-}
-
-/* Every surface is #FFFFFF; boxes that used a tint get a thin border instead. */
-.tk.sy .tk-principles,
-.tk.sy .tk-principles li,
-.tk-section .sy-goal,
-.tk-section .sy-result,
-.sy-sort-col[data-kind='micro'] li,
-.sy-kind:not([data-kind='strategic']) {
-  border: 1px solid var(--tk-line);
-}
-
-.tk-section .sy-goal {
-  border-left: 3px solid var(--tk-plum);
-}
-
-/* Before and Decision side by side as text, then the decision's screen at full width below. */
-.sy-after {
-  margin-top: 22px;
 }

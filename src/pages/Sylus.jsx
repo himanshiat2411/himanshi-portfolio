@@ -1,98 +1,147 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import CaseNav from '../components/LineSidebar/CaseNav';
-import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
-import { NodeStrip } from '../components/takshila/visuals';
-import { DECISIONS, FLOW, GALLERIES, HERO, PRINCIPLES, PROBLEM, PRODUCT, REFLECTION, STORIES } from '../content/sylus';
-import '../components/takshila/takshila-parts.css';
+import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
+import { FEATURES, INTRO, NEXT } from '../content/sylus';
 import './Takshila.css';
 import './Sylus.css';
 
-// Sylus AI case study page (/work/sylus-ai). It reuses the Takshila case study's layout and parts,
-// recoloured in Sylus's plum-to-coral gradient (see Sylus.css).
+// Sylus AI case study page (/work/sylus-ai). A plain, editorial layout: one narrow column of short
+// paragraphs and large screens. Each feature's screen has tabs underneath to step through its states.
+// (Takshila.css is only for the shared full-size screen viewer.)
 const SHOTS = import.meta.glob('../assets/sylus/*.webp', { eager: true, import: 'default' });
 const shot = key => SHOTS[`../assets/sylus/${key}.webp`];
 
-const NAV = [
-  { label: 'Overview', selector: '#sy-overview' },
-  { label: 'Product', selector: '#sy-product' },
-  { label: 'Problem', selector: '#sy-problem' },
-  { label: 'Onboarding', selector: '#sy-flow' },
-  { label: 'Decisions', selector: '#sy-decisions' },
-  ...STORIES.map((s, i) => ({ label: `Story ${String(i + 1).padStart(2, '0')}`, selector: `#${s.id}` })),
-  ...GALLERIES.map(g => ({ label: g.label, selector: `#${g.id}` })),
-  { label: 'Reflection', selector: '#sy-reflection' }
-];
+const NAV = [{ label: 'Overview', selector: '#sy-overview' }, ...FEATURES.map(f => ({ label: f.title, selector: `#${f.id}` })), { label: 'Next', selector: '#sy-next' }];
 
-const NAV_THEME = { accent: '#a8336a', text: '#555b70', marker: '#e9cbd6', panel: '#fdf8fa' };
+const NAV_THEME = { accent: '#141b34', text: '#8b90a3', marker: '#d0ccdb', panel: '#ffffff' };
 
 // A screen that opens full size on click.
-const Shot = ({ img, alt, caption }) => {
+const Screen = ({ img, alt }) => {
   const open = useOpenScreen();
   const src = shot(img);
   return (
-    <figure className="sy-shot">
-      <a
-        href={src}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-haspopup="dialog"
-        onClick={e => {
-          e.preventDefault();
-          open({ src, alt, label: caption || alt });
-        }}
-      >
-        <img src={src} alt={alt} loading="lazy" />
-      </a>
-      {caption && <figcaption>{caption}</figcaption>}
+    <a
+      className="sy-screen"
+      href={src}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-haspopup="dialog"
+      onClick={e => {
+        e.preventDefault();
+        open({ src, alt, label: alt });
+      }}
+    >
+      <img src={src} alt={alt} loading="lazy" />
+    </a>
+  );
+};
+
+// One feature's screens as a slideshow: it moves to the next screen on its own while in view, and the
+// tabs and arrows let people take over. A manual pick pauses the autoplay for a while; hovering or
+// focusing it pauses it too. The caption follows the screen.
+const SLIDE_MS = 3600;
+const RESUME_MS = 9000;
+
+const Switcher = ({ screens }) => {
+  const [i, setI] = useState(0);
+  const [held, setHeld] = useState(false);
+  const [inView, setInView] = useState(false);
+  const pausedUntil = useRef(0);
+  const ref = useRef(null);
+  const n = screens.length;
+
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.4 });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (n < 2 || !inView || held || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = setInterval(() => {
+      if (Date.now() < pausedUntil.current) return;
+      setI(k => (k + 1) % n);
+    }, SLIDE_MS);
+    return () => clearInterval(id);
+  }, [n, inView, held]);
+
+  const pick = k => {
+    pausedUntil.current = Date.now() + RESUME_MS;
+    setI((k + n) % n);
+  };
+  const s = screens[i];
+  const playing = n > 1 && inView && !held;
+
+  return (
+    <figure
+      ref={ref}
+      className="sy-switch"
+      onMouseEnter={() => setHeld(true)}
+      onMouseLeave={() => setHeld(false)}
+      onFocus={() => setHeld(true)}
+      onBlur={() => setHeld(false)}
+    >
+      <Screen img={s.img} alt={s.alt} key={s.img} />
+      {n > 1 && (
+        <div className="sy-controls">
+          <div className="sy-tabs" role="tablist" aria-label="Screens">
+            {screens.map((t, k) => (
+              <button
+                key={t.img}
+                type="button"
+                role="tab"
+                aria-selected={k === i}
+                onClick={() => pick(k)}
+                style={k === i && playing ? { '--slide': `${SLIDE_MS}ms` } : undefined}
+                data-playing={k === i && playing ? '' : undefined}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+          <div className="sy-arrows">
+            <button type="button" aria-label="Previous screen" onClick={() => pick(i - 1)}>
+              ←
+            </button>
+            <button type="button" aria-label="Next screen" onClick={() => pick(i + 1)}>
+              →
+            </button>
+          </div>
+        </div>
+      )}
+      <figcaption>{s.alt}</figcaption>
     </figure>
   );
 };
 
-// One decision story: Title, Hook, Before, Decision, After, Result, plus the micro decisions inside
-// it (strategic down to micro shows depth).
-const Story = ({ story, n }) => (
-  <article className="sy-story" id={story.id} data-reveal>
-    <header className="sy-story-head">
-      <span className="sy-story-num">{String(n).padStart(2, '0')}</span>
-      <span className="sy-kind" data-kind={story.kind.toLowerCase()}>
-        {story.kind}
-      </span>
-    </header>
-    <h3 className="sy-story-title">{story.title}</h3>
-    <p className="sy-hook">{story.hook}</p>
-    <div className="sy-ba">
-      <div>
-        <p className="sy-step">Before</p>
-        <p>{story.before.text}</p>
-      </div>
-      <div>
-        <p className="sy-step">Decision</p>
-        <p>{story.decision}</p>
-      </div>
-    </div>
-    <div className="sy-after">
-      <Shot img={story.after.img} alt={story.after.alt} />
-    </div>
-    {story.micro && (
-      <ul className="sy-micro" aria-label="Micro decisions inside it">
-        {story.micro.map(m => (
-          <li key={m}>{m}</li>
-        ))}
-      </ul>
-    )}
-    <p className="sy-result">
-      <span className="sy-step">Result</span>
-      {story.result}
-    </p>
-  </article>
-);
+// A short zoom walkthrough of the feature, looping silently. Phones get the portrait cut.
+const VIDEOS = import.meta.glob('../assets/sylus/video/*.mp4', { eager: true, import: 'default' });
+const usePhone = () => {
+  const [phone, setPhone] = useState(() => window.matchMedia('(max-width: 720px)').matches);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 720px)');
+    const on = () => setPhone(mq.matches);
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+  return phone;
+};
+
+const Walkthrough = ({ name, label }) => {
+  const phone = usePhone();
+  const src = VIDEOS[`../assets/sylus/video/${name}${phone ? '-portrait' : ''}.mp4`];
+  if (!src) return null;
+  return (
+    <figure className="sy-video" data-portrait={phone ? '' : undefined}>
+      <video key={src} src={src} autoPlay muted loop playsInline preload="metadata" aria-label={label} />
+      <figcaption>{label}</figcaption>
+    </figure>
+  );
+};
 
 const Sylus = () => {
-  const pageRef = useRef(null);
-  useReveal(pageRef);
-
   useEffect(() => {
     const previous = document.title;
     document.title = 'Sylus AI — Himanshi';
@@ -104,139 +153,53 @@ const Sylus = () => {
   return (
     <ScreenViewerProvider>
       <CaseNav sections={NAV} theme={NAV_THEME} />
-      <div className="tk sy">
-        <article className="tk-page" ref={pageRef}>
-          {/* Hero */}
-          <header id="sy-overview" className="tk-hero">
-            <Link className="tk-back" to="/#work">
-              ← Back to work
-            </Link>
-            <p className="sy-wordmark">Sylus AI</p>
-            <h1 className="tk-title">
-              {HERO.headline} <strong>{HERO.headlineEmphasis}</strong>
-            </h1>
-            <p className="tk-lead">{HERO.intro}</p>
-            <dl className="tk-meta">
-              {HERO.meta.map(m => (
-                <div key={m.label}>
-                  <dt>{m.label}</dt>
-                  <dd>{m.value}</dd>
+      <div className="sy">
+        <article className="sy-page">
+          <header id="sy-overview" className="sy-head">
+            <p className="sy-crumb">
+              <Link to="/#work">Work</Link> / Sylus AI
+            </p>
+            <h1>{INTRO.title}</h1>
+            <p className="sy-tags">
+              {INTRO.tags.map(t => (
+                <span key={t}>{t}</span>
+              ))}
+            </p>
+            <figure className="sy-cover">
+              <Screen img={INTRO.cover.img} alt={INTRO.cover.alt} />
+            </figure>
+            {INTRO.paragraphs.map(p => (
+              <p key={p}>{p}</p>
+            ))}
+            <dl className="sy-facts">
+              {INTRO.facts.map(f => (
+                <div key={f.label}>
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
                 </div>
               ))}
             </dl>
-            <div className="sy-hero-shot">
-              <Shot img="dashboard" alt="The Sylus AI dashboard for one brand" />
-            </div>
           </header>
 
-          {/* What Sylus does */}
-          <section className="tk-section" id="sy-product">
-            <SectionLabel>{PRODUCT.label}</SectionLabel>
-            <h2>{PRODUCT.heading}</h2>
-            <ol className="sy-product">
-              {PRODUCT.items.map((p, i) => (
-                <li key={p.title} data-reveal style={{ '--i': i }}>
-                  <span className="sy-product-num">{String(i + 1).padStart(2, '0')}</span>
-                  <h3>{p.title}</h3>
-                  <p>{p.text}</p>
-                  <Shot img={p.img} alt={p.title} />
-                </li>
+          {FEATURES.map(f => (
+            <section key={f.id} id={f.id} className="sy-feature">
+              <h2>{f.title}</h2>
+              <p>{f.what}</p>
+              {f.video && <Walkthrough name={f.video} label={f.videoLabel} />}
+              <h3>Why</h3>
+              <p>{f.why}</p>
+              {f.notes?.map(n => (
+                <p key={n}>{n}</p>
               ))}
-            </ol>
-          </section>
-
-          {/* Problem */}
-          <section className="tk-section" id="sy-problem">
-            <SectionLabel>{PROBLEM.label}</SectionLabel>
-            <h2>{PROBLEM.heading}</h2>
-            <p>{PROBLEM.text}</p>
-            <p className="sy-goal">{PROBLEM.goal}</p>
-          </section>
-
-          {/* Flow */}
-          <section className="tk-section" id="sy-flow">
-            <SectionLabel>{FLOW.label}</SectionLabel>
-            <h2>{FLOW.heading}</h2>
-            <NodeStrip items={FLOW.steps} />
-            <p className="tk-caption tk-strip-note">{FLOW.note}</p>
-            <div className="sy-grid">
-              {FLOW.shots.map(s => (
-                <Shot key={s.img} img={s.img} alt={s.alt} caption={s.caption} />
-              ))}
-            </div>
-          </section>
-
-          {/* Every decision, sorted */}
-          <section className="tk-section" id="sy-decisions">
-            <SectionLabel>{DECISIONS.label}</SectionLabel>
-            <h2>{DECISIONS.heading}</h2>
-            <p>{DECISIONS.sub}</p>
-            <div className="sy-sort">
-              {['strategic', 'micro'].map(kind => (
-                <div key={kind} className="sy-sort-col" data-kind={kind}>
-                  <h3>{kind === 'strategic' ? 'Strategic' : 'Micro'}</h3>
-                  <p className="sy-sort-sub">{kind === 'strategic' ? 'Shapes the product' : 'Shapes a screen'}</p>
-                  <ul>
-                    {DECISIONS.items
-                      .filter(d => d.kind === kind)
-                      .map(d => (
-                        <li key={d.text} data-star={d.star ? '' : undefined}>
-                          {d.text}
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Decision stories */}
-          <section className="tk-section">
-            <SectionLabel>Decision stories</SectionLabel>
-            <h2>The four that shaped the product</h2>
-            <div className="sy-stories">
-              {STORIES.map((s, i) => (
-                <Story key={s.id} story={s} n={i + 1} />
-              ))}
-            </div>
-          </section>
-
-          {/* The rest of the product, by workspace */}
-          {GALLERIES.map(g => (
-            <section key={g.id} className="tk-section" id={g.id}>
-              <SectionLabel>{g.label}</SectionLabel>
-              <h2>{g.heading}</h2>
-              <div className="sy-grid">
-                {g.items.map(s => (
-                  <Shot key={s.img} img={s.img} alt={s.caption} caption={s.caption} />
-                ))}
-              </div>
+              <Switcher screens={f.screens} />
             </section>
           ))}
 
-          {/* Principles */}
-          <section className="tk-section">
-            <h2>{PRINCIPLES.heading}</h2>
-            <ol className="tk-principles">
-              {PRINCIPLES.items.map(p => (
-                <li key={p.name}>
-                  <strong>{p.name}</strong>
-                  <span>{p.text}</span>
-                </li>
-              ))}
-            </ol>
-          </section>
-
-          {/* Reflection */}
-          <section className="tk-section tk-band" data-band="blush" id="sy-reflection">
-            <SectionLabel>{REFLECTION.label}</SectionLabel>
-            <h2>{REFLECTION.heading}</h2>
-            <ul className="tk-checks">
-              {REFLECTION.items.map(t => (
-                <li key={t}>{t}</li>
-              ))}
-            </ul>
-            <p className="tk-honesty">{REFLECTION.honesty}</p>
+          <section id="sy-next" className="sy-feature">
+            <h2>{NEXT.title}</h2>
+            {NEXT.paragraphs.map(p => (
+              <p key={p}>{p}</p>
+            ))}
           </section>
         </article>
       </div>
