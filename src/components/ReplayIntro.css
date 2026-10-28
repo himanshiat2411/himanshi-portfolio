@@ -38,3 +38,22 @@
   outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
+
+/* Phones: the right-edge tab sat over the screens, so it becomes a small pill at the bottom left. */
+@media (max-width: 720px) {
+  .replay-intro {
+    top: auto;
+    right: auto;
+    bottom: 18px;
+    left: 16px;
+    padding: 9px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .replay-intro:hover {
+    padding-right: 13px;
+  }
+}

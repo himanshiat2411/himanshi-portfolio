@@ -507,3 +507,46 @@
 .sy-reflect h3 {
   display: none;
 }
+
+/* A frame sized to its tallest screen: every screen fits inside it, centred. */
+.sy-screen[data-fixed] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sy-screen[data-fixed] img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@media (max-width: 720px) {
+  /* Tabs stay on one line and scroll sideways, so the caption and page below don't move. */
+  .sy-controls {
+    align-items: center;
+  }
+
+  .sy-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .sy-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sy-tabs button {
+    flex: none;
+  }
+
+  .sy-switch figcaption,
+  .gg-phones figcaption {
+    min-height: 3em;
+  }
+
+  .sy-screen img {
+    animation: none;
+  }
+}

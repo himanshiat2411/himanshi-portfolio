@@ -8,6 +8,7 @@ import grubNGrabPhones from '../assets/work/grub-n-grab-phones.webp';
 import takshilaThumb from '../assets/work/takshila-thumb.webp';
 import finworldFilm from '../assets/finworld/film/tile.mp4';
 import takshilaFilm from '../assets/takshila/film/tile.mp4';
+import sylusFilm from '../assets/sylus/film/tile.mp4';
 import grubNGrabIntro from '../assets/grub-n-grab/videos/1.mp4';
 import grubNGrabPrototype from '../assets/grub-n-grab/videos/2.mp4';
 import takshilaThumbMobile from '../assets/work/takshila-thumb-mobile.webp';
@@ -61,6 +62,7 @@ const PROJECTS = [
     caption: 'Sylus AI — AI-powered marketing CRM',
     tag: 'Product design · AI-powered CRM',
     text: 'Paste your website, get a month of on-brand posts: onboarding, AI creation and planning, and an agency workspace.',
+    loop: { videos: [sylusFilm], background: '#000000' },
     ratio: '2631 / 1677',
     layers: [{ src: sylusCover }]
   }

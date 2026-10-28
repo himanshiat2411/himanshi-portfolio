@@ -21,12 +21,14 @@ const NAV = [{ label: 'Overview', selector: '#sy-overview' }, { label: 'How I de
 const NAV_THEME = { accent: '#ffffff', text: '#8f8a9e', marker: '#3a3446', panel: '#000000' };
 
 // A screen that opens full size on click.
-const Screen = ({ img, alt }) => {
+const Screen = ({ img, alt, ratio }) => {
   const open = useOpenScreen();
   const src = shot(img);
   return (
     <a
       className="sy-screen"
+      data-fixed={ratio ? '' : undefined}
+      style={ratio ? { aspectRatio: ratio } : undefined}
       href={src}
       target="_blank"
       rel="noopener noreferrer"
@@ -54,6 +56,29 @@ const Switcher = ({ screens }) => {
   const pausedUntil = useRef(0);
   const ref = useRef(null);
   const n = screens.length;
+  // Screens differ slightly in shape. Load them all up front and size the frame to the tallest, so
+  // switching never changes the page height (which made the page jump on phones) or flashes blank.
+  const [ratio, setRatio] = useState(null);
+  useEffect(() => {
+    let alive = true;
+    Promise.all(
+      screens.map(
+        s =>
+          new Promise(done => {
+            const im = new Image();
+            im.onload = () => done(im.naturalWidth / im.naturalHeight);
+            im.onerror = () => done(null);
+            im.src = shot(s.img);
+          })
+      )
+    ).then(rs => {
+      const ok = rs.filter(Boolean);
+      if (alive && ok.length) setRatio(Math.min(...ok));
+    });
+    return () => {
+      alive = false;
+    };
+  }, [screens]);
 
   useEffect(() => {
     const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.4 });
@@ -86,7 +111,7 @@ const Switcher = ({ screens }) => {
       onFocus={() => setHeld(true)}
       onBlur={() => setHeld(false)}
     >
-      <Screen img={s.img} alt={s.alt} key={s.img} />
+      <Screen img={s.img} alt={s.alt} ratio={ratio} key={s.img} />
       {n > 1 && (
         <div className="sy-controls">
           <div className="sy-tabs" role="tablist" aria-label="Screens">
@@ -152,12 +177,26 @@ const Decision = ({ d }) =>
     </div>
   ) : null;
 
+// Phones (iOS Low Power Mode especially) can refuse to autoplay, which left a blank box. Start it
+// when it scrolls into view; if the browser still says no, show the controls so it can be tapped.
 const Walkthrough = ({ name, label }) => {
   const src = VIDEOS[`../assets/sylus/video/${name}.mp4`];
+  const ref = useRef(null);
+  const [blocked, setBlocked] = useState(false);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return undefined;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) v.play().catch(() => setBlocked(true));
+      else v.pause();
+    });
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
   if (!src) return null;
   return (
     <figure className="sy-video">
-      <video src={src} autoPlay muted loop playsInline preload="metadata" aria-label={label} />
+      <video ref={ref} src={`${src}#t=0.1`} muted loop playsInline preload="auto" controls={blocked} aria-label={label} />
       <figcaption>{label}</figcaption>
     </figure>
   );
