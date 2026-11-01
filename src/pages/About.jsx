@@ -114,7 +114,7 @@ const PhotoStack = () => {
 // Newest first; `to` links the company to its case study.
 const EXPERIENCE = [
   { role: 'Product Designer', company: 'Takshila', dates: 'May 2026 – Present', to: '/work/takshila' },
-  { role: 'UI/UX Designer', company: 'Sylus AI', dates: 'Jun 2026 – Jul 2026' }
+  { role: 'UI/UX Designer', company: 'Sylus AI', dates: 'Jun 2026 – Jul 2026', to: '/work/sylus-ai' }
 ];
 
 const EDUCATION = [

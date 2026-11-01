@@ -20,7 +20,7 @@ export const INTRO = {
   ],
   cover: { img: 'dashboard', alt: 'The Sylus AI dashboard for one brand: posts published, engagement, platform health and the content queue' },
   paragraphs: [
-    'Sylus AI is a marketing CRM for brands and agencies. It uses AI to write and plan social posts in each brand’s voice.',
+    'Sylus AI is a marketing CRM for brands and agencies. It uses AI to **write and plan social posts in each brand’s voice**.',
     'I designed it end to end: onboarding, the Individual workspace and the Agency workspace.'
   ],
   // Shown right under the Problem / Solution / Result strip.
@@ -31,7 +31,7 @@ export const INTRO = {
       { label: 'Team', value: 'Founder + developers' }
     ],
     constraint:
-      'The founder needed the product ready fast, so there was no time for user research. I designed 30+ screens end to end and made decisions using proven UX principles, competitor patterns and regular founder reviews.'
+      'The founder needed the product ready fast, so there was no time for user research. I designed **30+ screens end to end** and made decisions using proven UX principles, competitor patterns and regular founder reviews.'
   },
   facts: [
     { label: 'Role', value: 'Sole product designer' },
@@ -69,8 +69,8 @@ export const FEATURES = [
     decision: {
       hook: 'Read a link, don’t ask for a form',
       before: 'Brand setup was a long form: voice, audience, colours, products.',
-      decision: 'Paste a website link or drop brand files. AI drafts the brand; people edit it.',
-      result: 'Setup becomes reviewing a draft, not writing from blank. A manual form stays as a fallback.',
+      decision: 'Paste a website link or drop brand files. **AI drafts the brand; people edit it.**',
+      result: 'Setup becomes **reviewing a draft, not writing from blank**. A manual form stays as a fallback.',
       principle: { name: 'Recognition over recall', why: 'People review a draft instead of writing from blank.' }
     },
     micro: [
@@ -96,7 +96,7 @@ export const FEATURES = [
     decision: {
       hook: 'Four steps, not one long page',
       before: 'Topic, platforms, caption, hashtags, image and schedule all sat on one page.',
-      decision: 'Split it into Brief, Caption, Media and Preview, each with one job.',
+      decision: 'Split it into Brief, Caption, Media and Preview, **each with one job**.',
       result: 'Each screen stays focused, and the preview shows the real post before it goes out.',
       principle: { name: 'Goal-gradient effect', why: 'People push harder when they can see the finish line.' }
     },
@@ -123,7 +123,7 @@ export const FEATURES = [
       hook: 'Ask three things, fill the rest',
       before: 'A blank calendar made people decide every slot themselves.',
       decision: 'Ask only cadence, content mix and a short brief. AI builds the plan.',
-      result: 'A month of posts from three answers, reviewed before anything is scheduled.',
+      result: '**A month of posts from three answers**, reviewed before anything is scheduled.',
       principle: { name: 'Hick’s Law', why: 'Fewer choices means a faster decision; AI fills the rest.' }
     },
     micro: [
@@ -145,7 +145,7 @@ export const FEATURES = [
       hook: 'Every idea gets a Post button',
       before: 'Research tools end at a list of links.',
       decision: 'Each trending story has a Post button that opens Create Post with it as the brief.',
-      result: 'Finding an idea and acting on it happen in one place.'
+      result: 'Finding an idea and acting on it **happen in one place**.'
     },
     micro: [
       'Competitors are compared on followers, frequency and engagement in one table.'
@@ -166,7 +166,7 @@ export const FEATURES = [
       hook: 'Built around clients, not content',
       before: 'Agencies were treated as one big user.',
       decision: 'Home shows every client: today’s posts and pending approvals. Roles are set per brand.',
-      result: 'Approvals don’t get lost, and a designer on one brand can’t see another client’s drafts.',
+      result: '**Approvals don’t get lost**, and a designer on one brand can’t see another client’s drafts.',
       principle: { name: 'Least privilege', why: 'People only see the clients they work on.' }
     },
     micro: [

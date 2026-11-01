@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import CaseNav from '../components/LineSidebar/CaseNav';
+import BackToTop from '../components/BackToTop';
+import Rich from '../components/Rich';
 import VideoIntro from '../components/VideoIntro';
 import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
 import { COMPETITORS, DECISIONS, FEATURES, INTRO, NEXT, RESEARCH, TEST } from '../content/grubngrab';
@@ -111,15 +113,15 @@ const Decision = ({ d, solves }) => (
     <dl>
       <div>
         <dt>Before</dt>
-        <dd>{d.before}</dd>
+        <dd><Rich text={d.before} /></dd>
       </div>
       <div>
         <dt>Decision</dt>
-        <dd>{d.decision}</dd>
+        <dd><Rich text={d.decision} /></dd>
       </div>
       <div>
         <dt>Result</dt>
-        <dd>{d.result}</dd>
+        <dd><Rich text={d.result} /></dd>
       </div>
     </dl>
   </div>
@@ -171,7 +173,7 @@ const GrubNGrab = () => {
               ))}
             </div>
             {INTRO.paragraphs.map(p => (
-              <p key={p}>{p}</p>
+              <p key={p}><Rich text={p} /></p>
             ))}
             <section className="sy-glance" aria-label="Key decisions">
               <h3>Key decisions</h3>
@@ -210,7 +212,7 @@ const GrubNGrab = () => {
                 <li key={r.quote}>
                   <p className="gg-theme">{r.theme}</p>
                   <p className="gg-quote">“{r.quote}”</p>
-                  <p>{r.then}</p>
+                  <p><Rich text={r.then} /></p>
                 </li>
               ))}
             </ul>
@@ -251,7 +253,7 @@ const GrubNGrab = () => {
           {FEATURES.map(f => (
             <section key={f.id} id={f.id} className="sy-feature">
               <h2>{f.title}</h2>
-              <p>{f.what}</p>
+              <p><Rich text={f.what} /></p>
               <Phones screens={f.screens} />
               <Decision d={f.decision} solves={f.solves} />
               {f.micro?.length > 0 && (
@@ -269,7 +271,7 @@ const GrubNGrab = () => {
 
           <section id="gg-test" className="sy-feature">
             <h2>{TEST.title}</h2>
-            <p>{TEST.text}</p>
+            <p><Rich text={TEST.text} /></p>
             <ul className="sy-micro">
               {TEST.tasks.map(t => (
                 <li key={t}>{t}</li>
@@ -280,9 +282,10 @@ const GrubNGrab = () => {
           <section id="gg-next" className="sy-feature">
             <h2>{NEXT.title}</h2>
             {NEXT.paragraphs.map(p => (
-              <p key={p}>{p}</p>
+              <p key={p}><Rich text={p} /></p>
             ))}
           </section>
+          <BackToTop />
         </article>
       </div>
     </ScreenViewerProvider>

@@ -131,3 +131,41 @@
   text-transform: uppercase;
   color: var(--dim);
 }
+
+/* The email with its copy button beside it. */
+.footer-email-wrap {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.copy-email {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--soft);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.copy-email:hover {
+  color: var(--text);
+}
+
+.copy-email-tip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text);
+  transform: translateX(-50%);
+}

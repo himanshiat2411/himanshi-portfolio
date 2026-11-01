@@ -1168,3 +1168,15 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Highlighted phrases (**…** in takshila.js): a soft gold block over the whole line, like the
+   other case studies. Sections on dark bands keep their own text colour. */
+.tk .hl {
+  padding: 0 3px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--tk-gold) 24%, transparent);
+  font-weight: 600;
+  color: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}

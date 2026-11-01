@@ -1,5 +1,6 @@
 import { BEHANCE_URL, EMAIL, EMAIL_COMPOSE_URL, LINKEDIN_URL, RESUME_URL } from '../links';
 import openCompose from '../openCompose';
+import CopyEmail from './CopyEmail';
 import ElasticLine from './ElasticLine/ElasticLine';
 import './Footer.css';
 
@@ -21,6 +22,7 @@ const Footer = () => (
       </h2>
 
       <div className="footer-row">
+        <span className="footer-email-wrap">
         <a
           className="footer-email u-line"
           data-underline="swap"
@@ -31,6 +33,8 @@ const Footer = () => (
         >
           {EMAIL}
         </a>
+        <CopyEmail />
+        </span>
         <nav className="footer-links" aria-label="Social">
           {SOCIALS.map(link => (
             <a

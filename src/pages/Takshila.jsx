@@ -30,6 +30,8 @@ import userArtisan from '../assets/takshila/user-artisan.webp';
 import userCustomer from '../assets/takshila/user-customer.webp';
 import userDesigner from '../assets/takshila/user-designer.webp';
 import CompetitorMap from '../components/CompetitorMap';
+import BackToTop from '../components/BackToTop';
+import Rich from '../components/Rich';
 import CaseNav from '../components/LineSidebar/CaseNav';
 import StakeholderMap from '../components/StakeholderMap';
 import { ScreenViewerProvider, SectionLabel, useOpenScreen, useReveal } from '../components/takshila/basics';
@@ -263,7 +265,7 @@ const Takshila = () => {
             <h1 className="tk-title">
               {HERO.headline} <strong>{HERO.headlineEmphasis}</strong>
             </h1>
-            <p className="tk-lead">{HERO.intro}</p>
+            <p className="tk-lead"><Rich text={HERO.intro} /></p>
             <dl className="tk-meta">
               {HERO.meta.map(m => (
                 <div key={m.label}>
@@ -286,7 +288,7 @@ const Takshila = () => {
           {/* Context: what Takshila is and its users */}
           <section className="tk-section" id="tk-context">
             <h2>{CONTEXT.heading}</h2>
-            <p>{CONTEXT.what}</p>
+            <p><Rich text={CONTEXT.what} /></p>
             <ul className="tk-users">
               {CONTEXT.users.map((u, i) => (
                 <li key={u.title} data-reveal style={{ '--i': i }}>
@@ -330,7 +332,7 @@ const Takshila = () => {
               <div className="tk-decision">
                 <p className="tk-decision-label">01</p>
                 <h3>{PHASE_2.productPage.title}</h3>
-                <p>{PHASE_2.productPage.text}</p>
+                <p><Rich text={PHASE_2.productPage.text} /></p>
                 <ProductPageCompare />
               </div>
 
@@ -338,7 +340,7 @@ const Takshila = () => {
               <div className="tk-decision" data-reveal>
                 <p className="tk-decision-label">02</p>
                 <h3>{PHASE_2.checkout.title}</h3>
-                <p>{PHASE_2.checkout.problem}</p>
+                <p><Rich text={PHASE_2.checkout.problem} /></p>
                 <p className="tk-clicks" aria-label={`Checkout clicks: ${PHASE_2.checkout.clicks.before} before, ${PHASE_2.checkout.clicks.after} after`}>
                   <span>
                     <strong>{PHASE_2.checkout.clicks.before}</strong> clicks before
@@ -355,8 +357,8 @@ const Takshila = () => {
               <div className="tk-decision" data-reveal>
                 <p className="tk-decision-label">03</p>
                 <h3>{PHASE_2.keyDecision.title}</h3>
-                <p>{PHASE_2.keyDecision.text}</p>
-                <p>{PHASE_2.keyDecision.separate}</p>
+                <p><Rich text={PHASE_2.keyDecision.text} /></p>
+                <p><Rich text={PHASE_2.keyDecision.separate} /></p>
                 <ScrollShot src={shopPage} alt={PHASE_2.keyDecision.alt} width={1440} height={7994} label="Shop page" />
               </div>
             </div>
@@ -366,7 +368,7 @@ const Takshila = () => {
           <section className="tk-section" id="phase-3">
             <SectionLabel>{PHASE_3.label}</SectionLabel>
             <h2>{PHASE_3.heading}</h2>
-            <p>{PHASE_3.intro}</p>
+            <p><Rich text={PHASE_3.intro} /></p>
             <p className="tk-interviewed">{PHASE_3.sub}</p>
             <div className="tk-subsection">
               <h3 className="tk-subhead">{PHASE_3.decisionsHeading}</h3>
@@ -402,7 +404,7 @@ const Takshila = () => {
           <section className="tk-section" id="tk-research">
             <SectionLabel>{RESEARCH.label}</SectionLabel>
             <h2>{RESEARCH.heading}</h2>
-            <p>{RESEARCH.text}</p>
+            <p><Rich text={RESEARCH.text} /></p>
             <p className="tk-interviewed">{RESEARCH.interviewed}</p>
             <Interviews />
             <p className="tk-calls-note">{RESEARCH.callsNote}</p>
@@ -452,14 +454,14 @@ const Takshila = () => {
             <div className="tk-build" data-reveal>
               <div className="tk-build-card">
                 <p className="tk-points-label">Problem</p>
-                <p>{BUILD.problem}</p>
+                <p><Rich text={BUILD.problem} /></p>
               </div>
               <span className="tk-build-arrow" aria-hidden="true">
                 →
               </span>
               <div className="tk-build-card" data-changed="">
                 <p className="tk-points-label">What I changed</p>
-                <p>{BUILD.changed}</p>
+                <p><Rich text={BUILD.changed} /></p>
               </div>
             </div>
           </section>
@@ -482,7 +484,7 @@ const Takshila = () => {
                 <li key={t}>{t}</li>
               ))}
             </ul>
-            <p className="tk-honesty">{IMPACT.honesty}</p>
+            <p className="tk-honesty"><Rich text={IMPACT.honesty} /></p>
           </section>
 
           {/* Reflection */}
@@ -522,6 +524,7 @@ const Takshila = () => {
               <img src={teamCall} alt="A video call with Sisanda Bulose from the Takshila team, both of us smiling" width="1838" height="835" loading="lazy" />
             </figure>
           </section>
+          <BackToTop />
         </article>
       </div>
     </ScreenViewerProvider>

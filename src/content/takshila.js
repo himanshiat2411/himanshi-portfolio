@@ -5,7 +5,7 @@ export const HERO = {
   headline: 'Cut checkout from 12 clicks to 6,',
   headlineEmphasis: 'and designed an AI that asks before it creates.',
   intro:
-    'Takshila is an AI-powered jewelry marketplace: you design your own piece with AI, and a skilled artisan makes it by hand. I led JTBD research, redesigned the core screens for the US festive season, and defined the PRD, flows and IA for Project North Star, the next version of Takshila.',
+    'Takshila is an AI-powered jewelry marketplace: you **design your own piece with AI**, and a skilled artisan makes it by hand. I **led JTBD research**, redesigned the core screens for the US festive season, and defined the PRD, flows and IA for Project North Star, the next version of Takshila.',
   meta: [
     { label: 'My role', value: 'Product Design Intern' },
     { label: 'Timeline', value: '6 Months' }
@@ -36,7 +36,7 @@ export const CONTEXT = {
 export const RESEARCH = {
   label: 'Research',
   heading: 'Understanding the jobs users hire Takshila for',
-  text: 'Since Takshila was new, we couldn’t copy what others were doing. So we went straight to people. We ran detailed Jobs-To-Be-Done (JTBD) interviews with 15 people from around the globe, and I personally led 5 of them one-on-one.',
+  text: 'Since Takshila was new, we couldn’t copy what others were doing. So we went straight to people. We ran detailed Jobs-To-Be-Done (JTBD) interviews with **15 people from around the globe**, and I **personally led 5** of them one-on-one.',
   interviewed: 'Interviewed: 9 customers, 4 sellers, 2 artisans',
   callsNote: 'Interviews over Google Meet. Interviewees’ faces are blurred for privacy.',
   learnedHeading: 'What we learned',
@@ -150,8 +150,8 @@ export const PHASE_2 = {
   keyDecision: {
     tag: 'Shop',
     title: 'Bringing the Shop forward',
-    text: 'Takshila was positioned only as a community. People could browse and engage, but buying wasn’t the focus. Before the festive season, I pushed for the Shop to become a main feature, so the platform could drive sales and not just engagement.',
-    separate: 'The Shop is a dedicated space for buying, kept separate from the Community, so shopping gets its own focus.',
+    text: 'Takshila was positioned only as a community. People could browse and engage, but buying wasn’t the focus. Before the festive season, I **pushed for the Shop to become a main feature**, so the platform could drive sales and not just engagement.',
+    separate: 'The Shop is a dedicated space for buying, kept separate from the Community, so **shopping gets its own focus**.',
     alt: 'The new Takshila Shop page: a festive hero, shop by category, filters and a grid of pieces to customise'
   },
   // The product page: previous vs new side by side, then the choices behind it.
@@ -203,7 +203,7 @@ export const PHASE_2 = {
   checkout: {
     tag: 'Checkout',
     title: 'Guest checkout with OTP',
-    problem: 'Checkout took 10 to 12 clicks. Customers had to sign up, and there was no familiar way to pay.',
+    problem: '**Checkout took 10 to 12 clicks.** Customers had to sign up, and there was no familiar way to pay.',
     clicks: { before: '10–12', after: '5–6' },
     chose: 'Guest checkout with a one-time code (OTP) and Apple Pay, cutting checkout to 5 to 6 clicks.',
     why: 'Forcing a sign-up right at checkout loses buyers. OTP and Apple Pay are ways people already know.',
@@ -214,7 +214,7 @@ export const PHASE_2 = {
 export const PHASE_3 = {
   label: 'Phase 2',
   heading: 'Project North Star',
-  intro: 'North Star is a complete rebuild of Takshila. For this, I wrote the PRD and defined the user flows and information architecture.',
+  intro: 'North Star is a complete rebuild of Takshila. For this, I **wrote the PRD** and defined the user flows and information architecture.',
   sub: 'I worked on 2 PRDs: the Design Studio (AI design fixation) and the Community page.',
   decisionsHeading: 'Key decisions',
   // Decision A: the three kinds of people who prompt the AI. The middle one is the focus group.
@@ -318,9 +318,9 @@ export const BUILD = {
   label: 'Build',
   heading: 'When the build didn’t match the design',
   problem:
-    'On Orders, the build didn’t match the design — colours and sizes on the order journey were off, and the developer had used a different font than our design system. I caught it by inspecting the live site myself. A mismatch that small still changes how the whole brand reads.',
+    'On Orders, the build didn’t match the design — colours and sizes on the order journey were off, and the developer had used a different font than our design system. **I caught it by inspecting the live site myself.** A mismatch that small still changes how the whole brand reads.',
   changed:
-    'I asked for a weekly sync with the tech team — a fixed space to go over what was unresolved, what the team hadn’t understood in the designs, and where a real technical limit was the actual reason for a gap.'
+    'I **asked for a weekly sync with the tech team** — a fixed space to go over what was unresolved, what the team hadn’t understood in the designs, and where a real technical limit was the actual reason for a gap.'
 };
 
 export const IMPACT = {
@@ -333,7 +333,7 @@ export const IMPACT = {
   ],
   pushedHeading: 'Changes I pushed for',
   pushed: ['Brought the Shop forward for the festive season', 'Caught the font and colour mismatch on Orders', 'Started a weekly design–tech sync'],
-  honesty: 'The product wasn’t live with users during my time, so these are design decisions, not measured results.'
+  honesty: 'The product wasn’t live with users during my time, so these are **design decisions, not measured results**.'
 };
 
 export const REFLECTION = {

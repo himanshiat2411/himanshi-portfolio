@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import CaseNav from '../components/LineSidebar/CaseNav';
+import BackToTop from '../components/BackToTop';
+import Rich from '../components/Rich';
 import FilmIntro from '../components/finworld/FilmIntro';
 import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
 import { DECISIONS, FEATURES, INTRO, ISSUES, REFLECTION, TASK, TEST, USERS } from '../content/finworld';
@@ -101,15 +103,15 @@ const Decision = ({ d, solves }) => (
     <dl>
       <div>
         <dt>Before</dt>
-        <dd>{d.before}</dd>
+        <dd><Rich text={d.before} /></dd>
       </div>
       <div>
         <dt>Decision</dt>
-        <dd>{d.decision}</dd>
+        <dd><Rich text={d.decision} /></dd>
       </div>
       <div>
         <dt>Result</dt>
-        <dd>{d.result}</dd>
+        <dd><Rich text={d.result} /></dd>
       </div>
     </dl>
   </div>
@@ -161,7 +163,7 @@ const Finworld = () => {
               ))}
             </div>
             {INTRO.paragraphs.map(p => (
-              <p key={p}>{p}</p>
+              <p key={p}><Rich text={p} /></p>
             ))}
             <section className="sy-glance" aria-label="Key decisions">
               <h3>Key decisions</h3>
@@ -201,7 +203,7 @@ const Finworld = () => {
               {ISSUES.items.map(it => (
                 <li key={it.theme}>
                   <p className="gg-theme">{it.theme}</p>
-                  <p>{it.text}</p>
+                  <p><Rich text={it.text} /></p>
                 </li>
               ))}
             </ul>
@@ -240,7 +242,7 @@ const Finworld = () => {
           {FEATURES.map(f => (
             <section key={f.id} id={f.id} className="sy-feature">
               <h2>{f.title}</h2>
-              <p>{f.what}</p>
+              <p><Rich text={f.what} /></p>
               <Switcher screens={f.screens} />
               <Decision d={f.decision} solves={f.solves} />
               {f.micro?.length > 0 && (
@@ -258,7 +260,7 @@ const Finworld = () => {
 
           <section id="fw-test" className="sy-feature">
             <h2>{TEST.title}</h2>
-            <p>{TEST.text}</p>
+            <p><Rich text={TEST.text} /></p>
             <ul className="sy-micro">
               {TEST.tasks.map(t => (
                 <li key={t}>{t}</li>
@@ -287,6 +289,7 @@ const Finworld = () => {
               </div>
             </div>
           </section>
+          <BackToTop />
         </article>
       </div>
     </ScreenViewerProvider>

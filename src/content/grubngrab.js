@@ -18,7 +18,7 @@ export const INTRO = {
     { label: 'Result', text: 'A clickable prototype: sign up, verify, browse, offer and swap.' }
   ],
   paragraphs: [
-    'Grub’n Grab is a mobile marketplace for one college campus. Students buy, sell or swap books, clothes and everyday items with each other.',
+    'Grub’n Grab is a mobile marketplace for one college campus. Students **buy, sell or swap** books, clothes and everyday items with each other.',
     'I did the research, the flows, the design system and the final screens on my own, as a 16-week academic project.'
   ],
   facts: [
@@ -73,7 +73,7 @@ export const FEATURES = [
       hook: 'Verify at sign-up, not before the first sale',
       before: 'In WhatsApp groups, anyone can sell, and buyers can’t tell who is a student.',
       decision: 'Everyone verifies once, when they join. I also considered verifying only sellers, before their first sale.',
-      result: 'Every profile is a real student, so buyers trust the whole app. The cost is a longer sign-up, so it’s split into two short steps.'
+      result: '**Every profile is a real student**, so buyers trust the whole app. The cost is a longer sign-up, so it’s split into two short steps.'
     },
     micro: ['A “Step 1 of 2” label shows how much is left.', 'Uploads show a tick and the file name, so people know it worked.', 'A clear “submitted” screen says how long the check takes.'],
     screens: [
@@ -93,7 +93,7 @@ export const FEATURES = [
       hook: 'Show distance and the seller up front',
       before: 'Students asked “where are you?” and “are you legit?” in every chat.',
       decision: 'Each item shows how far away it is, and the seller’s rating, swaps and verified badge.',
-      result: 'The two questions people asked most are answered before they start a chat.'
+      result: 'The two questions people asked most are **answered before they start a chat**.'
     },
     micro: ['Categories match what students trade most: books, clothes, electronics, stationery.', '“Great deal” and “Recently added” tags help people scan.'],
     screens: [
@@ -110,7 +110,7 @@ export const FEATURES = [
       hook: 'One form, with a Sell / Swap switch',
       before: 'Selling and swapping could have been two separate flows to learn.',
       decision: 'The same form for both. A switch at the top swaps the price field for “Looking to swap for?”.',
-      result: 'People learn one form. Swaps get their own feed, showing what each person wants in return.'
+      result: 'People **learn one form**. Swaps get their own feed, showing what each person wants in return.'
     },
     micro: ['Condition is a row of chips, not a dropdown, so it takes one tap.', 'Campus location is asked, since students meet in person.', 'Save Draft, so a listing can be finished later.'],
     screens: [
@@ -128,7 +128,7 @@ export const FEATURES = [
       hook: 'Offers, not fixed prices',
       before: 'On campus, almost every sale starts with bargaining in chat.',
       decision: 'A proposal sheet with a suggested price, a lower option, “Other”, and room for a swap request.',
-      result: 'Bargaining happens in one step, and swaps fit into the same flow. The trade-off is one more tap than a Buy button.'
+      result: '**Bargaining happens in one step**, and swaps fit into the same flow. The trade-off is one more tap than a Buy button.'
     },
     micro: ['The suggested price is highlighted, so most people just accept it.'],
     screens: [{ label: 'Proposal', img: 'proposal', alt: 'Send Proposal: offer price, a suggested amount and a message for the seller' }]
@@ -142,7 +142,7 @@ export const FEATURES = [
       hook: 'Every error tells you the fix',
       before: 'Verification can fail in many ways, and a vague “try again” leaves people stuck.',
       decision: 'Six error states, each with the reason and the next step, from a wrong roll number to rejected documents.',
-      result: 'People can fix the problem themselves instead of giving up on sign-up.'
+      result: 'People can **fix the problem themselves** instead of giving up on sign-up.'
     },
     micro: ['Errors appear next to the field, in red, with plain words.', 'Rejected documents list exactly which file to upload again.'],
     screens: [
@@ -158,7 +158,7 @@ export const FEATURES = [
 
 export const TEST = {
   title: 'How I would test it',
-  text: 'This was not usability tested yet. My next step is 5 students on two tasks.',
+  text: '**This was not usability tested yet.** My next step is 5 students on two tasks.',
   tasks: [
     'Sign up and get verified. Success: 4 of 5 finish without help.',
     'Find a book and send an offer. Success: done in under 2 minutes.'

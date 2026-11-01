@@ -18,8 +18,8 @@ export const INTRO = {
     { label: 'Result', text: 'Import, model, dashboard and an AI helper, designed end to end.' }
   ],
   paragraphs: [
-    'Finworld helps analysts build financial models and read them as clear charts, without getting lost in spreadsheet formulas.',
-    'It was a 55-hour design assignment for a financial platform. I worked alone, with no real company data and no users to test with.'
+    'Finworld helps analysts build financial models and read them as clear charts, **without getting lost in spreadsheet formulas**.',
+    'It was a **55-hour design assignment** for a financial platform. I worked alone, with no real company data and no users to test with.'
   ],
   facts: [
     { label: 'Role', value: 'Solo product designer' },
@@ -74,7 +74,7 @@ export const FEATURES = [
       hook: 'Add a “Map columns” step',
       before: 'Most tools guess what each column means and move on.',
       decision: 'After preview, each column is matched to a Finworld field, with problems flagged.',
-      result: 'Mistakes are caught at import, not weeks later in a report. The cost is one more step, even for clean files.'
+      result: '**Mistakes are caught at import**, not weeks later in a report. The cost is one more step, even for clean files.'
     },
     micro: ['Preview flags invalid numbers and missing values before anything is built.', 'Tips for a clean upload sit beside the drop zone.', 'Save & continue later on every step.'],
     screens: [
@@ -92,7 +92,7 @@ export const FEATURES = [
       hook: 'One screen for beginners and experts',
       before: 'Tools either hide the controls experts need, or show them all and scare beginners.',
       decision: 'One dashboard. Key numbers stay open; advanced inputs fold into side panels.',
-      result: 'Teams share one screen, and beginners grow into the panels. Experts need one extra click.'
+      result: '**Teams share one screen**, and beginners grow into the panels. Experts need one extra click.'
     },
     micro: ['Revenue, profit and cash come first, since every model asks: are we making money, and will the cash last?', 'Changing an input updates the charts, so people see cause and effect.'],
     screens: [
@@ -109,7 +109,7 @@ export const FEATURES = [
       hook: 'Show the model as connected blocks',
       before: 'Formulas live inside cells, so the logic is invisible.',
       decision: 'Inputs, calculations and outputs sit in three columns, with an audit trail and dependencies view.',
-      result: 'Anyone can trace where a number comes from. Experts still write their own formulas.'
+      result: '**Anyone can trace where a number comes from.** Experts still write their own formulas.'
     },
     micro: ['Data sources live in a side list, so they can be reused across models.', 'An audit trail shows who changed what.'],
     screens: [{ label: 'Model', img: 'model', alt: 'Model Analysis: inputs, calculations and outputs, with the formula editor and Nova' }]
@@ -123,7 +123,7 @@ export const FEATURES = [
       hook: 'A side panel, not a separate chat',
       before: 'AI chat in a new tab loses sight of the numbers being asked about.',
       decision: 'Nova sits beside the model. It suggests, you apply, and it shows the numbers it used.',
-      result: 'Questions get answered in context, and people stay in control. The trade-off is less room for long chats.'
+      result: 'Questions get **answered in context**, and people stay in control. The trade-off is less room for long chats.'
     },
     micro: ['Nova only suggests; nothing changes until the person applies it.'],
     screens: [{ label: 'Nova', img: 'dashboard', alt: 'Nova on the dashboard: insights like “Cash reserves low in 6 months”' }]
@@ -132,7 +132,7 @@ export const FEATURES = [
 
 export const TEST = {
   title: 'How I would test it',
-  text: 'There were no real users in the sprint, so this is the plan, not a result.',
+  text: 'There were no real users in the sprint, so **this is the plan, not a result**.',
   tasks: [
     'Who: 5 junior analysts like Riya and 3 senior analysts like Aryan.',
     'Task: import a spreadsheet and tell if cash lasts 6 months, in under 3 minutes.',

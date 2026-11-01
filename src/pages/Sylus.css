@@ -550,3 +550,14 @@
     animation: none;
   }
 }
+
+/* Highlighted phrases (**…** in the content files): bright text on a soft accent block covering the whole line. */
+.sy .hl {
+  font-weight: 500;
+  color: var(--sy-ink);
+  padding: 0 3px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--sy-accent) 26%, transparent);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import CaseNav from '../components/LineSidebar/CaseNav';
+import BackToTop from '../components/BackToTop';
+import Rich from '../components/Rich';
 import FilmIntro from '../components/finworld/FilmIntro';
 import sylusFilm from '../assets/sylus/film/intro.mp4';
 import sylusFilmPortrait from '../assets/sylus/film/intro-portrait.mp4';
@@ -157,15 +159,15 @@ const Decision = ({ d }) =>
       <dl>
         <div>
           <dt>Before</dt>
-          <dd>{d.before}</dd>
+          <dd><Rich text={d.before} /></dd>
         </div>
         <div>
           <dt>Decision</dt>
-          <dd>{d.decision}</dd>
+          <dd><Rich text={d.decision} /></dd>
         </div>
         <div>
           <dt>Result</dt>
-          <dd>{d.result}</dd>
+          <dd><Rich text={d.result} /></dd>
         </div>
       </dl>
       {d.principle && (
@@ -257,11 +259,11 @@ const Sylus = () => {
                 ))}
               </dl>
               <p>
-                <strong>Constraint:</strong> {INTRO.context.constraint}
+                <strong>Constraint:</strong> <Rich text={INTRO.context.constraint} />
               </p>
             </section>
             {INTRO.paragraphs.map(p => (
-              <p key={p}>{p}</p>
+              <p key={p}><Rich text={p} /></p>
             ))}
             <section className="sy-glance" aria-label="Key decisions">
               <h3>Key decisions</h3>
@@ -299,7 +301,7 @@ const Sylus = () => {
           {FEATURES.map(f => (
             <section key={f.id} id={f.id} className="sy-feature">
               <h2>{f.title}</h2>
-              <p>{f.what}</p>
+              <p><Rich text={f.what} /></p>
               {f.video && <Walkthrough name={f.video} label={f.videoLabel} />}
               <Decision d={f.decision} />
               {f.micro?.length > 0 && (
@@ -344,9 +346,10 @@ const Sylus = () => {
             </div>
             <h3>{NEXT.title}</h3>
             {NEXT.paragraphs.map(p => (
-              <p key={p}>{p}</p>
+              <p key={p}><Rich text={p} /></p>
             ))}
           </section>
+          <BackToTop />
         </article>
       </div>
     </ScreenViewerProvider>
