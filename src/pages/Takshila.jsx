@@ -14,7 +14,6 @@ import knowStudio from '../assets/takshila/know-studio.webp';
 import interviewGazi from '../assets/takshila/interview-gazi.webp';
 import interviewJessica from '../assets/takshila/interview-jessica.webp';
 import logoMask from '../assets/takshila/logo-mask.png';
-import screenAskFirst from '../assets/takshila/screen-ask-first.webp';
 import screenCommunity from '../assets/takshila/screen-community.webp';
 import screenEditProduct from '../assets/takshila/screen-edit-product.webp';
 import screenMaterial from '../assets/takshila/screen-material.webp';
@@ -31,6 +30,7 @@ import userCustomer from '../assets/takshila/user-customer.webp';
 import userDesigner from '../assets/takshila/user-designer.webp';
 import CompetitorMap from '../components/CompetitorMap';
 import BackToTop from '../components/BackToTop';
+import DesignStudio from '../components/takshila/DesignStudio';
 import Rich from '../components/Rich';
 import CaseNav from '../components/LineSidebar/CaseNav';
 import StakeholderMap from '../components/StakeholderMap';
@@ -39,7 +39,7 @@ import FilmIntro from '../components/finworld/FilmIntro';
 import takshilaFilm from '../assets/takshila/film/intro.mp4';
 import takshilaFilmPortrait from '../assets/takshila/film/intro-portrait.mp4';
 import { ChoiceRow, CompareStack, DecisionBlock, InsightCard, PhaseCards } from '../components/takshila/cards';
-import { NodeStrip, RoundsStrip, ScreenTour, VisualAskFirst, VisualCheckpoint, VisualOptions } from '../components/takshila/visuals';
+import { NodeStrip, RoundsStrip, VisualCheckpoint } from '../components/takshila/visuals';
 import { APPROACH, BUILD, CONTEXT, DECISIONS, FUN, HERO, IMPACT, PHASE_1, PHASE_2, PHASE_3, REFLECTION, RESEARCH, WORK } from '../content/takshila';
 import '../components/takshila/takshila-parts.css';
 import './Takshila.css';
@@ -215,18 +215,13 @@ const ProductPageCompare = () => {
   );
 };
 
-const decisionVisual = d => {
-  if (d.id === 'decision-a') return <VisualAskFirst users={PHASE_3.promptUsers} focusLabel={PHASE_3.focusLabel} />;
-  if (d.id === 'decision-b') return <VisualOptions />;
-  return <VisualCheckpoint />;
-};
-
 // Sidebar sections, in page order.
 const NAV = [
   { label: 'Overview', selector: '#tk-overview' },
   { label: 'What I worked on', selector: '#tk-work' },
-  { label: 'US festive season', selector: '#phase-2' },
   { label: 'Project North Star', selector: '#phase-3' },
+  { label: 'Design Studio', selector: '#tk-studio' },
+  { label: 'US festive season', selector: '#phase-2' },
   { label: 'Redesign', selector: '#phase-1' },
   { label: 'Research', selector: '#tk-research' },
   { label: 'Competitors', selector: '#tk-competitors' },
@@ -319,7 +314,28 @@ const Takshila = () => {
             <PhaseCards phases={WORK.phases} />
           </section>
 
-          {/* US festive season (Phase 1) */}
+          {/* Project North Star (project 1) */}
+          <section className="tk-section" id="phase-3">
+            <SectionLabel>{PHASE_3.label}</SectionLabel>
+            <h2>{PHASE_3.heading}</h2>
+            <p><Rich text={PHASE_3.intro} /></p>
+            <p className="tk-interviewed">{PHASE_3.sub}</p>
+            <div className="tk-subsection">
+              <h3 className="tk-subhead">{PHASE_3.decisionsHeading}</h3>
+              {/* Key decision 01: the whole Design Studio, as visual panels */}
+              <div id="tk-studio" className="tk-studio">
+                <p className="tk-studio-num">Key decision 01 · Design Studio</p>
+                <h3>Ask before you generate</h3>
+                <p>An AI chat that turns a plain-language idea into a made-to-order piece of jewelry.</p>
+                <DesignStudio />
+              </div>
+              {DECISIONS.filter(d => d.id === 'decision-d').map(d => (
+                <DecisionBlock key={d.id} {...d} num="02" visual={<VisualCheckpoint />} />
+              ))}
+            </div>
+          </section>
+
+          {/* US festive season (project 2) */}
           <section className="tk-section" id="phase-2">
             <SectionLabel>{PHASE_2.label}</SectionLabel>
             <h2>{PHASE_2.heading}</h2>
@@ -364,34 +380,7 @@ const Takshila = () => {
             </div>
           </section>
 
-          {/* Project North Star (Phase 2) */}
-          <section className="tk-section" id="phase-3">
-            <SectionLabel>{PHASE_3.label}</SectionLabel>
-            <h2>{PHASE_3.heading}</h2>
-            <p><Rich text={PHASE_3.intro} /></p>
-            <p className="tk-interviewed">{PHASE_3.sub}</p>
-            <div className="tk-subsection">
-              <h3 className="tk-subhead">{PHASE_3.decisionsHeading}</h3>
-              {DECISIONS.map((d, i) => (
-                <DecisionBlock
-                  key={d.id}
-                  {...d}
-                  num={String(i + 1).padStart(2, '0')}
-                  flip={i % 2 === 1}
-                  visual={decisionVisual(d)}
-                  footer={
-                    d.screen && (
-                      <div className="tk-decision-screen">
-                        <ScreenTour src={screenAskFirst} alt={d.screen.alt} width={1423} height={800} zones={d.screen.zones} />
-                      </div>
-                    )
-                  }
-                />
-              ))}
-            </div>
-          </section>
-
-          {/* Redesign (Phase 3) */}
+          {/* Redesign (project 3) */}
           <section className="tk-section" id="phase-1">
             <SectionLabel>{PHASE_1.label}</SectionLabel>
             <h2>{PHASE_1.heading}</h2>

@@ -1,0 +1,665 @@
+/* Design Studio panels, in Takshila's brand: wine, gold and ivory. */
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&display=swap');
+
+.ds {
+  --ds-wine: #450920;
+  --ds-gold: #c09435;
+  --ds-ivory: #fbf7f0;
+  --ds-ink: #111111;
+  --ds-grey: #76716b;
+  --ds-line: #e4dccf;
+
+  display: grid;
+  gap: 24px;
+  margin-top: 32px;
+  font-family: 'Afacad Flux', system-ui, sans-serif;
+  color: var(--ds-ink);
+}
+
+.ds-panel {
+  display: grid;
+  gap: 28px;
+  min-width: 0;
+  padding: clamp(22px, 5vw, 52px);
+  border: 1px solid var(--ds-line);
+  border-radius: 20px;
+  background: var(--ds-ivory);
+}
+
+.ds-panel > header {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.ds-num {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--ds-gold);
+}
+
+.ds h3 {
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ds-wine);
+}
+
+.ds-visual {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.ds p {
+  margin: 0;
+}
+
+.ds .ds-caption {
+  max-width: 620px;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--ds-grey);
+}
+
+.ds small {
+  display: block;
+  font-size: 12.5px;
+  color: var(--ds-grey);
+}
+
+.ds-row {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-arrow {
+  flex: none;
+  color: var(--ds-gold);
+}
+
+.ds .ds-bubble {
+  width: fit-content;
+  max-width: 340px;
+  padding: 12px 16px;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--ds-wine);
+  font-size: 15.5px;
+  line-height: 1.35;
+  color: #ffffff;
+}
+
+.ds .ds-bubble--ai {
+  border: 1px solid var(--ds-line);
+  border-radius: 16px 16px 16px 4px;
+  background: #ffffff;
+  color: var(--ds-ink);
+}
+
+/* 01: a long form, struck through. */
+.ds-form {
+  position: relative;
+  display: grid;
+  flex: 0 1 240px;
+  gap: 7px;
+  padding: 14px;
+  border: 1px solid var(--ds-line);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.ds-form span {
+  padding: 6px 9px;
+  border: 1px solid var(--ds-line);
+  border-radius: 6px;
+  font-size: 12.5px;
+  color: var(--ds-grey);
+}
+
+.ds-form::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top right, transparent calc(50% - 1.5px), var(--ds-wine) calc(50% - 1.5px), var(--ds-wine) calc(50% + 1.5px), transparent calc(50% + 1.5px));
+}
+
+/* 02 */
+.ds-product {
+  flex: 0 1 220px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--ds-line);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.ds-product img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.ds-product figcaption {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+/* 03: the flow scrolls sideways when it doesn't fit. */
+.ds-journey {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(84px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0 0 6px;
+  overflow-x: auto;
+  list-style: none;
+}
+
+.ds-journey li {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+
+.ds-journey li[data-optional] {
+  border: 1px dashed var(--ds-gold);
+}
+
+.ds-journey b {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ds-wine);
+}
+
+.ds-thumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-content: center;
+  justify-content: center;
+  aspect-ratio: 3 / 4;
+  padding: 8px;
+  border: 1px solid var(--ds-line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.ds-thumb i {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--ds-line);
+}
+
+.ds-thumb--chat i:last-child,
+.ds-thumb--ask i:first-child {
+  background: var(--ds-wine);
+}
+
+.ds-thumb--chips i {
+  width: 42%;
+  background: var(--ds-gold);
+}
+
+.ds-thumb--three i {
+  width: 26%;
+  height: 40%;
+}
+
+.ds-thumb--version i:first-child {
+  height: 50%;
+}
+
+.ds-thumb--swatch i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ds-gold);
+}
+
+.ds-thumb--swatch i:nth-child(2) {
+  background: #c9c9c9;
+}
+
+.ds-thumb--swatch i:nth-child(3) {
+  background: #c98f78;
+}
+
+.ds-thumb--pay i:last-child {
+  background: var(--ds-gold);
+}
+
+/* 04 */
+.ds-spec {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.ds-spec-chip {
+  padding: 9px 12px;
+  border: 1px solid var(--ds-line);
+  border-radius: 10px;
+  font-size: 14.5px;
+  color: var(--ds-grey);
+}
+
+.ds-spec-chip[data-on] {
+  border-color: var(--ds-gold);
+  background: #ffffff;
+  font-weight: 500;
+  color: var(--ds-wine);
+}
+
+/* 05 */
+.ds-tree {
+  display: grid;
+  gap: 16px;
+}
+
+.ds .ds-tree-q {
+  justify-self: center;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--ds-wine);
+  font-size: 17px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.ds .ds-tree-q small {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.ds-tree-branches {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 12px;
+}
+
+.ds-tree-branches > div {
+  padding: 16px 18px;
+  border: 1px solid var(--ds-line);
+  border-radius: 12px;
+  background: #ffffff;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.ds-tree-branches b {
+  color: var(--ds-wine);
+}
+
+.ds-tree-branches ol {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+/* 06 */
+.ds-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ds-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--ds-line);
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 14.5px;
+}
+
+.ds-chip--hover {
+  border-color: var(--ds-ink);
+}
+
+.ds-chip--on {
+  border-color: var(--ds-ink);
+  background: var(--ds-ink);
+  color: #ffffff;
+}
+
+.ds-rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
+  margin: 0;
+  padding: 0;
+  font-size: 14.5px;
+  line-height: 1.35;
+  list-style: none;
+}
+
+.ds-rules li {
+  display: flex;
+  gap: 10px;
+}
+
+.ds-rules span {
+  flex: none;
+  width: 20px;
+  text-align: center;
+  color: var(--ds-gold);
+}
+
+/* 07 */
+.ds-directions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.ds-directions article {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 10px;
+  border: 1px solid var(--ds-line);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.ds .ds-directions p {
+  font-size: 13.5px;
+  line-height: 1.3;
+  color: var(--ds-grey);
+}
+
+.ds-img {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1;
+  border-radius: 9px;
+}
+
+.ds-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* These source images carry a drawn frame: zoom past it. */
+.ds-img img[data-crop] {
+  transform: scale(1.22);
+}
+
+.ds-cta {
+  width: fit-content;
+  margin-top: 4px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--ds-gold);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #1c1405;
+}
+
+/* 08 */
+.ds-stage {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  padding: 12px;
+  border: 1px solid var(--ds-line);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.ds-stage figure {
+  flex: 0 1 320px;
+  min-width: 0;
+  margin: 0;
+  font-size: 13px;
+  text-align: center;
+  color: var(--ds-grey);
+}
+
+.ds-hoops {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-versions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ds-versions button {
+  min-height: 36px;
+  padding: 0 13px;
+  border: 1px solid var(--ds-line);
+  border-radius: 8px;
+  background: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  color: var(--ds-ink);
+  cursor: pointer;
+}
+
+.ds-versions button:hover {
+  border-color: var(--ds-ink);
+}
+
+.ds-versions button[aria-pressed='true'] {
+  border-color: var(--ds-wine);
+  background: var(--ds-wine);
+  color: #ffffff;
+}
+
+.ds-versions button:focus-visible {
+  outline: 2px solid var(--ds-gold);
+  outline-offset: 2px;
+}
+
+.ds-versions .ds-compare {
+  margin-left: auto;
+}
+
+/* 09 */
+.ds-materials {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 16px;
+}
+
+.ds-materials > div {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.ds-metals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.ds-metals > span {
+  padding: 5px 5px 7px;
+  border: 1px solid var(--ds-line);
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 13px;
+  text-align: center;
+}
+
+.ds-metals > span[data-on] {
+  border-color: var(--ds-gold);
+  box-shadow: 0 0 0 1px var(--ds-gold);
+}
+
+.ds-metals .ds-img {
+  margin-bottom: 5px;
+}
+
+.ds-materials aside {
+  display: grid;
+  gap: 8px;
+  align-content: center;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--ds-wine);
+  color: #ffffff;
+}
+
+.ds .ds-materials aside small,
+.ds .ds-materials aside p {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ds-materials aside strong {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* 10 */
+.ds-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-cards li {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--ds-line);
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 13.5px;
+  color: var(--ds-wine);
+}
+
+.ds-cards span {
+  display: grid;
+  gap: 4px;
+}
+
+.ds-cards i {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--ds-line);
+}
+
+.ds-cards i:last-child {
+  width: 60%;
+  background: var(--ds-gold);
+}
+
+/* 11 */
+.ds-users {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ds-users > div {
+  padding: 20px;
+  border: 1px solid var(--ds-line);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.ds-users > div:last-child {
+  border-color: var(--ds-wine);
+  background: var(--ds-wine);
+  color: #ffffff;
+}
+
+.ds-users b {
+  display: block;
+  margin-bottom: 8px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 24px;
+}
+
+.ds .ds-users p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+@media (max-width: 720px) {
+  .ds-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .ds-row .ds-arrow {
+    transform: rotate(90deg);
+  }
+
+  .ds-form,
+  .ds-product {
+    flex: none;
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .ds-journey {
+    grid-template-columns: repeat(7, 104px);
+  }
+
+  .ds-spec,
+  .ds-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ds-tree-branches,
+  .ds-rules,
+  .ds-directions,
+  .ds-materials,
+  .ds-users {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-versions .ds-compare {
+    margin-left: 0;
+  }
+}
+
+/* Inside Key decision 1 of Project North Star. */
+.tk-studio {
+  margin-top: 40px;
+}
+
+.tk-studio > h3 {
+  margin: 0 0 6px;
+}
+
+.tk-studio {
+  margin: 0 0 48px;
+}
+
+.tk-studio .tk-studio-num {
+  margin: 0 0 6px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}

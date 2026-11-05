@@ -71,23 +71,23 @@ export const RESEARCH = {
 export const WORK = {
   label: 'The work',
   heading: 'What I worked on',
-  sub: 'Three projects, one after another.',
-  // Shown in this order: US festive season, Project North Star, Redesign. North Star is highlighted.
+  sub: 'Three projects.',
+  // Shown in this order: Project North Star, US festive season, Redesign. North Star is highlighted.
   phases: [
     {
       num: '01',
-      title: 'US festive season',
-      about: 'Getting the site ready for the US festive season, October to December.',
-      problem: 'Friction at checkout was losing sales.',
-      to: 'phase-2'
-    },
-    {
-      num: '02',
       title: 'Project North Star',
       about: 'The next version of Takshila, rebuilt from scratch.',
       problem: 'In the Design Studio, users settled for the AI’s first design.',
       to: 'phase-3',
       current: true
+    },
+    {
+      num: '02',
+      title: 'US festive season',
+      about: 'Getting the site ready for the US festive season, October to December.',
+      problem: 'Friction at checkout was losing sales.',
+      to: 'phase-2'
     },
     {
       num: '03',
@@ -126,7 +126,7 @@ export const APPROACH = {
 };
 
 export const PHASE_1 = {
-  label: 'Phase 3',
+  label: 'Project 3',
   heading: 'Redesigning the old Takshila website',
   intro: 'We started by redesigning the existing screens to make them simpler and easier to use.',
   rounds: [
@@ -141,7 +141,7 @@ export const PHASE_1 = {
 };
 
 export const PHASE_2 = {
-  label: 'Phase 1',
+  label: 'Project 2',
   heading: 'Getting Takshila ready for the US festive season',
   intro: 'I audited 11 flows, from home to checkout.',
   audit: ['Homepage', 'Discovery feed', 'Product page', 'Cart', 'Checkout'],
@@ -212,7 +212,7 @@ export const PHASE_2 = {
 };
 
 export const PHASE_3 = {
-  label: 'Phase 2',
+  label: 'Project 1',
   heading: 'Project North Star',
   intro: 'North Star is a complete rebuild of Takshila. For this, I **wrote the PRD** and defined the user flows and information architecture.',
   sub: 'I worked on 2 PRDs: the Design Studio (AI design fixation) and the Community page.',
