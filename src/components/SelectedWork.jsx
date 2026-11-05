@@ -15,6 +15,7 @@ import sylusCover from '../assets/work/sylus-cover.webp';
 import sylusCoverHover from '../assets/work/sylus-cover-hover.webp';
 import sylusVibe from '../assets/sylus/brand-vibe.webp';
 import SelectedWorkGrid from './SelectedWorkGrid';
+import WorkImpact from './WorkImpact';
 import './SelectedWork.css';
 
 // One full card per case study, in the project's own colours (`surface` can swap the card's solid
@@ -198,20 +199,9 @@ const SelectedWorkDeck = () => {
                     <h3 className="work-headline">{project.headline}</h3>
                     <span className="work-num">({n})</span>
                   </div>
-                  <p className="work-text">{project.text}</p>
-                  <div className="work-card-bottom">
-                    <div className="work-meta">
-                      <span className="work-name">{project.title}</span>
-                      <span className="work-tag">{project.tag}</span>
-                      {project.to ? (
-                        <Link to={project.to} className="work-cta" aria-label={`${project.title} case study`}>
-                          View case study <Arrow />
-                        </Link>
-                      ) : (
-                        <span className="work-cta work-cta--soon">Coming soon</span>
-                      )}
-                    </div>
-                    {project.media.length > 0 && (
+                  <div className="work-card-body">
+                    <WorkImpact title={project.title} />
+                    <div className="work-card-side">
                       <div className="work-media">
                         {project.media.map((m, k) => (
                           <span key={k} className={`work-thumb${k === 0 ? ' work-thumb--lead' : ''}`}>
@@ -219,7 +209,13 @@ const SelectedWorkDeck = () => {
                           </span>
                         ))}
                       </div>
-                    )}
+                      <div className="work-meta">
+                        <Link to={project.to} className="work-name" aria-label={`${project.title} case study`}>
+                          {project.title}
+                        </Link>
+                        <span className="work-tag">{project.tag}</span>
+                      </div>
+                    </div>
                   </div>
                 </li>
               );

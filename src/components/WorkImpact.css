@@ -1,0 +1,181 @@
+/* Selected work card body. Colours come from the card: --wi-fg and --wi-acc. */
+.wi {
+  --wi-fg: var(--fg, var(--text));
+  --wi-acc: var(--acc, var(--accent));
+
+  display: grid;
+  gap: clamp(10px, 1.7vh, 16px);
+  min-width: 0;
+  color: var(--wi-fg);
+}
+
+.wi h4 {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.wi p {
+  margin: 0;
+}
+
+.wi-line {
+  max-width: 58ch;
+  font-size: clamp(14px, 1.15vw, 16px);
+  line-height: 1.4;
+}
+
+.wi-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.wi-col ul {
+  display: grid;
+  gap: 3px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wi-col li {
+  position: relative;
+  padding-left: 13px;
+  font-size: 13px;
+  line-height: 1.32;
+  opacity: 0.86;
+}
+
+.wi-col li::before {
+  content: '';
+  position: absolute;
+  top: 0.5em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.wi-col[data-kind='did'] li::before {
+  background: var(--wi-acc);
+  opacity: 1;
+}
+
+.wi-changed {
+  padding: clamp(10px, 1.6vh, 16px) 16px;
+  border: 1px solid color-mix(in srgb, var(--wi-fg) 22%, transparent);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wi-changed dl {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 6px 0 0;
+}
+
+.wi-changed dl > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  gap: 2px;
+}
+
+.wi-changed dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(17px, 1.75vw, 24px);
+  line-height: 1.15;
+  color: var(--wi-acc);
+}
+
+.wi-changed dt {
+  font-size: 12px;
+  line-height: 1.25;
+  opacity: 0.8;
+}
+
+/* Desktop card: the story on the left, the film and stills on the right. */
+.work-card-body {
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(20px, 2.6vw, 36px);
+  min-height: 0;
+  margin-top: clamp(10px, 1.8vh, 18px);
+}
+
+.work-card-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.work-card-side .work-media {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.work-card-side .work-thumb {
+  width: calc(50% - 4px);
+  aspect-ratio: 16 / 10;
+}
+
+.work-card-side .work-thumb--lead {
+  width: 100%;
+}
+
+.work-card-side .work-meta {
+  margin-top: auto;
+}
+
+.work-card-side .work-name {
+  color: inherit;
+  text-decoration: none;
+  cursor: none;
+}
+
+.work-card-side .work-name:focus-visible {
+  outline: 2px solid var(--acc);
+  outline-offset: 4px;
+}
+
+.work-card .work-headline {
+  max-width: none;
+  font-size: clamp(24px, 2.9vw, 38px);
+}
+
+/* Phone card */
+.wg-card .wi {
+  margin-top: 14px;
+  padding: 0 2px;
+}
+
+@media (max-width: 720px) {
+  .wi-cols {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .wi-changed dl {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* Short laptop screens: the film alone, so the card's button never gets pushed off. */
+@media (min-width: 721px) and (max-height: 820px) {
+  .work-card-side .work-thumb:not(.work-thumb--lead) {
+    display: none;
+  }
+}

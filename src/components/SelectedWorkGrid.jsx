@@ -8,6 +8,7 @@ import grubNGrabPhones from '../assets/work/grub-n-grab-phones.webp';
 import takshilaThumb from '../assets/work/takshila-thumb.webp';
 import finworldFilm from '../assets/finworld/film/tile.mp4';
 import takshilaFilm from '../assets/takshila/film/tile.mp4';
+import WorkImpact from './WorkImpact';
 import sylusFilm from '../assets/sylus/film/tile.mp4';
 import grubNGrabIntro from '../assets/grub-n-grab/videos/1.mp4';
 import grubNGrabPrototype from '../assets/grub-n-grab/videos/2.mp4';
@@ -193,7 +194,7 @@ const SelectedWorkGrid = () => (
                 <span className="wg-name">{project.caption}</span>
                 <span className="wg-tag">{project.tag}</span>
               </span>
-              {project.text && <span className="wg-text">{project.text}</span>}
+              <WorkImpact title={project.title} />
             </>
           );
           return (
