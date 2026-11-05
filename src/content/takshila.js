@@ -2,7 +2,7 @@
 // src/pages/Takshila.jsx and src/components/takshila/.
 
 export const HERO = {
-  headline: 'Cut checkout from 12 clicks to 6,',
+  headline: 'Cut checkout from 10–12 clicks to 5–6,',
   headlineEmphasis: 'and designed an AI that asks before it creates.',
   intro:
     'Takshila is an AI-powered jewelry marketplace: you **design your own piece with AI**, and a skilled artisan makes it by hand. I **led JTBD research**, redesigned the core screens for the US festive season, and defined the PRD, flows and IA for Project North Star, the next version of Takshila.',
