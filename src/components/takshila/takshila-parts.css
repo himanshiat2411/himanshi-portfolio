@@ -735,8 +735,8 @@ div.tk-ba-after {
 
 .tk-rounds li {
   padding: 12px 16px;
-  border-left: 2px solid var(--tk-line);
-  border-radius: 0 10px 10px 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.6);
   cursor: default;
   transition:
     border-color 250ms ease,
@@ -845,8 +845,8 @@ div.tk-ba-after {
   z-index: 3;
   width: min(300px, 40%);
   padding: 14px 16px;
-  border-left: 3px solid var(--tk-gold);
-  border-radius: 0 12px 12px 0;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px -16px rgba(43, 16, 22, 0.5);
   background: var(--tk-bg);
   box-shadow: 0 18px 36px -18px rgba(0, 0, 0, 0.5);
   pointer-events: none;

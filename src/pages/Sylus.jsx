@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import CaseNav from '../components/LineSidebar/CaseNav';
 import BackToTop from '../components/BackToTop';
 import Rich from '../components/Rich';
+import Prototype from '../components/prototype/Prototype';
+import { SYLUS } from '../content/prototypes';
 import FilmIntro from '../components/finworld/FilmIntro';
 import sylusFilm from '../assets/sylus/film/intro.mp4';
 import sylusFilmPortrait from '../assets/sylus/film/intro-portrait.mp4';
@@ -285,6 +287,13 @@ const Sylus = () => {
               </div>
             </section>
           </header>
+
+          {/* Clickable prototype, right after the overview */}
+          <section id="sy-prototype" className="sy-feature">
+            <h2>Try the prototype</h2>
+            <p>Click through the real screens, the way a user would.</p>
+            <Prototype {...SYLUS} device="laptop" title="Sylus AI prototype" />
+          </section>
 
           <section id="sy-method" className="sy-feature">
             <h2>{METHOD.title}</h2>

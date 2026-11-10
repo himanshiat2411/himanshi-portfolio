@@ -30,7 +30,7 @@ import userCustomer from '../assets/takshila/user-customer.webp';
 import userDesigner from '../assets/takshila/user-designer.webp';
 import CompetitorMap from '../components/CompetitorMap';
 import BackToTop from '../components/BackToTop';
-import DesignStudio from '../components/takshila/DesignStudio';
+import StudioDecision from '../components/takshila/StudioDecision';
 import Rich from '../components/Rich';
 import CaseNav from '../components/LineSidebar/CaseNav';
 import StakeholderMap from '../components/StakeholderMap';
@@ -326,8 +326,7 @@ const Takshila = () => {
               <div id="tk-studio" className="tk-studio">
                 <p className="tk-studio-num">Key decision 01 · Design Studio</p>
                 <h3>Ask before you generate</h3>
-                <p>An AI chat that turns a plain-language idea into a made-to-order piece of jewelry.</p>
-                <DesignStudio />
+                <StudioDecision />
               </div>
               {DECISIONS.filter(d => d.id === 'decision-d').map(d => (
                 <DecisionBlock key={d.id} {...d} num="02" visual={<VisualCheckpoint />} />

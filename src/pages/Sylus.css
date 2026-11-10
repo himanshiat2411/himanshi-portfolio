@@ -561,3 +561,149 @@
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
+
+/* ---------- Editorial refresh (shared by Sylus, Grub'n Grab, Finworld and Sutra) ----------
+   Fewer generic AI-looking patterns: no gradient text, no left-edge accent bars, no pill chips.
+   Instead: small numbered section labels, filled rectangles with soft depth, and one solid
+   "takeaway" block per decision. */
+.sy-page {
+  counter-reset: sy-section;
+}
+
+.sy .sy-hook {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  font-weight: 500;
+  color: var(--sy-ink);
+}
+
+/* Every section opens with a small numbered label above its heading. */
+.sy-feature > h2::before {
+  content: counter(sy-section, decimal-leading-zero);
+  counter-increment: sy-section;
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--sy-accent);
+}
+
+.sy-feature > h2 {
+  font-size: clamp(26px, 3vw, 32px);
+  line-height: 1.15;
+}
+
+/* Cards: filled rectangles that sit slightly above the page, no outline. */
+.sy .sy-overview > div,
+.sy .sy-glance,
+.sy .sy-context,
+.sy .gg-insights li,
+.sy .su-rules li {
+  border: 0;
+  border-radius: 12px;
+  background: var(--sy-panel);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -28px rgba(0, 0, 0, 0.9);
+}
+
+/* A decision: one rectangle with the question on top, then three equal blocks. */
+.sy-decision {
+  padding: clamp(20px, 3vw, 30px);
+  border: 0;
+  border-left: 0;
+  border-radius: 14px;
+  background: var(--sy-panel);
+  box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.9);
+}
+
+.sy .sy-decision-hook {
+  font-size: clamp(20px, 2.4vw, 24px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.sy-decision dl {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.sy-decision dl > div {
+  display: block;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sy-decision dt {
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* The result is the takeaway: a solid block in the page's own colour. */
+.sy-decision dl > div:last-child {
+  background: var(--sy-accent);
+  color: #111111;
+}
+
+.sy-decision dl > div:last-child dt,
+.sy-decision dl > div:last-child dd {
+  color: #111111;
+}
+
+.sy .sy-decision dl > div:last-child .hl {
+  padding: 0;
+  background: none;
+  font-weight: 600;
+  color: #111111;
+}
+
+/* "Solves": a plain label line instead of a pill. */
+.gg .gg-solves {
+  padding-bottom: 16px;
+}
+
+.sy .gg-solves span {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sy-accent);
+}
+
+.sy.su .gg-solves span,
+.sy.fw .gg-solves span {
+  color: var(--sy-accent);
+}
+
+/* "How I decided" items: three rectangles side by side. */
+.sy-method {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.sy .sy-method li {
+  padding: 16px 18px;
+  border-left: 0;
+  border-radius: 12px;
+}
+
+/* Principle tags: square-cornered labels. */
+.sy-principle span,
+.sy-tag {
+  border-radius: 4px;
+}
+
+@media (max-width: 720px) {
+  .sy-decision dl,
+  .sy-method {
+    grid-template-columns: 1fr;
+  }
+}

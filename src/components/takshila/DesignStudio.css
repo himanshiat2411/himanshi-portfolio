@@ -663,3 +663,150 @@
   text-transform: uppercase;
   opacity: 0.7;
 }
+
+/* Key decision 01 as one card: problem, decision, rules, result. */
+.sd .ds-panel {
+  gap: 30px;
+}
+
+.sd-block {
+  display: grid;
+  gap: 12px;
+}
+
+.ds .sd-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ds-gold);
+}
+
+.ds .sd-lead {
+  max-width: 640px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(21px, 2.6vw, 26px);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ds-wine);
+}
+
+.sd-people {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.sd-people > div {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border: 1px solid var(--ds-line);
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.sd-people span {
+  color: var(--ds-grey);
+}
+
+.sd-people > div[data-focus] {
+  border-color: var(--ds-wine);
+  background: var(--ds-wine);
+  color: #ffffff;
+}
+
+.sd-people > div[data-focus] span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sd-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: sd;
+}
+
+.sd-steps li {
+  padding: 6px 12px;
+  border: 1px solid var(--ds-line);
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 13.5px;
+  counter-increment: sd;
+}
+
+.sd-steps li::before {
+  content: counter(sd) ' ';
+  color: var(--ds-gold);
+}
+
+.sd-steps li[data-optional] {
+  border-style: dashed;
+  border-color: var(--ds-gold);
+}
+
+.sd-directions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 150px));
+  gap: 10px;
+}
+
+.sd-directions figure {
+  margin: 0;
+  font-size: 13px;
+  text-align: center;
+  color: var(--ds-grey);
+}
+
+.sd-directions .ds-img {
+  margin-bottom: 4px;
+}
+
+.sd-rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 20px;
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14.5px;
+  line-height: 1.4;
+}
+
+.sd-result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--ds-line);
+}
+
+.sd-result dt {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ds-wine);
+}
+
+.sd-result dd {
+  margin: 3px 0 0;
+  font-size: 14.5px;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .sd-people,
+  .sd-rules,
+  .sd-result {
+    grid-template-columns: 1fr;
+  }
+
+  .sd-directions {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

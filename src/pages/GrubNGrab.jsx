@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import CaseNav from '../components/LineSidebar/CaseNav';
 import BackToTop from '../components/BackToTop';
 import Rich from '../components/Rich';
+import Prototype from '../components/prototype/Prototype';
+import { GRUB } from '../content/prototypes';
 import VideoIntro from '../components/VideoIntro';
 import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
 import { COMPETITORS, DECISIONS, FEATURES, INTRO, NEXT, RESEARCH, TEST } from '../content/grubngrab';
@@ -203,6 +205,13 @@ const GrubNGrab = () => {
               ))}
             </dl>
           </header>
+
+          {/* Clickable prototype, right after the overview */}
+          <section id="gr-prototype" className="sy-feature">
+            <h2>Try the prototype</h2>
+            <p>Click through the real screens, the way a user would.</p>
+            <Prototype {...GRUB} device="phone" title="Grub’n Grab prototype" />
+          </section>
 
           <section id="gg-research" className="sy-feature">
             <h2>{RESEARCH.title}</h2>

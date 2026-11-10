@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import CaseNav from '../components/LineSidebar/CaseNav';
 import BackToTop from '../components/BackToTop';
 import Rich from '../components/Rich';
+import Prototype from '../components/prototype/Prototype';
+import { FINWORLD } from '../content/prototypes';
 import FilmIntro from '../components/finworld/FilmIntro';
 import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basics';
 import { DECISIONS, FEATURES, INTRO, ISSUES, REFLECTION, TASK, TEST, USERS } from '../content/finworld';
@@ -193,6 +195,13 @@ const Finworld = () => {
               ))}
             </dl>
           </header>
+
+          {/* Clickable prototype, right after the overview */}
+          <section id="fi-prototype" className="sy-feature">
+            <h2>Try the prototype</h2>
+            <p>Click through the real screens, the way a user would.</p>
+            <Prototype {...FINWORLD} device="laptop" title="Finworld prototype" />
+          </section>
 
           <section id="fw-problem" className="sy-feature">
             <h2>{ISSUES.title}</h2>

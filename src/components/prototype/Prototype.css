@@ -1,0 +1,292 @@
+/* Clickable prototype in a phone or laptop frame, with the steps beside it. Colours come from the
+   case study page (--sy-accent, --sy-panel). */
+.pt {
+  --pt-acc: var(--sy-accent, #c6ff3d);
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(20px, 4vw, 40px);
+  align-items: center;
+  margin: 28px 0 8px;
+  padding: clamp(16px, 3.5vw, 32px);
+  border-radius: 14px;
+  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--pt-acc) 14%, transparent), transparent 60%), var(--sy-panel, #111111);
+}
+
+.pt[data-device='laptop'] {
+  grid-template-columns: 1fr;
+}
+
+/* Phone */
+.pt[data-device='phone'] .pt-device {
+  width: clamp(240px, 30vw, 300px);
+  padding: 11px;
+  border-radius: 48px;
+  background: #0b0a10;
+  box-shadow:
+    0 0 0 2px #2c2a36,
+    0 30px 60px -20px rgba(0, 0, 0, 0.8);
+}
+
+.pt[data-device='phone'] .pt-frame {
+  aspect-ratio: 9 / 19.5;
+  border-radius: 38px;
+}
+
+/* Laptop: a screen with a thin bezel and a base. */
+.pt[data-device='laptop'] .pt-device {
+  width: calc(100% - 20px);
+  margin-inline: auto;
+}
+
+.pt[data-device='laptop'] .pt-frame {
+  border: 10px solid #0b0a10;
+  transition: aspect-ratio 0.25s ease;
+  /* The ratio is the screen's, so the bezel sits outside it. */
+  box-sizing: content-box;
+  border-radius: 14px 14px 4px 4px;
+  box-shadow: 0 0 0 1px #2c2a36;
+}
+
+.pt-base {
+  display: block;
+  width: 112%;
+  height: 12px;
+  margin-left: -6%;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(#3a3846, #1a1922);
+}
+
+.pt-frame {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  user-select: none;
+}
+
+.pt-view {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.pt-in {
+  animation: pt-in 0.28s ease;
+}
+
+@keyframes pt-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.pt-layer {
+  position: relative;
+}
+
+.pt-layer > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+}
+
+/* A sheet over another screen, like a bottom sheet. */
+.pt-sheet {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.45);
+  animation: pt-in 0.25s ease;
+}
+
+.pt-sheet .pt-layer {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 18px 18px 0 0;
+}
+
+.pt-island {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  z-index: 3;
+  width: 30%;
+  height: 22px;
+  border-radius: 999px;
+  background: #000000;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.pt-spot {
+  position: absolute;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.pt-spot:focus-visible {
+  outline: 2px solid var(--pt-acc);
+  outline-offset: -2px;
+}
+
+.pt-spot[data-hint] {
+  animation: pt-hint 0.8s ease 2;
+}
+
+@keyframes pt-hint {
+  50% {
+    background: color-mix(in srgb, var(--pt-acc) 35%, transparent);
+    box-shadow: 0 0 0 2px var(--pt-acc);
+  }
+}
+
+.pt-done {
+  position: absolute;
+  inset: auto 8% 10% 8%;
+  z-index: 4;
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(10, 10, 14, 0.92);
+  font-size: 14px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.pt[data-device='laptop'] .pt-done {
+  inset: auto 30% 12% 30%;
+}
+
+.pt-done button,
+.pt-actions button {
+  padding: 9px 14px;
+  border: 1px solid var(--pt-acc);
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.pt-done button {
+  border: 0;
+  background: var(--pt-acc);
+  color: #0a0a0a;
+}
+
+.pt-actions button:hover {
+  background: var(--pt-acc);
+  color: #0a0a0a;
+}
+
+.pt-side {
+  display: grid;
+  gap: 12px;
+  align-content: center;
+  min-width: 0;
+}
+
+.sy .pt-title {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pt-acc);
+}
+
+.sy .pt-tip {
+  margin: 0;
+  font-size: 15px;
+  color: var(--sy-ink, #ffffff);
+}
+
+.pt-steps {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pt[data-device='laptop'] .pt-steps {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pt-steps button {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  color: var(--sy-faint, #9a9a9a);
+  cursor: pointer;
+}
+
+.pt-steps button span {
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.pt-steps button:hover {
+  color: var(--sy-ink, #ffffff);
+}
+
+.pt-steps button[aria-current] {
+  background: color-mix(in srgb, var(--pt-acc) 16%, transparent);
+  color: var(--sy-ink, #ffffff);
+}
+
+.pt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 720px) {
+  .pt {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .pt[data-device='phone'] .pt-device {
+    width: min(290px, 82vw);
+  }
+
+  .pt-steps,
+  .pt[data-device='laptop'] .pt-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pt-side {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-in,
+  .pt-sheet,
+  .pt-spot[data-hint] {
+    animation: none;
+  }
+}
