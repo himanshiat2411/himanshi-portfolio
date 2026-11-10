@@ -61,17 +61,32 @@
 .pp-spot,
 .pp-hold {
   position: absolute;
+  z-index: 2;
   padding: 0;
   border: 0;
   border-radius: 12px;
   background: transparent;
   cursor: pointer;
+  /* Phones: no double-tap zoom delay, no tap flash, no long-press menu. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pp-screen > img {
+  pointer-events: none;
 }
 
 .pp-hold {
   inset: 0;
   border-radius: 0;
   touch-action: none;
+}
+
+.pp-done {
+  z-index: 3;
 }
 
 .pp-spot:focus-visible,

@@ -43,6 +43,7 @@ const PhonePrototype = () => {
   const [picked, setPicked] = useState(null);
   const [holding, setHolding] = useState(false);
   const holdTimer = useRef(null);
+  const touched = useRef(false);
   const screen = SCREENS[i];
 
   // Load every screen up front so taps never flash blank.
@@ -72,7 +73,7 @@ const PhonePrototype = () => {
     if (spot.pick) {
       // Answer rows: highlight the row that was tapped, then move on, like the real flow.
       const r = e.currentTarget.getBoundingClientRect();
-      const row = Math.min(3, Math.floor(((e.clientY - r.top) / r.height) * 4));
+      const row = Math.max(0, Math.min(3, Math.floor(((e.clientY - r.top) / r.height) * 4)));
       setPicked(row);
       setTimeout(() => go(spot.to), 380);
     } else go(spot.to);
@@ -104,7 +105,20 @@ const PhonePrototype = () => {
               data-hint={hints ? '' : undefined}
               style={{ left: `${s.box[0] * 100}%`, top: `${s.box[1] * 100}%`, width: `${s.box[2] * 100}%`, height: `${s.box[3] * 100}%` }}
               aria-label={s.name}
-              onClick={e => tap(s, e)}
+              onPointerUp={e => {
+                // Act on the finger lifting, so phones don't wait for (or lose) the click.
+                if (e.pointerType !== 'mouse') {
+                  e.preventDefault();
+                  tap(s, e);
+                }
+              }}
+              onClick={e => {
+                if (e.detail === 0 || !touched.current) tap(s, e);
+                touched.current = false;
+              }}
+              onPointerDown={e => {
+                touched.current = e.pointerType !== 'mouse';
+              }}
             >
               {s.pick && picked !== null && <span className="pp-picked" style={{ top: `${picked * 25}%` }} />}
             </button>
@@ -116,9 +130,15 @@ const PhonePrototype = () => {
               data-holding={holding ? '' : undefined}
               data-hint={hints ? '' : undefined}
               aria-label="Tap and hold to meet Moon"
-              onPointerDown={startHold}
+              onPointerDown={e => {
+                e.preventDefault();
+                startHold();
+              }}
               onPointerUp={stopHold}
+              onPointerCancel={stopHold}
               onPointerLeave={stopHold}
+              onContextMenu={e => e.preventDefault()}
+              onDoubleClick={() => go(screen.hold)}
               onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && go(screen.hold)}
             />
           )}
