@@ -1,0 +1,247 @@
+/* The clickable Moon prototype in an iPhone frame, with the steps beside it. */
+.pp {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(20px, 4vw, 44px);
+  align-items: center;
+  margin: 28px 0 8px;
+  padding: clamp(18px, 4vw, 36px);
+  border-radius: 14px;
+  background: radial-gradient(circle at 30% 30%, rgba(185, 166, 255, 0.16), transparent 60%), var(--sy-panel, #12101d);
+}
+
+.pp-phone {
+  width: clamp(240px, 30vw, 300px);
+  padding: 11px;
+  border-radius: 48px;
+  background: #0b0a10;
+  box-shadow:
+    0 0 0 2px #2c2a36,
+    0 30px 60px -20px rgba(0, 0, 0, 0.8),
+    0 0 60px -10px rgba(185, 166, 255, 0.35);
+}
+
+.pp-screen {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 780 / 1688;
+  border-radius: 38px;
+  background: #000000;
+  user-select: none;
+}
+
+.pp-screen > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: pp-in 0.28s ease;
+  -webkit-touch-callout: none;
+}
+
+@keyframes pp-in {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+}
+
+.pp-island {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 30%;
+  height: 22px;
+  border-radius: 999px;
+  background: #000000;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.pp-spot,
+.pp-hold {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pp-hold {
+  inset: 0;
+  border-radius: 0;
+  touch-action: none;
+}
+
+.pp-spot:focus-visible,
+.pp-hold:focus-visible {
+  outline: 2px solid #b9a6ff;
+  outline-offset: -2px;
+}
+
+/* Hint: the tap areas glow for a moment. */
+.pp-spot[data-hint],
+.pp-hold[data-hint] {
+  animation: pp-hint 0.8s ease 2;
+}
+
+@keyframes pp-hint {
+  50% {
+    background: rgba(185, 166, 255, 0.35);
+    box-shadow: 0 0 0 2px #b9a6ff;
+  }
+}
+
+/* Holding: a glow grows from the centre while the finger stays down. */
+.pp-hold[data-holding]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.55), transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: pp-grow 0.7s ease-out forwards;
+}
+
+@keyframes pp-grow {
+  from {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0.3;
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 1;
+  }
+}
+
+/* The answer row that was tapped. */
+.pp-picked {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 22%;
+  border: 2px solid #7a5cf0;
+  border-radius: 10px;
+  background: rgba(122, 92, 240, 0.12);
+}
+
+.pp-done {
+  position: absolute;
+  inset: auto 8% 12% 8%;
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(23, 17, 47, 0.94);
+  font-size: 14px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.pp-done button,
+.pp-actions button {
+  padding: 9px 14px;
+  border: 1px solid #b9a6ff;
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.pp-done button {
+  border: 0;
+  background: #b9a6ff;
+  color: #17112f;
+}
+
+.pp-actions button:hover {
+  background: #b9a6ff;
+  color: #17112f;
+}
+
+.pp-side {
+  display: grid;
+  gap: 14px;
+  align-content: center;
+  min-width: 0;
+}
+
+.sy .pp-tip {
+  margin: 0;
+  font-size: 15px;
+  color: var(--sy-ink, #ffffff);
+}
+
+.pp-steps {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pp-steps button {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  color: var(--sy-faint, #938fa6);
+  cursor: pointer;
+}
+
+.pp-steps button span {
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.pp-steps button:hover {
+  color: var(--sy-ink, #ffffff);
+}
+
+.pp-steps button[aria-current] {
+  background: rgba(185, 166, 255, 0.14);
+  color: var(--sy-ink, #ffffff);
+}
+
+.pp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 720px) {
+  .pp {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .pp-phone {
+    width: min(290px, 82vw);
+  }
+
+  .pp-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-screen > img,
+  .pp-spot[data-hint],
+  .pp-hold[data-hint] {
+    animation: none;
+  }
+}

@@ -1,0 +1,220 @@
+/* Sutra: the shared case study layout in Moon's lavender. */
+.su {
+  --sy-accent: #b9a6ff;
+  --sy-accent-2: #8f7cf6;
+  --sy-panel: #12101d;
+  --sy-line: #272338;
+  --sy-faint: #938fa6;
+  --sy-text: #bdb9cc;
+}
+
+.su .gg-solves span {
+  color: #17112f;
+}
+
+.su .back-to-top button:hover {
+  color: #17112f;
+}
+
+.su-shot {
+  display: block;
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: zoom-in;
+}
+
+.su-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The world's rules and other short numbered lists. */
+.su-rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: rule;
+}
+
+.su-rules--three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.su-rules li {
+  padding: 14px 16px;
+  border: 1px solid var(--sy-line);
+  border-radius: 8px;
+  background: var(--sy-panel);
+  counter-increment: rule;
+}
+
+.su-rules b {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--sy-ink);
+}
+
+.su-rules b::before {
+  content: counter(rule, decimal-leading-zero) ' ';
+  color: var(--sy-accent);
+}
+
+.sy .su-rules p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.sy .su-note {
+  margin-top: 14px;
+  font-style: italic;
+  color: var(--sy-accent);
+}
+
+.sy .su-fine {
+  margin-top: 14px;
+  font-size: 13.5px;
+  color: var(--sy-faint);
+}
+
+.su .gg-quote small {
+  color: var(--sy-faint);
+}
+
+/* Concepts */
+.su-concepts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0 16px;
+}
+
+.su-concepts figure {
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--sy-line);
+  border-radius: 10px;
+  background: var(--sy-panel);
+}
+
+.su-concepts figure[data-chosen] {
+  border-color: var(--sy-accent);
+}
+
+.su-concepts figcaption {
+  display: grid;
+  gap: 2px;
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+
+.su-concepts b {
+  color: var(--sy-ink);
+}
+
+.su-concepts b span {
+  font-weight: 500;
+  color: var(--sy-accent);
+}
+
+.su-table td[data-v='2'] {
+  color: var(--sy-ink);
+}
+
+.su-table td[data-v='1'] {
+  color: var(--sy-faint);
+}
+
+.su-moon {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px;
+  align-items: center;
+  margin: 28px 0 0;
+  padding: 14px;
+  border-radius: 10px;
+  background: var(--sy-panel);
+}
+
+.su-moon img {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+}
+
+.su-moon figcaption {
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.su-moon b {
+  color: var(--sy-ink);
+}
+
+/* A feature's images: a row of frames, or one wide picture. */
+.su-shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin: 24px 0 8px;
+}
+
+.su-shots--one {
+  grid-template-columns: 1fr;
+}
+
+.su-shots figure {
+  margin: 0;
+}
+
+.su-shots figcaption,
+.su-journey small {
+  margin-top: 6px;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--sy-faint);
+}
+
+.su-journey {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px 10px;
+  margin: 20px 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.su-journey small {
+  display: block;
+}
+
+.su-journey b {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--sy-ink);
+}
+
+@media (max-width: 720px) {
+  .su-rules,
+  .su-rules--three,
+  .su-concepts,
+  .su-journey {
+    grid-template-columns: 1fr;
+  }
+
+  .su-journey {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .su-moon {
+    grid-template-columns: 1fr;
+  }
+
+}

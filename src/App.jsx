@@ -14,6 +14,7 @@ import GrubNGrab from './pages/GrubNGrab';
 import Home from './pages/Home';
 import IntroLoop from './pages/IntroLoop';
 import Sylus from './pages/Sylus';
+import Sutra from './pages/Sutra';
 import Takshila from './pages/Takshila';
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/work/finworld" element={<Finworld />} />
           <Route path="/work/grub-n-grab" element={<GrubNGrab />} />
           <Route path="/work/sylus-ai" element={<Sylus />} />
+          <Route path="/work/sutra" element={<Sutra />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="*" element={<Home />} />
         </Routes>

@@ -14,8 +14,12 @@ import sylusFilm from '../assets/sylus/film/tile.mp4';
 import sylusCover from '../assets/work/sylus-cover.webp';
 import sylusCoverHover from '../assets/work/sylus-cover-hover.webp';
 import sylusVibe from '../assets/sylus/brand-vibe.webp';
+import sutraFilm from '../assets/sutra/tile.mp4';
+import sutraMoon from '../assets/sutra/moods.webp';
+import sutraKamala from '../assets/sutra/kamala-6.webp';
 import SelectedWorkGrid from './SelectedWorkGrid';
 import WorkImpact from './WorkImpact';
+import WorkTabs, { inTab } from './WorkTabs';
 import './SelectedWork.css';
 
 // One full card per case study, in the project's own colours (`surface` can swap the card's solid
@@ -57,6 +61,14 @@ const PROJECTS = [
     text: 'Designed an AI-powered marketing CRM end to end: onboarding that learns your brand, AI post creation and planning, and a CRM for agencies running many clients.',
     theme: { bg: '#7c3f7b', fg: '#ffffff', accent: '#ffd6c9', surface: 'linear-gradient(135deg, #7c3f7b 0%, #e0508f 55%, #ee8063 100%)' },
     media: [{ video: sylusFilm }, { img: sylusCover, hover: sylusCoverHover }, { img: sylusVibe }]
+  },
+  {
+    title: 'Sutra',
+    to: '/work/sutra',
+    headline: 'A city that moves, and an AI that guides you.',
+    tag: 'AI concept · Design competition',
+    theme: { bg: '#17112f', fg: '#ffffff', accent: '#b9a6ff' },
+    media: [{ video: sutraFilm }, { img: sutraMoon }, { img: sutraKamala }]
   }
 ];
 
@@ -93,17 +105,23 @@ const usePhone = () => {
   return phone;
 };
 
-const SelectedWork = () => (usePhone() ? <SelectedWorkGrid /> : <SelectedWorkDeck />);
+const SelectedWork = () => {
+  const [tab, setTab] = useState('work');
+  const phone = usePhone();
+  // The deck is keyed by tab, so its scroll-driven state starts fresh when the tab changes.
+  return phone ? <SelectedWorkGrid tab={tab} onTab={setTab} /> : <SelectedWorkDeck key={tab} tab={tab} onTab={setTab} />;
+};
 
 // A deck of cards that stays pinned while you scroll: the front card slides up and away, and the
 // next one, already peeking out underneath, comes forward.
-const SelectedWorkDeck = () => {
+const SelectedWorkDeck = ({ tab, onTab }) => {
+  const projects = PROJECTS.filter(p => inTab(tab, p.title));
   const stackRef = useRef(null);
   const cursorRef = useRef(null);
   const navigate = useNavigate();
   const [active, setActive] = useState(0);
   const [hover, setHover] = useState(null);
-  const count = PROJECTS.length;
+  const count = projects.length;
 
   // Over a card with a case study, a "View case study" pill follows the pointer in place of the
   // cursor, and a click anywhere on the card opens it. What's under the pointer is checked on every
@@ -118,7 +136,7 @@ const SelectedWorkDeck = () => {
       frame = 0;
       const el = x < 0 ? null : document.elementFromPoint(x, y);
       const card = el && stack.contains(el) ? el.closest('.work-card[data-link]') : null;
-      setHover(card ? PROJECTS[Number(card.dataset.index)] : null);
+      setHover(card ? projects[Number(card.dataset.index)] : null);
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(check);
@@ -175,12 +193,14 @@ const SelectedWorkDeck = () => {
   return (
     <section className="work" id="work">
       <div className="container">
-        <h2 className="work-heading">Selected work</h2>
+        <h2 className="work-heading">
+          <WorkTabs tab={tab} onTab={onTab} />
+        </h2>
       </div>
       <div ref={stackRef} className="work-stack" style={{ '--count': count }}>
         <div className="work-pin">
           <ol className="work-deck">
-            {PROJECTS.map((project, i) => {
+            {projects.map((project, i) => {
               const n = String(i + 1).padStart(2, '0');
               const style = { '--i': i, '--bg': project.theme.bg, '--fg': project.theme.fg, '--acc': project.theme.accent, '--surface': project.theme.surface, zIndex: count - i };
               return (

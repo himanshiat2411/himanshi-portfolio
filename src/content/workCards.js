@@ -41,5 +41,15 @@ export const WORK_CARDS = {
       { value: '3 answers', label: 'To plan a month of posts' },
       { value: '30+', label: 'Screens in 1.5 months' }
     ]
+  },
+  Sutra: {
+    line: 'A speculative city in 2080 that reshuffles its streets every night to bring people together, and Moon, the AI that guides you through it.',
+    broken: ['In a moving city, maps and signs stop working', 'Change scares the people who need routine most', 'An AI that fails quietly loses trust'],
+    did: ['Interviewed 5 people, from a rider to a child', 'Compared 3 concepts and chose Moon', 'Designed its moods, 3 modes and the onboarding'],
+    changed: [
+      { value: 'Map → Moon', label: 'Guidance with no screen' },
+      { value: '5 moods', label: 'To show when it’s unsure' },
+      { value: '9 screens', label: 'Prototype to meet Moon' }
+    ]
   }
 };

@@ -9,11 +9,14 @@ import takshilaThumb from '../assets/work/takshila-thumb.webp';
 import finworldFilm from '../assets/finworld/film/tile.mp4';
 import takshilaFilm from '../assets/takshila/film/tile.mp4';
 import WorkImpact from './WorkImpact';
+import WorkTabs, { inTab } from './WorkTabs';
 import sylusFilm from '../assets/sylus/film/tile.mp4';
 import grubNGrabIntro from '../assets/grub-n-grab/videos/1.mp4';
 import grubNGrabPrototype from '../assets/grub-n-grab/videos/2.mp4';
 import takshilaThumbMobile from '../assets/work/takshila-thumb-mobile.webp';
 import sylusCover from '../assets/work/sylus-cover.webp';
+import sutraFilm from '../assets/sutra/tile.mp4';
+import sutraCover from '../assets/sutra/cover.webp';
 import './SelectedWorkGrid.css';
 
 // Each thumbnail is a stack of same-size layers over a background (`ratio` is their width / height).
@@ -66,6 +69,15 @@ const PROJECTS = [
     loop: { videos: [sylusFilm], background: '#000000' },
     ratio: '2631 / 1677',
     layers: [{ src: sylusCover }]
+  },
+  {
+    title: 'Sutra',
+    to: '/work/sutra',
+    caption: 'Sutra — an AI guide for a city that moves',
+    tag: 'AI concept · Design competition',
+    loop: { videos: [sutraFilm], background: '#000000' },
+    ratio: '16 / 9',
+    layers: [{ src: sutraCover }]
   }
 ];
 
@@ -173,12 +185,14 @@ const IntroLoopLayer = ({ loop }) => {
 // Phones: the earlier ruled grid (the desktop gets the card deck in SelectedWork). A ruled two-column grid: each cell is a large media box over a caption bar with the project
 // on the left and a lime tag on the right. The box loops the case study's intro; hovering
 // fades the loop away to show the thumbnail.
-const SelectedWorkGrid = () => (
+const SelectedWorkGrid = ({ tab = 'work', onTab }) => (
   <section className="wg" id="work">
     <div className="container">
-      <h2 className="wg-heading">Selected work</h2>
+      <h2 className="wg-heading">
+        <WorkTabs tab={tab} onTab={onTab} />
+      </h2>
       <ul className="wg-grid">
-        {PROJECTS.map(project => {
+        {PROJECTS.filter(p => inTab(tab, p.title)).map(project => {
           const body = (
             <>
               <span className="wg-media">
