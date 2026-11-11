@@ -14,6 +14,7 @@ import prototypeVideo from '../assets/grub-n-grab/videos/2.mp4';
 import './Takshila.css';
 import './Sylus.css';
 import './GrubNGrab.css';
+import './CaseLight.css';
 
 // Grub'n Grab case study page (/work/grub-n-grab). Built like the Sylus page: black, one narrow
 // column of real text, and each part of the app told as a decision. Its screens are phones, so they

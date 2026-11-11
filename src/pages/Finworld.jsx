@@ -16,6 +16,7 @@ import './Takshila.css';
 import './Sylus.css';
 import './GrubNGrab.css';
 import './Finworld.css';
+import './CaseLight.css';
 
 // Finworld case study page (/work/finworld). Same layout as Sylus and Grub'n Grab: black, one narrow
 // column of real text, the screens as a slideshow, and each tool told as a decision tied to one of

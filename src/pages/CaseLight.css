@@ -1,0 +1,411 @@
+/* ---------- Case study style, after the Scaler CRM case study ----------
+   A light, warm page that reads in order: a coloured title band, then "My role", the problem
+   stated large, outcome cards, and the rest. Same content and sections as before; only the look
+   and the order of the opening blocks change. Shared by Sylus, Grub'n Grab, Finworld and Sutra. */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
+
+.sy {
+  --sy-ink: #ffffff;
+  --sy-text: rgba(255, 255, 255, 0.74);
+  --sy-faint: rgba(255, 255, 255, 0.56);
+  --sy-line: rgba(255, 255, 255, 0.12);
+  --sy-panel: #111111;
+  --cl-page: #000000;
+  --cl-band: #b33a72;
+  --cl-on-band: #ffffff;
+  --cl-on-accent: #ffffff;
+  --sy-accent: #b33a72;
+
+  background: var(--cl-page);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+.sy.gg {
+  --cl-band: #034a3e;
+  --sy-accent: #0b6b56;
+}
+
+.sy.fw {
+  --cl-band: #2265ff;
+  --sy-accent: #1f56d8;
+}
+
+.sy.su {
+  --cl-band: #2a2160;
+  --sy-accent: #5a46c8;
+}
+
+.sy p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.sy h1,
+.sy h2,
+.sy h3,
+.sy .sy-decision-hook,
+.sy .gg-theme {
+  font-family: 'Bricolage Grotesque', 'DM Sans', system-ui, sans-serif;
+}
+
+.sy h2 {
+  font-weight: 700;
+}
+
+/* The opening blocks, in the order a recruiter reads them. */
+.sy-page > header {
+  display: flex;
+  flex-direction: column;
+}
+
+.sy-page > header > * {
+  order: 10;
+}
+
+.sy-page > header > .sy-crumb,
+.sy-page > header > h1,
+.sy-page > header > .sy-tags,
+.sy-page > header > .sy-hook {
+  order: 0;
+}
+
+.sy-page > header > .sy-context,
+.sy-page > header > .sy-facts {
+  order: 1;
+}
+
+.sy-page > header > .sy-overview {
+  order: 2;
+}
+
+.sy-page > header > .sy-stats {
+  order: 3;
+}
+
+/* Title band: the four title lines share one full-width colour. */
+.sy-page {
+  padding-top: 64px;
+}
+
+.sy-page > header > .sy-crumb,
+.sy-page > header > h1,
+.sy-page > header > .sy-tags,
+.sy-page > header > .sy-hook {
+  margin: 0;
+  background: var(--cl-band);
+  color: var(--cl-on-band);
+  /* Full-bleed: stretch to the window edges, keep the text on the column. */
+  margin-inline: calc(50% - 50vw);
+  padding-inline: calc(50vw - 50%);
+  /* Overlap by a pixel so no hairline shows between the stacked lines. */
+  margin-bottom: -1px;
+  border: 0;
+}
+
+.sy-page > header > .sy-crumb {
+  padding-top: 64px;
+}
+
+.sy .sy-crumb,
+.sy .sy-crumb a {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.sy-page > header > h1 {
+  max-width: none;
+  padding-block: 18px 14px;
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 700;
+  line-height: 1.12;
+  color: #ffffff;
+}
+
+.sy .sy-page > header > .sy-tags {
+  padding-bottom: 22px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sy .sy-page > header > .sy-hook {
+  padding-bottom: 64px;
+  font-size: clamp(18px, 2vw, 21px);
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* My role, timeline and team: one row of facts, set large. */
+.sy-page > header > .sy-context,
+.sy-page > header > .sy-facts {
+  margin: 48px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.sy-page > header > .sy-context::before,
+.sy-page > header > .sy-facts::before {
+  content: 'My role';
+  display: block;
+  margin-bottom: 14px;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--sy-ink);
+}
+
+.sy .sy-context dl,
+.sy .sy-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.sy .sy-context dl {
+  margin: 0 0 14px;
+}
+
+.sy .sy-context dt,
+.sy .sy-facts dt {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sy-faint);
+}
+
+.sy .sy-context dd,
+.sy .sy-facts dd {
+  margin: 6px 0 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--sy-ink);
+}
+
+/* The problem, stated large; the solution and result sit under it, smaller. */
+.sy-page > header > .sy-overview {
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 48px 0 0;
+}
+
+.sy .sy-overview > div {
+  padding: 22px 24px;
+  border: 1px solid var(--sy-line);
+  border-radius: 14px;
+  background: var(--sy-panel);
+  box-shadow: none;
+}
+
+.sy .sy-overview > div:first-child {
+  grid-column: 1 / -1;
+  padding: clamp(24px, 4vw, 40px);
+  border: 0;
+  background: var(--cl-band);
+  color: #ffffff;
+}
+
+.sy .sy-overview h3 {
+  margin: 0 0 8px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sy-accent);
+}
+
+.sy .sy-overview > div:first-child h3 {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.sy .sy-overview > div:first-child h3::after {
+  content: ' statement';
+}
+
+.sy .sy-overview > div:first-child p {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: clamp(22px, 2.8vw, 30px);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+/* Outcomes: white cards with the number on top. */
+.sy-page > header > .sy-stats {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 48px 0 0;
+}
+
+.sy-page > header > .sy-stats::before {
+  content: 'Outcomes';
+  grid-column: 1 / -1;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--sy-ink);
+}
+
+.sy .sy-stats > div {
+  padding: 18px;
+  border: 1px solid var(--sy-line);
+  border-radius: 14px;
+  background: var(--sy-panel);
+}
+
+.sy .sy-stats dt {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 700;
+  color: var(--sy-ink);
+}
+
+.sy .sy-stats dd {
+  font-size: 14px;
+  color: var(--sy-text);
+}
+
+/* Section headings: one clear size, sentence case, room above. */
+.sy-feature {
+  margin-top: 112px;
+}
+
+.sy-feature > h2 {
+  font-size: clamp(28px, 3.4vw, 36px);
+  letter-spacing: -0.02em;
+  color: var(--sy-ink);
+}
+
+.sy-feature > h2::before {
+  color: var(--sy-accent);
+}
+
+/* Cards and decisions on the light page: white, with a hairline border. */
+.sy .sy-glance,
+.sy .gg-insights li,
+.sy .su-rules li,
+.sy .sy-decision,
+.sy .sy-method li,
+.sy .te-rounds li {
+  border: 1px solid var(--sy-line);
+  background: var(--sy-panel);
+  box-shadow: none;
+}
+
+.sy .sy-decision dl > div {
+  background: var(--cl-page);
+}
+
+.sy .sy-decision dl > div:last-child {
+  background: var(--cl-band);
+  color: var(--cl-on-accent);
+}
+
+.sy .sy-decision dl > div:last-child dt,
+.sy .sy-decision dl > div:last-child dd,
+.sy .sy-decision dl > div:last-child .hl {
+  color: #ffffff;
+}
+
+.sy .gg-solves {
+  border-bottom-color: var(--sy-line);
+}
+
+.sy .gg-theme {
+  color: var(--sy-accent);
+}
+
+.sy .hl {
+  background: color-mix(in srgb, var(--sy-accent) 16%, transparent);
+  color: var(--sy-ink);
+}
+
+.sy .sy-screen,
+.sy .gg-phones-row,
+.sy .sy-video video {
+  background: #111111;
+}
+
+.sy .sy-tabs button[aria-selected='true'] {
+  background: var(--sy-panel);
+  color: var(--sy-ink);
+}
+
+.sy .sy-arrows button {
+  background: var(--sy-panel);
+}
+
+.sy .gg-table td[data-yes],
+.sy .gg-table thead th:last-child,
+.sy .gg-table td:last-child {
+  color: var(--sy-ink);
+}
+
+.sy .gg-table thead th:last-child,
+.sy .gg-table td:last-child {
+  background: color-mix(in srgb, var(--sy-accent) 10%, transparent);
+}
+
+.sy .gg-table td {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.sy .sy-principle span,
+.sy .sy-tag {
+  border-color: var(--sy-accent);
+  color: var(--sy-accent);
+}
+
+.sy .back-to-top button:hover {
+  border-color: var(--sy-accent);
+  background: var(--sy-accent);
+  color: #ffffff;
+}
+
+/* The clickable prototypes keep their dark stage, so the devices read as devices. */
+.sy .pt,
+.sy .pp {
+  --sy-panel: #17130f;
+  --sy-ink: #ffffff;
+  --sy-faint: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 720px) {
+  .sy .sy-context dl,
+  .sy .sy-facts {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sy-page > header > .sy-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .sy-page > header > .sy-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sy-feature {
+    margin-top: 80px;
+  }
+}
+
+/* .sy-facts is the grid itself, so its "My role" label spans the whole row. */
+.sy-page > header > .sy-facts::before {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+/* Each case study's own stylesheet sets dark tokens on .gg, .fw and .su; the light ones win here. */
+.sy.gg,
+.sy.fw,
+.sy.su {
+  --sy-ink: #ffffff;
+  --sy-text: rgba(255, 255, 255, 0.74);
+  --sy-faint: rgba(255, 255, 255, 0.56);
+  --sy-line: rgba(255, 255, 255, 0.12);
+  --sy-panel: #111111;
+}

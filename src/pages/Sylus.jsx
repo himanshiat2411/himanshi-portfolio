@@ -13,6 +13,7 @@ import { ScreenViewerProvider, useOpenScreen } from '../components/takshila/basi
 import { DECISIONS, FEATURES, INTRO, METHOD, NEXT, REFLECTION } from '../content/sylus';
 import './Takshila.css';
 import './Sylus.css';
+import './CaseLight.css';
 
 // Sylus AI case study page (/work/sylus-ai). A plain, editorial layout: one narrow column of short
 // paragraphs and large screens. Each feature's screen has tabs underneath to step through its states.

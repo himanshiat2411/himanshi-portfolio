@@ -14,6 +14,7 @@ import './Takshila.css';
 import './Sylus.css';
 import './GrubNGrab.css';
 import './Sutra.css';
+import './CaseLight.css';
 
 // Sutra case study page (/work/sutra). Same layout as Sylus, Grub'n Grab and Finworld: black, one
 // narrow column of real text, and each part of the concept told as a decision tied to a research
