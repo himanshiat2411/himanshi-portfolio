@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import CaseNav from '../components/LineSidebar/CaseNav';
 import BackToTop from '../components/BackToTop';
 import Rich from '../components/Rich';
+import LiveApp from '../components/finworld/LiveApp';
 import Prototype from '../components/prototype/Prototype';
 import { FINWORLD } from '../content/prototypes';
 import FilmIntro from '../components/finworld/FilmIntro';
@@ -119,7 +120,7 @@ const Decision = ({ d, solves }) => (
   </div>
 );
 
-const Finworld = () => {
+const Finworld = ({ live = 'side' }) => {
   useEffect(() => {
     const previous = document.title;
     document.title = 'Finworld - Himanshi';
@@ -194,6 +195,7 @@ const Finworld = () => {
                 </div>
               ))}
             </dl>
+            <LiveApp variant={live} />
           </header>
 
           {/* Clickable prototype, right after the overview */}
