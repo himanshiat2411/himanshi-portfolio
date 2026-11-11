@@ -19,7 +19,7 @@ export const INTRO = {
     { label: 'Result', text: 'A world, a character, a phone prototype and a 3D film.' }
   ],
   paragraphs: [
-    'Sutra is a city in 2080, run by an AI. Every night at 23:00, some streets and blocks quietly **swap places**, and only the AI knows the new map. Everyone gets Moon, a glowing guide above their head. No maps, no signs, no screens.',
+    'Sutra is a city in 2080, run by an AI. Every night at 23:00, some streets and blocks **swap places**, and only the AI knows the new map. Everyone gets Moon, a glowing guide above their head. No maps, no signs, no screens.',
     'We designed it in a team of two for the CVENT BeyondPixels 2026 design competition.'
   ],
   context: {
@@ -34,7 +34,7 @@ export const INTRO = {
 };
 
 export const DECISIONS = {
-  strategic: ['An AI companion, not a live map', 'Guide by landmarks that never move', 'One Moon, three modes for three people'],
+  strategic: ['An AI companion over a live map', 'Guide by landmarks that never move', 'One Moon, three modes for three people'],
   micro: ['Feelings in glow and shape, no words', 'Say sorry, then re-route', 'Learn patterns, never secrets']
 };
 
@@ -55,10 +55,10 @@ export const RESEARCH = {
   title: 'What 5 people told us',
   text: 'We asked two young adults, a Zomato rider, an elder and a child how they find their way when their phone dies, and what would make them trust a city that changes.',
   insights: [
-    { theme: 'Landmarks', quote: 'Temple, petrol pump, chai stall — that’s my map.', who: 'Zomato rider', then: 'Moon guides by landmarks. Anchors never move.' },
+    { theme: 'Landmarks', quote: 'Temple, petrol pump, chai stall - that’s my map.', who: 'Zomato rider', then: 'Moon guides by landmarks. Anchors never move.' },
     { theme: 'People', quote: 'Honestly? I just ask someone.', who: 'Young adult', then: 'When unsure, Moon leads you to people and Anchors.' },
     { theme: 'Change', quote: 'Scared. I’d just stay home.', who: 'Elder', then: 'A steady Moon keeps routines and asks before any change.' },
-    { theme: 'Reasons', quote: 'A new place to eat. Food is the best excuse.', who: 'Young adult', then: 'Moon gives reasons to go out, not just routes.' },
+    { theme: 'Reasons', quote: 'A new place to eat. Food is the best excuse.', who: 'Young adult', then: 'Moon gives reasons to go out, as well as routes.' },
     { theme: 'Trust', quote: 'If it says sorry and fixes it fast.', who: 'Young adult', then: 'Moon shows when it’s wrong, says sorry and re-routes.' }
   ],
   backing: 'Each finding was checked against research, from Kevin Lynch’s The Image of the City (1960) to recent work on wayfinding and trust.'
@@ -90,19 +90,19 @@ export const FEATURES = [
     id: 'su-guide',
     title: 'Guiding without a screen',
     what: 'Moon flies ahead, waits at turns, leans into corners and glows brighter as you get close. It chirps to turn, hums to go and lands on your shoulder when you arrive.',
-    solves: { theme: 'Landmarks', problem: 'People find their way by landmarks, not addresses, and a map needs your eyes.' },
+    solves: { theme: 'Landmarks', problem: 'People find their way by landmarks, and a map needs your eyes.' },
     decision: {
-      hook: 'Guide like a living creature, not a map',
+      hook: 'Guide like a living creature',
       before: 'A live map that redraws every morning is familiar, but it keeps your eyes on a screen.',
       decision: 'Moon leads with movement and light, past Anchors, landmarks that never move.',
-      result: 'You follow Moon’s gaze instead of reading anything. Sound, not speech.'
+      result: 'You follow Moon’s gaze. It chirps and hums; it rarely speaks.'
     },
     micro: ['It speaks only when asked to.', 'For people who can’t see Moon: sound and a wristband buzz.'],
     shots: [
       { label: 'Flies ahead', img: 'guide-ahead' },
       { label: 'Leans into turns', img: 'guide-lean' },
       { label: 'Looks the right way', img: 'guide-look' },
-      { label: 'Sound, not speech', img: 'guide-sound' },
+      { label: 'Sound for turns', img: 'guide-sound' },
       { label: 'Lands when you arrive', img: 'guide-land' }
     ]
   },
@@ -147,7 +147,7 @@ export const FEATURES = [
       hook: 'Say sorry, then fix it',
       before: 'Most AI either hides a mistake or explains it in text nobody reads.',
       decision: 'Moon droops and dims, comes back close, re-routes past a landmark she trusts, and learns: no detours on pharmacy days.',
-      result: 'The mistake becomes a moment of trust instead of a reason to stay home.'
+      result: 'The mistake becomes a moment of trust, and Kamala keeps going out.'
     },
     micro: ['Out of date: Moon flickers “not sure” and goes to an Anchor.', 'Offline: Moon glows dim and points to a local person.', 'Palm up always means stop.'],
     shots: [{ label: 'Moon says sorry', img: 'sorry', wide: true }]
@@ -170,7 +170,7 @@ export const FEATURES = [
 // The onboarding prototype: meeting Moon for the first time.
 export const PROTOTYPE = {
   title: 'Meeting Moon',
-  text: 'Onboarding that feels like being understood, not signing up. Every answer gets a reply, and picking an option moves you on. No forms. Try it below: it works like the real thing.',
+  text: 'Onboarding that feels like being understood. Every answer gets a reply, and picking an option moves you on. No forms. Try it below: it works like the real thing.',
   screens: [
     { label: 'Sign up', img: 'screen-signup', alt: 'Sign up: the AI to step outside with' },
     { label: 'Check-in', img: 'screen-checkin', alt: 'A gentle check-in where Moon replies to every answer' },

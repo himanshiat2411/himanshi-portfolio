@@ -26,7 +26,7 @@ const Feedback = () => {
 
   useEffect(() => {
     const previous = document.title;
-    document.title = 'Feedback — Himanshi';
+    document.title = 'Feedback - Himanshi';
     const robots = document.createElement('meta');
     robots.name = 'robots';
     robots.content = 'noindex, nofollow';

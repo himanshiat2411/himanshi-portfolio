@@ -318,9 +318,9 @@ export const BUILD = {
   label: 'Build',
   heading: 'When the build didn’t match the design',
   problem:
-    'On Orders, the build didn’t match the design — colours and sizes on the order journey were off, and the developer had used a different font than our design system. **I caught it by inspecting the live site myself.** A mismatch that small still changes how the whole brand reads.',
+    'On Orders, the build didn’t match the design - colours and sizes on the order journey were off, and the developer had used a different font than our design system. **I caught it by inspecting the live site myself.** A mismatch that small still changes how the whole brand reads.',
   changed:
-    'I **asked for a weekly sync with the tech team** — a fixed space to go over what was unresolved, what the team hadn’t understood in the designs, and where a real technical limit was the actual reason for a gap.'
+    'I **asked for a weekly sync with the tech team** - a fixed space to go over what was unresolved, what the team hadn’t understood in the designs, and where a real technical limit was the actual reason for a gap.'
 };
 
 export const IMPACT = {

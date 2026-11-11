@@ -1,0 +1,71 @@
+/* Accessibility and touch fixes from a UI/UX audit (ui-ux-pro-max priorities 1, 2 and 6).
+   Kept in one place so each rule is easy to trace back to the check it fixes. */
+
+/* Priority 1, accessibility: every link, button and tab shows a ring when reached by keyboard.
+   :where() keeps this at zero specificity, so components with their own focus style keep it. */
+:where(a, button, [role='tab'], [tabindex]):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* The feedback form removed its focus outline and only lightened the border. */
+.fb-label textarea:focus-visible,
+.fb-label input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Priority 6, typography: no readable text below 12px. */
+.work-tag,
+.footer-copy,
+.book-index,
+.book-author,
+.sy-decision dt,
+.sy .gg-solves span,
+.sy-principle span,
+.sy-tag {
+  font-size: 12px;
+}
+
+/* Priority 1, contrast: the lime tag on Finworld's blue card was 4.06:1 at small size (needs
+   4.5:1), so a card can give its tag its own colour. */
+.work-tag {
+  color: var(--tag, var(--acc));
+}
+
+/* Priority 2, touch: tap areas at least 44px tall. Text links grow their hit area with padding and
+   take it back with a negative margin, so nothing moves visually. */
+.nav-links a,
+.footer-links a {
+  display: inline-block;
+  padding-block: 14px;
+  margin-block: -14px;
+}
+
+.copy-email {
+  width: 44px;
+  height: 44px;
+}
+
+.work-tabs button,
+.sy-tabs button,
+.pt-steps button,
+.pp-steps button,
+.pt-actions button,
+.pp-actions button,
+.pt-done button,
+.pp-done button {
+  min-height: 44px;
+}
+
+.sy-arrows button {
+  width: 44px;
+  height: 44px;
+}
+
+/* Priority 7, motion: honour reduced motion for smooth scrolling everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}

@@ -239,7 +239,7 @@ const Takshila = () => {
 
   useEffect(() => {
     const previous = document.title;
-    document.title = 'Takshila — Himanshi';
+    document.title = 'Takshila - Himanshi';
     return () => {
       document.title = previous;
     };

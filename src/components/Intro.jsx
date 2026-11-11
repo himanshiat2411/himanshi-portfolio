@@ -36,7 +36,7 @@ const Intro = () => (
       <div className="intro-side">
         <p className="intro-bio">
           Product Designer and UX Researcher based in Delhi NCR, with an engineering background. I show the thinking,
-          research and decisions behind every project — including the calls I made and why.
+          research and decisions behind every project - including the calls I made and why.
         </p>
         <Link className="intro-more" to="/about">
           More about me →

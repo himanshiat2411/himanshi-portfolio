@@ -182,7 +182,7 @@ const About = () => {
 
   useEffect(() => {
     const previous = document.title;
-    document.title = 'About — Himanshi';
+    document.title = 'About - Himanshi';
     return () => {
       document.title = previous;
     };
@@ -203,12 +203,12 @@ const About = () => {
             </div>
             <div className="about-bio">
               <p>
-                I'm Himanshi — a Product Designer and UX Researcher with an engineering background. I like stepping into
+                I'm Himanshi - a Product Designer and UX Researcher with an engineering background. I like stepping into
                 messy, unclear problems, asking the right questions, and slowly shaping them into something simple and easy
                 to use.
               </p>
               <p>
-                A lot of how I design comes from empathy. I don't just want to know what people do — I want to know why.
+                A lot of how I design comes from empathy. I don't just want to know what people do - I want to know why.
                 That usually means going deep into research and behavior, then turning what I learn into experiences that
                 feel natural and human.
               </p>

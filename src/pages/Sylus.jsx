@@ -209,7 +209,7 @@ const Walkthrough = ({ name, label }) => {
 const Sylus = () => {
   useEffect(() => {
     const previous = document.title;
-    document.title = 'Sylus AI — Himanshi';
+    document.title = 'Sylus AI - Himanshi';
     return () => {
       document.title = previous;
     };

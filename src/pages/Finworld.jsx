@@ -122,7 +122,7 @@ const Decision = ({ d, solves }) => (
 const Finworld = () => {
   useEffect(() => {
     const previous = document.title;
-    document.title = 'Finworld — Himanshi';
+    document.title = 'Finworld - Himanshi';
     return () => {
       document.title = previous;
     };

@@ -132,7 +132,7 @@ const Decision = ({ d, solves }) => (
 const GrubNGrab = () => {
   useEffect(() => {
     const previous = document.title;
-    document.title = 'Grub’n Grab — Himanshi';
+    document.title = 'Grub’n Grab - Himanshi';
     return () => {
       document.title = previous;
     };

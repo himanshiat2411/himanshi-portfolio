@@ -24,7 +24,7 @@ import './CaseStudy.css';
 const CaseStudy = ({ title, width, displayWidth, sections, barColor, linkColor, extendEdges, pageColor, nav, navTheme }) => {
   useEffect(() => {
     const previous = document.title;
-    document.title = `${title} — Himanshi`;
+    document.title = `${title} - Himanshi`;
     return () => {
       document.title = previous;
     };

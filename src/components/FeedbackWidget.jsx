@@ -229,7 +229,7 @@ const FeedbackWidget = () => {
         <div className="fb-nudge" role="status" onMouseEnter={showHoverNudge} onMouseLeave={hideHoverNudge}>
           <button type="button" className="fb-nudge-body" onClick={openPanel}>
             <strong>Enjoying my work? 👋</strong>
-            Drop a heart or a suggestion — it’d make my day!
+            Drop a heart or a suggestion - it’d make my day!
           </button>
           <button type="button" className="fb-nudge-close" aria-label="Dismiss" onClick={closeNudge}>
             ✕

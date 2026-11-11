@@ -92,7 +92,7 @@ const MARK_WORD = ['No', 'Partly', 'Yes'];
 const Sutra = () => {
   useEffect(() => {
     const previous = document.title;
-    document.title = 'Sutra — Himanshi';
+    document.title = 'Sutra - Himanshi';
     return () => {
       document.title = previous;
     };
@@ -194,7 +194,7 @@ const Sutra = () => {
                 <li key={r.theme}>
                   <p className="gg-theme">{r.theme}</p>
                   <p className="gg-quote">
-                    “{r.quote}” <small>— {r.who}</small>
+                    “{r.quote}” <small>- {r.who}</small>
                   </p>
                   <p>{r.then}</p>
                 </li>

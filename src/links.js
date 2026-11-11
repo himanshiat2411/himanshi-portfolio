@@ -1,6 +1,6 @@
 export const EMAIL = 'himanshiat2411@gmail.com';
 
-export const EMAIL_SUBJECT = 'Hi Himanshi — let’s build something worth the detail';
+export const EMAIL_SUBJECT = 'Hi Himanshi - let’s build something worth the detail';
 export const EMAIL_BODY = `Hi Himanshi,
 
 I came across your portfolio and would love to connect.

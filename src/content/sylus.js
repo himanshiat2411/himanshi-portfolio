@@ -65,13 +65,13 @@ export const FEATURES = [
     videoLabel: 'Walkthrough: login, workspace choice, brand setup, Brand Vibe and connecting accounts',
     title: 'Onboarding that reads your brand',
     what: 'Seven short steps, one question each, from sign up to connected accounts.',
-    why: 'Describing a brand is the slowest part of setup. So Sylus reads a website link and drafts it. People edit a draft instead of starting blank.',
+    why: 'Describing a brand is the slowest part of setup. So Sylus reads a website link and drafts it. People start from a draft they can edit.',
     decision: {
       hook: 'Read a link, don’t ask for a form',
       before: 'Brand setup was a long form: voice, audience, colours, products.',
       decision: 'Paste a website link or drop brand files. **AI drafts the brand; people edit it.**',
-      result: 'Setup becomes **reviewing a draft, not writing from blank**. A manual form stays as a fallback.',
-      principle: { name: 'Recognition over recall', why: 'People review a draft instead of writing from blank.' }
+      result: 'Setup becomes **reviewing a draft**. A manual form stays as a fallback.',
+      principle: { name: 'Recognition over recall', why: 'Reviewing a draft is easier than writing from memory.' }
     },
     micro: [
       { text: 'Individual or Agency is asked first, since it changes the whole workspace.', principle: 'Progressive disclosure' },
@@ -94,7 +94,7 @@ export const FEATURES = [
     what: 'Four steps: Brief, Caption, Media, Preview. Describe the post once; AI writes and illustrates it.',
     why: 'One long page made every field compete. Steps keep each screen to one job, and the preview catches mistakes.',
     decision: {
-      hook: 'Four steps, not one long page',
+      hook: 'Four short steps',
       before: 'Topic, platforms, caption, hashtags, image and schedule all sat on one page.',
       decision: 'Split it into Brief, Caption, Media and Preview, **each with one job**.',
       result: 'Each screen stays focused, and the preview shows the real post before it goes out.',
@@ -161,9 +161,9 @@ export const FEATURES = [
     videoLabel: 'Walkthrough: agency overview, tasks, calendar, team roles and the library',
     title: 'The agency CRM',
     what: 'Every client in one place: overview, tasks, calendar, team roles, chat, library and reports.',
-    why: 'An agency is many clients, not one big user. Home shows approvals across brands, and roles are set per brand.',
+    why: 'An agency runs many clients at once. Home shows approvals across brands, and roles are set per brand.',
     decision: {
-      hook: 'Built around clients, not content',
+      hook: 'Built around clients',
       before: 'Agencies were treated as one big user.',
       decision: 'Home shows every client: today’s posts and pending approvals. Roles are set per brand.',
       result: '**Approvals don’t get lost**, and a designer on one brand can’t see another client’s drafts.',

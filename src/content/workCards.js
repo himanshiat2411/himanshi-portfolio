@@ -24,7 +24,7 @@ export const WORK_CARDS = {
   },
   'Grub’n Grab': {
     line: 'A campus app to buy, sell and swap, because students don’t trust strangers in WhatsApp groups.',
-    broken: ['Trading scattered across WhatsApp groups', 'No way to tell who is a real student', 'Useful things thrown away instead of swapped'],
+    broken: ['Trading scattered across WhatsApp groups', 'No way to tell who is a real student', 'Useful things end up in the bin'],
     did: ['Interviewed 10 students and graduates', 'Designed ID and selfie verification', 'Built swap into one listing form'],
     changed: [
       { value: '10', label: 'Interviews behind the design' },

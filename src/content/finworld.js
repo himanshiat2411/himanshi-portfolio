@@ -29,7 +29,7 @@ export const INTRO = {
 };
 
 export const DECISIONS = {
-  strategic: ['One dashboard for beginners and experts', 'Answers first: revenue, profit, cash', 'AI beside the work, not in a new tab'],
+  strategic: ['One dashboard for beginners and experts', 'Answers first: revenue, profit, cash', 'AI in a side panel beside the work'],
   micro: ['A Map columns step at import', 'Data issues flagged before modeling', 'Save and continue later on every step']
 };
 
@@ -47,7 +47,7 @@ export const ISSUES = {
 export const USERS = {
   title: 'Two users, opposite needs',
   items: [
-    { name: 'Riya, the Explorer', role: 'Junior investment analyst', thinks: 'Thinks in ideas, not formulas.', needs: 'Templates, guidance and outputs she can read.' },
+    { name: 'Riya, the Explorer', role: 'Junior investment analyst', thinks: 'Thinks in ideas and outcomes.', needs: 'Templates, guidance and outputs she can read.' },
     { name: 'Aryan, the Builder', role: 'Senior financial analyst', thinks: 'Thinks in logic and structure.', needs: 'Custom formulas, reusable parts and version control.' }
   ]
 };
@@ -69,12 +69,12 @@ export const FEATURES = [
     id: 'fw-import',
     title: 'Getting data in',
     what: 'A four-step import: upload, preview, map columns, confirm. Nova sits beside each step.',
-    solves: { theme: 'Clarity', problem: 'One wrongly read column quietly breaks every chart after it.' },
+    solves: { theme: 'Clarity', problem: 'One wrongly read column breaks every chart after it.' },
     decision: {
       hook: 'Add a “Map columns” step',
       before: 'Most tools guess what each column means and move on.',
       decision: 'After preview, each column is matched to a Finworld field, with problems flagged.',
-      result: '**Mistakes are caught at import**, not weeks later in a report. The cost is one more step, even for clean files.'
+      result: '**Mistakes are caught at import**, before they reach a report. The cost is one more step, even for clean files.'
     },
     micro: ['Preview flags invalid numbers and missing values before anything is built.', 'Tips for a clean upload sit beside the drop zone.', 'Save & continue later on every step.'],
     screens: [
@@ -120,7 +120,7 @@ export const FEATURES = [
     what: 'Nova suggests formulas, explains numbers and spots risks, like cash running low.',
     solves: { theme: 'Learning', problem: 'Beginners don’t know which formula to write or what a number means.' },
     decision: {
-      hook: 'A side panel, not a separate chat',
+      hook: 'Nova as a side panel',
       before: 'AI chat in a new tab loses sight of the numbers being asked about.',
       decision: 'Nova sits beside the model. It suggests, you apply, and it shows the numbers it used.',
       result: 'Questions get **answered in context**, and people stay in control. The trade-off is less room for long chats.'

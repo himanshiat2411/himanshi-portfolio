@@ -707,3 +707,61 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Taste-skill pass (house rules 1 and 5) ----------
+   Rule 1: no caption under a picture. The tabs already name each screen, and every image keeps
+   its alt text for screen readers. Rule 5: things you can click answer the pointer. A screen or
+   photo zooms slightly inside its frame, and buttons step on hover and press on click. */
+.sy-switch > figcaption,
+.sy-video > figcaption,
+.gg-phones > figcaption,
+.su-shots figcaption {
+  display: none;
+}
+
+.sy-screen,
+.te-shot,
+.su-shot {
+  overflow: hidden;
+}
+
+.sy-screen img,
+.te-shot img,
+.su-shot img {
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.sy-screen:hover img,
+.te-shot:hover img,
+.su-shot:hover img {
+  transform: scale(1.025);
+}
+
+.sy button {
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.sy button:hover {
+  transform: translateY(-1px);
+}
+
+.sy button:active {
+  transform: translateY(0) scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sy-screen img,
+  .te-shot img,
+  .su-shot img,
+  .sy button {
+    transition: none;
+  }
+
+  .sy-screen:hover img,
+  .te-shot:hover img,
+  .su-shot:hover img,
+  .sy button:hover,
+  .sy button:active {
+    transform: none;
+  }
+}

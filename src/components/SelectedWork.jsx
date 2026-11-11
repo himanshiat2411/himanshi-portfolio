@@ -41,7 +41,7 @@ const PROJECTS = [
     headline: 'Financial models anyone can read.',
     tag: 'Design sprint · 2026',
     text: 'Designed a full financial modeling dashboard in a 55-hour sprint, built around 3 core problems and 2 personas.',
-    theme: { bg: '#2265ff', fg: '#ffffff', accent: '#c6ff3d' },
+    theme: { bg: '#2265ff', fg: '#ffffff', accent: '#c6ff3d', tag: '#ffffff' },
     media: [{ video: finworldFilm }, { img: finworldDashboard }, { img: finworldLaptop, bg: '#dcdcdc' }]
   },
   {
@@ -202,7 +202,7 @@ const SelectedWorkDeck = ({ tab, onTab }) => {
           <ol className="work-deck">
             {projects.map((project, i) => {
               const n = String(i + 1).padStart(2, '0');
-              const style = { '--i': i, '--bg': project.theme.bg, '--fg': project.theme.fg, '--acc': project.theme.accent, '--surface': project.theme.surface, zIndex: count - i };
+              const style = { '--i': i, '--bg': project.theme.bg, '--fg': project.theme.fg, '--acc': project.theme.accent, '--surface': project.theme.surface, '--tag': project.theme.tag, zIndex: count - i };
               return (
                 <li
                   key={project.title}

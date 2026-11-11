@@ -28,7 +28,7 @@ const PROJECTS = [
   {
     title: 'Takshila',
     to: '/work/takshila',
-    caption: 'Takshila — handcrafted jewelry marketplace',
+    caption: 'Takshila - handcrafted jewelry marketplace',
     tag: 'Product design · 6 months',
     text: 'Redesigned key screens like the product page for easier flows, led 5 JTBD interviews, audited 11 flows and wrote 2 PRDs.',
     loop: { videos: [takshilaFilm], background: '#1a0b0e' },
@@ -39,7 +39,7 @@ const PROJECTS = [
   {
     title: 'Finworld',
     to: '/work/finworld',
-    caption: 'Finworld — financial modeling dashboard',
+    caption: 'Finworld - financial modeling dashboard',
     tag: 'Design sprint · 2026',
     text: 'Designed a full financial modeling dashboard in a 55-hour sprint, built around 3 core problems and 2 personas.',
     loop: { videos: [finworldFilm], background: '#ffffff' },
@@ -52,7 +52,7 @@ const PROJECTS = [
   {
     title: 'Grub’n Grab',
     to: '/work/grub-n-grab',
-    caption: 'Grub’n Grab — campus thrift app',
+    caption: 'Grub’n Grab - campus thrift app',
     tag: 'Mobile app · 16 weeks',
     text: 'Turned 10 user interviews and a 5-competitor analysis into a design system and complete error states.',
     loop: { videos: [grubNGrabIntro, grubNGrabPrototype], background: '#034a3e' },
@@ -63,7 +63,7 @@ const PROJECTS = [
   {
     title: 'Sylus AI',
     to: '/work/sylus-ai',
-    caption: 'Sylus AI — AI-powered marketing CRM',
+    caption: 'Sylus AI - AI-powered marketing CRM',
     tag: 'Product design · AI-powered CRM',
     text: 'Paste your website, get a month of on-brand posts: onboarding, AI creation and planning, and an agency workspace.',
     loop: { videos: [sylusFilm], background: '#000000' },
@@ -73,7 +73,7 @@ const PROJECTS = [
   {
     title: 'Sutra',
     to: '/work/sutra',
-    caption: 'Sutra — an AI guide for a city that moves',
+    caption: 'Sutra - an AI guide for a city that moves',
     tag: 'AI concept · Design competition',
     loop: { videos: [sutraFilm], background: '#000000' },
     ratio: '16 / 9',

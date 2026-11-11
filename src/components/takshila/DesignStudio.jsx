@@ -129,13 +129,13 @@ const DesignStudio = () => {
         </ol>
       </Panel>
 
-      <Panel n={4} title="How the chat understands you" caption="Every new message only changes what it mentions — nothing said earlier is lost.">
+      <Panel n={4} title="How the chat understands you" caption="Every new message only changes what it mentions - nothing said earlier is lost.">
         <Bubble>rose gold leaf hoops for my sister</Bubble>
         <div className="ds-spec">
           {SPEC.map(field => (
             <span key={field} className="ds-spec-chip" data-on={FOUND[field] ? '' : undefined}>
               <small>{field}</small>
-              {FOUND[field] || '—'}
+              {FOUND[field] || '-'}
             </span>
           ))}
         </div>
@@ -269,7 +269,7 @@ const DesignStudio = () => {
         </div>
       </Panel>
 
-      <Panel n={10} title="Every AI reply is a card" caption="The AI fills cards — it never draws the interface. That keeps the experience predictable and on-brand.">
+      <Panel n={10} title="Every AI reply is a card" caption="The AI fills cards - it never draws the interface. That keeps the experience predictable and on-brand.">
         <ul className="ds-cards">
           {CARDS.map(c => (
             <li key={c}>

@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { loadClarity } from './clarity';
 import './index.css';
+import './a11y.css';
 
 loadClarity();
 

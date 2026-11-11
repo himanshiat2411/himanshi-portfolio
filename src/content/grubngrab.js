@@ -30,8 +30,8 @@ export const INTRO = {
 
 // The headline decisions, listed near the top so a skim shows them first.
 export const DECISIONS = {
-  strategic: ['Campus-only, verified members', 'Swap built into the same listing form', 'Offers instead of fixed prices'],
-  micro: ['Verify at sign-up, not later', 'Distance shown on every item', 'Clear fixes in every error']
+  strategic: ['Campus-only, verified members', 'Swap built into the same listing form', 'Price offers in one step'],
+  micro: ['Verify once, at sign-up', 'Distance shown on every item', 'Clear fixes in every error']
 };
 
 export const RESEARCH = {
@@ -41,7 +41,7 @@ export const RESEARCH = {
   insights: [
     { theme: 'Trust', quote: 'I don’t trust strangers from a WhatsApp group.', then: 'So every member is a verified student.' },
     { theme: 'Money', quote: 'Saving money matters more than anything.', then: 'So swapping is built in, for when nobody has cash.' },
-    { theme: 'Access', quote: 'Juniors can’t reach seniors to buy their old things.', then: 'So the app shows everyone on campus, not just your friends.' },
+    { theme: 'Access', quote: 'Juniors can’t reach seniors to buy their old things.', then: 'So the app shows everyone on campus.' },
     { theme: 'Waste', quote: 'Books and clothes pile up, and many get thrown away.', then: 'So listing an item takes one short form.' }
   ]
 };
@@ -70,7 +70,7 @@ export const FEATURES = [
     what: 'Sign up asks for a roll number, college and course, then a college ID and a selfie.',
     solves: { theme: 'Trust', problem: 'Buyers can’t tell who is really a student.' },
     decision: {
-      hook: 'Verify at sign-up, not before the first sale',
+      hook: 'Verify everyone at sign-up',
       before: 'In WhatsApp groups, anyone can sell, and buyers can’t tell who is a student.',
       decision: 'Everyone verifies once, when they join. I also considered verifying only sellers, before their first sale.',
       result: '**Every profile is a real student**, so buyers trust the whole app. The cost is a longer sign-up, so it’s split into two short steps.'
@@ -105,14 +105,14 @@ export const FEATURES = [
     id: 'gg-list',
     title: 'Listing an item',
     what: 'One form to sell or swap: photos, title, size, category, condition, then a price or what you want in return.',
-    solves: { theme: 'Waste · Money', problem: 'Unused things get thrown away instead of sold or swapped.' },
+    solves: { theme: 'Waste · Money', problem: 'Unused things end up in the bin.' },
     decision: {
       hook: 'One form, with a Sell / Swap switch',
       before: 'Selling and swapping could have been two separate flows to learn.',
       decision: 'The same form for both. A switch at the top swaps the price field for “Looking to swap for?”.',
       result: 'People **learn one form**. Swaps get their own feed, showing what each person wants in return.'
     },
-    micro: ['Condition is a row of chips, not a dropdown, so it takes one tap.', 'Campus location is asked, since students meet in person.', 'Save Draft, so a listing can be finished later.'],
+    micro: ['Condition is a row of chips, so it takes one tap.', 'Campus location is asked, since students meet in person.', 'Save Draft, so a listing can be finished later.'],
     screens: [
       { label: 'Sell', img: 'sell', alt: 'List an Item in Sell mode: photos, details, condition and price' },
       { label: 'Swap', img: 'swap-item', alt: 'List an Item in Swap mode: the price field becomes “Looking to swap for?”' },
@@ -122,10 +122,10 @@ export const FEATURES = [
   {
     id: 'gg-offer',
     title: 'Making an offer or a swap',
-    what: 'Instead of a Buy button, people send a proposal: a price offer or a swap request, with a message.',
+    what: 'People send a proposal in place of a Buy button: a price offer or a swap request, with a message.',
     solves: { theme: 'Money', problem: 'Students want to bargain, or trade when they have no cash.' },
     decision: {
-      hook: 'Offers, not fixed prices',
+      hook: 'A price offer in one step',
       before: 'On campus, almost every sale starts with bargaining in chat.',
       decision: 'A proposal sheet with a suggested price, a lower option, “Other”, and room for a swap request.',
       result: '**Bargaining happens in one step**, and swaps fit into the same flow. The trade-off is one more tap than a Buy button.'
@@ -142,7 +142,7 @@ export const FEATURES = [
       hook: 'Every error tells you the fix',
       before: 'Verification can fail in many ways, and a vague “try again” leaves people stuck.',
       decision: 'Six error states, each with the reason and the next step, from a wrong roll number to rejected documents.',
-      result: 'People can **fix the problem themselves** instead of giving up on sign-up.'
+      result: 'People can **fix the problem themselves** and finish sign-up.'
     },
     micro: ['Errors appear next to the field, in red, with plain words.', 'Rejected documents list exactly which file to upload again.'],
     screens: [
@@ -168,6 +168,6 @@ export const TEST = {
 export const NEXT = {
   title: 'What I learned',
   paragraphs: [
-    'Trust was the real product, not the listings. Next time I would test the verification flow first, since it is the step most likely to make people quit.'
+    'Trust was the real product. Next time I would test the verification flow first, since it is the step most likely to make people quit.'
   ]
 };
