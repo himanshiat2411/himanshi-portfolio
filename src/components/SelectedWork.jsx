@@ -87,7 +87,7 @@ const Media = ({ item }) =>
       <img src={item.hover} alt="" loading="lazy" data-hover="" />
     </span>
   ) : item.video ? (
-    <video src={item.video} autoPlay muted loop playsInline preload="metadata" />
+    <video src={item.video} autoPlay muted loop playsInline preload="auto" />
   ) : (
     <img src={item.img} alt="" loading="lazy" style={item.bg ? { background: item.bg } : undefined} />
   );

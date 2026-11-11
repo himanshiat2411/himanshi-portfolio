@@ -99,6 +99,7 @@ const PhotoStack = () => {
             <span className="about-print-img">
               <img
                 src={print.src}
+                fetchPriority="high"
                 alt=""
                 style={{ objectPosition: print.focus }}
               />
