@@ -233,3 +233,11 @@
   line-height: 1.5;
   color: var(--soft);
 }
+
+/* A short brief in place of the impact columns (If I Were a Flower). */
+.wg-brief {
+  margin: 14px 2px 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  opacity: 0.86;
+}

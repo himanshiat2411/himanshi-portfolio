@@ -17,7 +17,7 @@ import takshilaThumbMobile from '../assets/work/takshila-thumb-mobile.webp';
 import sylusCover from '../assets/work/sylus-cover.webp';
 import sutraFilm from '../assets/sutra/tile.mp4';
 import sutraCover from '../assets/sutra/cover.webp';
-import flowerLily from '../assets/work/flower-lily.webp';
+import flowerLily from '../assets/work/flower-lily-wide.webp';
 import './SelectedWorkGrid.css';
 
 // Each thumbnail is a stack of same-size layers over a background (`ratio` is their width / height).
@@ -87,8 +87,9 @@ const PROJECTS = [
     tag: 'Scroll story · Visual storytelling',
     backdrop: '#000000',
     cardBorder: '1px solid #ffffff',
-    ratio: '640 / 750',
-    layers: [{ src: flowerLily }]
+    ratio: '1200 / 750',
+    layers: [{ src: flowerLily }],
+    brief: 'A lily spends months as a bulb in the dark, then opens one petal at a time. My path from chemical engineering to design grew the same way. Scroll the story and the lily grows with you.'
   }
 ];
 
@@ -219,7 +220,7 @@ const SelectedWorkGrid = ({ tab = 'work', onTab }) => (
                 <span className="wg-name">{project.caption}</span>
                 <span className="wg-tag">{project.tag}</span>
               </span>
-              <WorkImpact title={project.title} />
+              {project.brief ? <p className="wg-brief">{project.brief}</p> : <WorkImpact title={project.title} />}
             </>
           );
           return (
