@@ -17,6 +17,7 @@ import sylusVibe from '../assets/sylus/brand-vibe.webp';
 import sutraFilm from '../assets/sutra/tile.mp4';
 import sutraMoon from '../assets/sutra/moods.webp';
 import sutraKamala from '../assets/sutra/kamala-6.webp';
+import flowerLily from '../assets/work/flower-lily.webp';
 import SelectedWorkGrid from './SelectedWorkGrid';
 import WorkImpact from './WorkImpact';
 import WorkTabs, { inTab } from './WorkTabs';
@@ -69,6 +70,20 @@ const PROJECTS = [
     tag: 'AI concept · Design competition',
     theme: { bg: '#17112f', fg: '#ffffff', accent: '#b9a6ff' },
     media: [{ video: sutraFilm }, { img: sutraMoon }, { img: sutraKamala }]
+  },
+  {
+    title: 'If I Were a Flower',
+    to: '/work/if-i-were-a-flower',
+    headline: 'If I Were a Flower',
+    tag: 'Scroll story · Visual storytelling',
+    brief: {
+      lead: 'A lily grows quietly for a long time before anyone sees it bloom. That’s my story too.',
+      title: 'Why a lily',
+      text: 'A lily spends months as a bulb in the dark. Then one stem rises, and the flower opens one petal at a time. My path went the same way: from chemical engineering to design, slow growth that only shows when it is ready.',
+      how: 'Scroll the story and the lily grows with you: bulb, stem, bloom, pollen.'
+    },
+    theme: { bg: '#000000', fg: '#f2f2f2', accent: '#7c8cf0', border: '1px solid #ffffff' },
+    media: [{ img: flowerLily, fit: 'lily' }]
   }
 ];
 
@@ -202,7 +217,7 @@ const SelectedWorkDeck = ({ tab, onTab }) => {
           <ol className="work-deck">
             {projects.map((project, i) => {
               const n = String(i + 1).padStart(2, '0');
-              const style = { '--i': i, '--bg': project.theme.bg, '--fg': project.theme.fg, '--acc': project.theme.accent, '--surface': project.theme.surface, '--tag': project.theme.tag, zIndex: count - i };
+              const style = { '--i': i, '--bg': project.theme.bg, '--fg': project.theme.fg, '--acc': project.theme.accent, '--surface': project.theme.surface, '--tag': project.theme.tag, border: project.theme.border, zIndex: count - i };
               return (
                 <li
                   key={project.title}
@@ -220,11 +235,20 @@ const SelectedWorkDeck = ({ tab, onTab }) => {
                     <span className="work-num">({n})</span>
                   </div>
                   <div className="work-card-body">
-                    <WorkImpact title={project.title} />
+                    {project.brief ? (
+                      <div className="work-brief">
+                        <p className="work-brief-lead">{project.brief.lead}</p>
+                        <h4>{project.brief.title}</h4>
+                        <p>{project.brief.text}</p>
+                        <p className="work-brief-how">{project.brief.how}</p>
+                      </div>
+                    ) : (
+                      <WorkImpact title={project.title} />
+                    )}
                     <div className="work-card-side">
                       <div className="work-media">
                         {project.media.map((m, k) => (
-                          <span key={k} className={`work-thumb${k === 0 ? ' work-thumb--lead' : ''}`}>
+                          <span key={k} className={`work-thumb${k === 0 ? ' work-thumb--lead' : ''}${m.fit ? ` work-thumb--${m.fit}` : ''}`}>
                             <Media item={m} />
                           </span>
                         ))}

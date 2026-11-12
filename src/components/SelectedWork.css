@@ -199,6 +199,58 @@
   object-position: top center;
 }
 
+/* A brief in place of the impact columns (If I Were a Flower), with one tall image of the lily. */
+.work-brief {
+  display: grid;
+  gap: 10px;
+  max-width: 52ch;
+  align-content: start;
+}
+
+.work-brief p,
+.work-brief h4 {
+  margin: 0;
+}
+
+.work-brief-lead {
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.4;
+}
+
+.work-brief h4 {
+  margin-top: 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--acc);
+}
+
+.work-brief p:not(.work-brief-lead) {
+  font-size: 14.5px;
+  line-height: 1.5;
+  opacity: 0.86;
+}
+
+.work-brief-how {
+  margin-top: 8px !important;
+}
+
+.work-card .work-media:has(.work-thumb--lily) {
+  justify-content: center;
+}
+
+.work-card .work-thumb.work-thumb--lily {
+  width: auto;
+  height: min(52vh, 460px);
+  max-width: 100%;
+  aspect-ratio: 640 / 750;
+  background: #000000;
+}
+
+.work-thumb--lily img {
+  object-fit: contain;
+  object-position: center;
+}
+
 /* ---------- Phones: a plain list of the same cards ---------- */
 @media (max-width: 720px) {
   .work-stack {

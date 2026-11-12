@@ -1,6 +1,6 @@
 // The "Selected work" / "AI concepts" switch above the project cards, shared by the desktop deck and
 // the phone grid. AI concepts holds the speculative projects (for now, Sutra).
-export const AI_CONCEPTS = ['Sutra'];
+export const AI_CONCEPTS = ['Sutra', 'If I Were a Flower'];
 export const inTab = (tab, title) => (tab === 'ai') === AI_CONCEPTS.includes(title);
 
 const TABS = [

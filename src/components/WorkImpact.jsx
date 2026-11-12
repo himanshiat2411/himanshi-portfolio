@@ -15,6 +15,7 @@ const List = ({ title, items, kind }) => (
 
 const WorkImpact = ({ title }) => {
   const card = WORK_CARDS[title];
+  if (!card) return null;
   return (
     <div className="wi">
       <p className="wi-line">{card.line}</p>

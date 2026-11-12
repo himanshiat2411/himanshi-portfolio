@@ -16,6 +16,7 @@ import IntroLoop from './pages/IntroLoop';
 import Sylus from './pages/Sylus';
 import Sutra from './pages/Sutra';
 import Takshila from './pages/Takshila';
+import Flower from './pages/Flower';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/work/finworld" element={<Finworld />} />
           <Route path="/work/grub-n-grab" element={<GrubNGrab />} />
           <Route path="/work/sylus-ai" element={<Sylus />} />
+          <Route path="/work/if-i-were-a-flower" element={<Flower />} />
           <Route path="/work/sutra" element={<Sutra />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="*" element={<Home />} />

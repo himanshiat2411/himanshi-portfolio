@@ -17,6 +17,7 @@ import takshilaThumbMobile from '../assets/work/takshila-thumb-mobile.webp';
 import sylusCover from '../assets/work/sylus-cover.webp';
 import sutraFilm from '../assets/sutra/tile.mp4';
 import sutraCover from '../assets/sutra/cover.webp';
+import flowerLily from '../assets/work/flower-lily.webp';
 import './SelectedWorkGrid.css';
 
 // Each thumbnail is a stack of same-size layers over a background (`ratio` is their width / height).
@@ -78,6 +79,16 @@ const PROJECTS = [
     loop: { videos: [sutraFilm], background: '#000000' },
     ratio: '16 / 9',
     layers: [{ src: sutraCover }]
+  },
+  {
+    title: 'If I Were a Flower',
+    to: '/work/if-i-were-a-flower',
+    caption: 'If I Were a Flower - a scroll story told through a blue lily',
+    tag: 'Scroll story · Visual storytelling',
+    backdrop: '#000000',
+    cardBorder: '1px solid #ffffff',
+    ratio: '640 / 750',
+    layers: [{ src: flowerLily }]
   }
 ];
 
@@ -212,7 +223,7 @@ const SelectedWorkGrid = ({ tab = 'work', onTab }) => (
             </>
           );
           return (
-            <li key={project.title} className="wg-cell">
+            <li key={project.title} className="wg-cell" style={project.cardBorder ? { outline: project.cardBorder, outlineOffset: -1 } : undefined}>
               {project.to ? (
                 <Link to={project.to} className="wg-card" aria-label={`${project.title} case study`}>
                   {body}
