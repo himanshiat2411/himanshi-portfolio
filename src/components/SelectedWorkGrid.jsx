@@ -86,7 +86,6 @@ const PROJECTS = [
     caption: 'If I Were a Flower - a scroll story told through a blue lily',
     tag: 'Scroll story · Visual storytelling',
     backdrop: '#000000',
-    cardBorder: '1px solid #ffffff',
     ratio: '1200 / 750',
     layers: [{ src: flowerLily }],
     brief: 'A lily spends months as a bulb in the dark, then opens one petal at a time. My path from chemical engineering to design grew the same way. Scroll the story and the lily grows with you.'
@@ -224,7 +223,7 @@ const SelectedWorkGrid = ({ tab = 'work', onTab }) => (
             </>
           );
           return (
-            <li key={project.title} className="wg-cell" style={project.cardBorder ? { outline: project.cardBorder, outlineOffset: -1 } : undefined}>
+            <li key={project.title} className="wg-cell">
               {project.to ? (
                 <Link to={project.to} className="wg-card" aria-label={`${project.title} case study`}>
                   {body}
