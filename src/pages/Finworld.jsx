@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import CaseNav from '../components/LineSidebar/CaseNav';
 import BackToTop from '../components/BackToTop';
 import Rich from '../components/Rich';
+import LiveApp from '../components/finworld/LiveApp';
 import Prototype from '../components/prototype/Prototype';
 import { FINWORLD } from '../content/prototypes';
 import FilmIntro from '../components/finworld/FilmIntro';
@@ -120,7 +121,7 @@ const Decision = ({ d, solves }) => (
   </div>
 );
 
-const Finworld = () => {
+const Finworld = ({ live = 'inline' }) => {
   useEffect(() => {
     const previous = document.title;
     document.title = 'Finworld - Himanshi';
@@ -202,6 +203,7 @@ const Finworld = () => {
             <h2>Try the prototype</h2>
             <p>Click through the real screens, the way a user would.</p>
             <Prototype {...FINWORLD} device="laptop" title="Finworld prototype" />
+            <LiveApp variant={live} />
           </section>
 
           <section id="fw-problem" className="sy-feature">
